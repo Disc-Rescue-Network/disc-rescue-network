@@ -1,0 +1,156 @@
+/* Styles for the table */
+.inventory-table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+/* Style for the inventory count display */
+.inventory-count {
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+/* Styles for the table headers */
+.table-header {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Styles for the table cells */
+.table-cell {
+  border-bottom: 1px solid #ddd;
+  width: 20%; /* You can adjust the width as needed for your layout */
+  text-align: left;
+  padding: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.past-deadline-row {
+  border-left: 10px solid #ff9999; /* Red border on the left side */
+  color: inherit; /* Inherit text color to maintain text visibility */
+
+  /* background-color: #ff6666; 
+  color: white;  */
+}
+
+.page-container {
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.col-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  width: 80%;
+}
+
+/* Style for the search bar */
+.search-bar {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Styles for mobile screens */
+@media (max-width: 768px) {
+  .table-header,
+  .table-cell {
+      padding: 4px;
+      font-size: 14px;
+  }
+
+  .search-bar {
+      margin-bottom: 10px;
+  }
+
+  .search-bar input {
+      padding: 6px;
+  }
+}
+
+
+
+.button{
+  display: inline-block;
+  outline: 0;
+  cursor: pointer;
+  text-align: center;
+  border: 0;
+  padding: 3.5px 12px;
+  min-height: 24px;
+  min-width: 24px;
+  color: #ffffff;
+  background: #008060;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px 0px, rgba(0, 0, 0, 0.2) 0px -1px 0px 0px inset;
+}
+
+.button:hover {
+  background: #006e52;
+}
+
+/* .button:active{
+  box-shadow: inset 0px 3px 7px #3c4fe0;
+  transform: translateY(2px);
+} */
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Style for the password form container */
+#password-form {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Style for the password text */
+.password-text {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Style for the "Enter Password" button */
+.green-button {
+  background-color: #006e52; /* Green background color */
+  color: white; /* White text color */
+  padding: 10px 20px; /* Add padding to the button */
+  font-size: 16px; /* Button text size */
+  border: none; /* Remove button border */
+  cursor: pointer; /* Add a pointer cursor on hover */
+  border-radius: 5px; /* Add rounded corners */
+  transition: background-color 0.3s; /* Add a smooth background color transition on hover */
+
+  /* Optional: Add a box shadow on hover for a raised effect */
+  &:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+}
+
+
+
+

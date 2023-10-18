@@ -1,0 +1,64 @@
+.faq-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .faq-section {
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    padding: 2%;
+    text-align: left;
+  }
+  
+  .question {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px 15px;
+    /* background-color: #f4f4f4; */
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .icon {
+    width: 24px;
+    height: 24px;
+    background-image: url('https://placekitten.com/24/24'); /* Replace with your own icon */
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .open .icon {
+    transform: rotate(90deg);
+  }
+  
+  .closed .icon {
+    transform: rotate(0deg);
+  }
+  
+  .answer {
+    font-size: 16px;
+    padding: 5px 15px;
+    background-color: #fff;
+  }
+
+  .question-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+  }
+  
