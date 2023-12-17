@@ -8,6 +8,7 @@ import AdminPanel from "./components/AdminPanel";
 import PublicInventory from "./components/PublicHub";
 import Home from "./beta-components/Home";
 import SearchInventory from "./beta-components/SearchInventory";
+import Banner from "./beta-components/Banner";
 
 // Define a Disc interface
 export interface Disc {
@@ -39,6 +40,7 @@ function App() {
         flexDirection: "column",
       }}
     >
+      <Banner />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/searchInventory" element={<SearchInventory />} />

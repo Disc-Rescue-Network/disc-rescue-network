@@ -83,8 +83,9 @@ body {
   justify-content: space-between;
   align-items: flex-start;
   position: fixed;
+  padding: 0px;
   padding-top: 5px;
-  top: 0;
+  top: 40px;
   width: 100%;
 }
 

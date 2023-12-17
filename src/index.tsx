@@ -14,7 +14,7 @@ const Index: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 3000); // Hide loading after 3 seconds
+    const timer = setTimeout(() => setLoading(false), 2000); // Hide loading after 3 seconds
     return () => clearTimeout(timer);
   }, []);
 

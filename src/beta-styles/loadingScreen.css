@@ -3,7 +3,7 @@
   height: 100dvh;
 }
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Bebas Neue";
   background-color: #1b73b5; /* Taken from the image's blue background */
   margin: 0;
   overflow: hidden;
@@ -49,5 +49,5 @@ body {
   height: 100%;
   width: 0;
   background-color: #4caf50; /* Green loading bar */
-  transition: width 3s;
+  transition: width 2s;
 }
