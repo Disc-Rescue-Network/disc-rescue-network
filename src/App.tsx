@@ -8,6 +8,12 @@ import AdminPanel from "./components/AdminPanel";
 import PublicInventory from "./components/PublicHub";
 import Home from "./beta-components/Home";
 import SearchInventory from "./beta-components/SearchInventory";
+import Store from "./beta-components/Store";
+import Courses from "./beta-components/Courses";
+import ReportLostDisc from "./beta-components/ReportLostDisc";
+import Settings from "./beta-components/Settings";
+import RequestCourse from "./beta-components/RequestCourse";
+import RescueFlow from "./beta-components/RescueFlow";
 import Banner from "./beta-components/Banner";
 
 // Define a Disc interface
@@ -44,6 +50,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/searchInventory" element={<SearchInventory />} />
+        <Route path="/store" element={<Store />} />
+        <Route path="/courses" element={<Courses />} />
+        <Route path="/reportLostDisc" element={<ReportLostDisc />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/requestCourse" element={<RequestCourse />} />
+        <Route path="/rescueFlow" element={<RescueFlow />} />
       </Routes>
     </Box>
   );

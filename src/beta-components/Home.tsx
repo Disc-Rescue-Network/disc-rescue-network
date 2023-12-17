@@ -25,7 +25,7 @@ const Home: React.FC = () => {
   };
 
   const goToRescueFlow = () => {
-    navigate("/rescueFlow.html");
+    navigate("/rescueFlow");
   };
 
   const [showPopup, setShowPopup] = useState(false);
@@ -37,16 +37,16 @@ const Home: React.FC = () => {
   };
 
   const searchAllCourses = () => {
-    navigate("/courses.html");
+    navigate("/courses");
   };
   const reportLostDisc = () => {
-    navigate("/reportLostDisc.html");
+    navigate("/reportLostDisc");
   };
   const requestCourse = () => {
-    navigate("/requestCourse.html");
+    navigate("/requestCourse");
   };
   const openSettings = () => {
-    navigate("/settings.html");
+    navigate("/settings");
   };
 
   return (
@@ -120,7 +120,7 @@ const Home: React.FC = () => {
           <div className="fab-menu-item">
             <a
               className="fab-menu-item-text-left"
-              href="/reportLostDisc.html"
+              href="/reportLostDisc"
               style={{ textDecoration: "none" }}
             >
               Report <br /> Lost Disc
@@ -130,7 +130,7 @@ const Home: React.FC = () => {
           <div className="fab-menu-item">
             <a
               className="fab-menu-item-text"
-              href="/requestCourse.html"
+              href="/requestCourse"
               style={{ textDecoration: "none" }}
             >
               Request a Course
@@ -141,7 +141,7 @@ const Home: React.FC = () => {
             <i className="fa-solid fa-gear" onClick={openSettings}></i>
             <a
               className="fab-menu-item-text-right"
-              href="/settings.html"
+              href="/settings"
               style={{ textDecoration: "none" }}
             >
               Settings
@@ -158,7 +158,7 @@ const Home: React.FC = () => {
             <div className="col-2">
               <a
                 className="d-flex align-items-center flex-column"
-                href="/home.html"
+                href="/home" // TODO Is this just a refresh?
               >
                 <span className="img">
                   <img src={homeIcon} alt="home" />
@@ -185,7 +185,7 @@ const Home: React.FC = () => {
             <div className="col-2">
               <a
                 className="d-flex align-items-center flex-column"
-                href="/store.html"
+                href="/store"
               >
                 <span className="img">
                   <img src={diskStoreIcon} alt="disc store" />
@@ -196,7 +196,7 @@ const Home: React.FC = () => {
             <div className="col-2">
               <a
                 className="d-flex align-items-center flex-column"
-                href="/courses.html"
+                href="/courses"
               >
                 <span className="img">
                   <img src={coursesIcon} alt="courses" />
