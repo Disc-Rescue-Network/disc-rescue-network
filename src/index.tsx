@@ -1,22 +1,30 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
+// index.tsx
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import LoadingScreen from "./beta-components/LoadingScreen";
+import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>
+  document.getElementById("root") as HTMLElement
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const Index: React.FC = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 3000); // Hide loading after 3 seconds
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <React.StrictMode>
+      <BrowserRouter>{loading ? <LoadingScreen /> : <App />}</BrowserRouter>
+    </React.StrictMode>
+  );
+};
+
+root.render(<Index />);
+
+// Add the CSS from your loading screen to your main CSS file or create a new CSS file for it and import it in LoadingScreen.tsx

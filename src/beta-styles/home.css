@@ -1,0 +1,491 @@
+button {
+  font-family: "Bebas Neue", sans-serif;
+}
+
+body {
+  background-color: var(--primary-grey) !important;
+}
+
+.location {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 10px;
+  padding-top: 15px;
+  color: var(--primary-red);
+}
+
+.location-info {
+  display: flex;
+  align-items: center;
+}
+
+.location-icon {
+  color: var(--primary-red);
+  margin-right: 5px;
+  font-size: 0.55em;
+}
+
+.location-state {
+  color: var(--primary-red);
+  font-size: 0.7em;
+  margin: 0px;
+  padding: 0px;
+}
+
+.location-change {
+  font-size: 0.5em;
+  font-weight: 500;
+  color: var(--primary-black);
+  margin: 0px;
+  padding: 0px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  font-size: 0.65em;
+  padding: 10px;
+  padding-top: 15px;
+  white-space: nowrap;
+  font-weight: 400;
+  text-align: left;
+}
+
+.status-text {
+  color: var(--primary-black);
+  margin-left: 2px;
+}
+
+.status-icon,
+.status-code {
+  color: var(--primary-green);
+  margin-left: 2px;
+  text-align: left;
+}
+
+.page-container {
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+  padding-bottom: 80px;
+}
+
+.meta-containers {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: fixed;
+  padding-top: 5px;
+  top: 0;
+  width: 100%;
+}
+
+.logo-container {
+  width: 65%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.logo {
+  max-width: 60%;
+  max-height: 175px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.btn:first-of-type {
+  margin-top: 0;
+}
+
+.btn-container {
+  width: 80%;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  min-height: 200px;
+}
+
+.btn-container .btn {
+  padding: 10px;
+  margin: 3px;
+  letter-spacing: 1.25px;
+  font-size: 2.25rem;
+}
+
+.btn-description {
+  text-align: center;
+  color: var(--primary-blue);
+  font-size: 0.85em;
+  font-weight: 500;
+  margin: 0px;
+  padding: 0px;
+  width: 90%;
+  margin-bottom: 10px;
+}
+
+.rescue-flow {
+  color: var(--primary-red);
+  cursor: pointer;
+}
+
+.discs {
+  width: 80%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* white-space: nowrap; */
+  padding: 5px 0;
+}
+
+.disc-card {
+  display: inline-block;
+  width: 300px;
+  margin-right: 20px;
+  border: 1px solid var(--primary-grey);
+  border-radius: 5px;
+  vertical-align: top;
+}
+
+.discs-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 0px;
+  padding: 10px;
+}
+
+.disc-image-container {
+  position: relative;
+}
+
+.disc-image {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border: 3px solid var(--primary-blue);
+}
+
+.disc-name,
+.disc-type,
+.disc-owner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.25em;
+  font-weight: 500;
+  justify-content: center;
+}
+
+.disc-location-container {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+
+.disc-basket-icon {
+  margin-right: 5px;
+}
+
+.disc-info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.claim-btn {
+  background-color: var(--primary-blue);
+  color: var(--primary-white);
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#toast {
+  visibility: hidden;
+  min-width: 250px;
+  background-color: var(--secondary-blue);
+  color: var(--primary-white);
+  text-align: center;
+  border-radius: 10px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 30px;
+  font-size: 17px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: visibility 0.5s, opacity 0.5s linear;
+}
+
+#toast.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  margin-top: 2%;
+  padding: 0px;
+}
+
+.box-2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  margin-top: 2%;
+  padding: 0px;
+}
+
+.sub-header {
+  font-size: 1em;
+  font-weight: 500;
+  color: var(--primary-blue);
+  padding: 0px;
+  margin: 5px 0px;
+}
+
+.grid {
+  width: 100%;
+  max-width: 180px;
+  max-height: 125px;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  opacity: 1;
+  text-align: left;
+  background-color: var(--primary-white);
+  border: 2px var(--primary-black);
+  grid-template-rows: auto auto auto;
+  grid-template-columns: 1fr;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 0;
+  padding: 2px 2px 2px 0;
+}
+
+.div-block {
+  min-height: 32px;
+  max-width: 98%;
+  opacity: 0.78;
+  border: 1.5px solid var(--primary-grey);
+  align-items: center;
+  padding-left: 0;
+  display: flex;
+}
+
+.text-block {
+  flex: 1;
+  margin-top: 0;
+  padding-left: 5px;
+  font-size: 0.9rem;
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.card-container {
+  flex-shrink: 0;
+  width: 400px;
+  max-width: 400px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.course-list {
+  background: var(--primary-white);
+  border: 1px solid var(--primary-white);
+  border-left: 0;
+  width: calc(100%);
+}
+
+.disc-info .course-list ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: left;
+  max-height: 100px;
+}
+
+.disc-info .course-list ul li {
+  padding: 2px;
+  border-bottom: 1px solid var(--primary-grey);
+  border-right: 1px solid var(--primary-grey);
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-family: "Lato", sans-serif;
+  max-height: 33px;
+  height: 33px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1;
+}
+
+.disc-info .course-list ul li img {
+  margin-right: 10px;
+  padding-left: 4px;
+  width: 14px;
+}
+
+.image {
+  width: 115px;
+  height: 115px;
+  max-width: 115px;
+  object-fit: fill;
+  border: 5px solid var(--primary-blue);
+  border-radius: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.sub-info {
+  width: 100%;
+  clear: none;
+  flex-direction: row;
+  flex: 0 auto;
+  align-self: center;
+  align-items: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  display: flex;
+}
+
+.section {
+  max-width: 400px;
+  margin: auto;
+  padding-top: 100px;
+}
+
+.body {
+  background-color: var(--primary-grey);
+}
+
+.disc-info {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+}
+
+.grid-of-cards {
+  display: flex;
+  overflow-x: scroll;
+  /* scrollbar-width: none; */
+  /* Firefox */
+  /* -ms-overflow-style: none; */
+  /* IE 10+ */
+  /* gap: 20px; */
+  padding-bottom: 20px;
+}
+/* .grid-of-cards::-webkit-scrollbar {
+            display: none;
+        }  */
+
+/* Style the scrollbar */
+.grid-of-cards::-webkit-scrollbar {
+  width: 10px; /* Adjust the width of the scrollbar */
+  height: 30px;
+  padding-left: 20px; /* Add padding on the left */
+  padding-right: 20px; /* Add padding on the right */
+  box-sizing: border-box; /* Ensure padding does not increase the total width */
+}
+
+.grid-of-cards::-webkit-scrollbar-track {
+  background: white; /* Color of the scrollbar track */
+}
+
+.grid-of-cards::-webkit-scrollbar-thumb {
+  background: red; /* Color of the scrollbar thumb */
+  border-radius: 1px; /* Optional: Rounds the corners of the scrollbar thumb */
+  width: 40px;
+}
+
+.grid-of-cards::-webkit-scrollbar-button {
+  /* display: none; */
+  width: 80%;
+  margin: auto;
+}
+
+.text-block-2 {
+  aspect-ratio: auto;
+  display: flex;
+  text-align: left;
+  justify-content: center;
+  font-size: 0.9rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1;
+}
+
+.div-block-2 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  margin-right: 30px;
+  max-width: 115px;
+}
+
+.button-2 {
+  width: 150px;
+  text-align: center;
+  letter-spacing: 1px;
+  background-color: var(--primary-blue);
+  align-self: center;
+  margin: auto;
+  padding: 5px 10px;
+  font-size: 1.75rem;
+  display: block;
+}
+
+.disc-icon {
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 0.9rem;
+}
+
+.image-5 {
+  margin-right: 10px;
+  margin-left: 0px;
+  margin-bottom: 3px;
+  max-width: 20px;
+}
+
+.sub-info .btn {
+  max-width: 130px;
+  max-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  padding: 5px 5px;
+}
+footer::before {
+  background-color: var(--primary-grey);
+}
