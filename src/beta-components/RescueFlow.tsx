@@ -5,6 +5,9 @@ const RescueFlow = () => {
   const navigate = useNavigate();
   const [selectedState, setSelectedState] = useState("STATE");
   const [selectedCourse, setSelectedCourse] = useState("SELECT A COURSE");
+  // Placeholder data for states and courses
+  const states = ["NJ", "NY", "PA"]; // Replace with real data
+  const courses = ["Tranquility Trails", "Sunny Meadows", "Forest Hills"]; // Replace with real data
 
   const goBack = () => {
     navigate(-1);
@@ -45,7 +48,7 @@ const RescueFlow = () => {
   return (
     <section className="main-section text-center">
       <div className="container">
-        {/* ... rest of the JSX structure ... */}
+        {/* ...rest of the JSX structure... */}
         <select
           id="inputState"
           className="form-select"
@@ -53,7 +56,11 @@ const RescueFlow = () => {
           onChange={(e) => setSelectedState(e.target.value)}
         >
           <option>STATE</option>
-          {/* Populate states here */}
+          {states.map((state, index) => (
+            <option key={index} value={state}>
+              {state}
+            </option>
+          ))}
         </select>
         <select
           id="inputCourse"
@@ -62,7 +69,11 @@ const RescueFlow = () => {
           onChange={(e) => setSelectedCourse(e.target.value)}
         >
           <option>SELECT A COURSE</option>
-          {/* Populate courses here */}
+          {courses.map((course, index) => (
+            <option key={index} value={course}>
+              {course}
+            </option>
+          ))}
         </select>
         <button className="stepbutton text-white mb-3" onClick={searchDiscs}>
           NEXT STEP
@@ -70,7 +81,6 @@ const RescueFlow = () => {
         <button className="rememberbtn fw-light" onClick={skipStep}>
           DON’T REMEMBER
         </button>
-        {/* ... rest of the JSX structure ... */}
       </div>
     </section>
   );

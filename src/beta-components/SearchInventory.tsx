@@ -94,7 +94,6 @@ const SearchInventory = () => {
           </div>
         </div>
       </section>
-      {/* ... rest of your JSX structure */}
     </div>
   );
 };

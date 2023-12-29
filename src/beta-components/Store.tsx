@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Store = () => {
   const navigate = useNavigate();
-  const [contactInput, setContactInput] = useState("");
-  const [showError, setShowError] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const discs = [
+    { id: 1, name: "Disc A", price: "15.99" },
+    { id: 2, name: "Disc B", price: "18.50" },
+    { id: 3, name: "Disc C", price: "12.85" },
+    { id: 4, name: "Disc D", price: "20.50" },
+    { id: 5, name: "Disc E", price: "15.65" },
+    { id: 6, name: "Disc F", price: "17.50" },
+    { id: 7, name: "Disc G", price: "16.75" },
+  ];
 
   const goBack = () => {
     navigate(-1);
@@ -15,69 +21,30 @@ const Store = () => {
     navigate("/");
   };
 
-  const reportLostDisc = () => {
-    navigate("/reportLostDisc.html");
-  };
-
-  const requestCourse = () => {
-    navigate("/requestCourse.html");
-  };
-
-  const openSettings = () => {
-    navigate("/settings.html");
-  };
-
-  const toggleFabMenu = () => {
-    // Logic to toggle FAB menu
-  };
-
-  const signUp = () => {
-    // Logic for sign up (e.g., validate input and show success/error message)
-  };
-
   return (
     <section className="main-section text-center">
-      <div className="container">
-        <i
-          className="fa fa-arrow-left"
-          style={{
-            position: "absolute",
-            top: "30px",
-            left: "20px",
-            fontSize: "30px",
-            color: "white",
-            padding: "5px",
-          }}
-          aria-hidden="true"
-          onClick={goBack}
-        ></i>
-        {/* ... rest of the HTML structure converted to JSX ... */}
-        <input
-          type="text"
-          className="form-control"
-          style={{ maxWidth: "610px !important" }}
-          placeholder="Phone Number or Email for Notification"
-          value={contactInput}
-          onChange={(e) => setContactInput(e.target.value)}
-        />
-        {showError && (
-          <div id="error" style={{ color: "var(--primary-red)" }}>
-            Error message here
+      <i
+        className="fa fa-arrow-left"
+        style={{
+          position: "absolute",
+          top: "30px",
+          left: "20px",
+          fontSize: "30px",
+          color: "white",
+          padding: "5px",
+        }}
+        onClick={goBack}
+      ></i>
+      {/* Header and other UI elements */}
+      <div className="discs-container">
+        {discs.map((disc) => (
+          <div key={disc.id} className="disc">
+            <h3>{disc.name}</h3>
+            <p>Price: ${disc.price}</p>
           </div>
-        )}
-        {showSuccess && (
-          <div id="success" style={{ color: "var(--primary-green)" }}>
-            Success! You are opted in for notifications.
-          </div>
-        )}
-        <button
-          className="newsletterButton text-white mt-2 mb-3"
-          onClick={signUp}
-        >
-          Get notified when the deals are live
-        </button>
-        {/* ... rest of the HTML structure converted to JSX ... */}
+        ))}
       </div>
+      {/* Footer and other UI elements */}
     </section>
   );
 };
