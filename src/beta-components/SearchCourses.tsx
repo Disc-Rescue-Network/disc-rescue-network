@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import chatIcon from "../assets/chat.svg";
 import homeIcon from "../assets/home.png";
@@ -6,111 +7,80 @@ import searchIcon from "../assets/search.png";
 import diskStoreIcon from "../assets/disk-store.png";
 import coursesIcon from "../assets/courses.png";
 import appCenterBtnLogoIcon from "../assets/app_center_btn_logo.png";
-import { useNavigate } from "react-router-dom";
-import { found_discs } from "../beta-js/discs";
-import { Disc } from "../App";
+import { Hidden } from "@mui/material";
+import zIndex from "@mui/material/styles/zIndex";
 
-const SearchInventory = () => {
+const SearchCourses = () => {
   const navigate = useNavigate();
+  const [isFabMenuActive, setIsFabMenuActive] = useState(false);
+  const [sortAsc, setSortAsc] = useState(false);
+  // Add more states and logic as needed
+
+  const goBack = () => navigate(-1);
+  const refresh = () => navigate("/"); // Or other refresh logic
+  const reportLostDisc = () => navigate("/reportLostDisc");
   const requestCourse = () => navigate("/requestCourse");
   const openSettings = () => navigate("/settings");
-
-  const [discs, setDiscs] = useState<Disc[]>([]); // Use the Disc interface
-  const [filterBrand, setFilterBrand] = useState<string[]>([]);
-  const [filterColor, setFilterColor] = useState<string[]>([]);
-  const [filterDisc, setFilterDisc] = useState<string[]>([]);
-  const [sortOrder, setSortOrder] = useState("asc");
-
-  useEffect(() => {
-    // setDiscs(found_discs);
-  }, []);
-
-  const loadDiscs = () => {
-    // Apply filters and sorting here
-    let filteredDiscs = discs.filter(
-      (disc) =>
-        (!filterBrand.length || filterBrand.includes(disc.brand)) &&
-        (!filterColor.length || filterColor.includes(disc.color)) &&
-        (!filterDisc.length || filterDisc.includes(disc.disc))
-    );
-
-    // Apply sorting based on sortOrder
-    // if (sortOrder === "asc") {
-    //   filteredDiscs.sort(
-    //     (a, b) => new Date(a.DateFound) - new Date(b.DateFound)
-    //   );
-    // } else {
-    //   filteredDiscs.sort(
-    //     (a, b) => new Date(b.DateFound) - new Date(a.DateFound)
-    //   );
-    // }
-
-    return filteredDiscs;
-  };
-
-  const displayedDiscs = loadDiscs();
+  const toggleFabMenu = () => setIsFabMenuActive(!isFabMenuActive);
+  const loadMoreDiscs = () => {};
 
   const initiallyOpen = "";
+
+  const [isSortedDesc, setIsSortedDesc] = useState(false);
+  const [isAccordionOneOpen, setIsAccordionOneOpen] = useState(true);
+  const [isAccordionTwoOpen, setIsAccordionTwoOpen] = useState(true);
+  const [isAccordionThreeOpen, setIsAccordionThreeOpen] = useState(true);
   const [isOpen, setIsOpen] = useState(initiallyOpen);
 
-  const goBack = () => {
-    // Logic to go back, e.g., navigate back or to a specific route
+  //   const toggleAccordion = () => {
+  //     setIsOpen(!isOpen);
+  //   };
+
+  const handleSortChange = () => {
+    setIsSortedDesc(!isSortedDesc);
   };
 
-  const refresh = () => {
-    // Refresh logic, e.g., navigate to home or reload the page
-  };
-
-  const reportLostDisc = () => {
-    // Logic to report lost disc
-  };
-
-  const loadMoreDiscs = () => {
-    // Logic to load more discs
-  };
-
-  const toggleFabMenu = () => {
-    // Logic to toggle FAB menu
+  const toggleAccordion = (accordionNumber: number) => {
+    if (accordionNumber === 1) {
+      setIsAccordionOneOpen(!isAccordionOneOpen);
+    } else if (accordionNumber === 2) {
+      setIsAccordionTwoOpen(!isAccordionTwoOpen);
+    } else if (accordionNumber === 3) {
+      setIsAccordionThreeOpen(!isAccordionThreeOpen);
+    }
   };
 
   const filterSubmitted = () => {
-    // Logic when filter is submitted
+    // Implement filter submit logic
   };
 
   const resetFilters = () => {
-    // Logic to reset filters
+    // Implement filter reset logic
+  };
+
+  const MyAccordion = () => {
+    return (
+      <div className="accordion">
+        {/* <AccordionItem title="Disc Color" initiallyOpen={true}> */}
+        <ul id="colorList">{/* Dynamic content for disc colors */}</ul>
+        {/* </AccordionItem> */}
+
+        {/* <AccordionItem title="Disc Name"> */}
+        <ul id="discList">{/* Dynamic content for disc names */}</ul>
+        {/* </AccordionItem> */}
+      </div>
+    );
   };
 
   return (
-    <div>
-      <div className="course-section">
-        <div className="row">
-          {displayedDiscs.map((disc, index) => (
-            <div
-              key={disc.id}
-              // className={`col-6 disc-item ${index > 5 ? "hidden" : ""}`}
-            >
-              {/* Your disc display structure */}
-              {/* Example: */}
-              <div className="course-box">
-                {/* ... Other disc details ... */}
-                <div className="course-button">
-                  {/* <button onClick={() => claimDisc(disc.ID)}>Claim Disc</button> */}
-                  <button onClick={() => console.log("Hi")}>Claim Disc</button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
+    <div style={{ overflow: "hidden" }}>
       <div
         className="main-wrapper"
         style={{ height: "100%", width: "100%", overflow: "hidden" }}
       >
         <section
           className="main-section text-center"
-          style={{ paddingBottom: "20px !important", overflow: "hidden" }}
+          style={{ paddingBottom: "20px", overflow: "hidden" }}
         >
           <div className="container" style={{ overflow: "hidden" }}>
             <i
@@ -123,9 +93,9 @@ const SearchInventory = () => {
                 color: "white",
                 padding: "5px",
               }}
-              aria-hidden="true"
               onClick={goBack}
             ></i>
+
             <div className="d-flex align-items-center flex-column text-center mb-2">
               <img
                 className="weblogo"
@@ -133,24 +103,27 @@ const SearchInventory = () => {
                 alt="logo"
                 onClick={refresh}
               />
-
               <div className="chat-box d-flex align-items-center mt-1">
-                <img className="me-2" src="./assets/chat.svg" alt="chat" />
+                <img className="me-2" src={chatIcon} alt="chat" />
                 <h4 className="m-0 me-2 text-white">OPT IN STATUS</h4>
                 <h4 className="m-0 confirmd">CONFIRMED</h4>
               </div>
             </div>
+
             <div className="rescue d-flex align-items-center flex-column text-center mb-2">
               <h3 className="m-0 text-white">
                 ALL LOST <span className="fw-light">DISCS</span>
               </h3>
-              <p className="course-name" id="sortedLabel"></p>
+              <p className="course-name">Course Name Here</p>{" "}
+              {/* Dynamically update the course name */}
             </div>
+
             <div className="filter-button">
-              <button className="filter-btn" id="filter-btn">
+              <button className="filter-btn" onClick={goBack}>
                 Filters
               </button>
             </div>
+
             <div className="course-section">
               <div className="row"></div>
               <div className="load-more">
@@ -161,7 +134,7 @@ const SearchInventory = () => {
                 >
                   Load More
                 </a>
-                <div className="no-more-discs hidden">
+                <div className="no-more-discs" style={{ display: "none" }}>
                   That's all we have for now!
                 </div>
               </div>
@@ -204,6 +177,7 @@ const SearchInventory = () => {
           </div>
         </div>
       </div>
+
       <footer className="footer">
         <div className="overlay" id="overlay" onClick={toggleFabMenu}></div>
         <div className="container">
@@ -257,6 +231,7 @@ const SearchInventory = () => {
           </div>
         </div>
       </footer>
+
       <div className="fab-container" onClick={toggleFabMenu} id="fabContainer">
         <button className="fab" id="fab">
           <img
@@ -391,4 +366,4 @@ const SearchInventory = () => {
   );
 };
 
-export default SearchInventory;
+export default SearchCourses;

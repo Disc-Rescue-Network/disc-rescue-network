@@ -1,13 +1,15 @@
 // LoadingScreen.tsx
 import React, { useEffect, useState } from "react";
 import "../beta-styles/loadingScreen.css";
+import { useNavigate } from "react-router-dom";
 
 const LoadingScreen: React.FC = () => {
   const [loadingProgress, setLoadingProgress] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoadingProgress(100), 100); // Start loading bar
-    return () => clearTimeout(timer);
+    const timer = setTimeout(() => setLoadingProgress(100), 2000); // Start loading bar
+    return navigate("/home");
   }, []);
 
   const loadingBarStyle = {
