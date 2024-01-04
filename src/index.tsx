@@ -11,16 +11,18 @@ const root = ReactDOM.createRoot(
 );
 
 const Index: React.FC = () => {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000); // Hide loading after 3 seconds
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => setLoading(false), 2000); // Hide loading after 3 seconds
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   return (
     <React.StrictMode>
-      <BrowserRouter>{loading ? <LoadingScreen /> : <App />}</BrowserRouter>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </React.StrictMode>
   );
 };

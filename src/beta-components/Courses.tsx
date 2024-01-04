@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import searchIcon from "../assets/search.png";
-import drnAppMainIcon from "../assets/DRN_App_Main.png";
+import drnAppMainIcon from "../assets/logo.png";
+import chatSvg from "../assets/chat.svg";
 import roseIcon from "../assets/rose-icon.png";
 import homeIcon from "../assets/home.png";
 import diskStoreIcon from "../assets/disk-store.png";
@@ -9,11 +10,25 @@ import coursesIcon from "../assets/courses.png";
 import appCenterBtnLogoIcon from "../assets/app_center_btn_logo.png";
 
 const Courses = () => {
+  const [courseInputValue, setCourseInputValue] = useState("");
+  const [stateInputValue, setStateInputValue] = useState("");
   const navigate = useNavigate();
 
   const [isFabMenuActive, setIsFabMenuActive] = useState(false);
   const toggleFabMenu = () => {
     setIsFabMenuActive(!isFabMenuActive);
+  };
+
+  const reportLostDisc = () => {
+    navigate("/reportLostDisc");
+  };
+
+  const requestCourse = () => {
+    navigate("/requestCourse");
+  };
+
+  const openSettings = () => {
+    navigate("/settings");
   };
 
   const courses = [
@@ -40,6 +55,11 @@ const Courses = () => {
     navigate("/courses");
   };
 
+  const searchCourse = () => {
+    console.log("Search for " + stateInputValue + ", " + courseInputValue);
+    navigate(`/searchCourse?course=${encodeURIComponent(courseInputValue)}`);
+  };
+
   const goBack = () => {
     navigate(-1);
   };
@@ -48,89 +68,158 @@ const Courses = () => {
     navigate("/");
   };
 
+  const buttonStyle = {
+    padding: "16px 8px",
+    fontSize: "16px",
+    maxWidth: "80%",
+    width: "80%", // The `!important` is not directly supported in inline styles in React.
+  };
+
   return (
-    <section className="main-section text-center">
-      <i
-        className="fa fa-arrow-left"
-        style={{
-          position: "absolute",
-          top: "30px",
-          left: "20px",
-          fontSize: "30px",
-          color: "white",
-          padding: "5px",
-        }}
-        aria-hidden="true"
-        onClick={goBack}
-      ></i>
+    <>
+      <section className="main-section text-center">
+        <div className="container" id="container">
+          <i
+            className="fa fa-arrow-left"
+            style={{
+              position: "absolute",
+              top: "30px",
+              left: "20px",
+              fontSize: "30px",
+              color: "white",
+              padding: "5px",
+            }}
+            aria-hidden="true"
+            onClick={goBack}
+          ></i>
 
-      <div className="page-container">
-        <div className="meta-containers">
-          <div className="status">
-            <i className="fa-solid fa-comment-dots status-icon"></i>
-            <span className="status-text">OPT IN STATUS</span>
-            <span className="status-code">CONFIRMED</span>
-          </div>
+          <div className="d-flex align-items-center flex-column text-center mb-2">
+            <img
+              src={drnAppMainIcon}
+              alt="Disc Rescue Network Logo"
+              className="logo"
+              onClick={refresh}
+            />
 
-          <div className="location">
-            <div className="location-info">
-              <i className="fa-solid fa-location-dot location-icon"></i>
-              <span className="location-state">NO COURSE SELECTED</span>
+            <div className="chat-box d-flex align-items-center mt-3">
+              <img className="me-2" src={chatSvg} alt="chat" />
+              <h4 className="m-0 me-2 text-white">OPT IN STATUS</h4>
+              <h4 className="m-0 confirmd">CONFIRMED</h4>
             </div>
-            <div className="location-change">CHANGE</div>
+          </div>
+
+          <div className="rescue d-flex align-items-center flex-column text-center mt-5 mb-0">
+            <h3 className="m-0 text-white" style={{ fontSize: "3rem" }}>
+              Choose Your
+              <span
+                className="fw-light"
+                style={{ fontWeight: 300, fontSize: "3rem" }}
+              >
+                Course
+              </span>
+            </h3>
+          </div>
+
+          <h3
+            className="mt-0 mb-6 text-white text-center where"
+            style={{ fontSize: "2.2rem" }}
+          >
+            Where to
+            <span className="missingtext" style={{ fontSize: "2.2rem" }}>
+              Search?
+            </span>
+          </h3>
+
+          <div className="row mt-5 mb-3 select-box" style={{ maxWidth: "80%" }}>
+            {/* State Dropdown */}
+            <div
+              className="col-4 pe-0 arrow one"
+              style={{ paddingLeft: "0px" }}
+            >
+              <select
+                id="inputState"
+                value={stateInputValue}
+                onChange={(e) => setStateInputValue(e.target.value)}
+                className="form-select"
+              >
+                {/* Populate state options dynamically */}
+                {states.map((state) => (
+                  <option>{state.abbr}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Course Dropdown */}
+            <div className="col-8 pe-0 arrow">
+              <select
+                id="inputCourse"
+                value={courseInputValue}
+                onChange={(e) => setCourseInputValue(e.target.value)}
+                className="form-select"
+              >
+                {/* Populate course options dynamically */}
+                {courses.map((course) => (
+                  <option>{course.name}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <button
+            className="stepbutton text-white mt-3 mb-3"
+            style={buttonStyle}
+            onClick={searchCourse}
+          >
+            Search all discs at the selected course
+          </button>
+        </div>
+      </section>
+
+      <div className="fab-menu-container" id="fabMenuContainer">
+        <div className="fab-menu" id="fabMenu">
+          <div className="fab-menu-item">
+            <a
+              className="fab-menu-item-text-left"
+              href="/reportLostDisc"
+              style={{ textDecoration: "none" }}
+              onClick={(e) => {
+                e.preventDefault();
+                reportLostDisc();
+              }}
+            >
+              Report <br />
+              Lost Disc
+            </a>
+            <i className="fa-regular fa-flag" onClick={reportLostDisc}></i>
+          </div>
+          <div className="fab-menu-item">
+            <a
+              className="fab-menu-item-text"
+              href="/requestCourse"
+              style={{ textDecoration: "none" }}
+              onClick={(e) => {
+                e.preventDefault();
+                requestCourse();
+              }}
+            >
+              Request a Course
+            </a>
+            <i className="fa-solid fa-location-dot" onClick={requestCourse}></i>
+          </div>
+          <div className="fab-menu-item">
+            <i className="fa-solid fa-gear" onClick={openSettings}></i>
+            <a
+              className="fab-menu-item-text-right"
+              href="/settings"
+              style={{ textDecoration: "none" }}
+              onClick={(e) => {
+                e.preventDefault();
+                openSettings();
+              }}
+            >
+              Settings
+            </a>
           </div>
         </div>
-
-        <div className="logo-container">
-          <img
-            src={drnAppMainIcon}
-            alt="Disc Rescue Network Logo"
-            className="logo"
-            onClick={refresh}
-          />
-        </div>
-
-        {/* <div className="discs mt-2">
-          <h2 className="sub-header">RECENTLY TURNED IN DISCS</h2>
-          <div className="w-layout-grid grid-of-cards">
-          </div>
-        </div> */}
-      </div>
-      {/* <div className="courses-container">
-        {courses.map((course) => (
-          <div key={course.id} className="course">
-            <h3>{course.name}</h3>
-            <p>Location: {course.location}</p>
-          </div>
-        ))}
-      </div> */}
-
-      <div className="row mt-5 mb-3 select-box" style={{ maxWidth: "80%" }}>
-        {/* State Dropdown */}
-        <div className="col-4 pe-0 arrow one">
-          <select id="inputState" className="form-select">
-            {/* Populate state options dynamically */}
-            {states.map((state) => (
-              <option>{state.abbr}</option>
-            ))}
-          </select>
-        </div>
-        {/* Course Dropdown */}
-        <div className="col-8 pe-0 arrow">
-          <select id="inputCourse" className="form-select">
-            {/* Populate course options dynamically */}
-            {courses.map((course) => (
-              <option>{course.name}</option>
-            ))}
-          </select>
-        </div>
-        <button
-          className="stepbutton text-white mt-3 mb-3"
-          id="fab"
-          onClick={searchAllCourses}
-        >
-          Search all discs at the selected course
-        </button>
       </div>
 
       <footer className="footer">
@@ -139,10 +228,7 @@ const Courses = () => {
           <div className="footer-content row">
             {/* Footer links */}
             <div className="col-2">
-              <a
-                className="d-flex align-items-center flex-column"
-                href="/home" // TODO Is this just a refresh?
-              >
+              <a className="d-flex align-items-center flex-column" href="/home">
                 <span className="img">
                   <img src={homeIcon} alt="home" />
                 </span>
@@ -190,7 +276,6 @@ const Courses = () => {
           </div>
         </div>
       </footer>
-
       <div className="fab-container" onClick={toggleFabMenu} id="fabContainer">
         <button className="fab" id="fab">
           {isFabMenuActive ? (
@@ -207,7 +292,7 @@ const Courses = () => {
           )}
         </button>
       </div>
-    </section>
+    </>
   );
 };
 
