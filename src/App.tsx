@@ -1,27 +1,27 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import EnterLostDisc from "./components/EnterLostDisc";
-import Inventory from "./components/Inventory";
-import "./styles/App.css";
 import { Box, Button, ButtonGroup, Typography } from "@mui/material"; // Import Button and ButtonGroup from MUI
-import AdminPanel from "./components/AdminPanel";
-import PublicInventory from "./components/PublicHub";
-import Home from "./beta-components/Home";
-import SearchInventory from "./beta-components/SearchInventory";
-import Store from "./beta-components/Store";
-import Courses from "./beta-components/Courses";
-import SearchCourses from "./beta-components/SearchCourses";
-import ReportLostDisc from "./beta-components/ReportLostDisc";
-import Settings from "./beta-components/Settings";
-import RequestCourse from "./beta-components/RequestCourse";
-import RescueFlow from "./beta-components/RescueFlow";
-import RescueFlowStep2 from "./beta-components/RescueFlowStep2";
-import RescueFlowStep3 from "./beta-components/RescueFlowStep3";
-import RescueFlowStep4 from "./beta-components/RescueFlowStep4";
-import RescueFlowStep5 from "./beta-components/RescueFlowStep5";
-import FAQ from "./beta-components/FAQ";
-import Banner from "./beta-components/Banner";
-import LoadingScreen from "./beta-components/LoadingScreen";
+import Home from "./components/Home";
+import SearchInventory from "./components/SearchInventory";
+import Store from "./components/Store";
+import Courses from "./components/Courses";
+import SearchCourses from "./components/SearchCourses";
+import ReportLostDisc from "./components/ReportLostDisc";
+import ReportLostDiscSuccess from "./components/ReportLostDiscSuccess";
+import Settings from "./components/Settings";
+import RequestCourse from "./components/RequestCourse";
+import RescueFlow from "./components/RescueFlow";
+import RescueFlowStep2 from "./components/RescueFlowStep2";
+import RescueFlowStep3 from "./components/RescueFlowStep3";
+import RescueFlowStep4 from "./components/RescueFlowStep4";
+import RescueFlowStep5 from "./components/RescueFlowStep5";
+import FAQ from "./components/FAQ";
+import Banner from "./components/Banner";
+import ClaimDisc from "./components/ClaimDisc";
+import ClaimDiscSuccess from "./components/ClaimDiscSuccess";
+import LoadingScreen from "./components/LoadingScreen";
+import "./styles/globals.css";
+import RescueFlowFailure from "./components/RescueFlowFailure";
 
 // Define a Disc interface
 export interface Disc {
@@ -54,10 +54,11 @@ function App() {
         flexDirection: "column",
       }}
     >
-      <Banner />
       <Routes>
         <Route path="/" element={<LoadingScreen />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/claimDisc" element={<ClaimDisc />} />
+        <Route path="/claimDiscSuccess" element={<ClaimDiscSuccess />} />
         <Route path="/searchInventory" element={<SearchInventory />} />
         <Route path="/store" element={<Store />} />
         <Route path="/courses" element={<Courses />} />
@@ -70,8 +71,14 @@ function App() {
         <Route path="/rescueFlow3" element={<RescueFlowStep3 />} />
         <Route path="/rescueFlow4" element={<RescueFlowStep4 />} />
         <Route path="/rescueFlow5" element={<RescueFlowStep5 />} />
+        <Route path="/rescueFlowFailure" element={<RescueFlowFailure />} />
+        <Route
+          path="/reportLostDiscSuccess"
+          element={<ReportLostDiscSuccess />}
+        />
         <Route path="/faq" element={<FAQ />} />
       </Routes>
+      <Banner />
     </Box>
   );
 }
