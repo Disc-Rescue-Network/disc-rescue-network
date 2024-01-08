@@ -1,10 +1,10 @@
 // index.tsx
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import App from "./App";
-import LoadingScreen from "./beta-components/LoadingScreen";
+import LoadingScreen from "./components/LoadingScreen";
 import { BrowserRouter } from "react-router-dom";
+import "./styles/globals.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

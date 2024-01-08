@@ -1,0 +1,27 @@
+:root {
+  --primary-blue: #005daa;
+  --secondary-blue: #228de5;
+  --primary-black: #000000;
+  --primary-red: #d31245;
+  --primary-white: #ffffff;
+  --primary-grey: #e3e3e3;
+  --primary-green: #55de1f;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.loading-bar {
+  width: 0;
+  height: 10px;
+  background-color: var(--primary-green);
+  animation: loading 2s linear forwards;
+  margin-top: 10px;
+}
+
+@keyframes loading {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
