@@ -58,10 +58,6 @@ const RescueFlow = () => {
     navigate("/rescueFlow2");
   };
 
-  const closePopup = () => {
-    // Logic to close popup
-  };
-
   const filterSubmitted = () => {
     // Implement filter submit logic
   };
@@ -294,28 +290,6 @@ const RescueFlow = () => {
             X
           </span>
         </button>
-      </div>
-      <div id="popup" className="popup">
-        <div className="popup-content">
-          <span className="close" id="close">
-            &times;
-          </span>
-          <h2>
-            This is a <span className="redText">Demo</span>
-          </h2>
-
-          <p style={{ fontSize: "18px", textAlign: "left" }}>
-            Hi There! As this is a demo application, there is not real data
-            within. As you go through the flow, we will tell you what to input
-            to trigger a "found your disc!" popup. <br />
-            <br />
-            For this first step, select <span className="redText">NJ</span> &
-            <span className="redText">Tranqulity Trails</span> for best results.
-          </p>
-          <button id="findMyDisc" onClick={closePopup}>
-            Let's Do it!
-          </button>
-        </div>
       </div>
     </div>
   );
