@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import LoadingScreen from "./components/LoadingScreen";
 import { BrowserRouter } from "react-router-dom";
 import "./styles/globals.css";
 
