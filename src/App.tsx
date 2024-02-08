@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./styles/globals.css";
-import Home from "./components/Home";
+import Home from "./views/Home";
 import Components from "./components/Components";
 
 // Define a Disc interface
