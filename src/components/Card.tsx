@@ -1,6 +1,5 @@
 import "../styles/card.css";
 import pinImage from "../assets/pin.png";
-import imageLogo from "../assets/DRN_WebLogo_HDPI.png";
 import Button from "./Button";
 
 type CardProps = {
@@ -8,10 +7,10 @@ type CardProps = {
   img: string;
   Color: string;
   Name: string;
-  Brand: string;
+  DiscAndBrand: string;
 };
 
-const Card = ({ Course, img, Color, Name, Brand }: CardProps) => {
+const Card = ({ Course, img, Color, Name, DiscAndBrand }: CardProps) => {
   return (
     <div className="card-container">
       <div className="disc-info">
@@ -20,24 +19,24 @@ const Card = ({ Course, img, Color, Name, Brand }: CardProps) => {
             <img src={pinImage} alt="pin-icon" />
           </div>
           <div className="text-block-2">
-            <div className="course-wrapper">{Course}tranquily trails</div>
+            <div className="course-wrapper">{Course}</div>
           </div>
         </div>
-        <img src={imageLogo} loading="lazy" alt="disc" className="image" />
+        <img src={img} loading="lazy" alt="disc" className="image" />
         <div className="w-layout-grid grid grid-disc">
           <div className="course-list">
             <ul>
               <li>
                 <i className="bx bx-palette" />
-                <span>{Color}Green Raptor</span>
+                <span>{Color}</span>
               </li>
               <li>
                 <i className="bx bxs-user-detail" />
-                <span>{Name}C. Deck</span>
+                <span>{Name}</span>
               </li>
               <li>
                 <i className="bx bx-purchase-tag" />
-                <span>{Brand}MVP</span>
+                <span>{DiscAndBrand}</span>
               </li>
             </ul>
             <div className="card-button-container">
