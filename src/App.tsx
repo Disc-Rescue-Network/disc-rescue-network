@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./styles/globals.css";
 import Home from "./views/Home";
 import Components from "./components/Components";
+import LoadingScreen from "./views/LoadingSceen";
 
 // Define a Disc interface
 export interface Disc {
@@ -43,7 +44,8 @@ function App() {
   return (
     <div className="container">
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<LoadingScreen />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/components" element={<Components />} />
       </Routes>
     </div>
