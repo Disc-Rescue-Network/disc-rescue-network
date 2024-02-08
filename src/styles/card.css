@@ -1,0 +1,182 @@
+:root {
+    --primary-blue: #005daa;
+    --secondary-blue: #228de5;
+    --primary-black: #000000;
+    --primary-red: #d31245;
+    --primary-white: #FFFFFF;
+    --primary-grey: #e3e3e3;
+    --primary-green: #55de1f;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+button {
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+button {
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.card-container {
+    flex-shrink: 0;
+    width: 282px;
+    max-width: 400px;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: center;
+    display: flex;
+    position: relative;
+    padding: 50px;
+}
+
+.disc-info {
+    width: 85%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 20px 0 0 20px;
+}
+
+.div-block-2 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+    max-width: 155px;
+    position: absolute;
+    transform: translate(-20px, -20px);
+}
+
+.circle-overlay {
+    position: relative;
+    width: 40px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: var(--primary-red);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle-overlay img {
+    width: 25px;
+    height: auto;
+    position: relative;
+}
+
+.text-block-2 {
+    background-color: var(--primary-red);
+    width: 103px;
+    height: 20px;
+    color: rgb(231, 230, 230);
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-size: 11px;
+    padding-left: 5px;
+    margin-left: -5px;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+    text-overflow: ellipsis;
+    font-family: 'Lato', sans-serif;
+}
+
+.course-wrapper {
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: -2px;
+}
+
+.course-list {
+    background: white;
+    border-left: 0;
+    width: 160px;
+    height: 118px;
+}
+
+.disc-info .course-list ul {
+    padding-left: 4px;
+    margin-top: 0;
+    margin: 0px;
+    list-style: none;
+    text-align: left;
+    max-height: 100px;
+    padding-left: 10px; 
+    padding-right: 10px;
+}
+
+.disc-info .course-list ul li {
+    padding: 0;
+    border-bottom: 1px solid var(--primary-grey);
+    /* border-right: 1px solid var(--primary-grey); */
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    font-family: 'Lato', sans-serif;
+    color: rgb(105, 107, 110);
+    font-weight: 600;
+    max-height: 33px;
+    height: 33px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1;
+    
+}
+
+.disc-info .course-list ul li:last-child {
+    border-bottom: none;
+}
+
+.disc-info .course-list ul li i {
+    margin-right: 10px;
+    padding-left: 0;
+    width: 19px;
+}
+
+.image {
+    width: 100%;
+    height: 140px;
+    max-width: 160px;
+    object-fit: fill;
+    /* border: 5px solid var(--primary-blue); */
+    border-radius: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.btn-2 {
+    width: 70px;
+    text-align: center;
+    background-color: var(--primary-blue);
+    color: var(--primary-white);
+    border: none;
+    border-radius: 0px;
+    font-size: 0.9em;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    transform: translate(2px, 8px);
+    padding-top: 2px;
+}
+
+.btn-2:hover {
+    width: 70px;
+    text-align: center;
+    background-color: var(--primary-red);
+    color: var(--primary-white);
+    border: none;
+    border-radius: 0px;
+    font-size: 0.9em;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    transform: translate(2px, 8px);
+    padding-top: 2px;
+    transition: 0.2s;
+}
