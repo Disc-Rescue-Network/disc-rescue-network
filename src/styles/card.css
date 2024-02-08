@@ -79,16 +79,16 @@ button {
     position: relative;
     overflow: hidden;
     white-space: nowrap;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.7px;
     text-overflow: ellipsis;
     font-family: 'Lato', sans-serif;
+    text-transform: capitalize;
 }
 
 .course-wrapper {
     max-width: 90px;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-top: -2px;
 }
 
 .course-list {
@@ -124,7 +124,7 @@ button {
     word-wrap: break-word;
     overflow-wrap: break-word;
     line-height: 1;
-    
+    text-transform: capitalize;
 }
 
 .disc-info .course-list ul li:last-child {
@@ -146,6 +146,7 @@ button {
     border-radius: 0;
     margin-top: auto;
     margin-bottom: auto;
+    background-color: #005daa;
 }
 
 .btn-2 {

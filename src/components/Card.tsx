@@ -1,6 +1,6 @@
 import '../styles/card.css'
 import pinImage from '../assets/pin.png';
-import imageLogo from '../assets/DRN_App_Main-logo.png';
+import imageLogo from '../assets/DRN_WebLogo_HDPI.png';
 
 type CardProps = {
     Course: string;
@@ -19,7 +19,7 @@ const Card = ({ Course, img, Color, Name, Brand }: CardProps) => {
                        <img src={pinImage} />
                     </div>
                     <div className="text-block-2">
-                        <div className="course-wrapper">{Course}tranquily Trails</div>
+                        <div className="course-wrapper">{Course}tranquily trails</div>
                     </div>
                 </div>
                 <img src={imageLogo} loading="lazy" alt="${disc.Disc}" className="image" />
