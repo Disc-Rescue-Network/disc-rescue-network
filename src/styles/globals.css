@@ -30,6 +30,7 @@ body {
   text-align: center;
   background-color: var(--primary-grey);
   font-family: "Bebas Neue";
+  padding-bottom: 120px;
 }
 
 .container {
@@ -40,4 +41,31 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.card-container-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  margin: 1rem auto;
+  gap: 1rem;
+  padding: 0px;
+  overflow-x: auto;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 80%;
+  margin: 1rem auto;
+  gap: 1rem;
+  padding: 0px;
 }

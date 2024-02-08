@@ -1,8 +1,20 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import * as React from "react";
 import "../styles/globals.css";
+import { useNavigate } from "react-router";
+import Button from "../components/Button";
 
 //This is the actual home page of the app
 export default function Home() {
-  return <p>This is the Home page</p>;
+  const navigate = useNavigate();
+
+  return (
+    <>
+      <p>This is the Home page</p>
+      <Button
+        text={"Components"}
+        red={true}
+        onClick={() => navigate("/components")}
+      />
+    </>
+  );
 }
