@@ -1,4 +1,0 @@
-containers = vh vw
-children = percentages
-code a light and dark mode class for each element.
-    until we get dark mode designs, they can be the same. just diff names.
