@@ -2,7 +2,7 @@ import * as React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./styles/globals.css";
 import Home from "./views/Home";
-import Components from "./components/Components";
+import Components from "./views/Components";
 import LoadingScreen from "./views/LoadingSceen";
 
 // Define a Disc interface
