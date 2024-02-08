@@ -95,7 +95,7 @@ button {
     background: white;
     border-left: 0;
     width: 160px;
-    height: 118px;
+    height: 114px;
 }
 
 .disc-info .course-list ul {
@@ -134,7 +134,7 @@ button {
 .disc-info .course-list ul li i {
     margin-right: 10px;
     padding-left: 0;
-    width: 19px;
+    font-size: 15px;
 }
 
 .image {
@@ -160,7 +160,7 @@ button {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    transform: translate(2px, 8px);
+    transform: translate(2px, 5px);
     padding-top: 2px;
 }
 
@@ -176,7 +176,7 @@ button {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    transform: translate(2px, 8px);
+    transform: translate(2px, 5px);
     padding-top: 2px;
     transition: 0.2s;
 }
