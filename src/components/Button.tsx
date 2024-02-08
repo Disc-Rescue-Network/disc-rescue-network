@@ -6,12 +6,16 @@ interface ButtonProps {
   text: string;
   onClick: () => void;
   red?: boolean;
+  className?: string;
 }
 
 export default function Button(props: ButtonProps) {
-  const { text, onClick, red } = props;
+  const { text, onClick, red, className } = props;
   return (
-    <button className={`btn ${red ? "red" : "blue"}`} onClick={onClick}>
+    <button
+      className={`${className} btn ${red ? "red" : "blue"}`}
+      onClick={onClick}
+    >
       {text}
     </button>
   );

@@ -23,8 +23,8 @@ button {
 
 .red:hover,
 .blue:hover {
-  background-color: var(--secondary-blue);
-  border: 2px solid var(--secondary-blue);
+  background-color: var(--border-primary-blue);
+  border: 2px solid var(--primary-blue);
 }
 
 .blue {
