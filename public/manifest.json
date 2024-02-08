@@ -3,17 +3,32 @@
   "name": "Disc Rescue Network",
   "icons": [
     {
-      "src": "favicon.png",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "src": "app_icon_16.png",
+      "sizes": "16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "favicon.png",
+      "src": "app_icon_32.png",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "app_icon_64.png",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "app_icon_192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "favicon.png",
+      "src": "app_icon_256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "app_icon_512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
