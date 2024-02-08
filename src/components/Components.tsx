@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React from "react";
 import "../styles/globals.css";
 import Footer from "./Footer";
 import Card from "./Card";
