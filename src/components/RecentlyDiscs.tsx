@@ -1,13 +1,11 @@
-import "../styles/recentlyDiscs.css"
+import Discs from "./Discs";
+import Subheader from "./Subheader";
 
-const RecentlyDiscs = () => {
-    return (
-        <div className="content-sub-header">
-            <div className="sub-header">
-                RECENTLY TURNED IN DISCS
-            </div>
-        </div>
-    )
+export default function RecentlyTurnedInDiscs() {
+  return (
+    <>
+      <Subheader text="Recently Added Discs" />
+      <Discs />
+    </>
+  );
 }
-
-export default RecentlyDiscs

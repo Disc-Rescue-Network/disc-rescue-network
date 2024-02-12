@@ -2,12 +2,9 @@ import React from "react";
 import "../styles/globals.css";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
-import Card from "../components/Card";
-import imageLogo from "../assets/DRN_WebLogo_HDPI.png";
-import HeaderComponents from "../components/HeaderComponents";
-import RecentlyDiscs from "../components/RecentlyDiscs";
 import ButtonComponents from "../components/ButtonComponents";
-import Discs from "../components/Discs";
+import RecentlyTurnedInDiscs from "../components/RecentlyDiscs";
+import FullLogoHeader from "../components/HeaderComponents";
 
 //This is where we will load a single page of all the different components used in the app
 export default function Components() {
@@ -17,41 +14,9 @@ export default function Components() {
 
   return (
     <div className="container">
-      <HeaderComponents />
+      <FullLogoHeader />
       <ButtonComponents />
-      <RecentlyDiscs />
-      <Discs />
-      <div className="card-container-row">
-        <Card
-          Course={"Tranquility Trails"}
-          Color={"Green"}
-          Name={"D. Bryant"}
-          DiscAndBrand={"Discraft Buzz"}
-          img={imageLogo}
-        />
-        <Card
-          Course={"Stafford Woods"}
-          Color={"Blue"}
-          Name={"A. Nichols"}
-          DiscAndBrand={"MVP Volt"}
-          img={imageLogo}
-        />
-        <Card
-          Course={"Tranquility Trails"}
-          Color={"Yellow"}
-          Name={"C. Deck"}
-          DiscAndBrand={"Axiom Crave"}
-          img={imageLogo}
-        />
-        <Card
-          Course={"Doc Cramer"}
-          Color={"Red"}
-          Name={"J. Doe"}
-          DiscAndBrand={"Innova Roc3"}
-          img={imageLogo}
-        />
-      </div>
-
+      <RecentlyTurnedInDiscs />
       <div className="btn-container">
         <Button text={"This is a red button"} onClick={showToast} red={true} />
         <Button
