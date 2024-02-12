@@ -1,0 +1,13 @@
+.card-container-discs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    margin: 1rem auto;
+    gap: 1rem;
+    padding: 20px;
+    overflow-x: auto;
+    max-width: 800px;
+    width: 80%;
+    margin-top: -1.5rem;
+  }
