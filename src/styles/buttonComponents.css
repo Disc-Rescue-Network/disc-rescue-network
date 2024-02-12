@@ -1,0 +1,45 @@
+.min-height-35 {
+min-height: 30dvh;
+}
+
+.btn-container-components {
+    width: 80%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: auto;
+    gap: 1rem;
+    padding: 0px;
+  }
+
+  .button-home{
+    font-size: 2rem;
+  }
+
+  @media screen and (max-width: 500px ) {
+    .btn-container-components {
+        width: 100%;
+    }
+  }
+
+  .box {
+    width: 80%;
+  }
+
+  .btn-description {
+    text-align: center;
+    color: var(--primary-blue);
+    font-size: 0.85em;
+    font-weight: 500;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .rescue-flow {
+    color: var(--primary-red);
+    cursor: pointer;
+  }
