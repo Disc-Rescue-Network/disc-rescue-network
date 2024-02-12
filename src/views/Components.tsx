@@ -6,6 +6,8 @@ import Card from "../components/Card";
 import imageLogo from "../assets/DRN_WebLogo_HDPI.png";
 import HeaderComponents from "../components/HeaderComponents";
 import RecentlyDiscs from "../components/RecentlyDiscs";
+import ButtonComponents from "../components/ButtonComponents";
+import Discs from "../components/Discs";
 
 //This is where we will load a single page of all the different components used in the app
 export default function Components() {
@@ -16,7 +18,9 @@ export default function Components() {
   return (
     <div className="container">
       <HeaderComponents />
+      <ButtonComponents />
       <RecentlyDiscs />
+      <Discs />
       <div className="card-container-row">
         <Card
           Course={"Tranquility Trails"}
