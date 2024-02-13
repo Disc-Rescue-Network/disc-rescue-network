@@ -1,0 +1,30 @@
+.rescue {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.rescue h3 {
+    font-size: 7.5rem;
+    letter-spacing: 0.5px;
+    color: var(--primary-blue);
+    margin: 0;
+    font-weight: 500;
+}
+
+.rescue h3 span {
+    font-weight: 300 !important;
+    font-family: "Bebas Neue";
+  }
+
+.course-name {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--primary-blue);
+    font-weight: 400;
+    letter-spacing: 0.8px;
+    font-family: "Lato";
+    text-transform: uppercase;
+}
