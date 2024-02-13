@@ -1,0 +1,21 @@
+.rescue-success {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.rescue-success h3 {
+    font-size: 7.5rem;
+    letter-spacing: 0.5px;
+    color: var(--primary-green);
+    margin: 0;
+    font-weight: 500;
+}
+
+.rescue-success h3 span {
+    font-weight: 300 !important;
+    font-family: "Bebas Neue";
+    color: var(--primary-white);
+  }
