@@ -1,0 +1,15 @@
+.logo-rescue {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.icon-logo-rescue  {
+    height: auto;
+    width: 100px;
+    margin: 0px;
+    padding: 0px;
+    object-fit: contain;
+}

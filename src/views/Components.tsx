@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import ButtonComponents from "../components/ButtonComponents";
 import RecentlyTurnedInDiscs from "../components/RecentlyDiscs";
 import FullLogoHeader from "../components/HeaderComponents";
+import RescueFlow from "../components/RescueFlow";
 
 //This is where we will load a single page of all the different components used in the app
 export default function Components() {
@@ -14,6 +15,7 @@ export default function Components() {
 
   return (
     <div className="container">
+      <RescueFlow />
       <FullLogoHeader />
       <ButtonComponents />
       <RecentlyTurnedInDiscs />
