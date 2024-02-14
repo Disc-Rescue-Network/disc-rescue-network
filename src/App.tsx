@@ -4,6 +4,7 @@ import "./styles/globals.css";
 import Home from "./views/Home";
 import Components from "./views/Components";
 import LoadingScreen from "./views/LoadingSceen";
+import Footer from "./components/Footer";
 
 // Define a Disc interface
 export interface Disc {
@@ -42,12 +43,13 @@ export const API_BASE_URL = "https://api.discrescuenetwork.com"; //production UR
 
 function App() {
   return (
-    <div className="container">
+    <div className="app">
       <Routes>
         <Route path="/" element={<LoadingScreen />} />
         <Route path="/home" element={<Home />} />
         <Route path="/components" element={<Components />} />
       </Routes>
+      <Footer needCutOut={true} />
     </div>
   );
 }

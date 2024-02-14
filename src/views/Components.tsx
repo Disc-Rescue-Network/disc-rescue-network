@@ -30,14 +30,19 @@ export default function Components() {
       <ButtonComponents />
       <RecentlyTurnedInDiscs />
       <div className="btn-container">
-        <Button text={"This is a red button"} onClick={showToast} red={true} />
         <Button
-          text={"This is a blue button"}
+          text={"This is a red button with a border"}
+          onClick={showToast}
+          red={true}
+          border={true}
+        />
+        <Button
+          text={"This is a blue button with a border"}
           onClick={showToast}
           red={false}
+          border={true}
         />
       </div>
-      <Footer needCutOut={true} />
     </div>
   );
 }
