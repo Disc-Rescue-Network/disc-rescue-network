@@ -12,7 +12,7 @@ const SubHeaderSearch = (props: SubHeaderSearchProps) => {
     <div className="rescue">
       <h3>
         {baseText}
-        <span className="search-disc">{lightText}</span>
+        <span className="search-disc"> {lightText}</span>
       </h3>
       <p className="course-name">@ {CourseName}</p>
     </div>
