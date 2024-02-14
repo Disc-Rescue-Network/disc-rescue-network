@@ -11,6 +11,7 @@ import SuccessHeader from "../components/SuccessHeader";
 import Courses from "../components/Courses";
 import HeaderCourses from "../components/HeaderCourses";
 import SubHeaderCourses from "../components/SubHeaderCourses";
+import SubHeaderSuccess from "../components/SubHeaderSuccess";
 
 //This is where we will load a single page of all the different components used in the app
 export default function Components() {
@@ -24,6 +25,7 @@ export default function Components() {
       <SubHeaderCourses />
       <Courses />
       <SuccessHeader />
+      <SubHeaderSuccess />
       <SearchInventory />
       <RescueFlow />
       <FullLogoHeader />
@@ -42,6 +44,7 @@ export default function Components() {
           red={false}
           border={true}
         />
+        <Footer needCutOut={true} />
       </div>
     </div>
   );
