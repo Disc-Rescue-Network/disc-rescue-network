@@ -49,7 +49,6 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/components" element={<Components />} />
       </Routes>
-      <Footer needCutOut={true} />
     </div>
   );
 }
