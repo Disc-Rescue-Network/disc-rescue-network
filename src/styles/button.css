@@ -31,3 +31,11 @@ button {
   background-color: var(--primary-blue);
   border: 2px solid var(--border-primary-blue);
 }
+
+.no-border {
+  border: none;
+}
+
+.no-border:hover {
+  border: none;
+}

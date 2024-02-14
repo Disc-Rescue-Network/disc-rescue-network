@@ -9,10 +9,11 @@ interface ButtonProps {
   className?: string;
   icon?: string;
   tilt?: boolean;
+  border?: boolean;
 }
 
 export default function Button(props: ButtonProps) {
-  const { text, onClick, red, className, icon, tilt } = props;
+  const { text, onClick, red, className, icon, tilt, border } = props;
   const [showIcon, setShowIcon] = React.useState(false);
   const [tiltStyle, setTiltStyle] = React.useState("rotate(30deg)");
 
@@ -36,7 +37,9 @@ export default function Button(props: ButtonProps) {
 
   return (
     <button
-      className={`${className} btn ${red ? "red" : "blue"}`}
+      className={`${className} btn ${red ? "red" : "blue"} ${
+        border ? "" : "no-border"
+      } `}
       onClick={onClick}
     >
       {showIcon && (

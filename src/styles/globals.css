@@ -63,9 +63,22 @@ body {
   text-align: center;
   background-color: var(--primary-grey);
   font-family: "Bebas Neue";
-  padding-bottom: 120px;
   height: 100dvh;
   width: 100dvw;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: auto;
+  min-height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-bottom: 100px;
 }
 
 .container {
