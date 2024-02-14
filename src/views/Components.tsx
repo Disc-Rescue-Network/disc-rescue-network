@@ -8,6 +8,9 @@ import FullLogoHeader from "../components/HeaderComponents";
 import RescueFlow from "../components/RescueFlow";
 import SearchInventory from "../components/SearchInventory";
 import SuccessHeader from "../components/SuccessHeader";
+import Courses from "../components/Courses";
+import HeaderCourses from "../components/HeaderCourses";
+import SubHeaderCourses from "../components/SubHeaderCourses";
 
 //This is where we will load a single page of all the different components used in the app
 export default function Components() {
@@ -17,6 +20,9 @@ export default function Components() {
 
   return (
     <div className="container">
+      <HeaderCourses />
+      <SubHeaderCourses />
+      <Courses />
       <SuccessHeader />
       <SearchInventory />
       <RescueFlow />

@@ -1,0 +1,18 @@
+.rescue-courses {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 3rem !important;
+    margin-bottom: -0;
+}
+
+.rescue-courses h2 {
+    color: var(--primary-white);
+    margin: 0;
+    font-size: 7.5rem;
+}
+
+.rescue-courses h2 span {
+    font-weight: 300;
+}
