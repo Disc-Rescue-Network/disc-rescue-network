@@ -1,5 +1,7 @@
 import "../styles/courses.css"
 import Button from "./Button";
+import HeaderCourses from "./HeaderCourses";
+import SubHeaderCourses from "./SubHeaderCourses";
 
 var stateTuples = [
     ["All", "All"],
@@ -117,6 +119,8 @@ var courses = [
 const CoursesForm = () => {
     return (
         <>
+        <HeaderCourses baseText={"Choose your"} lightText={"Course"} />
+        <SubHeaderCourses baseText={"Where to"} lightText={"Search?"} />
         <div className="mt-5 mb-3 select-box">
             <div className="col-4 pe-0 arrow one">
             <select className="form-select">
