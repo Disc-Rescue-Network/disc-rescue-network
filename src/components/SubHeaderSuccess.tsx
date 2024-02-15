@@ -1,11 +1,15 @@
 import "../styles/subHeaderSuccess.css"
 
-const SubHeaderSuccess = () => {
+interface SubHeaderSuccessProps{
+    baseText: string;
+}
+
+const SubHeaderSuccess = (props: SubHeaderSuccessProps) => {
+    const { baseText } = props; 
     return (
         <div className="sub-header-success">
             <h3>
-                You have successfully claimed your disc and you've been opted in to
-                receiving messages.
+                {baseText}
             </h3>
         </div>
     )

@@ -1,10 +1,17 @@
 import "../styles/headerCourses.css"
 
-const HeaderCourses = () => {
+interface HeaderCoursesProps {
+    baseText: string;
+    lightText: string;
+}
+
+const HeaderCourses = (props: HeaderCoursesProps) => {
+    const { baseText, lightText } = props;
     return (
         <div className="rescue-courses">
             <h2>
-                Choose Your <span className="fw-light">Course</span>
+                {baseText}
+                <span className="fw-light"> {lightText}</span>
             </h2>
         </div>
     )
