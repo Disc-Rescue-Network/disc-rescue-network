@@ -4,7 +4,7 @@
     margin: 0 auto;
     display: flex;
     flex-direction: row;
-    gap: 0.7rem;
+    gap: 0.5rem;
 }
 
 .select-box select:focus {
@@ -51,7 +51,7 @@
 
 .form-select {
     display: block;
-    width: 100%;
+    width: 98%;
     padding: .375rem 2.25rem .375rem .75rem;
     -moz-padding-start: calc(0.75rem - 3px);
     font-size: 1rem;
@@ -69,6 +69,12 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none
+}
+
+@media screen and (max-width: 500px) {
+    .form-select {
+        width: 96%;
+    }
 }
 
 .select-box .arrow.one:after {
