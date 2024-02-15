@@ -5,10 +5,10 @@ import Button from "../components/Button";
 import ButtonComponents from "../components/ButtonComponents";
 import RecentlyTurnedInDiscs from "../components/RecentlyDiscs";
 import FullLogoHeader from "../components/HeaderComponents";
-import RescueFlow from "../components/RescueFlow";
 import SearchInventory from "../components/SearchInventory";
 import SuccessHeader from "../components/SuccessHeader";
 import Courses from "../components/Courses";
+import LogoRescueFlow from "../components/LogoRescueFlow";
 
 //This is where we will load a single page of all the different components used in the app
 export default function Components() {
@@ -21,7 +21,7 @@ export default function Components() {
       <Courses />
       <SuccessHeader baseText={"Nailed"} lightText={"It!"} />
       <SearchInventory />
-      <RescueFlow />
+      <LogoRescueFlow />
       <FullLogoHeader />
       <ButtonComponents />
       <RecentlyTurnedInDiscs />
