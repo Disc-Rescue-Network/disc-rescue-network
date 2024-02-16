@@ -41,10 +41,6 @@ const arrayOfDiscs = [
   },
 ];
 
-const arrayOfItems = [
-  { CourseName: "Tranquility Trails", baseText: "All Lost", lightText: "Disc" },
-];
-
 //This is where we will load a single page of all the different components used in the app
 export default function Components() {
   const showToast = () => {
