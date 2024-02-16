@@ -2,17 +2,10 @@ import React from "react";
 import "../styles/globals.css";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
-import ButtonComponents from "../components/ButtonComponents";
-import FullLogoHeader from "../components/HeaderComponents";
-import SearchInventory from "../components/SearchInventory";
-import SuccessHeader from "../components/SuccessHeader";
 import Courses from "../components/Courses";
-import ClaimDisc from "../components/ClaimDisc";
-import LogoRescueFlow from "../components/LogoRescueFlow";
 import Discs from "../components/Discs";
-import SubHeaderSearch from "../components/SubHeaderSearch";
 import Subheader from "../components/Subheader";
-import SubHeaderSuccess from "../components/SubHeaderSuccess";
+import SuccessHeader from "../components/SuccessHeader";
 
 const arrayOfDiscs = [
   {
@@ -57,7 +50,7 @@ export default function Components() {
       />
       <Discs arrayOfDiscs={arrayOfDiscs} />
       <Subheader text="Recently Added Discs" />
-      <SubHeaderSuccess
+      <SuccessHeader
         baseText={
           "You have successfully claimed your disc and you've been opted in to receiving messages."
         }

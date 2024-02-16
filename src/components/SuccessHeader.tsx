@@ -1,22 +1,16 @@
-import "../styles/successHeader.css"
+import "../styles/subHeaderSuccess.css";
 
-interface HeaderSuccessProps {
-    baseText: string;
-    lightText: string;
+interface SuccessHeaderProps {
+  baseText: string;
 }
 
-const SuccessHeader = (props: HeaderSuccessProps) => {
-    const { baseText, lightText } = props;
-    return (
-        <>
-            <div className="rescue-success">
-                <h3>
-                    {baseText} 
-                    <span> {lightText}</span>
-                </h3>
-            </div>
-        </>
-    )
-}
+const SuccessHeader = (props: SuccessHeaderProps) => {
+  const { baseText } = props;
+  return (
+    <div className="sub-header-success">
+      <h3>{baseText}</h3>
+    </div>
+  );
+};
 
 export default SuccessHeader;
