@@ -9,6 +9,14 @@ import SearchInventory from "../components/SearchInventory";
 import SuccessHeader from "../components/SuccessHeader";
 import Courses from "../components/Courses";
 import LogoRescueFlow from "../components/LogoRescueFlow";
+import Discs from "../components/Discs";
+
+const arrayOfDiscs = [
+  { course: "Tranquility Trails", color: "Green", name: "D. Bryant", discAndBrand: "Discraft Buzz" },
+  { course: "Stafford Woods", color: "Blue", name: "A. Nichols", discAndBrand: "MVP Volt" },
+  { course: "Tranquility Trails", color: "Yellow", name: "C. Deck", discAndBrand: "Axiom Crave" },
+  { course: "Doc Cramer", color: "Red", name: "J. Doe", discAndBrand: "Innova Roc3" }
+];
 
 //This is where we will load a single page of all the different components used in the app
 export default function Components() {
@@ -25,6 +33,7 @@ export default function Components() {
       <FullLogoHeader />
       <ButtonComponents />
       <RecentlyTurnedInDiscs />
+      <Discs arrayOfDiscs={arrayOfDiscs} />
       <div className="btn-container">
         <Button
           text={"This is a red button with a border"}
