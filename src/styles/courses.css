@@ -24,7 +24,7 @@
     appearance: none;
     position: relative;
     color: var(--primary-blue);
-    height: 50px !important;
+    height: 50px;
     font-family: inherit;
     font-weight: 900 !important;
 }
