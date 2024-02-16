@@ -12,6 +12,7 @@ import LogoRescueFlow from "../components/LogoRescueFlow";
 import Discs from "../components/Discs";
 import SubHeaderSearch from "../components/SubHeaderSearch";
 import Subheader from "../components/Subheader";
+import SubHeaderSuccess from "../components/SubHeaderSuccess";
 
 const arrayOfDiscs = [
   {
@@ -60,6 +61,7 @@ export default function Components() {
       />
       <Courses />
       <SuccessHeader baseText={"Nailed"} lightText={"It!"} />
+      <SubHeaderSuccess baseText={"You have successfully claimed your disc and you've been opted in to receiving messages."} />
       <SearchInventory />
       <SubHeaderSearch courseName={"Tranquility Trails"} />
       <LogoRescueFlow />
