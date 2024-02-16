@@ -59,7 +59,12 @@ export default function Components() {
         baseTextInfo={"Just Enter Some"}
         lightTextInfo={"Info"}
       />
-      <Courses />
+      <Courses 
+        baseText={"Choose your"} 
+        lightText={"Course"} 
+        subBaseText={"Where to"} 
+        subLightText={"Search?"} 
+      />
       <SuccessHeader baseText={"Nailed"} lightText={"It!"} />
       <SubHeaderSuccess baseText={"You have successfully claimed your disc and you've been opted in to receiving messages."} />
       <SearchInventory />
