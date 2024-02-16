@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import Courses from "../components/Courses";
 import Discs from "../components/Discs";
 import Subheader from "../components/Subheader";
+import SuccessSubheader from "../components/SuccessSubheader";
 import SuccessHeader from "../components/SuccessHeader";
 
 const arrayOfDiscs = [
@@ -50,7 +51,9 @@ export default function Components() {
       />
       <Discs arrayOfDiscs={arrayOfDiscs} />
       <Subheader text="Recently Added Discs" />
-      <SuccessHeader
+      {/* the success header one does not need any props, it is good as is */}
+      <SuccessHeader />
+      <SuccessSubheader
         baseText={
           "You have successfully claimed your disc and you've been opted in to receiving messages."
         }
@@ -76,7 +79,6 @@ export default function Components() {
           baseTextInfo={"Just Enter Some"}
           lightTextInfo={"Info"}
         />
-        <SuccessHeader baseText={"Nailed"} lightText={"It!"} />
         
         <SearchInventory />
         <SubHeaderSearch courseName={"Tranquility Trails"} />
