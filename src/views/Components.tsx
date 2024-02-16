@@ -12,6 +12,7 @@ import ClaimDisc from "../components/ClaimDisc";
 import LogoRescueFlow from "../components/LogoRescueFlow";
 import Discs from "../components/Discs";
 import SubHeaderSearch from "../components/SubHeaderSearch";
+import Subheader from "../components/Subheader";
 
 const arrayOfDiscs = [
   {
@@ -65,7 +66,7 @@ export default function Components() {
       <LogoRescueFlow />
       <FullLogoHeader />
       <ButtonComponents />
-      <RecentlyTurnedInDiscs />
+      <Subheader text="Recently Added Discs" />
       <Discs arrayOfDiscs={arrayOfDiscs} />
       <div className="btn-container">
         <Button
