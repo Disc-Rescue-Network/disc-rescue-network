@@ -1,0 +1,32 @@
+.rescue-claim-disc {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.rescue-claim-disc h3 {
+    font-size: 3rem;
+    margin: 0;
+    color: var(--primary-white);
+}
+
+.rescue-claim-disc h3 span {
+    font-weight: 300;
+}
+
+.rescue-claim-disc h4 {
+    font-size: 3rem;
+    color: var(--primary-white);
+    padding-right: 0;
+    padding-left: 0;
+    margin-bottom: 1.5rem;
+    margin-top: 0.8rem;
+}
+
+.rescue-claim-disc .overtext {
+    color: #005daa;
+    text-shadow: 0px 2px 3px #ffffff4f;
+}
