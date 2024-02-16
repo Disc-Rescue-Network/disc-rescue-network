@@ -56,6 +56,12 @@ export default function Components() {
         subLightText={"Search?"}
       />
       <Discs arrayOfDiscs={arrayOfDiscs} />
+      <Subheader text="Recently Added Discs" />
+      <SubHeaderSuccess
+        baseText={
+          "You have successfully claimed your disc and you've been opted in to receiving messages."
+        }
+      />
       <div className="btn-container">
         <Button
           text={"This is a red button with a border"}
@@ -78,17 +84,13 @@ export default function Components() {
           lightTextInfo={"Info"}
         />
         <SuccessHeader baseText={"Nailed"} lightText={"It!"} />
-        <SubHeaderSuccess
-          baseText={
-            "You have successfully claimed your disc and you've been opted in to receiving messages."
-          }
-        />
+        
         <SearchInventory />
         <SubHeaderSearch courseName={"Tranquility Trails"} />
         <LogoRescueFlow />
         <FullLogoHeader />
         <ButtonComponents />
-        <Subheader text="Recently Added Discs" />
+        
          */}
       </div>
     </div>
