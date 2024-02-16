@@ -14,10 +14,30 @@ import Discs from "../components/Discs";
 import SubHeaderSearch from "../components/SubHeaderSearch";
 
 const arrayOfDiscs = [
-  { course: "Tranquility Trails", color: "Green", name: "D. Bryant", discAndBrand: "Discraft Buzz" },
-  { course: "Stafford Woods", color: "Blue", name: "A. Nichols", discAndBrand: "MVP Volt" },
-  { course: "Tranquility Trails", color: "Yellow", name: "C. Deck", discAndBrand: "Axiom Crave" },
-  { course: "Doc Cramer", color: "Red", name: "J. Doe", discAndBrand: "Innova Roc3" }
+  {
+    course: "Tranquility Trails",
+    color: "Green",
+    name: "D. Bryant",
+    discAndBrand: "Discraft Buzz",
+  },
+  {
+    course: "Stafford Woods",
+    color: "Blue",
+    name: "A. Nichols",
+    discAndBrand: "MVP Volt",
+  },
+  {
+    course: "Tranquility Trails",
+    color: "Yellow",
+    name: "C. Deck",
+    discAndBrand: "Axiom Crave",
+  },
+  {
+    course: "Doc Cramer",
+    color: "Red",
+    name: "J. Doe",
+    discAndBrand: "Innova Roc3",
+  },
 ];
 
 const arrayOfItems = [
@@ -32,7 +52,12 @@ export default function Components() {
 
   return (
     <div className="container">
-      <ClaimDisc baseText={"Let's get your"} lightText={"Disc"} baseTextInfo={"Just Enter Some"} lightTextInfo={"Info"} finalPoint={"."} />
+      <ClaimDisc
+        baseText={"Let's get your"}
+        lightText={"Disc"}
+        baseTextInfo={"Just Enter Some"}
+        lightTextInfo={"Info"}
+      />
       <Courses />
       <SuccessHeader baseText={"Nailed"} lightText={"It!"} />
       <SearchInventory />
