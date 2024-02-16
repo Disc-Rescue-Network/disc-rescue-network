@@ -61,7 +61,7 @@ export default function Components() {
       <Courses />
       <SuccessHeader baseText={"Nailed"} lightText={"It!"} />
       <SearchInventory />
-      <SubHeaderSearch arrayOfItems={arrayOfItems} />
+      <SubHeaderSearch courseName={"Tranquility Trails"} />
       <LogoRescueFlow />
       <FullLogoHeader />
       <ButtonComponents />

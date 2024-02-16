@@ -1,28 +1,17 @@
 import "../styles/subHeaderSearch.css";
 
-interface Items {
-  CourseName: string;
-  baseText: string;
-  lightText: string;
-}
-
 interface SubHeaderSearchProps {
-  arrayOfItems: Items[];
+  courseName: string;
 }
 
-
-const SubHeaderSearch = ({arrayOfItems }: SubHeaderSearchProps) => {
+const SubHeaderSearch = (props: SubHeaderSearchProps) => {
   return (
     <div className="rescue">
-      {arrayOfItems.map((item, index) => (
-        <div key={index}>
-          <h3>
-            {item.baseText}
-            <span className="search-disc"> {item.lightText}</span>
-          </h3>
-          <p className="course-name">@ {item.CourseName}</p>
-        </div>
-      ))}
+      <h3>
+        All Lost
+        <span className="search-disc">Discs</span>
+      </h3>
+      <p className="course-name">@ {props.courseName}</p>
     </div>
   );
 };
