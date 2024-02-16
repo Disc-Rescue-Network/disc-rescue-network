@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/globals.css";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
-import Courses from "../components/Courses";
+import Courses from "../components/CourseSelectionHeader";
 import Discs from "../components/Discs";
 import Subheader from "../components/Subheader";
 import SuccessSubheader from "../components/SuccessSubheader";
