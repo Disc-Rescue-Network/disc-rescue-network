@@ -2,11 +2,16 @@ import React from "react";
 import "../styles/globals.css";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
-import Courses from "../components/CourseSelectionHeader";
+import TwoLineHeader from "../components/TwoLineHeader";
 import Discs from "../components/Discs";
 import Subheader from "../components/Subheader";
 import SuccessSubheader from "../components/SuccessSubheader";
 import SuccessHeader from "../components/SuccessHeader";
+import FullLogoHeader from "../components/HeaderComponents";
+import LogoRescueFlow from "../components/LogoRescueFlow";
+import SubHeaderSearch from "../components/SubHeaderSearch";
+import HomePageButtons from "../components/HomePageButtons";
+import FormClaimDisc from "../components/FormClaimDisc";
 
 const arrayOfDiscs = [
   {
@@ -43,11 +48,23 @@ export default function Components() {
 
   return (
     <div className="container">
-      <Courses
+      <TwoLineHeader
         baseText={"Choose your"}
         lightText={"Course"}
         subBaseText={"Where to"}
         subLightText={"Search?"}
+      />
+      <TwoLineHeader
+        baseText={"Lets get your"}
+        lightText={"Disc"}
+        subBaseText={"Just enter some"}
+        subLightText={"Info."}
+      />
+      <FormClaimDisc
+        inputInitial={"First Initial"}
+        inputName={"Last Name"}
+        inputPhone={"Phone Number Written On the Disc"}
+        inputPickupLocation={"Choose a Pickup Location"}
       />
       <Discs arrayOfDiscs={arrayOfDiscs} />
       <Subheader text="Recently Added Discs" />
@@ -58,6 +75,11 @@ export default function Components() {
           "You have successfully claimed your disc and you've been opted in to receiving messages."
         }
       />
+      <LogoRescueFlow />
+      <SubHeaderSearch courseName={"Tranquility Trails"} />
+      <FullLogoHeader />
+      <HomePageButtons />
+
       <div className="btn-container">
         <Button
           text={"This is a red button with a border"}
@@ -72,21 +94,6 @@ export default function Components() {
           border={true}
         />
         <Footer needCutOut={true} />
-        {/* these need work */}
-        {/* <ClaimDisc
-          baseText={"Let's get your"}
-          lightText={"Disc"}
-          baseTextInfo={"Just Enter Some"}
-          lightTextInfo={"Info"}
-        />
-        
-        <SearchInventory />
-        <SubHeaderSearch courseName={"Tranquility Trails"} />
-        <LogoRescueFlow />
-        <FullLogoHeader />
-        <ButtonComponents />
-        
-         */}
       </div>
     </div>
   );
