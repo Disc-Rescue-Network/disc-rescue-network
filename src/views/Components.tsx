@@ -8,6 +8,7 @@ import FullLogoHeader from "../components/HeaderComponents";
 import SearchInventory from "../components/SearchInventory";
 import SuccessHeader from "../components/SuccessHeader";
 import Courses from "../components/Courses";
+import ClaimDisc from "../components/ClaimDisc";
 import LogoRescueFlow from "../components/LogoRescueFlow";
 
 //This is where we will load a single page of all the different components used in the app
@@ -18,6 +19,7 @@ export default function Components() {
 
   return (
     <div className="container">
+      <ClaimDisc baseText={"Let's get your"} lightText={"Disc"} baseTextInfo={"Just Enter Some"} lightTextInfo={"Info"} finalPoint={"."} />
       <Courses />
       <SuccessHeader baseText={"Nailed"} lightText={"It!"} />
       <SearchInventory />
