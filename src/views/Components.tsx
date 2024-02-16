@@ -3,7 +3,6 @@ import "../styles/globals.css";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
 import ButtonComponents from "../components/ButtonComponents";
-import RecentlyTurnedInDiscs from "../components/RecentlyDiscs";
 import FullLogoHeader from "../components/HeaderComponents";
 import SearchInventory from "../components/SearchInventory";
 import SuccessHeader from "../components/SuccessHeader";
