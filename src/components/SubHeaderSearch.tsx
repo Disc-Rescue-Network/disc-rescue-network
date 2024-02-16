@@ -1,20 +1,17 @@
 import "../styles/subHeaderSearch.css";
 
 interface SubHeaderSearchProps {
-  CourseName: string;
-  baseText: string;
-  lightText: string;
+  courseName: string;
 }
 
 const SubHeaderSearch = (props: SubHeaderSearchProps) => {
-  const { CourseName, baseText, lightText } = props;
   return (
     <div className="rescue">
       <h3>
-        {baseText}
-        <span className="search-disc"> {lightText}</span>
+        All Lost
+        <span className="search-disc">Discs</span>
       </h3>
-      <p className="course-name">@ {CourseName}</p>
+      <p className="course-name">@ {props.courseName}</p>
     </div>
   );
 };

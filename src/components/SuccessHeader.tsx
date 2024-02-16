@@ -1,5 +1,4 @@
 import "../styles/successHeader.css"
-import SubHeaderSuccess from "./SubHeaderSuccess";
 
 interface HeaderSuccessProps {
     baseText: string;
@@ -16,7 +15,6 @@ const SuccessHeader = (props: HeaderSuccessProps) => {
                     <span> {lightText}</span>
                 </h3>
             </div>
-            <SubHeaderSuccess baseText={"You have successfully claimed your disc and you've been opted in to receiving messages"} />
         </>
     )
 }
