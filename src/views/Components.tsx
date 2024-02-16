@@ -53,26 +53,12 @@ export default function Components() {
 
   return (
     <div className="container">
-      <ClaimDisc
-        baseText={"Let's get your"}
-        lightText={"Disc"}
-        baseTextInfo={"Just Enter Some"}
-        lightTextInfo={"Info"}
+      <Courses
+        baseText={"Choose your"}
+        lightText={"Course"}
+        subBaseText={"Where to"}
+        subLightText={"Search?"}
       />
-      <Courses 
-        baseText={"Choose your"} 
-        lightText={"Course"} 
-        subBaseText={"Where to"} 
-        subLightText={"Search?"} 
-      />
-      <SuccessHeader baseText={"Nailed"} lightText={"It!"} />
-      <SubHeaderSuccess baseText={"You have successfully claimed your disc and you've been opted in to receiving messages."} />
-      <SearchInventory />
-      <SubHeaderSearch courseName={"Tranquility Trails"} />
-      <LogoRescueFlow />
-      <FullLogoHeader />
-      <ButtonComponents />
-      <Subheader text="Recently Added Discs" />
       <Discs arrayOfDiscs={arrayOfDiscs} />
       <div className="btn-container">
         <Button
@@ -88,6 +74,26 @@ export default function Components() {
           border={true}
         />
         <Footer needCutOut={true} />
+        {/* these need work */}
+        {/* <ClaimDisc
+          baseText={"Let's get your"}
+          lightText={"Disc"}
+          baseTextInfo={"Just Enter Some"}
+          lightTextInfo={"Info"}
+        />
+        <SuccessHeader baseText={"Nailed"} lightText={"It!"} />
+        <SubHeaderSuccess
+          baseText={
+            "You have successfully claimed your disc and you've been opted in to receiving messages."
+          }
+        />
+        <SearchInventory />
+        <SubHeaderSearch courseName={"Tranquility Trails"} />
+        <LogoRescueFlow />
+        <FullLogoHeader />
+        <ButtonComponents />
+        <Subheader text="Recently Added Discs" />
+         */}
       </div>
     </div>
   );
