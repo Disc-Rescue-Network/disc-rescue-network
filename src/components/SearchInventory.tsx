@@ -1,6 +1,5 @@
 import "../styles/searchInventory.css";
 import LogoSearch from "../assets/icon_logo_transparent_fullsize.png";
-import SubHeaderSearch from "./SubHeaderSearch";
 
 const SearchAll = () => {
   const handleLogoClick = () => {
@@ -16,11 +15,6 @@ const SearchAll = () => {
           onClick={handleLogoClick}
         />
       </div>
-      <SubHeaderSearch
-        CourseName={"Tranquility Trails"}
-        baseText="All Lost"
-        lightText="Discs"
-      />
     </>
   );
 };
