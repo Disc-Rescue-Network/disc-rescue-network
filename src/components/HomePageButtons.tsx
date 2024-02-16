@@ -3,7 +3,7 @@ import Button from "./Button";
 import imgFind from "../assets/search.png";
 import imgSearch from "../assets/courses.png";
 
-const ButtonComponents = () => {
+const HomePageButtons = () => {
   const showToast = () => {
     alert("Button clicked");
   };
@@ -44,4 +44,4 @@ const ButtonComponents = () => {
   );
 };
 
-export default ButtonComponents;
+export default HomePageButtons;

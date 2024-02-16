@@ -21,6 +21,9 @@
   font-size: 2rem;
   margin-left: auto;
   margin-right: auto;
+  min-height: 75px;
+  font-weight: 600;
+  letter-spacing: 2px;
 }
 
 @media screen and (max-width: 500px) {

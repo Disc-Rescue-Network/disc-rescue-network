@@ -2,17 +2,16 @@ import React from "react";
 import "../styles/globals.css";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
-import ButtonComponents from "../components/ButtonComponents";
-import FullLogoHeader from "../components/HeaderComponents";
-import SearchInventory from "../components/SearchInventory";
-import SuccessHeader from "../components/SuccessHeader";
-import Courses from "../components/Courses";
-import ClaimDisc from "../components/ClaimDisc";
-import LogoRescueFlow from "../components/LogoRescueFlow";
+import TwoLineHeader from "../components/TwoLineHeader";
 import Discs from "../components/Discs";
-import SubHeaderSearch from "../components/SubHeaderSearch";
 import Subheader from "../components/Subheader";
-import SubHeaderSuccess from "../components/SubHeaderSuccess";
+import SuccessSubheader from "../components/SuccessSubheader";
+import SuccessHeader from "../components/SuccessHeader";
+import FullLogoHeader from "../components/HeaderComponents";
+import LogoRescueFlow from "../components/LogoRescueFlow";
+import SubHeaderSearch from "../components/SubHeaderSearch";
+import HomePageButtons from "../components/HomePageButtons";
+import FormClaimDisc from "../components/FormClaimDisc";
 
 const arrayOfDiscs = [
   {
@@ -41,10 +40,6 @@ const arrayOfDiscs = [
   },
 ];
 
-const arrayOfItems = [
-  { CourseName: "Tranquility Trails", baseText: "All Lost", lightText: "Disc" },
-];
-
 //This is where we will load a single page of all the different components used in the app
 export default function Components() {
   const showToast = () => {
@@ -53,22 +48,38 @@ export default function Components() {
 
   return (
     <div className="container">
-      <ClaimDisc
-        baseText={"Let's get your"}
-        lightText={"Disc"}
-        baseTextInfo={"Just Enter Some"}
-        lightTextInfo={"Info"}
+      <TwoLineHeader
+        baseText={"Choose your"}
+        lightText={"Course"}
+        subBaseText={"Where to"}
+        subLightText={"Search?"}
       />
-      <Courses />
-      <SuccessHeader baseText={"Nailed"} lightText={"It!"} />
-      <SubHeaderSuccess baseText={"You have successfully claimed your disc and you've been opted in to receiving messages."} />
-      <SearchInventory />
-      <SubHeaderSearch courseName={"Tranquility Trails"} />
-      <LogoRescueFlow />
-      <FullLogoHeader />
-      <ButtonComponents />
-      <Subheader text="Recently Added Discs" />
+      <TwoLineHeader
+        baseText={"Lets get your"}
+        lightText={"Disc"}
+        subBaseText={"Just enter some"}
+        subLightText={"Info."}
+      />
+      <FormClaimDisc
+        inputInitial={"First Initial"}
+        inputName={"Last Name"}
+        inputPhone={"Phone Number Written On the Disc"}
+        inputPickupLocation={"Choose a Pickup Location"}
+      />
       <Discs arrayOfDiscs={arrayOfDiscs} />
+      <Subheader text="Recently Added Discs" />
+      {/* the success header one does not need any props, it is good as is */}
+      <SuccessHeader />
+      <SuccessSubheader
+        baseText={
+          "You have successfully claimed your disc and you've been opted in to receiving messages."
+        }
+      />
+      <LogoRescueFlow />
+      <SubHeaderSearch courseName={"Tranquility Trails"} />
+      <FullLogoHeader />
+      <HomePageButtons />
+
       <div className="btn-container">
         <Button
           text={"This is a red button with a border"}

@@ -102,3 +102,35 @@
 
 }
 
+.rescue-courses {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 3rem !important;
+    margin-bottom: -0;
+}
+
+.rescue-courses h2 {
+    color: var(--primary-white);
+    margin: 0;
+    font-size: 7.5rem;
+}
+
+.rescue-courses h2 span {
+    font-weight: 300;
+}
+
+.sub-header-courses {
+    font-size: 4rem;
+    color: var(--primary-white);
+    text-align: center;
+    margin-top: 0;
+}
+
+ .sub-header-courses .missingtext {
+    color: #005daa;
+    text-shadow: 0px 2px 3px #ffffff4f;
+  }
+  
+
