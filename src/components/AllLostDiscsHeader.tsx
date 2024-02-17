@@ -1,10 +1,10 @@
 import "../styles/subHeaderSearch.css";
 
-interface SubHeaderSearchProps {
+interface AllLostDiscsHeaderProps {
   courseName: string;
 }
 
-const SubHeaderSearch = (props: SubHeaderSearchProps) => {
+const AllLostDiscsHeader = (props: AllLostDiscsHeaderProps) => {
   return (
     <div className="rescue">
       <h3>
@@ -16,4 +16,4 @@ const SubHeaderSearch = (props: SubHeaderSearchProps) => {
   );
 };
 
-export default SubHeaderSearch;
+export default AllLostDiscsHeader;

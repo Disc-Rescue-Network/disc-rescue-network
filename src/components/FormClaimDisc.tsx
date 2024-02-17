@@ -48,7 +48,7 @@ const FormClaimDisc = (props: FormClaimDiscProps) => {
         <Button
           text={"Schedule your Disc Pickup"}
           red={true}
-          className="Schedule-disc"
+          className="Schedule-disc white-border-hover"
           onClick={() => {
             alert("button clicked");
           }}
@@ -56,7 +56,7 @@ const FormClaimDisc = (props: FormClaimDiscProps) => {
         <Button
           text={"Surrender Disc"}
           red={false}
-          className="Surrender-disc"
+          className="Surrender-disc white-border-hover"
           onClick={() => {
             alert("button clicked");
           }}

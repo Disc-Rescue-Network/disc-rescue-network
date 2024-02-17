@@ -1,12 +1,11 @@
 .sub-header-courses {
-    font-size: 4rem;
-    color: var(--primary-white);
-    text-align: center;
-    margin-top: 0;
+  font-size: 4rem;
+  color: var(--primary-white);
+  text-align: center;
+  margin: 2rem auto;
 }
 
- .sub-header-courses .missingtext {
-    color: #005daa;
-    text-shadow: 0px 2px 3px #ffffff4f;
-  }
-  
+.sub-header-courses .missingtext {
+  color: #005daa;
+  text-shadow: 0px 2px 3px #ffffff4f;
+}

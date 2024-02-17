@@ -9,9 +9,9 @@ import SuccessSubheader from "../components/SuccessSubheader";
 import SuccessHeader from "../components/SuccessHeader";
 import FullLogoHeader from "../components/HeaderComponents";
 import LogoRescueFlow from "../components/LogoRescueFlow";
-import SubHeaderSearch from "../components/SubHeaderSearch";
 import HomePageButtons from "../components/HomePageButtons";
 import FormClaimDisc from "../components/FormClaimDisc";
+import AllLostDiscsHeader from "../components/AllLostDiscsHeader";
 
 const arrayOfDiscs = [
   {
@@ -66,8 +66,9 @@ export default function Components() {
         inputPhone={"Phone Number Written On the Disc"}
         inputPickupLocation={"Choose a Pickup Location"}
       />
-      <Discs arrayOfDiscs={arrayOfDiscs} />
       <Subheader text="Recently Added Discs" />
+      <Discs arrayOfDiscs={arrayOfDiscs} />
+
       {/* the success header one does not need any props, it is good as is */}
       <SuccessHeader />
       <SuccessSubheader
@@ -76,7 +77,7 @@ export default function Components() {
         }
       />
       <LogoRescueFlow />
-      <SubHeaderSearch courseName={"Tranquility Trails"} />
+      <AllLostDiscsHeader courseName={"Tranquility Trails"} />
       <FullLogoHeader />
       <HomePageButtons />
 
