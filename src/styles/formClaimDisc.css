@@ -28,6 +28,7 @@
 .form-control::placeholder {
   color: var(--primary-blue);
   text-align: left;
+  font-weight: 400 !important;
 }
 
 .number {
