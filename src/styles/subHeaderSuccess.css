@@ -1,14 +1,14 @@
 .sub-header-success {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 1rem;
 }
 
 .sub-header-success h3 {
-    color: var(--primary-white);
-    margin-bottom: 0.5rem;
-    font-size: calc(1.3rem + .6vw);
+  color: var(--primary-white);
+  /* margin-bottom: 0.5rem; */
+  font-size: calc(1.3rem + 0.6vw);
 }
