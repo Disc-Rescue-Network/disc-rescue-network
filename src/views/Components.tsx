@@ -66,6 +66,7 @@ export default function Components() {
         inputPhone={"Phone Number Written On the Disc"}
         inputPickupLocation={"Choose a Pickup Location"}
       />
+      <HomePageButtons />
       <Subheader text="Recently Added Discs" />
       <Discs arrayOfDiscs={arrayOfDiscs} />
 
@@ -79,7 +80,7 @@ export default function Components() {
       <LogoRescueFlow />
       <AllLostDiscsHeader courseName={"Tranquility Trails"} />
       <FullLogoHeader />
-      <HomePageButtons />
+      
 
       <div className="btn-container">
         <Button

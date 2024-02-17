@@ -8,6 +8,8 @@
   font-weight: 500;
   color: var(--primary-blue);
   padding: 0px;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
   margin: 5px 0px;
   text-align: left;
 }
