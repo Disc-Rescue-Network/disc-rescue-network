@@ -28,7 +28,7 @@ const FormClaimDisc = (props: FormClaimDiscProps) => {
 
       <div className="mt-2 mb-2 select-box">
         <div className="col-12 number">
-          <input className="form-control " placeholder={inputPhone} />
+          <input className="form-control" placeholder={inputPhone} />
         </div>
       </div>
       <div
