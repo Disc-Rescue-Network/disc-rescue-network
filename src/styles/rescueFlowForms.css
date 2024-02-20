@@ -1,21 +1,23 @@
-.select-box {
+.select-box-forms {
     max-width: 600px;
     width: 80%;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1rem;
 }
 
-.select-box select:focus {
+.select-box-forms select:focus {
     outline: none;
 }
 
-.select-box .arrow {
+.select-box-forms .arrow {
     position: relative;   
 }
 
-.select-box select {
+.select-box-forms select {
     border-radius: 0;
     padding: 10px 6px;
     font-size: 16px;
@@ -26,7 +28,7 @@
     color: var(--primary-blue);
     height: 50px !important;
     font-family: inherit;
-    font-weight: 400 !important;
+    font-weight: 900 !important;
 }
 
 .state {
@@ -38,18 +40,20 @@
     padding-right: 0;
 }
 
-.col-4 {
+.col-4-forms {
     flex: 0 0 auto;
     width: 33.33333333%;
+    max-width: 150px;
 }
 
-.col-8 {
+.col-8-forms {
     flex: 0 0 auto;
     width: 66.66666667%;
     padding-left: 0;
+    max-width: 300px;
 }
 
-.form-select {
+.form-select-rescue-flow {
     display: block;
     width: 98%;
     padding: .375rem 2.25rem .375rem .75rem;
@@ -72,17 +76,17 @@
 }
 
 @media screen and (max-width: 500px) {
-    .form-select {
+    .form-select-rescue-flow {
         width: 96%;
     }
 }
 
-.select-box .arrow.one:after {
+.select-box-forms .arrow.one:after {
     content: "";
     right: 10px;
 }
 
-.select-box .arrow:after {
+.select-box-forms .arrow:after {
     content: "";
     width: 0;
     height: 0;

@@ -12,6 +12,10 @@ import LogoRescueFlow from "../components/LogoRescueFlow";
 import HomePageButtons from "../components/HomePageButtons";
 import FormClaimDisc from "../components/FormClaimDisc";
 import AllLostDiscsHeader from "../components/AllLostDiscsHeader";
+import RescueFlow from "../components/RescueFlow";
+import Forms from "../components/Forms";
+import RescueFlowStep3 from "../components/RescueFlowStep3";
+import RescueFlowStep2 from "../components/RescueFlowStep2";
 
 const arrayOfDiscs = [
   {
@@ -48,6 +52,9 @@ export default function Components() {
 
   return (
     <div className="container">
+      <RescueFlow />
+      <RescueFlowStep3 />
+      <RescueFlowStep2 />
       <TwoLineHeader
         baseText={"Choose your"}
         lightText={"Course"}
@@ -66,6 +73,7 @@ export default function Components() {
         inputPhone={"Phone Number Written On the Disc"}
         inputPickupLocation={"Choose a Pickup Location"}
       />
+      <HomePageButtons />
       <Subheader text="Recently Added Discs" />
       <Discs arrayOfDiscs={arrayOfDiscs} />
 
@@ -79,7 +87,7 @@ export default function Components() {
       <LogoRescueFlow />
       <AllLostDiscsHeader courseName={"Tranquility Trails"} />
       <FullLogoHeader />
-      <HomePageButtons />
+      
 
       <div className="btn-container">
         <Button
