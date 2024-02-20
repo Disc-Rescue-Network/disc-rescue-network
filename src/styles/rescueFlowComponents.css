@@ -49,10 +49,12 @@
 }
 
 .smaller-text {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     margin: 0px;
     padding: 0px;
     color: var(--primary-white);
+    margin-top: -15px;
+    display: block;
 }
 
 .buttons-rescue {

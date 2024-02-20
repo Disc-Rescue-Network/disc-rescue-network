@@ -17,7 +17,8 @@ const RescueFlow = () => {
                 lightNumber={" / 5"}
                 whereText={"where'd it go"} 
                 secondMissingText={" Missing?"}
-                smallerText={""} />      
+                smallerText={""} 
+                finalPoint={""}/>      
         </div>
          <RescueFlowForms inicialOption={"State"} courseOption={"Select a Course"} />
          <div className="buttons-rescue">

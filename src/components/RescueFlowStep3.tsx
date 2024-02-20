@@ -13,7 +13,9 @@ const RescueFlowStep3 = () => {
                 lightNumber={" / 5"}
                 whereText={"Throw and a"} 
                 secondMissingText={" Miss"}
-                smallerText={""} />      
+                smallerText={"Not to worry, Let's keep searching"}
+                finalPoint={"."}
+                />      
         </div>
         {/* I'll solve the form-control in this */}
          <RescueFlowForms inicialOption={"First Inicial"} courseOption={"Enter Last Name"} />
