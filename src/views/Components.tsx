@@ -14,6 +14,7 @@ import FormClaimDisc from "../components/FormClaimDisc";
 import AllLostDiscsHeader from "../components/AllLostDiscsHeader";
 import RescueFlow from "../components/RescueFlow";
 import Forms from "../components/Forms";
+import RescueFlowStep2 from "../components/RescueFlowStep2";
 
 const arrayOfDiscs = [
   {
@@ -51,6 +52,7 @@ export default function Components() {
   return (
     <div className="container">
       <RescueFlow />
+      <RescueFlowStep2 />
       <TwoLineHeader
         baseText={"Choose your"}
         lightText={"Course"}
