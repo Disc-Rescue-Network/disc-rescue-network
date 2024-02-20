@@ -53,8 +53,8 @@ export default function Components() {
   return (
     <div className="container">
       <RescueFlow />
-      <RescueFlowStep3 />
       <RescueFlowStep2 />
+      <RescueFlowStep3 />
       <TwoLineHeader
         baseText={"Choose your"}
         lightText={"Course"}

@@ -12,9 +12,8 @@ const RescueFlowStep3 = () => {
                 baseNumber={"3"}
                 lightNumber={" / 5"}
                 whereText={"Throw and a"} 
-                secondMissingText={" Miss"}
+                secondMissingText={" Miss."}
                 smallerText={"Not to worry, Let's keep searching"}
-                finalPoint={"."}
                 />      
         </div>
         {/* I'll solve the form-control in this */}
