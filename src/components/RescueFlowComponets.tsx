@@ -8,10 +8,11 @@ interface HeaderRescueFlowProps {
     whereText: string;
     secondMissingText: string;
     smallerText: string;
+    finalPoint: string;
 }
 
 const RescueFlowComponets = (props: HeaderRescueFlowProps) => {
-    const { baseText, lightText, baseNumber, lightNumber, whereText, secondMissingText, smallerText } = props;
+    const { baseText, lightText, baseNumber, lightNumber, whereText, secondMissingText, smallerText, finalPoint } = props;
     return (
         <div className="rescue-flow-components">
             <h2>
@@ -24,9 +25,10 @@ const RescueFlowComponets = (props: HeaderRescueFlowProps) => {
             </h3>
             <h3 className="where-rescue">
                 {whereText}
-                <span className="secondary-missing-text">{secondMissingText}</span>
-                <span className="smaller-text">{smallerText}</span>
+                <span className="secondary-missing-text">{secondMissingText}</span>  
+                {finalPoint}
             </h3>
+            <span className="smaller-text">{smallerText}</span>
         </div>
     )
 }

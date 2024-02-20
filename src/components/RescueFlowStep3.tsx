@@ -1,29 +1,27 @@
-import HeaderRescueFlow from "./RescueFlowComponets";
-import LogoRescueFlow from "./LogoRescueFlow";
-import "../styles/rescueFlowStep.css"
-import RescueFlowForms from "./RescueFlowForms";
 import Button from "./Button";
+import HeaderRescueFlow from "./RescueFlowComponets";
+import RescueFlowForms from "./RescueFlowForms";
 
-
-const RescueFlow = () => {
+const RescueFlowStep3 = () => {
     return (
         <>
-        <LogoRescueFlow />
         <div className="rescue-flow-step">
             <HeaderRescueFlow 
                 baseText={"Rescue Flow"}
                 lightText={"Wizard"}
-                baseNumber={"1"}
+                baseNumber={"3"}
                 lightNumber={" / 5"}
-                whereText={"where'd it go"} 
-                secondMissingText={" Missing?"}
-                smallerText={""} 
-                finalPoint={""}/>      
+                whereText={"Throw and a"} 
+                secondMissingText={" Miss"}
+                smallerText={"Not to worry, Let's keep searching"}
+                finalPoint={"."}
+                />      
         </div>
-         <RescueFlowForms inicialOption={"State"} courseOption={"Select a Course"} />
+        {/* I'll solve the form-control in this */}
+         <RescueFlowForms inicialOption={"First Inicial"} courseOption={"Enter Last Name"} />
          <div className="buttons-rescue">
             <Button  
-                text={"Next Step"}
+                text={"Let's Try This Again"}
                 red={true}
                 className="button-red-rescue"
                 onClick={() => {
@@ -31,7 +29,7 @@ const RescueFlow = () => {
                 }}/>
                 {/* This button needs to be approximately the height: 30px */}
             <Button  
-                text={"Don't Remember"}
+                text={"Didn't Write One"}
                 red={false}
                 border={true}
                 className="second-button-rescue white-border"
@@ -44,4 +42,4 @@ const RescueFlow = () => {
     )
 }
 
-export default RescueFlow;
+export default RescueFlowStep3;
