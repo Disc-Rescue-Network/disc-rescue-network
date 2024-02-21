@@ -1,10 +1,9 @@
 import Button from "./Button";
+import FormStep4 from "./FormStep4";
 import LogoRescueFlow from "./LogoRescueFlow";
-import FormStep3 from "./FormStep3";
 import HeaderRescueFlow from "./RescueFlowComponets";
-import RescueFlowForms from "./RescueFlowForms";
 
-const RescueFlowStep3 = () => {
+const RescueFlowStep4 = () => {
     return (
         <>
         <LogoRescueFlow />
@@ -12,26 +11,27 @@ const RescueFlowStep3 = () => {
             <HeaderRescueFlow 
                 baseText={"Rescue Flow"}
                 lightText={"Wizard"}
-                baseNumber={"3"}
+                baseNumber={"4"}
                 lightNumber={" / 5"}
-                whereText={"Throw and a"} 
-                secondMissingText={" Miss."}
-                smallerText={"Not to worry, Let's keep searching"}
+                whereText={"Let's Widen Our"} 
+                secondMissingText={" Stance."}
+                smallerText={"We probably just couldn't read the handwriting..."}
                 />      
         </div>
         {/* I'll solve the form-control in this */}
-         <FormStep3 initialName={"First Initial"} lastName={"Enter Last Name"} />
+         <FormStep4 inputBrand={"Type The Brand of Discs"} selectBrand={"Select Brand"} />
          <div className="buttons-rescue">
             <Button  
-                text={"Let's Try This Again"}
+                text={"Show me the discs"}
                 red={true}
                 className="button-red-rescue"
                 onClick={() => {
                   alert("button clicked");
-                }}/>
+                }}
+                />
                 {/* This button needs to be approximately the height: 30px */}
             <Button  
-                text={"Didn't Write One"}
+                text={"Select Brand"}
                 red={false}
                 border={true}
                 className="second-button-rescue white-border"
@@ -44,4 +44,4 @@ const RescueFlowStep3 = () => {
     )
 }
 
-export default RescueFlowStep3;
+export default RescueFlowStep4;

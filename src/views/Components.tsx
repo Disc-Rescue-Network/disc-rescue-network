@@ -16,6 +16,7 @@ import RescueFlow from "../components/RescueFlow";
 import Forms from "../components/Forms";
 import RescueFlowStep3 from "../components/RescueFlowStep3";
 import RescueFlowStep2 from "../components/RescueFlowStep2";
+import RescueFlowStep4 from "../components/RescueFlowStep4";
 import RescueFlowStep5 from "../components/RescueFlowStep5";
 
 const arrayOfDiscs = [
@@ -57,6 +58,7 @@ export default function Components() {
       <RescueFlow />
       <RescueFlowStep2 />
       <RescueFlowStep3 />
+      <RescueFlowStep4 />
       <TwoLineHeader
         baseText={"Choose your"}
         lightText={"Course"}
