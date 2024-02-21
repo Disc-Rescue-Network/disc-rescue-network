@@ -1,5 +1,6 @@
 import Button from "./Button";
 import LogoRescueFlow from "./LogoRescueFlow";
+import FormStep3 from "./FormStep3";
 import HeaderRescueFlow from "./RescueFlowComponets";
 import RescueFlowForms from "./RescueFlowForms";
 
@@ -19,7 +20,7 @@ const RescueFlowStep3 = () => {
                 />      
         </div>
         {/* I'll solve the form-control in this */}
-         <RescueFlowForms inicialOption={"First Inicial"} courseOption={"Enter Last Name"} />
+         <FormStep3 initialName={"First Initial"} lastName={"Enter Last Name"} />
          <div className="buttons-rescue">
             <Button  
                 text={"Let's Try This Again"}
