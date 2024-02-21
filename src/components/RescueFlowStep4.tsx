@@ -1,10 +1,12 @@
 import Button from "./Button";
 import FormStep4 from "./FormStep4";
+import LogoRescueFlow from "./LogoRescueFlow";
 import HeaderRescueFlow from "./RescueFlowComponets";
 
 const RescueFlowStep4 = () => {
     return (
         <>
+        <LogoRescueFlow />
         <div className="rescue-flow-step">
             <HeaderRescueFlow 
                 baseText={"Rescue Flow"}
