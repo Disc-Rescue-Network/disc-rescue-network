@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  app:
+    container_name: front-end-docker
+    image: "211125520192.dkr.ecr.us-east-1.amazonaws.com/front-end-docker:latest"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=production
+    command: nginx -g 'daemon off;'
