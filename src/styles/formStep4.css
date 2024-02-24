@@ -1,0 +1,220 @@
+.input-dropdown-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* text-align: center; */
+    background-color: var(--secondary-blue);
+    border: 2px solid var(--secondary-blue);
+    position: relative;
+    width: 100%;
+    font-size: 14px;
+    padding: 0px;
+    margin-top: 30px;
+    max-width: 600px;
+    margin: auto;
+    margin-bottom: 1.5rem;
+  }
+
+  .input-dropdown-wrapper input,
+  .input-dropdown-wrapper select {
+    border: none;
+    border-radius: 0px;
+    height: 60px;
+    line-height: 40px;
+    width: 100%;
+    padding: 5px;
+    background-color: var(--primary-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    margin: auto;
+  }
+
+  .input-dropdown-wrapper input {
+    margin-right: 1px;
+    flex-basis: 55%;
+    border-radius: 0px;
+    text-align: left;
+    font-family: "Bebas Neue";
+    font-weight: 400;
+    padding-right: 5px;
+    font-size: 16px;
+  }
+
+  .input-dropdown-wrapper select {
+    flex-basis: 46%;
+    margin-left: 1px !important;
+  }
+
+  /* Style the 'OR' circle for smaller devices */
+  /* .input-dropdown-wrapper .circle-or {
+        background-color: var(--secondary-blue);
+        color: white;
+        border: 2px solid transparent;
+        font-size: 12px;
+        font-weight: 100 !important;
+        letter-spacing: .1em;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin: auto;
+        padding: 1%;
+        position: absolute;
+        left: calc(55%);
+        top: calc(50%); 
+        transform: translate(-55%, -50%);
+        z-index: 1;
+    } */
+
+  .input-dropdown-wrapper .circle-or {
+    background-color: var(--secondary-blue);
+    color: white;
+    border: 2px solid transparent;
+    font-size: 14px; /* Adjust as needed */
+    font-weight: 300; /* Changed from 100 to normal */
+    letter-spacing: normal; /* Adjust as needed */
+    border-radius: 50%;
+    width: 23px;
+    height: 23px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    position: absolute;
+    left: 55%;
+    top: 50%;
+    transform: translate(-55%, -50%);
+    z-index: 1;
+    margin-left: 0.5px;
+  }
+
+  /* Adjustments for larger screens */
+  @media (min-width: 768px) {
+    .input-dropdown-wrapper .circle-or {
+      width: 30px;
+      height: 30px;
+      font-size: 18px; /* Adjust as needed */
+    }
+  }
+
+  .input-dropdown-wrapper select {
+    appearance: none;
+    width: 100%;
+    margin: 0px;
+    margin-left: 2px;
+    padding: 5px;
+    background-color: var(--primary-white);
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    align-self: center;
+    margin: auto;
+  }
+
+  .input-dropdown-wrapper input:focus,
+  .input-dropdown-wrapper select:focus {
+    outline: none;
+    border-radius: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    margin: auto;
+  }
+  /* 
+    @media (min-width: 768px) {
+    .input-dropdown-wrapper {
+        font-size: 16px; 
+        padding: 0px; 
+    }
+
+    .input-dropdown-wrapper .circle-or {
+        width: 30px; 
+        height: 30px;
+        font-size: 18px;
+        left: calc(55%);
+        top: calc(50%); 
+        transform: translate(-55%, -50%);
+    }
+    } */
+
+  .input-dropdown-wrapper input::placeholder {
+    color: var(--primary-blue);
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    align-self: center;
+    margin: auto;
+    font-size: 1.1rem;
+    border-radius: 0px;
+    font-family: "Bebas Neue";
+    font-weight: 400;
+  }
+
+  .input-dropdown-wrapper select::placeholder {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    align-self: center;
+    margin: auto;
+    font-size: 1.1rem;
+    border-radius: 0px;
+  }
+
+  .input-dropdown-wrapper select {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    align-self: center;
+    margin: auto;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: var(--primary-white);
+    color: var(--primary-red);
+    font-size: 1.1rem;
+    font-family: "Bebas Neue";
+    font-weight: 400;
+    height: 70px;
+  }
+
+  .input-dropdown-wrapper select option {
+    color: var(--primary-red);
+  }
+
+  .input-dropdown-wrapper select option {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    align-self: center;
+    margin: auto;
+    font-size: 1rem;
+    color: var(--primary-red);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;    
+  }
+
+  .select-brand-dropdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    margin: auto;
+    text-align-last: center; /* For Firefox */
+    text-align: center; /* For other browsers */
+    -moz-appearance: none; /* For Firefox */
+    -webkit-appearance: none; /* For Chrome and Safari */
+    appearance: none; /* Standard syntax */
+  }
+

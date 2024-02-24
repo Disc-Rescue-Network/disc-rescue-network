@@ -1,0 +1,26 @@
+.step3 {
+    margin-bottom: 1.5rem;
+    width: 80%;
+    max-width: 400px;
+}
+
+
+.step3 input {
+    border: none;
+    background-image: none;
+    appearance: none;
+    position: relative;
+    color: black;
+    font-family: "Bebas Neue";
+    font-weight: 400 !important;
+}
+
+.step3 input::placeholder {
+    color: var(--primary-blue);
+}
+
+.col-8-step3{
+    flex: 0 0 auto;
+    width: 60%;
+    padding-left: 0;
+}

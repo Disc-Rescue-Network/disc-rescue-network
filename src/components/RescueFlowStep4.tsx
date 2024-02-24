@@ -1,11 +1,9 @@
-import HeaderRescueFlow from "./RescueFlowComponets";
-import LogoRescueFlow from "./LogoRescueFlow";
-import "../styles/rescueFlowStep.css"
-import RescueFlowForms from "./RescueFlowForms";
 import Button from "./Button";
+import FormStep4 from "./FormStep4";
+import LogoRescueFlow from "./LogoRescueFlow";
+import HeaderRescueFlow from "./RescueFlowComponets";
 
-
-const RescueFlow = () => {
+const RescueFlowStep4 = () => {
     return (
         <>
         <LogoRescueFlow />
@@ -13,25 +11,27 @@ const RescueFlow = () => {
             <HeaderRescueFlow 
                 baseText={"Rescue Flow"}
                 lightText={"Wizard"}
-                baseNumber={"1"}
+                baseNumber={"4"}
                 lightNumber={" / 5"}
-                whereText={"where'd it go"} 
-                secondMissingText={" Missing?"}
-                smallerText={""} 
-            />      
+                whereText={"Let's Widen Our"} 
+                secondMissingText={" Stance."}
+                smallerText={"We probably just couldn't read the handwriting..."}
+                />      
         </div>
-         <RescueFlowForms inicialOption={"State"} courseOption={"Select a Course"} />
+        {/* I'll solve the form-control in this */}
+         <FormStep4 inputBrand={"Type The Brand of Discs"} selectBrand={"Select Brand"} />
          <div className="buttons-rescue">
             <Button  
-                text={"Next Step"}
+                text={"Show me the discs"}
                 red={true}
                 className="button-red-rescue"
                 onClick={() => {
                   alert("button clicked");
-                }}/>
+                }}
+                />
                 {/* This button needs to be approximately the height: 30px */}
             <Button  
-                text={"Don't Remember"}
+                text={"Select Brand"}
                 red={false}
                 border={true}
                 className="second-button-rescue white-border"
@@ -44,4 +44,4 @@ const RescueFlow = () => {
     )
 }
 
-export default RescueFlow;
+export default RescueFlowStep4;
