@@ -18,6 +18,7 @@ import RescueFlowStep3 from "../components/RescueFlowStep3";
 import RescueFlowStep2 from "../components/RescueFlowStep2";
 import RescueFlowStep4 from "../components/RescueFlowStep4";
 import RescueFlowStep5 from "../components/RescueFlowStep5";
+import PopupComponent from "../components/PopUpComponent";
 
 const arrayOfDiscs = [
   {

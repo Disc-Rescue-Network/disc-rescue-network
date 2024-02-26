@@ -1,0 +1,209 @@
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100dvw; /* Full width */
+    height: 100dvh; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup h2 {
+    color: var(--primary-white);
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+  
+  .popup p {
+    color: var(--primary-white);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  p {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 1rem;
+
+  }
+  
+  .popup .redText {
+    color: var(--primary-white);
+    text-decoration: underline;
+    text-decoration-color: var(--primary-red);
+    text-underline-offset: 2px;
+    font-weight: 600;
+    /* -webkit-text-stroke: .5px var(--primary-red); */
+    letter-spacing: normal;
+  }
+  
+  /* Popup Content */
+  .popup-content {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: auto;
+    max-width: 650px;
+    max-height: 700px;
+    background-color: var(--primary-blue);
+    position: relative;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid var(--primary-blue);
+    border-radius: 0px;
+    border: 3px solid var(--secondary-blue);
+    overflow-y: auto;
+  }
+  
+  .popup-claim-disc {
+    min-height: 480px;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: var(--secondary-blue);
+    position: absolute;
+    top: 13px;
+    right: 15px;
+    font-size: 20px;
+    font-weight: 900;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: var(--primary-black);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  h4.confirmd {
+    color: #55de1f;
+  }
+  
+  .main-section .missingtext {
+    color: #005daa;
+    text-shadow: 0px 2px 3px #ffffff4f;
+  }
+  
+  .main-section .missingtext-blue {
+    color: var(--secondary-blue);
+  }
+
+
+.smaller-text {
+    font-size: 0.7rem;
+    margin: 0px;
+    padding: 0px;
+    color: var(--primary-white);
+  }
+  
+  .rescue h3 {
+    font-size: 7.5rem;
+  }
+  
+  .rescue h3 span {
+    font-weight: 100 !important;
+    font-family: "Bebas Neue";
+  }
+  
+  .stepbutton {
+    background-color: var(--primary-red);
+    width: 90%;
+    /* max-width: 200px; */
+    padding: 8px 4px;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border: 2px solid transparent;
+  }
+  
+  .failurebutton {
+    background-color: var(--primary-red);
+    width: 65%;
+    max-width: 400px;
+    padding: 8px 4px;
+    border: none;
+    min-height: 50px;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+  
+  .main-section button.stepbutton {
+    background-color: var(--primary-red);
+    width: 60%;
+    /* max-width: 250px; */
+    padding: 8px 4px;
+    border: 2px solid transparent;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+  
+  .main-section button.failurebutton {
+    background-color: var(--primary-red);
+    width: 80%;
+    max-width: 400px;
+    padding: 8px 4px;
+    border: none;
+    min-height: 50px;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+  
+  .failurebutton:hover {
+    cursor: pointer;
+    background-color: var(--primary-blue) !important;
+    border: 2px solid var(--primary-white) !important;
+  }
+  
+  .stepbutton:hover {
+    cursor: pointer;
+    background-color: var(--primary-blue) !important;
+    border: 2px solid var(--primary-white) !important;
+  }
+  
+  .verify-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding: 10px;
+    width: 100%;
+    max-width: 600px;
+    color: var(--primary-white);
+    font-size: 1.2rem;
+  }
+
+  .find-my-disc-button {
+    background-color: var(--primary-red);
+    color: var(--primary-white);
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.5rem;
+    margin: 4px 2px;
+    cursor: pointer;
+    border: 2px solid var(--primary-red);
+    border-radius: 0px;
+    width: 80%;
+    height: 60px;
+  }
