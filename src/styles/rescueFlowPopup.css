@@ -1,0 +1,6 @@
+.verify-row {
+    color: var(--primary-black);
+    width: 65%;
+    max-width: 400px;
+    margin: 0;
+}
