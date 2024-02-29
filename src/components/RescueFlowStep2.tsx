@@ -1,9 +1,22 @@
+import { useState } from "react";
 import Button from "./Button";
 import FormStep from "./FormStep2";
 import LogoRescueFlow from "./LogoRescueFlow";
 import HeaderRescueFlow from "./RescueFlowComponets";
+import RescueFlowPopup from "./RescueFlowPopup";
 
 const RescueFlowStep2 = () => {
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false); 
+
+  const openPopup = () => {
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
+ 
     return (
         <>
         <LogoRescueFlow />
@@ -24,9 +37,7 @@ const RescueFlowStep2 = () => {
                 text={"Locate My Disc"}
                 red={true}
                 className="button-red-rescue-step2"
-                onClick={() => {
-                  alert("button clicked");
-                }}/>
+                onClick={openPopup}/>
                 {/* This button needs to be approximately the height: 30px */}
             <Button  
                 text={"Didn't Write One"}
@@ -37,7 +48,8 @@ const RescueFlowStep2 = () => {
                   alert("button clicked");
                 }}                
                 />
-            </div>    
+            </div> 
+            {isPopupOpen && <RescueFlowPopup onClosePopup={closePopup} />}   
         </>
     )
 }

@@ -5,12 +5,12 @@ import Button from "./Button";
 
 interface PopupComponentProps {
     title: string;
-    content: string;
     redText: string;
+    content: string;
     onClose: () => void;
 }
 
-const PopUpComponent: React.FC<PopupComponentProps> = ({ title, content, redText, onClose }) => {
+const PopUpComponent: React.FC<PopupComponentProps> = ({ title, redText, content, onClose }) => {
     return (
         <div className="popup" style={{ display: 'flex' }}>
             <div className="popup-content">
