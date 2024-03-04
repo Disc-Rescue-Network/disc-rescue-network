@@ -4,3 +4,12 @@
     max-width: 400px;
     margin: 0;
 }
+
+.blue-button-popup {
+    height: 30px;
+    font-size: 15px;
+    font-weight: 300;
+    margin-top: 0.5rem;
+    padding: 9px;
+    width: 90%;
+}

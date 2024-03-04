@@ -36,6 +36,7 @@ const RescueFlowPopup: React.FC<Props> = ({ onClosePopup }) => {
                 <Button 
                     text={"This Is Not Mine"} 
                     red={false}
+                    className={"blue-button-popup"}
                     onClick={onClosePopup}                
                 />
             </div>
