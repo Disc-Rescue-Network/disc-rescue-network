@@ -71,23 +71,25 @@
 
 .button-red-rescue {
     background-color: var(--primary-red);
-    width: 60%;
+    width: 75%;
     /* max-width: 250px; */
     padding: 8px 4px;
     border: 2px solid transparent;
     font-size: 18px;
     font-weight: 500;
     letter-spacing: 1px;
+    height: 50px;
 }
 
 .second-button-rescue {
-    width: 50%;
+    width: 55%;
     padding: 0px;
     background-color: var(--primary-blue);
     color: var(--primary-white);
     font-size: 14px;
     letter-spacing: 0.08em;
     font-weight: 300;
+    height: 30px;
 }
 
 .white-border {
