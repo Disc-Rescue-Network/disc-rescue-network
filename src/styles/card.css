@@ -93,6 +93,13 @@ button {
   height: 114px;
 }
 
+@media screen and (max-width: 500px) {
+  .course-list {
+    width: 135px;
+    height: 118px;
+  }
+}
+
 .disc-info .course-list ul {
   padding-left: 4px;
   margin-top: 0;
@@ -144,6 +151,13 @@ button {
   background-color: #005daa;
 }
 
+@media screen and (max-width: 500px) {
+  .image {
+    width: 135px;
+    height: 125px;
+  }
+}
+
 .btn-2 {
   height: 30px;
   max-width: 90px;
@@ -163,4 +177,12 @@ button {
 .unset-padding {
   padding: 0;
   margin: 0;
+}
+
+.button-popup {
+  height: 23px;
+  max-width: 70px;
+  letter-spacing: 0.7px;
+  font-weight: 600;
+  font-size: 0.8em;
 }

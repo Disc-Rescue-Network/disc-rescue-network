@@ -1,0 +1,21 @@
+.col-6 {
+    flex: 0 0 auto;
+    width: 50%;
+}
+
+.row-pop {
+    display: flex;
+}
+
+.course-box .course-box-detail {
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 500px) {
+.course-box .course-box-detail {
+    height: 195px;
+    padding-left: 5px;
+    margin-bottom: 70px;
+    margin-top: 5px;
+}
+}
