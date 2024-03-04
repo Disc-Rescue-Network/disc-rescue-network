@@ -1,5 +1,6 @@
 import pinImage from "../assets/pin.png";
-import imageLogo from "../assets/DRN_WebLogo_HDPI.png";
+import Button from "./Button";
+
 
 type CardProps = {
     Course: string;
@@ -7,9 +8,10 @@ type CardProps = {
     Color: string;
     Name: string;
     DiscAndBrand: string;
+    showButton: boolean;
   };
 
-const CardsRescueFLow = ({ Course, img, Color, Name, DiscAndBrand }: CardProps) => {
+const CardsRescueFLow = ({ Course, img, Color, Name, DiscAndBrand, showButton }: CardProps) => {
     return (
     <div className="card-container" style={{ justifyContent: 'center' }}>
       <div className="disc-info">
@@ -23,7 +25,7 @@ const CardsRescueFLow = ({ Course, img, Color, Name, DiscAndBrand }: CardProps) 
         </div>
         <img src={img} loading="lazy" alt="disc" className="image" style={{ backgroundColor: '#353535' }}/>
         <div className="w-layout-grid grid grid-disc">
-          <div className="course-list" style={{ height: '103px' }}>
+          <div className="course-list" style={{ height: '110px' }}>
             <ul>
               <li>
                 <i className="bx bx-palette" />
@@ -38,6 +40,18 @@ const CardsRescueFLow = ({ Course, img, Color, Name, DiscAndBrand }: CardProps) 
                 <span>{DiscAndBrand}</span>
               </li>
             </ul>
+            {showButton && (
+               <div className="card-button-container">
+               <Button
+                 text={"Claim Disc"}
+                 red={true}
+                 className="unset-padding btn-2 button-popup"
+                 onClick={() => {
+                   alert("button clicked");
+                 }}
+               />
+             </div>
+            )}
           </div>
         </div>
       </div>

@@ -12,15 +12,16 @@ const RescueFlowPopup: React.FC<Props> = ({ onClosePopup }) => {
     
     return (
         <div className="popup" style={{ display: 'flex', flexDirection: 'column' }}>
-            <div className="popup-content">
+            <div className="popup-content" style={{ width: '80%' }}>
                 <div className="verify-info">
                     <div className="verify-row" id="discInfoVerify">
                         <CardsRescueFLow 
-                            Course={"Tranquility Trails"} 
-                            img={imageLogo} 
-                            Color={"Green"} 
-                            Name={"D. Bryant"} 
+                            Course={"Tranquility Trails"}
+                            img={imageLogo}
+                            Color={"Green"}
+                            Name={"D. Bryant"}
                             DiscAndBrand={"Discraft Buzz"} 
+                            showButton={false}     
                         />
                     </div>
                 </div>
