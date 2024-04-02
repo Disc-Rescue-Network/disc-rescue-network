@@ -21,6 +21,7 @@
 
   .card-container-discs::-webkit-scrollbar {
     width: 10px; 
+    height: 30px;
 }
 
 .card-container-discs::-webkit-scrollbar-thumb {
