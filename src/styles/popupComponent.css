@@ -33,9 +33,8 @@
 
   p {
     text-align: center;
-    margin-top: 0;
-    margin-bottom: 1rem;
-
+    margin: 0px 5px 10px 5px;
+    font-weight: 600;
   }
   
   .popup .redText {
@@ -75,16 +74,35 @@
   
   /* The Close Button */
   .close {
-    color: var(--secondary-blue);
+    width: 20px;
+    height: 30px;
     position: absolute;
-    top: 13px;
-    right: 15px;
-    font-size: 20px;
-    font-weight: 900;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+
+  .line {
+    width: 16px;
+    height: 4px;
+    top: 8px;
+    background-color: var(--secondary-blue);
+    position: absolute;
+    transform: translateY(-50%);
   }
   
-  .close:hover,
-  .close:focus {
+  .line:nth-child(1) {
+    transform: rotate(45deg);
+  }
+  
+  .line:nth-child(2) {
+    transform: rotate(-45deg);
+  }
+  .close:hover .line {
+    background-color: black;
+  }
+  .line:hover,
+  .line:focus {
     color: var(--primary-black);
     text-decoration: none;
     cursor: pointer;
@@ -206,4 +224,5 @@
     border-radius: 0px;
     width: 80%;
     height: 60px;
+    letter-spacing: 1px;
   }
