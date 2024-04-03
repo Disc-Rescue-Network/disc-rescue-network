@@ -2,7 +2,7 @@ import * as React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./styles/globals.css";
 import Home from "./views/Home";
-import Components from "./views/Components";
+// import Components from "./views/Components";
 import LoadingScreen from "./views/LoadingSceen";
 import Footer from "./components/Footer";
 
@@ -47,7 +47,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoadingScreen />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/components" element={<Components />} />
+        {/* <Route path="/components" element={<Components />} /> */}
       </Routes>
     </div>
   );
