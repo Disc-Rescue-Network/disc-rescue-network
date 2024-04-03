@@ -1,0 +1,53 @@
+.col-6 {
+    flex: 0 0 auto;
+    width: 50%;
+}
+
+.row-pop {
+    display: flex;
+}
+
+.col-6-step4 {
+    flex: 0 0 auto;
+    width: 300px;
+    margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 500px ) {
+    .col-6-step4 {
+        width: 175px;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 390px){
+    .col-6-step4 {
+        width: auto;
+        justify-content: center;
+    }
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.course-section-popup {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.course-box .course-box-detail {
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 500px) {
+.course-box .course-box-detail {
+    height: 195px;
+    padding-left: 5px;
+    margin-bottom: 70px;
+    margin-top: 5px;
+}
+}

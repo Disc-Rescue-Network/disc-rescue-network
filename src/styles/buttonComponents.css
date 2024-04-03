@@ -1,5 +1,5 @@
 .min-height-35 {
-  min-height: 30dvh;
+  min-height: 35dvh;
 }
 
 .btn-container-components {
@@ -9,8 +9,6 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  margin: auto;
-  gap: 1rem;
   padding: 0px;
 }
 

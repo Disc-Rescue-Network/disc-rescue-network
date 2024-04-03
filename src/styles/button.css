@@ -5,7 +5,7 @@ button {
   cursor: pointer;
   letter-spacing: 1.5px;
   height: auto;
-  min-height: 50px;
+  min-height: 30px;
   max-width: 800px;
   width: 100%;
   color: var(--primary-white);

@@ -1,11 +1,24 @@
+// HomePageButtons.tsx
+import React, { useState } from 'react';
 import "../styles/buttonComponents.css";
 import Button from "./Button";
 import imgFind from "../assets/search.png";
 import imgSearch from "../assets/courses.png";
+import PopUpComponent from "./PopUpComponent";
 
 const HomePageButtons = () => {
   const showToast = () => {
     alert("Button clicked");
+  };
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false); 
+
+  const openPopup = () => {
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
   };
 
   return (
@@ -21,7 +34,7 @@ const HomePageButtons = () => {
         />
         <div className="btn-description">
           GO THROUGH THE{" "}
-          <span className="rescue-flow" onClick={showToast}>
+          <span className="rescue-flow" onClick={openPopup}>
             RESCUE FLOW
           </span>{" "}
           TO FIND YOUR DISC
@@ -40,6 +53,15 @@ const HomePageButtons = () => {
           SEARCH BY COURSE FOR TURNED IN DISCS
         </div>
       </div>
+
+      {isPopupOpen && (
+        <PopUpComponent
+          title="WHAT IS THE"
+          redText=" RESCUE FLOW?"
+          content="THE RESCUE FLOW IS A SIMPLE 5 STEP PROCESS USED TO LOCATE YOUR LOST DISC. AT EACH STAGE WE GATHER SOME INFORMATION FROM YOU THAT COULD HAVE BEEN REPORTED BY VOLUNTEERS TO FIND YOUR DISC IN OUR SYSTEM. THE FLOW WILL TAKE YOU THROUGH THE SYSTEM WE DESIGNED TO EASILY, AND QUICKLY, FIND YOUR DISC IF IT’S IN THE NETWORK OR REPORT IT IF IT ISN’T."
+          onClose={closePopup} 
+        />
+      )}
     </div>
   );
 };

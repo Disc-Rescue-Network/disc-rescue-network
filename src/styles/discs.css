@@ -1,13 +1,37 @@
+.discs {
+  width: 80%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* white-space: nowrap; */
+}
+
 .card-container-discs {
     display: flex;
     flex-direction: row;
     align-items: center;
     text-align: center;
-    margin: 1rem auto;
-    gap: 1rem;
-    padding: 20px;
+    padding: 5px 0px;
     overflow-x: auto;
-    max-width: 800px;
-    width: 80%;
-    margin-top: -1.5rem;
+    gap: 1.5rem;
+    max-width: 1350px;
+    margin: auto;
   }
+
+  @media screen and (max-width: 500px){
+    .card-container-discs {
+      gap: 1.5rem;
+      max-width: 800px;
+      width: 100%;
+      overflow-x: visible;
+    }
+  }
+
+  .card-container-discs::-webkit-scrollbar {
+    width: 10px; 
+    height: 30px;
+}
+
+.card-container-discs::-webkit-scrollbar-thumb {
+    background: red; 
+    border-radius: 1px; 
+}

@@ -4,7 +4,7 @@
   --primary-black: #000000;
   --primary-red: #d31245;
   --primary-white: #ffffff;
-  --primary-grey: #e3e3e3;
+  --primary-grey: #f7f7f7;
   --primary-green: #55de1f;
   font-family: "Bebas Neue", sans-serif;
 }
@@ -93,6 +93,13 @@ button {
   height: 114px;
 }
 
+@media screen and (max-width: 500px) {
+  .course-list {
+    width: 135px;
+    height: 118px;
+  }
+}
+
 .disc-info .course-list ul {
   padding-left: 4px;
   margin-top: 0;
@@ -144,11 +151,20 @@ button {
   background-color: #005daa;
 }
 
+@media screen and (max-width: 500px) {
+  .image {
+    width: 135px;
+    height: 125px;
+  }
+}
+
 .btn-2 {
-  height: 30px;
-  max-width: 90px;
+  height: 25px;
+  max-width: 70px;
   min-height: unset;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
+  letter-spacing: normal;
+  font-weight: 500;
 }
 
 .card-button-container {
@@ -163,4 +179,12 @@ button {
 .unset-padding {
   padding: 0;
   margin: 0;
+}
+
+.button-popup {
+  height: 23px;
+  max-width: 70px;
+  letter-spacing: 0.7px;
+  font-weight: 600;
+  font-size: 0.8em;
 }
