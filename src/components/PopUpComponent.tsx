@@ -14,7 +14,10 @@ const PopUpComponent: React.FC<PopupComponentProps> = ({ title, redText, content
     return (
         <div className="popup" style={{ display: 'flex' }}>
             <div className="popup-content">
-                <span className="close" id="close" onClick={onClose}>x</span>
+                <span className="close" id="close" onClick={onClose}>
+                    <div className='line'></div>
+                    <div className="line"></div>
+                </span>
                 <h2>{title}
                 <span className="redText">{redText}</span>
                 </h2>

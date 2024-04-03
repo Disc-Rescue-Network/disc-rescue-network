@@ -213,6 +213,7 @@ footer {
   font-size: 14px;
   font-weight: 500;
   color: var(--primary-white);
+  cursor: pointer;
 }
 
 .footer-content img {
