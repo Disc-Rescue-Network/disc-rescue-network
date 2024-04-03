@@ -49,12 +49,6 @@ const arrayOfDiscsHome = [
     name: "C. Deck",
     discAndBrand: "Axiom Crave",
   },
-  {
-    course: "Doc Cramer",
-    color: "Red",
-    name: "J. Doe",
-    discAndBrand: "Innova Roc3",
-  },
 ];
 
 //This is the actual home page of the app
