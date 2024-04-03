@@ -182,7 +182,7 @@ footer {
   justify-content: space-between; /* Adjust this to manage spacing */
   align-items: center;
   position: relative; /* Ensure positioning context */
-  width: 100%;
+  width: 80%;
 }
 
 /* Add a spacer div for the FAB button */

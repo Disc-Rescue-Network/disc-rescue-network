@@ -15,6 +15,7 @@ interface DiscsProps {
 
 const Discs = ({ arrayOfDiscs }: DiscsProps) => {
     return (
+      <div className="discs">
         <div className="card-container-discs">
           {arrayOfDiscs.map((disc, index) => (
             <Card
@@ -25,6 +26,7 @@ const Discs = ({ arrayOfDiscs }: DiscsProps) => {
               DiscAndBrand={disc.discAndBrand}
               img={imageLogo} />  
           ))}
+      </div>
       </div>
     )
 }

@@ -2,20 +2,23 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
 }
 
 .logo {
   height: auto;
   width: 600px;
-  margin: auto;
-  object-fit: contain;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 @media screen and (max-width: 635px) {
   .logo {
     width: 330px;
     transition: 0.5s ease;
+  }
+  .logo-container {
+    padding-top: 0rem;
   }
 }

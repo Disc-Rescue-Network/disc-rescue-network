@@ -1,6 +1,12 @@
 .content-sub-header {
-  max-width: 800px;
   width: 80%;
+}
+
+@media screen and ( max-width:500px ){
+  .content-sub-header {
+    max-width: 800px;
+    width: 80%;
+  }
 }
 
 .sub-header {
@@ -8,8 +14,6 @@
   font-weight: 500;
   color: var(--primary-blue);
   padding: 0px;
-  padding-bottom: 1rem;
-  padding-top: 1rem;
-  margin: 5px 0px;
+  padding: 5px 0px;
   text-align: left;
 }
