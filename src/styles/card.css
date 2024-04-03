@@ -159,10 +159,12 @@ button {
 }
 
 .btn-2 {
-  height: 30px;
-  max-width: 90px;
+  height: 25px;
+  max-width: 70px;
   min-height: unset;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
+  letter-spacing: normal;
+  font-weight: 500;
 }
 
 .card-button-container {

@@ -1,21 +1,28 @@
+.discs {
+  width: 80%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* white-space: nowrap; */
+}
+
 .card-container-discs {
     display: flex;
     flex-direction: row;
     align-items: center;
     text-align: center;
-    margin: 1rem auto;
-    gap: 2rem;
     padding: 5px 0px;
     overflow-x: auto;
-    width: 80%;
-    margin-top: -1.2rem;
+    gap: 1.5rem;
+    max-width: 1350px;
+    margin: auto;
   }
 
   @media screen and (max-width: 500px){
     .card-container-discs {
       gap: 1.5rem;
       max-width: 800px;
-      width: 80%;
+      width: 100%;
+      overflow-x: visible;
     }
   }
 
