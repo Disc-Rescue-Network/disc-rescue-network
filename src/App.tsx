@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Routes, Route } from "react-router-dom";
-import "./styles/globals.css";
+import "./globals.css";
 import Home from "./views/Home";
 import LoadingScreen from "./views/LoadingSceen";
 import Footer from "./components/Footer";
@@ -24,6 +24,7 @@ export interface Disc {
   brand?: string | null;
   dateSold?: string | null;
 }
+
 export enum DiscStateString {
   New = "NEW",
   Unclaimed = "UNCLAIMED",
@@ -45,10 +46,10 @@ function App() {
   return (
     <div className="app">
       <Routes>
-        <Route path="/" element={<LoadingScreen />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/rescueflow" element={<RescueFlow /> } />
+        <Route path="/" element={<Home />} />
+        <Route path="/rescueflow" element={<RescueFlow />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

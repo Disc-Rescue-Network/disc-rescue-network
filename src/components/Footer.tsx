@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/footer.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import homeIcon from "../assets/home.png";
 import courseIcon from "../assets/courses.png";
 import storeIcon from "../assets/store.png";
@@ -72,6 +72,17 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
     navigate("/courses");
   };
 
+  const location = useLocation();
+  console.log(location.pathname);
+
+  let footerClass = needCutOut ? "footer footer-before" : "footer";
+
+  if (location.pathname.includes("/rescueflow")) {
+    footerClass += " secondary-footer";
+  }
+
+  console.log(footerClass);
+
   return (
     <>
       <div className="fab-menu-container" id="fabMenuContainer">
@@ -105,7 +116,7 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
           </div>
         </div>
       </div>
-      <footer className={needCutOut ? "footer footer-before" : "footer"}>
+      <footer className={footerClass}>
         <div className="overlay" id="overlay" onClick={toggleFabMenu}></div>
         <div className="container">
           <div className="footer-content">
