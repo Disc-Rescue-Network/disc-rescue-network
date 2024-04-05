@@ -1,17 +1,24 @@
 // HomePageButtons.tsx
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import "../styles/buttonComponents.css";
 import Button from "./Button";
 import imgFind from "../assets/search.png";
 import imgSearch from "../assets/courses.png";
 import PopUpComponent from "./PopUpComponent";
+import { useNavigate } from "react-router-dom";
 
 const HomePageButtons = () => {
-  const showToast = () => {
-    alert("Button clicked");
+  const navigate = useNavigate();
+
+  const openRescueFlow = () => {
+    navigate("/rescueflow");
   };
 
-  const [isPopupOpen, setIsPopupOpen] = useState(false); 
+  const openSearchCourses = () => {
+    navigate("/searchCourses");
+  };
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const openPopup = () => {
     setIsPopupOpen(true);
@@ -26,7 +33,7 @@ const HomePageButtons = () => {
       <div className="box">
         <Button
           text={"FIND MY DISC"}
-          onClick={showToast}
+          onClick={openRescueFlow}
           red={true}
           className="button-home"
           icon={imgFind}
@@ -43,7 +50,7 @@ const HomePageButtons = () => {
       <div className="box">
         <Button
           text={"SEARCH COURSES"}
-          onClick={showToast}
+          onClick={openSearchCourses}
           red={false}
           className="button-home"
           icon={imgSearch}
@@ -59,7 +66,7 @@ const HomePageButtons = () => {
           title="WHAT IS THE"
           redText=" RESCUE FLOW?"
           content="THE RESCUE FLOW IS A SIMPLE 5 STEP PROCESS USED TO LOCATE YOUR LOST DISC. AT EACH STAGE WE GATHER SOME INFORMATION FROM YOU THAT COULD HAVE BEEN REPORTED BY VOLUNTEERS TO FIND YOUR DISC IN OUR SYSTEM. THE FLOW WILL TAKE YOU THROUGH THE SYSTEM WE DESIGNED TO EASILY, AND QUICKLY, FIND YOUR DISC IF IT’S IN THE NETWORK OR REPORT IT IF IT ISN’T."
-          onClose={closePopup} 
+          onClose={closePopup}
         />
       )}
     </div>

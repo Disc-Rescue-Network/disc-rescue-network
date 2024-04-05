@@ -11,6 +11,13 @@
     color: var(--primary-white);
     margin: 0;
     font-size: 7.5rem;
+    padding-bottom: 1rem;
+}
+
+@media screen and (max-width: 500px) {
+    .rescue-flow-components h2 {
+        font-size: 2.5rem;
+    }
 }
 
 .rescue-flow-components h2 span {
@@ -22,6 +29,13 @@
     color: var(--primary-white);
     margin: 0;
     padding: 0;
+    padding-bottom: 1rem;
+}
+
+@media screen and (max-width: 500px ) {
+    .steps {
+        font-size: 2.5rem;
+    }
 }
 
 .rescue-flow-components .overtext-secondary {

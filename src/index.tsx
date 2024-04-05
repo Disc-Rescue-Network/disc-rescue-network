@@ -1,27 +1,34 @@
 // index.tsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import "./styles/globals.css";
+import "./globals.css";
+import LoadingScreen from "./views/LoadingSceen";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
 const Index: React.FC = () => {
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => setLoading(false), 2000); // Hide loading after 3 seconds
-  //   return () => clearTimeout(timer);
-  // }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      const loadingBar = document.querySelector(".loading-bar") as HTMLElement;
+      if (loadingBar) {
+        loadingBar.style.width = "100%";
+      }
+    }, 100);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, []);
 
   return (
     <React.StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <BrowserRouter>{loading ? <LoadingScreen /> : <App />}</BrowserRouter>
     </React.StrictMode>
   );
 };

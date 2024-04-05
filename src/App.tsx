@@ -1,9 +1,14 @@
 import * as React from "react";
 import { Routes, Route } from "react-router-dom";
-import "./styles/globals.css";
+import "./globals.css";
 import Home from "./views/Home";
 import LoadingScreen from "./views/LoadingSceen";
 import Footer from "./components/Footer";
+import RescueFlow from "./views/RescueFlow";
+import RescueStep2 from "./views/RescueStep2";
+import RescueStep3 from "./views/RescueStep3";
+import RescueStep4 from "./views/RescueStep4";
+import RescueStep5 from "./views/RescueStep5";
 
 // Define a Disc interface
 export interface Disc {
@@ -23,6 +28,7 @@ export interface Disc {
   brand?: string | null;
   dateSold?: string | null;
 }
+
 export enum DiscStateString {
   New = "NEW",
   Unclaimed = "UNCLAIMED",
@@ -44,9 +50,14 @@ function App() {
   return (
     <div className="app">
       <Routes>
-        <Route path="/" element={<LoadingScreen />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/rescueflow" element={<RescueFlow />} />
+        <Route path="/rescueflowstep2" element={<RescueStep2 />} />
+        <Route path="/rescueflowstep3" element={<RescueStep3 />} />
+        <Route path="/rescueflowstep4" element={<RescueStep4 />} />
+        <Route path="/rescueflowstep5" element={<RescueStep5 />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
