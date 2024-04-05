@@ -4,6 +4,7 @@ import "./styles/globals.css";
 import Home from "./views/Home";
 import LoadingScreen from "./views/LoadingSceen";
 import Footer from "./components/Footer";
+import RescueFlow from "./views/RescueFlow";
 
 // Define a Disc interface
 export interface Disc {
@@ -46,6 +47,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoadingScreen />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/rescueflow" element={<RescueFlow /> } />
       </Routes>
     </div>
   );
