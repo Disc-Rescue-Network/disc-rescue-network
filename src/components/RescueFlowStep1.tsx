@@ -5,7 +5,7 @@ import RescueFlowForms from "./RescueFlowForms";
 import Button from "./Button";
 
 
-const RescueFlow = () => {
+const RescueFlowStep1 = () => {
     return (
         <>
         <LogoRescueFlow />
@@ -44,4 +44,4 @@ const RescueFlow = () => {
     )
 }
 
-export default RescueFlow;
+export default RescueFlowStep1;

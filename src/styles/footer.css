@@ -177,6 +177,10 @@ footer {
   overflow: visible; /* Ensure pseudo-element is visible outside the bounds */
 }
 
+.secondary-footer {
+  background-color: var(--secondary-blue) !important;
+}
+
 .footer-content {
   display: flex;
   justify-content: space-between; /* Adjust this to manage spacing */
