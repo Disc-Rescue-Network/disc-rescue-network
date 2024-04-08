@@ -192,16 +192,15 @@ body {
   font-size: 30px;
   color: white;
   padding: 5px;
-  cursor: pointer
+  cursor: pointer;
 }
 
 .wizardbox {
   padding: 25px 0;
-  left: 460px;
   left: 34%;
   right: 0;
   position: absolute;
-  bottom: 40px;
+  bottom: 50px;
   display: flex;
   align-items: center;
 }
@@ -221,10 +220,9 @@ body {
   transform: translate(3px, -11px);
 }
 
-@media screen and (max-width:500px) {
+@media screen and (max-width: 500px) {
   .wizardbox p {
     max-width: 250px;
     transform: translate(3px, -20px);
   }
-
 }
