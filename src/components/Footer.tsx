@@ -77,7 +77,7 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
 
   let footerClass = needCutOut ? "footer footer-before" : "footer";
 
-  if (location.pathname.includes("/rescueflow")) {
+  if (location.pathname.toLowerCase().includes("/rescueflow")) {
     footerClass += " secondary-footer";
   }
 
