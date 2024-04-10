@@ -1,57 +1,59 @@
+import { useEffect, useState } from "react";
 import "../styles/rescueFlowForms.css"
 
+
 var stateTuples = [
-    ["All", "All"],
-    ["Alabama", "AL"],
-    ["Alaska", "AK"],
-    ["Arizona", "AZ"],
-    ["Arkansas", "AR"],
-    ["California", "CA"],
-    ["Colorado", "CO"],
-    ["Connecticut", "CT"],
-    ["Delaware", "DE"],
-    ["Florida", "FL"],
-    ["Georgia", "GA"],
-    ["Hawaii", "HI"],
-    ["Idaho", "ID"],
-    ["Illinois", "IL"],
-    ["Indiana", "IN"],
-    ["Iowa", "IA"],
-    ["Kansas", "KS"],
-    ["Kentucky", "KY"],
-    ["Louisiana", "LA"],
-    ["Maine", "ME"],
-    ["Maryland", "MD"],
-    ["Massachusetts", "MA"],
-    ["Michigan", "MI"],
-    ["Minnesota", "MN"],
-    ["Mississippi", "MS"],
-    ["Missouri", "MO"],
-    ["Montana", "MT"],
-    ["Nebraska", "NE"],
-    ["Nevada", "NV"],
-    ["New Hampshire", "NH"],
-    ["New Jersey", "NJ"],
-    ["New Mexico", "NM"],
-    ["New York", "NY"],
-    ["North Carolina", "NC"],
-    ["North Dakota", "ND"],
-    ["Ohio", "OH"],
-    ["Oklahoma", "OK"],
-    ["Oregon", "OR"],
-    ["Pennsylvania", "PA"],
-    ["Rhode Island", "RI"],
-    ["South Carolina", "SC"],
-    ["South Dakota", "SD"],
-    ["Tennessee", "TN"],
-    ["Texas", "TX"],
-    ["Utah", "UT"],
-    ["Vermont", "VT"],
-    ["Virginia", "VA"],
-    ["Washington", "WA"],
-    ["West Virginia", "WV"],
-    ["Wisconsin", "WI"],
-    ["Wyoming", "WY"],
+  ["All", "All"],
+  ["Alabama", "AL"],
+  ["Alaska", "AK"],
+  ["Arizona", "AZ"],
+  ["Arkansas", "AR"],
+  ["California", "CA"],
+  ["Colorado", "CO"],
+  ["Connecticut", "CT"],
+  ["Delaware", "DE"],
+  ["Florida", "FL"],
+  ["Georgia", "GA"],
+  ["Hawaii", "HI"],
+  ["Idaho", "ID"],
+  ["Illinois", "IL"],
+  ["Indiana", "IN"],
+  ["Iowa", "IA"],
+  ["Kansas", "KS"],
+  ["Kentucky", "KY"],
+  ["Louisiana", "LA"],
+  ["Maine", "ME"],
+  ["Maryland", "MD"],
+  ["Massachusetts", "MA"],
+  ["Michigan", "MI"],
+  ["Minnesota", "MN"],
+  ["Mississippi", "MS"],
+  ["Missouri", "MO"],
+  ["Montana", "MT"],
+  ["Nebraska", "NE"],
+  ["Nevada", "NV"],
+  ["New Hampshire", "NH"],
+  ["New Jersey", "NJ"],
+  ["New Mexico", "NM"],
+  ["New York", "NY"],
+  ["North Carolina", "NC"],
+  ["North Dakota", "ND"],
+  ["Ohio", "OH"],
+  ["Oklahoma", "OK"],
+  ["Oregon", "OR"],
+  ["Pennsylvania", "PA"],
+  ["Rhode Island", "RI"],
+  ["South Carolina", "SC"],
+  ["South Dakota", "SD"],
+  ["Tennessee", "TN"],
+  ["Texas", "TX"],
+  ["Utah", "UT"],
+  ["Vermont", "VT"],
+  ["Virginia", "VA"],
+  ["Washington", "WA"],
+  ["West Virginia", "WV"],
+  ["Wisconsin", "WI"],
+  ["Wyoming", "WY"],
 ];
 
 var courses = [
@@ -118,25 +120,67 @@ interface RescueFormProps {
   }
 
 const RescueFlowForms = (props: RescueFormProps) => {
-    const { inicialOption, courseOption } = props;
-    return  (
-        <>
-        <div className="mt-5 mb-3 select-box-forms">
+  const { inicialOption, courseOption } = props;
+  const [selectedState, setSelectedState] = useState("All");
+  const [selectedCourse, setSelectedCourse] = useState("Course Not Listed");
+  const [uniqueStates, setUniqueStates] = useState<string[]>([]);
+
+  useEffect(() => {
+    const states = stateTuples.map((tuple) => tuple[0]);
+    setUniqueStates(["All", ...states]);
+  }, []);
+
+  const handleStateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedState(event.target.value);
+    
+    const selectedState = event.target.value;
+    const correspondingCourse = courses.find((course) => course.state === selectedState);
+    if (correspondingCourse) {
+      setSelectedCourse(correspondingCourse.name);
+    }
+  };
+
+  const handleCourseChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCourse(event.target.value);
+    
+    const selectedCourse = event.target.value;
+    const correspondingState = courses.find((course) => course.name === selectedCourse)?.state;
+    if (correspondingState) {
+      setSelectedState(correspondingState);
+    }
+  };
+
+  const filteredCourses =
+    selectedState === "All" ? courses : courses.filter((course) => course.state === selectedState);
+
+  return (
+    <>
+      <div className="mt-5 mb-3 select-box-forms">
         <div className="col-4-forms pe-0 arrow one">
-        <select className="form-select-rescue-flow">
-                    <option value="All">{inicialOption}</option>
-                    {stateTuples.map((state, index) => (
-                        <option key={index} value={state[1]}>{state[0]}</option>
-                    ))}
-                </select>
+          <select
+            className="form-select-rescue-flow"
+            value={selectedState}
+            onChange={handleStateChange}
+          >
+            {uniqueStates.map((state, index) => (
+              <option key={index} value={state}>
+                {state}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="col-8-forms pe-0 arrow">
-            <select className="form-select-rescue-flow">
-                 <option value="NA">{courseOption}</option>
-                    {courses.map((course, index) => (
-                    <option key={index} value={course.name}>{course.name}</option>
-                ))}
-            </select>
+          <select
+            className="form-select-rescue-flow"
+            value={selectedCourse}
+            onChange={handleCourseChange}
+          >
+            {filteredCourses.map((course, index) => (
+              <option key={index} value={course.name}>
+                {course.name}
+              </option>
+            ))}
+          </select>
         </div>
     </div>
     </>
