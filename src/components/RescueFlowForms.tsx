@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import "../styles/rescueFlowForms.css"
-
+import "../styles/rescueFlowForms.css";
 
 var stateTuples = [
   ["All", "All"],
@@ -57,67 +56,67 @@ var stateTuples = [
 ];
 
 var courses = [
-    { name: "Course Not Listed", city: "NA", state: "NA" },
-    { name: "Maple Hill", city: "Leicester", state: "Massachusetts" },
-    { name: "Tranquility Trails", city: "Woolwich", state: "New Jersey" },
-    { name: "Blue Ribbon Pines", city: "East Bethel", state: "Minnesota" },
-    { name: "Flip City", city: "Shelby", state: "Michigan" },
-    { name: "Fox Run Meadows", city: "Smugglers' Notch", state: "Vermont" },
-    { name: "Idlewild", city: "Burlington", state: "Kentucky" },
-    { name: "The Beast", city: "Waco", state: "Texas" },
-    { name: "DeLaveaga", city: "Santa Cruz", state: "California" },
-    { name: "Hornets Nest", city: "Charlotte", state: "North Carolina" },
-    { name: "Fountain Hills", city: "Fountain Hills", state: "Arizona" },
-    { name: "Rollin Ridge", city: "Reedsville", state: "Wisconsin" },
-    {
-      name: "S.Y. Wilson Arlington Sports Complex",
-      city: "Arlington",
-      state: "Tennessee",
-    },
-    { name: "10-3 at CB", city: "Mt. Crested Butte", state: "Colorado" },
-    {
-      name: "1000 Acres Ranch Disc Golf Course",
-      city: "Stony Creek",
-      state: "New York",
-    },
-    {
-      name: "2022 Lucky Disc Golf Open Freeman North",
-      city: "Idaho Falls",
-      state: "Idaho",
-    },
-    { name: "3 Creeks", city: "Rising Sun", state: "Maryland" },
-    { name: "50 Acre Park", city: "Evergreen", state: "Illinois" },
-    { name: "501 Disc Golf", city: "Warren", state: "Massachusetts" },
-    {
-      name: "65th Infantry Veterans Disc Golf Course",
-      city: "Kissimmee",
-      state: "Florida",
-    },
-    { name: "A. J. Jolly Park", city: "Alexandria", state: "Kentucky" },
-    { name: "Stafford Woods", city: "Voorhees", state: "New Jersey" },
-    { name: "Bellevue State Park", city: "Bellevue", state: "Delaware" },
-    {
-      name: "Inverness Disc Golf Park",
-      city: "Inverness",
-      state: "Florida",
-    },
-    {
-      name: "Girdwood Forest Fair Park",
-      city: "Girdwood",
-      state: "Alaska",
-    },
-    {
-      name: "Windy Ridge Disc Golf at Mitchusson Park",
-      city: "Huntsville",
-      state: "Arkansas",
-    },
-    { name: "North Landing", city: "Virginia Beach", state: "Virginia" },
-  ];
+  { name: "Course Not Listed", city: "NA", state: "NA" },
+  { name: "Maple Hill", city: "Leicester", state: "Massachusetts" },
+  { name: "Tranquility Trails", city: "Woolwich", state: "New Jersey" },
+  { name: "Blue Ribbon Pines", city: "East Bethel", state: "Minnesota" },
+  { name: "Flip City", city: "Shelby", state: "Michigan" },
+  { name: "Fox Run Meadows", city: "Smugglers' Notch", state: "Vermont" },
+  { name: "Idlewild", city: "Burlington", state: "Kentucky" },
+  { name: "The Beast", city: "Waco", state: "Texas" },
+  { name: "DeLaveaga", city: "Santa Cruz", state: "California" },
+  { name: "Hornets Nest", city: "Charlotte", state: "North Carolina" },
+  { name: "Fountain Hills", city: "Fountain Hills", state: "Arizona" },
+  { name: "Rollin Ridge", city: "Reedsville", state: "Wisconsin" },
+  {
+    name: "S.Y. Wilson Arlington Sports Complex",
+    city: "Arlington",
+    state: "Tennessee",
+  },
+  { name: "10-3 at CB", city: "Mt. Crested Butte", state: "Colorado" },
+  {
+    name: "1000 Acres Ranch Disc Golf Course",
+    city: "Stony Creek",
+    state: "New York",
+  },
+  {
+    name: "2022 Lucky Disc Golf Open Freeman North",
+    city: "Idaho Falls",
+    state: "Idaho",
+  },
+  { name: "3 Creeks", city: "Rising Sun", state: "Maryland" },
+  { name: "50 Acre Park", city: "Evergreen", state: "Illinois" },
+  { name: "501 Disc Golf", city: "Warren", state: "Massachusetts" },
+  {
+    name: "65th Infantry Veterans Disc Golf Course",
+    city: "Kissimmee",
+    state: "Florida",
+  },
+  { name: "A. J. Jolly Park", city: "Alexandria", state: "Kentucky" },
+  { name: "Stafford Woods", city: "Voorhees", state: "New Jersey" },
+  { name: "Bellevue State Park", city: "Bellevue", state: "Delaware" },
+  {
+    name: "Inverness Disc Golf Park",
+    city: "Inverness",
+    state: "Florida",
+  },
+  {
+    name: "Girdwood Forest Fair Park",
+    city: "Girdwood",
+    state: "Alaska",
+  },
+  {
+    name: "Windy Ridge Disc Golf at Mitchusson Park",
+    city: "Huntsville",
+    state: "Arkansas",
+  },
+  { name: "North Landing", city: "Virginia Beach", state: "Virginia" },
+];
 
 interface RescueFormProps {
-    inicialOption: string;
-    courseOption: string; 
-  }
+  inicialOption: string;
+  courseOption: string;
+}
 
 const RescueFlowForms = (props: RescueFormProps) => {
   const { inicialOption, courseOption } = props;
@@ -127,14 +126,16 @@ const RescueFlowForms = (props: RescueFormProps) => {
 
   useEffect(() => {
     const states = stateTuples.map((tuple) => tuple[0]);
-    setUniqueStates(["All", ...states]);
+    setUniqueStates([...states]);
   }, []);
 
   const handleStateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedState(event.target.value);
-    
+
     const selectedState = event.target.value;
-    const correspondingCourse = courses.find((course) => course.state === selectedState);
+    const correspondingCourse = courses.find(
+      (course) => course.state === selectedState
+    );
     if (correspondingCourse) {
       setSelectedCourse(correspondingCourse.name);
     }
@@ -142,16 +143,20 @@ const RescueFlowForms = (props: RescueFormProps) => {
 
   const handleCourseChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCourse(event.target.value);
-    
+
     const selectedCourse = event.target.value;
-    const correspondingState = courses.find((course) => course.name === selectedCourse)?.state;
+    const correspondingState = courses.find(
+      (course) => course.name === selectedCourse
+    )?.state;
     if (correspondingState) {
       setSelectedState(correspondingState);
     }
   };
 
   const filteredCourses =
-    selectedState === "All" ? courses : courses.filter((course) => course.state === selectedState);
+    selectedState === "All"
+      ? courses
+      : courses.filter((course) => course.state === selectedState);
 
   return (
     <>
@@ -182,9 +187,9 @@ const RescueFlowForms = (props: RescueFormProps) => {
             ))}
           </select>
         </div>
-    </div>
+      </div>
     </>
-    )
-}
+  );
+};
 
 export default RescueFlowForms;
