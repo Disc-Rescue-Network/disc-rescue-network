@@ -1,16 +1,9 @@
 import "../styles/card.css";
 import pinImage from "../assets/pin.png";
 import Button from "./Button";
+import { Disc } from "../App";
 
-type CardProps = {
-  Course: string;
-  img: string;
-  Color: string;
-  Name: string;
-  DiscAndBrand: string;
-};
-
-const Card = ({ Course, img, Color, Name, DiscAndBrand }: CardProps) => {
+const Card = (disc:Disc) => {
   return (
     <div className="card-container">
       <div className="disc-info">
@@ -19,24 +12,24 @@ const Card = ({ Course, img, Color, Name, DiscAndBrand }: CardProps) => {
             <img src={pinImage} alt="pin-icon" />
           </div>
           <div className="text-block-2">
-            <div className="course-wrapper">{Course}</div>
+            <div className="course-wrapper">{disc.course}</div>
           </div>
         </div>
-        <img src={img} loading="lazy" alt="disc" className="image" />
+        <img src="https://i.ebayimg.com/images/g/y-gAAOSwHtdlCbey/s-l1200.jpg" loading="lazy" alt="disc" className="image" />
         <div className="w-layout-grid grid grid-disc">
           <div className="course-list">
             <ul>
               <li>
                 <i className="bx bx-palette" />
-                <span>{Color}</span>
+                <span>{disc.color}</span>
               </li>
               <li>
                 <i className="bx bxs-user-detail" />
-                <span>{Name}</span>
+                <span>{disc.name}</span>
               </li>
               <li>
                 <i className="bx bx-purchase-tag" />
-                <span>{DiscAndBrand}</span>
+                <span>{disc.brand} {disc.disc}</span>
               </li>
             </ul>
             <div className="card-button-container">
