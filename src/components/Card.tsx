@@ -3,7 +3,13 @@ import pinImage from "../assets/pin.png";
 import Button from "./Button";
 import { Disc } from "../App";
 
-const Card = (disc:Disc) => {
+interface CardProps {
+  disc: Disc;
+}
+
+const Card = (props: CardProps) => {
+  const { disc } = props;
+
   return (
     <div className="card-container">
       <div className="disc-info">
@@ -15,7 +21,12 @@ const Card = (disc:Disc) => {
             <div className="course-wrapper">{disc.course}</div>
           </div>
         </div>
-        <img src="https://i.ebayimg.com/images/g/y-gAAOSwHtdlCbey/s-l1200.jpg" loading="lazy" alt="disc" className="image" />
+        <img
+          src="https://i.ebayimg.com/images/g/y-gAAOSwHtdlCbey/s-l1200.jpg"
+          loading="lazy"
+          alt="disc"
+          className="image"
+        />
         <div className="w-layout-grid grid grid-disc">
           <div className="course-list">
             <ul>
@@ -29,7 +40,9 @@ const Card = (disc:Disc) => {
               </li>
               <li>
                 <i className="bx bx-purchase-tag" />
-                <span>{disc.brand} {disc.disc}</span>
+                <span>
+                  {disc.brand} {disc.disc}
+                </span>
               </li>
             </ul>
             <div className="card-button-container">

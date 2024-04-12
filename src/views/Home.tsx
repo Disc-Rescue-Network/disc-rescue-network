@@ -55,61 +55,63 @@ import { Disc, DiscStateString } from "../App";
 
 //This is the actual home page of the app
 
-const [allDiscs, setAllDiscs] = useState<Disc[]>([]);
-const tempDiscs= [{      id: 7,
-  course: "DeLaveaga",
-  name: "R. Cornelius",
-  disc: "Buzzz",
-  phoneNumber: "9991234567",
-  bin: "1",
-  dateFound: "2023-01-03",
-  dateTexted: "",
-  dateClaimed: "2023-10-03",
-  status: DiscStateString.Unclaimed,
-  comments: "Light blue big z",
-  color: "",
-  claimBy: "2024-06-03",
-  brand: "Innova",
-},
-{
-  id: 8,
-  course: "Girdwood Forest Fair Park",
-  name: "B. Lin",
-  disc: "Meta essence",
-  phoneNumber: "9991234567",
-  bin: "1",
-  dateFound: "2023-01-03",
-  dateTexted: "2023-10-07",
-  dateClaimed: "",
-  status: DiscStateString.Unclaimed,
-  comments: "",
-  color: "Blue",
-  claimBy: "2024-06-04",
-  brand: "Innova",
-},
-{
-  id: 9,
-  course: "Tranquility Trails",
-  name: "Archie B.",
-  disc: "Explorer",
-  phoneNumber: "9991234567",
-  bin: "1",
-  dateFound: "2023-01-03",
-  dateTexted: "2023-10-07",
-  dateClaimed: "",
-  status: DiscStateString.New,
-  comments: "",
-  color: "Yellow",
-  claimBy: "2024-06-04",
-  brand: "Birdie",
+function Home() {
+  const [allDiscs, setAllDiscs] = useState<Disc[]>([]);
+  const tempDiscs = [
+    {
+      id: 7,
+      course: "DeLaveaga",
+      name: "R. Cornelius",
+      disc: "Buzzz",
+      phoneNumber: "9991234567",
+      bin: "1",
+      dateFound: "2023-01-03",
+      dateTexted: "",
+      dateClaimed: "2023-10-03",
+      status: DiscStateString.Unclaimed,
+      comments: "Light blue big z",
+      color: "",
+      claimBy: "2024-06-03",
+      brand: "Innova",
+    },
+    {
+      id: 8,
+      course: "Girdwood Forest Fair Park",
+      name: "B. Lin",
+      disc: "Meta essence",
+      phoneNumber: "9991234567",
+      bin: "1",
+      dateFound: "2023-01-03",
+      dateTexted: "2023-10-07",
+      dateClaimed: "",
+      status: DiscStateString.Unclaimed,
+      comments: "",
+      color: "Blue",
+      claimBy: "2024-06-04",
+      brand: "Innova",
+    },
+    {
+      id: 9,
+      course: "Tranquility Trails",
+      name: "Archie B.",
+      disc: "Explorer",
+      phoneNumber: "9991234567",
+      bin: "1",
+      dateFound: "2023-01-03",
+      dateTexted: "2023-10-07",
+      dateClaimed: "",
+      status: DiscStateString.New,
+      comments: "",
+      color: "Yellow",
+      claimBy: "2024-06-04",
+      brand: "Birdie",
+    },
+  ];
 
-}]
+  useEffect(() => {
+    setAllDiscs(tempDiscs);
+  }, []);
 
-useEffect(() => {
-    setAllDiscs(tempDiscs)
-}, []);
-
-export default function Home() {
   return (
     <div className="container-home">
       <FullLogoHeader />
@@ -121,3 +123,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home;
