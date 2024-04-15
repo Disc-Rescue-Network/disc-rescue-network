@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/footer.css";
+import "../globals.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import homeIcon from "../assets/home.png";
 import courseIcon from "../assets/courses.png";
