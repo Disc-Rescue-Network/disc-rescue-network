@@ -5,7 +5,13 @@ import LogoRescueFlow from "./LogoRescueFlow";
 import HeaderRescueFlow from "./RescueFlowComponets";
 import RescueFlowPopup from "./RescueFlowPopup";
 
-const RescueFlowStep2 = () => {
+interface RescueFlowProps {
+  step: number;
+  setStep: (step: number) => void;
+}
+
+const RescueFlowStep2 = (props: RescueFlowProps ) => {
+  const { step, setStep } = props;
 
   const [isPopupOpen, setIsPopupOpen] = useState(false); 
 
@@ -16,7 +22,7 @@ const RescueFlowStep2 = () => {
   const closePopup = () => {
     setIsPopupOpen(false);
   };
- 
+
     return (
         <>
         <LogoRescueFlow />
@@ -45,7 +51,7 @@ const RescueFlowStep2 = () => {
                 border={true}
                 className="second-button-rescue white-border"
                 onClick={() => {
-                  alert("button clicked");
+                  setStep(step + 1);
                 }}                
                 />
             </div> 

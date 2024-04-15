@@ -3,7 +3,13 @@ import FormStep from "./FormStep2";
 import LogoRescueFlow from "./LogoRescueFlow";
 import HeaderRescueFlow from "./RescueFlowComponets";
 
-const RescueFlowStep5 = () => {
+interface RescueFlowProps {
+    step: number;
+    setStep: (step: number) => void;
+  }
+
+const RescueFlowStep5 = (props: RescueFlowProps) => {
+    const { step, setStep } = props;
     return (
         <>
         <LogoRescueFlow />

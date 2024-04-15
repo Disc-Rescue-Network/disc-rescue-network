@@ -15,7 +15,6 @@
     border: none;
     background-image: none;
     position: relative;
-    height: 40px;
     width: 100%;
   }
 
@@ -52,6 +51,7 @@
     gap: 0.5rem;
     justify-content: center;
     align-items: center;
+    padding-right: 10px;
 }  
 
 @media screen and (min-width: 768px) {
@@ -70,7 +70,7 @@
 
 .button-red-rescue-step2{
     background-color: var(--primary-red);
-    width: 60%;
+    width: 70%;
     /* max-width: 250px; */
     padding: 8px 4px;
     border: 2px solid transparent;
