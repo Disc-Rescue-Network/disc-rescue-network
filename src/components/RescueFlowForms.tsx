@@ -1,6 +1,8 @@
 import "../styles/rescueFlowForms.css"
 
-var stateTuples = [
+var stateTuples: string[][]; 
+
+stateTuples= [
     ["All", "All"],
     ["Alabama", "AL"],
     ["Alaska", "AK"],
@@ -53,6 +55,10 @@ var stateTuples = [
     ["Wisconsin", "WI"],
     ["Wyoming", "WY"],
 ];
+
+var abbreviations: string[] = stateTuples.map(tuple => tuple[1]);
+
+console.log(abbreviations);
 
 var courses = [
     { name: "Course Not Listed", city: "NA", state: "NA" },
