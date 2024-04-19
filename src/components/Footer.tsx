@@ -66,7 +66,7 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
   };
 
   const openStore = () => {
-    navigate("/shop");
+    navigate("/store");
   };
 
   const openCourses = () => {
