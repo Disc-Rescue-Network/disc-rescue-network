@@ -48,6 +48,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/rescueflow" element={<RescueFlow />} />
       </Routes>
+
       <Footer />
     </div>
   );

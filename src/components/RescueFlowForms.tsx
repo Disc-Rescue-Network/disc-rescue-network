@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
 import "../styles/rescueFlowForms.css";
+import { useEffect, useState } from "react";
+
+var stateTuples: string[][];
 
 var stateTuples = [
   ["All", "All"],
@@ -114,15 +116,23 @@ var courses = [
 ];
 
 interface RescueFormProps {
-  inicialOption: string;
+  initialOption: string;
   courseOption: string;
 }
 
+interface Course {
+  name: string;
+  city: string;
+  state: string;
+  orgCode?: string;
+}
+
 const RescueFlowForms = (props: RescueFormProps) => {
-  const { inicialOption, courseOption } = props;
+  const { initialOption, courseOption } = props;
   const [selectedState, setSelectedState] = useState("All");
   const [selectedCourse, setSelectedCourse] = useState("Course Not Listed");
   const [uniqueStates, setUniqueStates] = useState<string[]>([]);
+  const [allCourses, setAllCourses] = useState<Course[]>(courses);
 
   useEffect(() => {
     const states = stateTuples.map((tuple) => tuple[0]);
@@ -145,18 +155,64 @@ const RescueFlowForms = (props: RescueFormProps) => {
     setSelectedCourse(event.target.value);
 
     const selectedCourse = event.target.value;
+    console.log(selectedCourse);
     const correspondingState = courses.find(
       (course) => course.name === selectedCourse
     )?.state;
+    console.log(correspondingState);
     if (correspondingState) {
       setSelectedState(correspondingState);
     }
   };
 
+  useEffect(() => {
+    var remainingStates = [
+      "Alabama",
+      "Connecticut",
+      "Georgia",
+      "Hawaii",
+      "Iowa",
+      "Indiana",
+      "Kansas",
+      "Louisiana",
+      "Maine",
+      "Mississippi",
+      "Montana",
+      "Nebraska",
+      "Nevada",
+      "New Hampshire",
+      "New Mexico",
+      "North Dakota",
+      "Ohio",
+      "Oklahoma",
+      "Oregon",
+      "Rhode Island",
+      "South Carolina",
+      "South Dakota",
+      "Utah",
+      "Vermont",
+      "Washington",
+      "West Virginia",
+      "Wyoming",
+    ];
+
+    const updatedCourses = [...courses];
+    remainingStates.forEach((state) => {
+      if (!updatedCourses.some((course) => course.state === state)) {
+        updatedCourses.push({
+          name: `${state} Disc Golf Course`,
+          city: `${state} City`,
+          state: state,
+        });
+      }
+    });
+    setAllCourses(updatedCourses);
+  }, []);
+
   const filteredCourses =
     selectedState === "All"
-      ? courses
-      : courses.filter((course) => course.state === selectedState);
+      ? allCourses
+      : allCourses.filter((course) => course.state === selectedState);
 
   return (
     <>
@@ -164,12 +220,13 @@ const RescueFlowForms = (props: RescueFormProps) => {
         <div className="col-4-forms pe-0 arrow one">
           <select
             className="form-select-rescue-flow"
-            value={selectedState}
             onChange={handleStateChange}
+            value={selectedState}
           >
-            {uniqueStates.map((state, index) => (
-              <option key={index} value={state}>
-                {state}
+            <option value="All">{initialOption}</option>
+            {stateTuples.map((state, index) => (
+              <option key={index} value={state[0]}>
+                {state[1]}
               </option>
             ))}
           </select>

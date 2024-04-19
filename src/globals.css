@@ -174,6 +174,10 @@ body {
   width: 100%;
 }
 
+.footer-content {
+  max-width: 1300px;
+}
+
 .container-home {
   display: flex;
   flex-direction: column;
@@ -198,7 +202,7 @@ body {
 
 .wizardbox {
   padding: 25px 0;
-  left: 34%;
+  left: 37.3%;
   right: 0;
   position: absolute;
   bottom: 50px;
