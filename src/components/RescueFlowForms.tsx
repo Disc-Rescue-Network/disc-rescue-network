@@ -1,8 +1,9 @@
 import "../styles/rescueFlowForms.css";
+import { useEffect, useState } from "react";
 
 var stateTuples: string[][];
 
-stateTuples = [
+var stateTuples = [
   ["All", "All"],
   ["Alabama", "AL"],
   ["Alaska", "AK"],
@@ -121,6 +122,44 @@ interface RescueFormProps {
 
 const RescueFlowForms = (props: RescueFormProps) => {
   const { initialOption, courseOption } = props;
+  const [selectedState, setSelectedState] = useState("All");
+  const [selectedCourse, setSelectedCourse] = useState("Course Not Listed");
+  const [uniqueStates, setUniqueStates] = useState<string[]>([]);
+
+  useEffect(() => {
+    const states = stateTuples.map((tuple) => tuple[0]);
+    setUniqueStates([...states]);
+  }, []);
+
+  const handleStateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedState(event.target.value);
+
+    const selectedState = event.target.value;
+    const correspondingCourse = courses.find(
+      (course) => course.state === selectedState
+    );
+    if (correspondingCourse) {
+      setSelectedCourse(correspondingCourse.name);
+    }
+  };
+
+  const handleCourseChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCourse(event.target.value);
+
+    const selectedCourse = event.target.value;
+    const correspondingState = courses.find(
+      (course) => course.name === selectedCourse
+    )?.state;
+    if (correspondingState) {
+      setSelectedState(correspondingState);
+    }
+  };
+
+  const filteredCourses =
+    selectedState === "All"
+      ? courses
+      : courses.filter((course) => course.state === selectedState);
+
   return (
     <>
       <div className="mt-5 mb-3 select-box-forms">
@@ -135,9 +174,13 @@ const RescueFlowForms = (props: RescueFormProps) => {
           </select>
         </div>
         <div className="col-8-forms pe-0 arrow">
-          <select className="form-select-rescue-flow">
-            <option value="NA">{courseOption}</option>
-            {courses.map((course, index) => (
+          <select
+            className="form-select-rescue-flow"
+            value={selectedCourse}
+            onChange={handleCourseChange}
+          >
+            {filteredCourses.map((course, index) => (
+
               <option key={index} value={course.name}>
                 {course.name}
               </option>

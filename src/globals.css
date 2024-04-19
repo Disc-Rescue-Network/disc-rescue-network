@@ -68,7 +68,7 @@ body {
   justify-content: center;
   text-align: center;
   background-color: var(--primary-grey);
-  font-family: "Bebas Neue";
+  font-family: "Bebas Neue", sans-serif;
   height: 100dvh;
   width: 100dvw;
   /* max-width: 1300px; */
@@ -172,6 +172,10 @@ body {
   justify-content: center;
   text-align: center;
   width: 100%;
+}
+
+.footer-content {
+  max-width: 1300px;
 }
 
 .container-home {
