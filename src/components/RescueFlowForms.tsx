@@ -147,9 +147,11 @@ const RescueFlowForms = (props: RescueFormProps) => {
     setSelectedCourse(event.target.value);
 
     const selectedCourse = event.target.value;
+    console.log(selectedCourse);
     const correspondingState = courses.find(
       (course) => course.name === selectedCourse
     )?.state;
+    console.log(correspondingState);
     if (correspondingState) {
       setSelectedState(correspondingState);
     }
@@ -164,7 +166,11 @@ const RescueFlowForms = (props: RescueFormProps) => {
     <>
       <div className="mt-5 mb-3 select-box-forms">
         <div className="col-4-forms pe-0 arrow one">
-          <select className="form-select-rescue-flow">
+          <select
+            className="form-select-rescue-flow"
+            onChange={handleStateChange}
+            value={selectedState}
+          >
             <option value="All">{initialOption}</option>
             {stateTuples.map((state, index) => (
               <option key={index} value={state[0]}>
@@ -180,7 +186,6 @@ const RescueFlowForms = (props: RescueFormProps) => {
             onChange={handleCourseChange}
           >
             {filteredCourses.map((course, index) => (
-
               <option key={index} value={course.name}>
                 {course.name}
               </option>
