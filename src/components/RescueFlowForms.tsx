@@ -120,11 +120,19 @@ interface RescueFormProps {
   courseOption: string;
 }
 
+interface Course {
+  name: string;
+  city: string;
+  state: string;
+  orgCode?: string;
+}
+
 const RescueFlowForms = (props: RescueFormProps) => {
   const { initialOption, courseOption } = props;
   const [selectedState, setSelectedState] = useState("All");
   const [selectedCourse, setSelectedCourse] = useState("Course Not Listed");
   const [uniqueStates, setUniqueStates] = useState<string[]>([]);
+  const [allCourses, setAllCourses] = useState<Course[]>(courses);
 
   useEffect(() => {
     const states = stateTuples.map((tuple) => tuple[0]);
@@ -157,10 +165,54 @@ const RescueFlowForms = (props: RescueFormProps) => {
     }
   };
 
+  useEffect(() => {
+    var remainingStates = [
+      "Alabama",
+      "Connecticut",
+      "Georgia",
+      "Hawaii",
+      "Iowa",
+      "Indiana",
+      "Kansas",
+      "Louisiana",
+      "Maine",
+      "Mississippi",
+      "Montana",
+      "Nebraska",
+      "Nevada",
+      "New Hampshire",
+      "New Mexico",
+      "North Dakota",
+      "Ohio",
+      "Oklahoma",
+      "Oregon",
+      "Rhode Island",
+      "South Carolina",
+      "South Dakota",
+      "Utah",
+      "Vermont",
+      "Washington",
+      "West Virginia",
+      "Wyoming",
+    ];
+
+    const updatedCourses = [...courses];
+    remainingStates.forEach((state) => {
+      if (!updatedCourses.some((course) => course.state === state)) {
+        updatedCourses.push({
+          name: `${state} Disc Golf Course`,
+          city: `${state} City`,
+          state: state,
+        });
+      }
+    });
+    setAllCourses(updatedCourses);
+  }, []);
+
   const filteredCourses =
     selectedState === "All"
-      ? courses
-      : courses.filter((course) => course.state === selectedState);
+      ? allCourses
+      : allCourses.filter((course) => course.state === selectedState);
 
   return (
     <>
