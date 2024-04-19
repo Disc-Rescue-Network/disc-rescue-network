@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
 import "../styles/rescueFlowForms.css";
+import { useEffect, useState } from "react";
+
+var stateTuples: string[][];
 
 var stateTuples = [
   ["All", "All"],
@@ -114,12 +116,12 @@ var courses = [
 ];
 
 interface RescueFormProps {
-  inicialOption: string;
+  initialOption: string;
   courseOption: string;
 }
 
 const RescueFlowForms = (props: RescueFormProps) => {
-  const { inicialOption, courseOption } = props;
+  const { initialOption, courseOption } = props;
   const [selectedState, setSelectedState] = useState("All");
   const [selectedCourse, setSelectedCourse] = useState("Course Not Listed");
   const [uniqueStates, setUniqueStates] = useState<string[]>([]);
@@ -162,14 +164,11 @@ const RescueFlowForms = (props: RescueFormProps) => {
     <>
       <div className="mt-5 mb-3 select-box-forms">
         <div className="col-4-forms pe-0 arrow one">
-          <select
-            className="form-select-rescue-flow"
-            value={selectedState}
-            onChange={handleStateChange}
-          >
-            {uniqueStates.map((state, index) => (
-              <option key={index} value={state}>
-                {state}
+          <select className="form-select-rescue-flow">
+            <option value="All">{initialOption}</option>
+            {stateTuples.map((state, index) => (
+              <option key={index} value={state[0]}>
+                {state[1]}
               </option>
             ))}
           </select>
@@ -181,6 +180,7 @@ const RescueFlowForms = (props: RescueFormProps) => {
             onChange={handleCourseChange}
           >
             {filteredCourses.map((course, index) => (
+
               <option key={index} value={course.name}>
                 {course.name}
               </option>
