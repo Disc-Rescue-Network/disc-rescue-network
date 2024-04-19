@@ -27,7 +27,7 @@ const RescueFlowStep1 = (props: RescueFlowProps) => {
         />
       </div>
       <RescueFlowForms
-        inicialOption={"State"}
+        initialOption={"State"}
         courseOption={"Select a Course"}
       />
       <div className="buttons-rescue">
