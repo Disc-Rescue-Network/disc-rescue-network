@@ -1,0 +1,83 @@
+.components-store {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin: auto;
+
+}
+
+.header-store {
+    margin-bottom: 5rem;
+    margin: 0;
+    color: white;
+    font-size: 7.5rem;
+    margin-top: 2rem;
+}
+
+@media screen and (max-width: 500px ) {
+    .header-store {
+        font-size: 3rem;
+    }
+}
+
+.subheader-store {
+    margin-top: 1rem;
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: white;
+    max-width: 80%;
+    line-height: 4rem;
+}
+
+@media screen and (max-width: 500px ) {
+    .subheader-store {
+        font-size: 1.5rem;
+        line-height: 1.8rem;
+        max-width: 100%;
+    }
+}
+
+.select-box-store {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    margin-bottom: .5rem;
+}
+
+.select-box-store input {
+    font-size: 1rem;
+}
+
+
+.buttons-store {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+    width: 100%;
+}
+@media screen and (max-width: 500px) {
+    .buttons-store {
+        width: 90%;
+    }
+}
+.button-red-store {
+    max-width: 600px;
+    height: 50px;
+    color: white;
+    border: 2px solid transparent; 
+    transition: border-color 0.3s ease; 
+    
+    &:hover {
+          border-color: white; 
+        }
+}
+

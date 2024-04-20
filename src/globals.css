@@ -231,3 +231,11 @@ body {
     transform: translate(3px, -20px);
   }
 }
+
+.container-store {
+  background-color: var(--border-primary-blue);
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+}
+
