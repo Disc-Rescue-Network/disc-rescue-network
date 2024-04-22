@@ -1,0 +1,61 @@
+.buttons-rescue-failure {
+        max-width: 400px;
+        width: 50%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1.5rem;
+    } 
+
+    .custom-rescue-flow-failure h3 {
+        font-size: 3rem;
+        padding-bottom: 1.5rem;
+    }
+
+    @media screen and (max-width: 500px) {
+        .custom-rescue-flow-failure h3 {
+            font-size: 1.5rem;
+        }
+
+        .custom-rescue-flow-failure h2 {
+            font-size: 3rem;
+        }
+
+        .smaller-text {
+            line-height: 1.5rem;
+        }
+
+        .buttons-rescue-failure {
+            width: 90%;
+            padding: 0;
+        }
+
+        .button-red-rescue-failure {
+            padding: 0;
+        }
+        
+        .second-button-rescue-failure {
+            width: 30%;
+        }
+    }
+
+    .smaller-text {
+        font-size: 1rem;
+    }
+
+    .button-red-rescue-failure {
+        height: 50px;
+    }
+
+    .second-button-rescue-failure {
+        width: 65%;
+        height: 30px;
+        padding-top: 6px;
+        letter-spacing: 0.08em;
+        font-weight: 300;
+        font-size: 14px;
+        text-align: center;
+    }
