@@ -15,7 +15,6 @@ export default function Store() {
                 baseText={"Coming soon"}
                 contentText={"Not all discs will be claimed, but they can still be rescued! The DRN Shop will bring quality, affordable discs for purchase."}
                 smallText={"Get notified when we launch for 20% off your first order!"} />   
-            <Footer />
         </div>
     )
 }
