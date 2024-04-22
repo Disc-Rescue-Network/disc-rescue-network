@@ -1,7 +1,7 @@
 import HeaderRescueFlow from "./RescueFlowComponets";
 import LogoRescueFlow from "./LogoRescueFlow";
 import "../styles/rescueFlowStep.css";
-import RescueFlowForms from "./RescueFlowForms";
+import CoursePickerForm from "./CoursePickerForm";
 import Button from "./Button";
 
 interface RescueFlowProps {
@@ -26,10 +26,7 @@ const RescueFlowStep1 = (props: RescueFlowProps) => {
           smallerText={""}
         />
       </div>
-      <RescueFlowForms
-        initialOption={"State"}
-        courseOption={"Select a Course"}
-      />
+      <CoursePickerForm />
       <div className="buttons-rescue">
         <Button
           text={"Next Step"}

@@ -189,6 +189,12 @@ footer {
   width: 80%;
 }
 
+@media screen and (max-width:500px) {
+  .footer-content {
+    width: 90%;
+  }
+}
+
 /* Add a spacer div for the FAB button */
 .footer-content .fab-spacer {
   flex-grow: 1;

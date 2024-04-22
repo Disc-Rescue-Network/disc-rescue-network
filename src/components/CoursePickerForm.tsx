@@ -58,7 +58,6 @@ var stateTuples = [
 ];
 
 var courses = [
-  { name: "Course Not Listed", city: "NA", state: "NA" },
   { name: "Maple Hill", city: "Leicester", state: "Massachusetts" },
   { name: "Tranquility Trails", city: "Woolwich", state: "New Jersey" },
   { name: "Blue Ribbon Pines", city: "East Bethel", state: "Minnesota" },
@@ -115,11 +114,6 @@ var courses = [
   { name: "North Landing", city: "Virginia Beach", state: "Virginia" },
 ];
 
-interface RescueFormProps {
-  initialOption: string;
-  courseOption: string;
-}
-
 interface Course {
   name: string;
   city: string;
@@ -127,10 +121,9 @@ interface Course {
   orgCode?: string;
 }
 
-const RescueFlowForms = (props: RescueFormProps) => {
-  const { initialOption, courseOption } = props;
-  const [selectedState, setSelectedState] = useState("All");
-  const [selectedCourse, setSelectedCourse] = useState("Course Not Listed");
+const CoursePickerForm = () => {
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedCourse, setSelectedCourse] = useState("");
   const [uniqueStates, setUniqueStates] = useState<string[]>([]);
   const [allCourses, setAllCourses] = useState<Course[]>(courses);
 
@@ -141,22 +134,31 @@ const RescueFlowForms = (props: RescueFormProps) => {
 
   const handleStateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedState(event.target.value);
-
     const selectedState = event.target.value;
-    const correspondingCourse = courses.find(
+    console.log(selectedState);
+
+    const correspondingCourse = allCourses.find(
       (course) => course.state === selectedState
     );
+    console.log(correspondingCourse);
+    console.log(allCourses);
     if (correspondingCourse) {
+      console.log(correspondingCourse.name);
       setSelectedCourse(correspondingCourse.name);
     }
   };
 
   const handleCourseChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    if (event.target.value === "SELECT A COURSE") {
+      setSelectedState("");
+      return;
+    }
+
     setSelectedCourse(event.target.value);
 
     const selectedCourse = event.target.value;
     console.log(selectedCourse);
-    const correspondingState = courses.find(
+    const correspondingState = allCourses.find(
       (course) => course.name === selectedCourse
     )?.state;
     console.log(correspondingState);
@@ -223,7 +225,7 @@ const RescueFlowForms = (props: RescueFormProps) => {
             onChange={handleStateChange}
             value={selectedState}
           >
-            <option value="All">{initialOption}</option>
+            <option selected>STATE</option>
             {stateTuples.map((state, index) => (
               <option key={index} value={state[0]}>
                 {state[1]}
@@ -237,6 +239,7 @@ const RescueFlowForms = (props: RescueFormProps) => {
             value={selectedCourse}
             onChange={handleCourseChange}
           >
+            <option selected>SELECT A COURSE</option>
             {filteredCourses.map((course, index) => (
               <option key={index} value={course.name}>
                 {course.name}
@@ -249,4 +252,4 @@ const RescueFlowForms = (props: RescueFormProps) => {
   );
 };
 
-export default RescueFlowForms;
+export default CoursePickerForm;
