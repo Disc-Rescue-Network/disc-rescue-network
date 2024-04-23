@@ -40,8 +40,8 @@ const RescueFlowStep5 = (props: RescueFlowProps) => {
                 border={true}
                 className="second-button-rescue white-border"
                 onClick={() => {
-                  alert("button clicked");
-                }}                
+                    setStep(step + 1);
+                  }}               
                 />
             </div>    
         </>

@@ -9,6 +9,7 @@ import RescueFlowStep4 from "../components/RescueFlowStep4";
 import RescueFlowStep5 from "../components/RescueFlowStep5";
 import Arrow from "../assets/arrow-down.png";
 import { useNavigate } from "react-router-dom";
+import RescueFLowFailure from "../components/RescueFlowFailure";
 
 export default function RescueFlow() {
   const [step, setStep] = useState(1);
@@ -36,6 +37,7 @@ export default function RescueFlow() {
       {step === 3 && <RescueFlowStep3 step={step} setStep={setStep}/>}
       {step === 4 && <RescueFlowStep4 step={step} setStep={setStep}/>}
       {step === 5 && <RescueFlowStep5 step={step} setStep={setStep}/>}
+      {step === 6 && <RescueFLowFailure step={step} setStep={setStep}/>}
       {step === 1 && (
         <div className="wizardbox">
           <img src={Arrow} alt="arrow" />
