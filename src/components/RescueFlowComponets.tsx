@@ -5,15 +5,16 @@ interface HeaderRescueFlowProps {
     lightText: string;
     baseNumber: string;
     lightNumber: string;
-    whereText: string;
-    secondMissingText: string;
+    whereText?: string;
+    secondMissingText?: string;
     smallerText: string;
+    className?: string; 
 }
 
 const RescueFlowComponets = (props: HeaderRescueFlowProps) => {
-    const { baseText, lightText, baseNumber, lightNumber, whereText, secondMissingText, smallerText } = props;
+    const { baseText, lightText, baseNumber, lightNumber, whereText, secondMissingText, smallerText, className } = props;
     return (
-        <div className="rescue-flow-components">
+        <div className={`rescue-flow-components ${className}`}>
             <h2>
                 {baseText}
                 <span className="fw-light"> {lightText}</span>
