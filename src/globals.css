@@ -160,6 +160,7 @@ body {
 .container-rescue {
   background-color: var(--primary-blue);
   padding: 2rem;
+  padding-top: 3rem;
   width: 100%;
   height: 100%;
 }
@@ -202,12 +203,18 @@ body {
 
 .wizardbox {
   padding: 25px 0;
-  left: 36%;
+  left: 33.5%;
   right: 0;
   position: absolute;
   bottom: 50px;
   display: flex;
-  align-items: center;
+}
+
+@media screen and (min-width: 1600px) {
+  .wizardbox {
+    left: 50%;
+    transform: translateX(-270px);
+  }
 }
 
 .wizardbox img {
@@ -223,12 +230,24 @@ body {
   max-width: 340px;
   text-align: left;
   transform: translate(3px, -11px);
+  line-height: 1.5rem;
 }
 
 @media screen and (max-width: 500px) {
+  .wizardbox {
+    left: 30%;
+  }
+
   .wizardbox p {
-    max-width: 250px;
-    transform: translate(3px, -20px);
+    max-width: 200px;
+    transform: translate(0px, -8px);
+    font-size: 13px;
+    line-height: 1.2rem;
+  }
+
+  .wizardbox img {
+    width: 40px;
+    padding-top: 35px;
   }
 }
 
