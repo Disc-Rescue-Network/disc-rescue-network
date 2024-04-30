@@ -5,6 +5,7 @@ import Home from "./views/Home";
 import Footer from "./components/Footer";
 import RescueFlow from "./views/RescueFlow";
 import Store from "./views/Store";
+import Settings from "./views/Settings";
 
 // Define a Disc interface
 export interface Disc {
@@ -49,6 +50,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/rescueflow" element={<RescueFlow />} />
         <Route path="/store" element= {<Store />} />
+        <Route path="/settings" element= {<Settings />} />
       </Routes>
 
       <Footer />
