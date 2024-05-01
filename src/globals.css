@@ -201,6 +201,22 @@ body {
   cursor: pointer;
 }
 
+.arrow-left-icon-request-course {
+  position: absolute;
+  top: 80px;
+  left: 10rem;
+  font-size: 30px;
+  color: white;
+  padding: 5px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+  .arrow-left-icon-request-course {
+    left: 1.5rem;
+  }
+}
+
 .wizardbox {
   padding: 25px 0;
   left: 33.5%;
@@ -256,4 +272,20 @@ body {
   padding: 1rem;
   width: 100%;
   height: 100%;
+}
+
+.container-request-course {
+  background-color: var(--border-primary-blue);
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+}
+
+.main-section-request {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 }

@@ -1,0 +1,135 @@
+
+.select-box-request {
+    max-width: 600px;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.select-box-request select:focus {
+    outline: none;
+}
+
+.select-box-request .arrow {
+    position: relative;   
+}
+
+.select-box-request .arrow.one:after {
+    content: "";
+    right: 10px;
+}
+
+.select-box-request .arrow:after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 6px 0 6px;
+    border-color: var(--secondary-blue) transparent transparent transparent;
+    position: absolute;
+    right: 21px;
+    top: 40%;
+    pointer-events: none;
+}
+
+
+.select-box-request .form-select-request {
+    border-radius: 0;
+    padding: 10px 6px;
+    font-size: 16px;
+    border: none;
+    background-image: none;
+    appearance: none;
+    position: relative;
+    color: var(--primary-blue);
+    height: 50px !important;
+    font-family: inherit;
+    font-weight: 400 !important;
+}
+
+
+.select-box-request .form-select-request {
+    border-radius: 0;
+    padding: 10px 6px;
+    font-size: 16px;
+    border: none;
+    background-image: none;
+    appearance: none;
+    position: relative;
+    color: var(--primary-blue);
+    height: 50px !important;
+    font-family: inherit;
+    font-weight: 400 !important;
+}
+
+.state {
+    padding-left: 0;
+
+}
+
+.pe-0 {
+    padding-right: 0;
+}
+
+.col-4 {
+    flex: 0 0 auto;
+    width: 33.33333333%;
+}
+
+.col-8 {
+    flex: 0 0 auto;
+    width: 66.66666667%;
+    padding-left: 0;
+}
+
+.form-select-request {
+    display: block;
+    width: 100%;
+    padding: .375rem 2.25rem .375rem .75rem;
+    -moz-padding-start: calc(0.75rem - 3px);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--secondary-blue);
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right .75rem center;
+    /* background-size:16px 12px; */
+    border: 1px solid #ced4da;
+    border-radius: .375rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none
+}
+
+.form-select-request-input {
+    border: none;
+    background-image: none;
+    appearance: none;
+    position: relative;
+    color: var(--primary-blue);
+    font-family: "Bebas Neue";
+    font-weight: 400 !important;
+    width: 100%;
+    height: 50px;
+    padding-left: 0.5rem;
+    font-size: 15px;
+}
+
+
+.form-select-request-input::placeholder {
+    color: var(--primary-blue);
+    font-size: 15px;
+}
+
+.col-8-request-course {
+    flex: 0 0 auto;
+    width: 65%;
+    padding-left: 0;
+    color: var(--primary-blue);
+}
+

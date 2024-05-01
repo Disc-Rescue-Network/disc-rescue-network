@@ -51,7 +51,7 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
   };
 
   const requestCourse = () => {
-    navigate("/request-course");
+    navigate("/requestcourse");
     toggleFabMenu();
   };
 
