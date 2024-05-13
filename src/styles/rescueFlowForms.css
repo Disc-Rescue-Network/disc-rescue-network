@@ -26,9 +26,15 @@
   appearance: none;
   position: relative;
   color: var(--primary-blue);
-  height: 50px !important;
+  height: 55px !important;
   font-family: inherit;
   font-weight: 500 !important;
+}
+
+.course-picker-step1 {
+  max-width: 500px;
+  width: 100%;
+  margin: auto;
 }
 
 .state {
@@ -96,4 +102,28 @@
   right: 21px;
   top: 40%;
   pointer-events: none;
+}
+
+.report-lost-class {
+  max-width: 600px;
+  width: 80%;
+  gap: .6rem;
+  justify-content: flex-start;
+}
+
+@media screen and (max-width:500px) {
+  .report-lost-form-select {
+    width: 100%;
+  }
+}
+
+.report-class-col-4 {
+  max-width: none;
+  width: 33.33333333%;
+}
+
+.report-class-col-8 {
+  max-width: none;
+  width: 66.66666667%;
+  padding-left: 0;
 }

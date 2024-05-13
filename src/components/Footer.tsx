@@ -46,12 +46,12 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
   };
 
   const reportLostDisc = () => {
-    navigate("/report-lost-disc");
+    navigate("/reportLostDisc");
     toggleFabMenu();
   };
 
   const requestCourse = () => {
-    navigate("/requestcourse");
+    navigate("/requestCourse");
     toggleFabMenu();
   };
 

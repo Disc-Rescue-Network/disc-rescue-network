@@ -1,0 +1,39 @@
+.buttons-report-popup {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+}
+
+.button-popup-phone {
+    width: 50%;
+    text-align: center;
+    background-color: var(--secondary-blue);
+    color: var(--primary-white);
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    border: none;
+    border-radius: 0px;
+    padding: 12px 8px;
+    font-size: 1.5em;
+    margin-right: 10px;
+    height: 60px;
+}
+
+.button-popup-email {
+    width: 50%;
+    text-align: center;
+    background-color: var(--primary-red);
+    color: var(--primary-white);
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    border: none;
+    border-radius: 0px;
+    padding: 12px 8px;
+    font-size: 1.5em;
+    height: 60px;
+}
+
+.content-report-popup {
+    margin-bottom: 1rem;
+    width: 96%;
+}
