@@ -9,27 +9,35 @@ import { useEffect, useState } from "react";
 import { Disc, DiscStateString } from "../App";
 import axios from "axios";
 
-
-
-
 function Home() {
   const [allDiscs, setAllDiscs] = useState<Disc[]>([]);
 
   useEffect(() => {
     const fetchDiscs = async () => {
       try {
-        const response = await axios.get('https://api.discrescuenetwork.com/inventory');
+        const response = await axios.get(
+          "https://api.discrescuenetwork.com/inventory"
+        );
         setAllDiscs(response.data); // Assuming the API response directly contains the array of discs
       } catch (error) {
-        console.error('Failed to fetch discs:', error);
+        console.error("Failed to fetch discs:", error);
       }
     };
 
     fetchDiscs();
   }, []);
-    //Filter by status
-      const filteredDiscs = allDiscs.filter(disc => disc.status === 'NEW' || disc.status === 'UNCLAIMED');
-    return (
+
+  console.log("All Discs", allDiscs);
+
+  //Filter by status
+  const filteredDiscs = allDiscs.filter(
+    (disc) =>
+      disc.status === DiscStateString.New ||
+      disc.status === DiscStateString.Unclaimed
+  );
+  console.log(filteredDiscs);
+
+  return (
     <div className="container-home">
       <FullLogoHeader />
       <HomePageButtons />
