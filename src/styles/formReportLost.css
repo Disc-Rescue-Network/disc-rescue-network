@@ -1,27 +1,27 @@
 
-.select-box-request {
+.select-box-report {
     max-width: 600px;
     width: 80%;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
-    gap: 0.5rem;
+    gap: 0.6rem;
 }
 
-.select-box-request select:focus {
+.select-box-report select:focus {
     outline: none;
 }
 
-.select-box-request .arrow {
+.select-box-report .arrow {
     position: relative;   
 }
 
-.select-box-request .arrow.one:after {
+.select-box-report .arrow.one:after {
     content: "";
     right: 10px;
 }
 
-.select-box-request .arrow:after {
+.select-box-report .arrow:after {
     content: "";
     width: 0;
     height: 0;
@@ -35,7 +35,7 @@
 }
 
 
-.select-box-request .form-select-request {
+.select-box-report .form-select-report {
     border-radius: 0;
     padding: 10px 6px;
     font-size: 16px;
@@ -50,7 +50,7 @@
 }
 
 
-.select-box-request .form-select-request {
+.select-box-report .form-select-report {
     border-radius: 0;
     padding: 10px 6px;
     font-size: 16px;
@@ -84,7 +84,7 @@
     padding-left: 0;
 }
 
-.form-select-request {
+.form-select-report {
     display: block;
     width: 100%;
     padding: .375rem 2.25rem .375rem .75rem;
@@ -115,7 +115,7 @@
     font-family: "Bebas Neue";
     font-weight: 400 !important;
     width: 100%;
-    height: 50px;
+    height: 55px !important;
     padding-left: 0.5rem;
     font-size: 15px;
 }
@@ -131,5 +131,28 @@
     width: 65%;
     padding-left: 0;
     color: var(--primary-blue);
+}
+
+.report-lost {
+    margin-bottom: .6rem;
+}
+
+
+.report-lost input {
+    border: none;
+    background-image: none;
+    appearance: none;
+    position: relative;
+    color: black;
+    font-family: "Bebas Neue";
+    font-weight: 400 !important;
+    width: 100%;
+    height: 55px !important;
+    padding-left: 5px;
+}
+
+.report-lost input::placeholder {
+    color: var(--primary-blue);
+    font-size: 15px;
 }
 

@@ -26,7 +26,9 @@ const RescueFlowStep1 = (props: RescueFlowProps) => {
           smallerText={""}
         />
       </div>
-      <CoursePickerForm />
+      <div className="course-picker-step1">
+        <CoursePickerForm />
+      </div>
       <div className="buttons-rescue">
         <Button
           text={"Next Step"}

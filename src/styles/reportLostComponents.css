@@ -1,0 +1,30 @@
+.report-lost-components {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 0.7rem !important;
+  }
+  
+  .report-lost-components h2 {
+    color: var(--primary-white);
+    margin: 0;
+    font-size: 3rem;
+    padding-bottom: 1rem;
+  }
+  
+  .report-lost-components h2 span {
+    font-weight: 100;
+  }
+  
+  .button-report-lost {
+    height: 55px;
+    max-width: 610px;
+    width: 85%;
+    margin-left: 10px;
+  }
+
+  .button-report-lost:hover {
+    background-color: var(--primary-blue);
+  }
+  

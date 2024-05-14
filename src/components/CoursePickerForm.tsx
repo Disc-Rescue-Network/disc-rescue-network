@@ -218,10 +218,10 @@ const CoursePickerForm = () => {
 
   return (
     <>
-      <div className="mt-5 mb-3 select-box-forms">
-        <div className="col-4-forms pe-0 arrow one">
+      <div className="mt-5 mb-3 select-box-forms report-lost-class">
+        <div className="col-4-forms pe-0 arrow one report-class-col-4">
           <select
-            className="form-select-rescue-flow"
+            className="form-select-rescue-flow report-lost-form-select"
             onChange={handleStateChange}
             value={selectedState}
           >
@@ -233,9 +233,9 @@ const CoursePickerForm = () => {
             ))}
           </select>
         </div>
-        <div className="col-8-forms pe-0 arrow">
+        <div className="col-8-forms pe-0 arrow report-class-col-8">
           <select
-            className="form-select-rescue-flow"
+            className="form-select-rescue-flow report-lost-form-select"
             value={selectedCourse}
             onChange={handleCourseChange}
           >

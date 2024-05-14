@@ -7,6 +7,7 @@ import RescueFlow from "./views/RescueFlow";
 import Store from "./views/Store";
 import Settings from "./views/Settings";
 import RequestCourse from "./views/RequestCourse";
+import ReportLostDisc from "./views/ReportLostDisc";
 
 // Define a Disc interface
 export interface Disc {
@@ -52,7 +53,8 @@ function App() {
         <Route path="/rescueflow" element={<RescueFlow />} />
         <Route path="/store" element= {<Store />} />
         <Route path="/settings" element= {<Settings />} />
-        <Route path="/requestcourse" element= {<RequestCourse />} />
+        <Route path="/requestCourse" element= {<RequestCourse />} />
+        <Route path="/reportLostDisc" element= {<ReportLostDisc />} />
       </Routes>
 
       <Footer />
