@@ -27,14 +27,15 @@ function Home() {
 
     fetchDiscs();
   }, []);
-
+//Filter by status
+  const filteredDiscs = allDiscs.filter(disc => disc.status === 'NEW' || disc.status === 'UNCLAIMED');
   return (
     <div className="container-home">
       <FullLogoHeader />
       <HomePageButtons />
       <div className="disc-container">
         <Subheader text="Recently Added Discs" />
-        <Discs arrayOfDiscs={allDiscs} />
+        <Discs arrayOfDiscs={filteredDiscs} />
       </div>
     </div>
   );
