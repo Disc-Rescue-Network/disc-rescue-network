@@ -27,9 +27,9 @@ function Home() {
 
     fetchDiscs();
   }, []);
-//Filter by status
-  const filteredDiscs = allDiscs.filter(disc => disc.status === 'NEW' || disc.status === 'UNCLAIMED');
-  return (
+    //Filter by status
+      const filteredDiscs = allDiscs.filter(disc => disc.status === 'NEW' || disc.status === 'UNCLAIMED');
+    return (
     <div className="container-home">
       <FullLogoHeader />
       <HomePageButtons />
