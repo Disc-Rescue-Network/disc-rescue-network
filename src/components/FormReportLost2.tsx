@@ -23,10 +23,12 @@ var stateTuples = [
 interface FormReportLostColorProps {
     initialName: string;
     lastName: string;
+    contactMethod: 'phone' | 'email';
 }
 
 const FormReportLost2 = (props: FormReportLostColorProps) => {
-    const { initialName, lastName } = props
+    const { initialName, lastName, contactMethod } = props
+    const placeholder = contactMethod === 'email' ? 'Email Address' : lastName;
     return (
         <>
             <div className="select-box-report">
@@ -39,7 +41,7 @@ const FormReportLost2 = (props: FormReportLostColorProps) => {
                     </select>
             </div>
             <div className="col-8 report-lost">
-                <input placeholder={lastName}/>
+            <input placeholder={placeholder} type={contactMethod === 'email' ? 'email' : 'text'} />
             </div>
         </div>
         </>

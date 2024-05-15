@@ -9,9 +9,10 @@ interface PopupReportProps {
     redText: string;
     content: string;
     onClose: () => void;
+    onSelect: (choice: 'phone' | 'email') => void;
 }
 
-const PopUpReport: React.FC<PopupReportProps> = ({ title, redText, content, onClose }) => {
+const PopUpReport: React.FC<PopupReportProps> = ({ title, redText, content, onClose, onSelect }) => {
     return (
         <div className="popup" style={{ display: 'flex' }}>
             <div className="popup-content">
@@ -20,24 +21,22 @@ const PopUpReport: React.FC<PopupReportProps> = ({ title, redText, content, onCl
                     <div className="line"></div>
                 </span>
                 <h2>{title}
-                <span className="redText">{redText}</span>
+                    <span className="redText">{redText}</span>
                 </h2>
-                <p className='content-report-popup'>{content}</p>
+                    <p className='content-report-popup'>{content}</p>
                 <div className='buttons-report-popup'>
                 <Button  
-                text={"Phone"}
-                red={true}
-                className="button-popup-phone"
-                onClick={() => {
-                  alert("button clicked");
-                }}/>
+                    text={"Phone"}
+                    red={true}
+                    className="button-popup-phone"
+                    onClick={() => onSelect('phone')}
+                />
                 <Button  
-                text={"Email"}
-                red={true}
-                className="button-popup-email"
-                onClick={() => {
-                  alert("button clicked");
-                }}/>
+                    text={"Email"}
+                    red={true}
+                    className="button-popup-email"
+                    onClick={() => onSelect('email')}
+                />
                 </div>
             </div>
         </div>
