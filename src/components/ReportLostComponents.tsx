@@ -10,10 +10,11 @@ interface HeaderReportLostProps {
     baseText: string;
     lightText: string;
     className?: string; 
+    contactMethod: 'phone' | 'email';
 }
 
 const ReportLostComponets = (props: HeaderReportLostProps) => {
-    const { baseText, lightText, className } = props;
+    const { baseText, lightText, className, contactMethod } = props;
     return (
         <div className={`report-lost-components ${className}`}>
             <h2>
@@ -21,8 +22,8 @@ const ReportLostComponets = (props: HeaderReportLostProps) => {
                 <span className="fw-light"> {lightText}</span>
             </h2>
             <FormReportLost initialName={"First Initial"} lastName={"Last Name"} /> 
-            <FormReportLost2 initialName={"Color"} lastName={"Phone Number Written on The Disc"} />
-            <FormReportLost3 initialName={"Brand"} lastName={"Enter Disc Name"} />
+            <FormReportLost2 initialName={"Color"} lastName={"Phone Number Written on The Disc"} contactMethod={contactMethod} />
+            <FormReportLost3 initialName={"iBrand"} lastName={"Enter Disc Name"} />
             <CoursePickerForm />
             <Button
                 text={"Enter Your Disc into the Network"}
