@@ -5,42 +5,39 @@ import ReportLostComponents from "../components/ReportLostComponents";
 import { useState, useEffect } from "react";
 import PopUpReport from "../components/ReportLostPopup";
 
-
 export default function ReportLostDisc() {
-    const [showPopup, setShowPopup] = useState(true);
-    const [contactMethod, setContactMethod] = useState<'phone' | 'email'>('phone');
+  const [showPopup, setShowPopup] = useState(true);
+  const [contactMethod, setContactMethod] = useState<"phone" | "email">(
+    "phone"
+  );
 
-    useEffect(() => {
-        setShowPopup(true);
-    }, []); 
+  useEffect(() => {
+    setShowPopup(true);
+  }, []);
 
-    const handleSelect = (choice: 'phone' | 'email') => {
-        setContactMethod(choice);
-        setShowPopup(false);
-    };
+  const handleSelect = (choice: "phone" | "email") => {
+    setContactMethod(choice);
+    setShowPopup(false);
+  };
 
-    return (
-        <div className="container-report-lost-disc">
-             {showPopup && (
-                <PopUpReport
-                    title={"WHAT IS YOUR PREFERRED METHOD OF COMMUNICATION?"}
-                    redText={""}
-                    content={"If you wrote your phone number on your disc, we recommend using this as your preferred method."}
-                    onClose={() => setShowPopup(false)} 
-                    onSelect={handleSelect}
-                />
-            )}
-            <i className="arrow-left-icon" style={{top: '30px'}}>
-                 <FontAwesomeIcon icon={faArrowLeft} />
-            </i>
-            <LogoRescueFlow2 />
-            {contactMethod && (
-                <ReportLostComponents 
-                    baseText={"Enter The"} 
-                    lightText={"Network"} 
-                    contactMethod={contactMethod}
-                />
-            )}
-        </div>
-    )
+  return (
+    <div className="container-report-lost-disc">
+      {showPopup && (
+        <PopUpReport
+          title={"WHAT IS YOUR PREFERRED METHOD OF COMMUNICATION?"}
+          redText={""}
+          content={
+            "If you wrote your phone number on your disc, we recommend using this as your preferred method."
+          }
+          onClose={() => setShowPopup(false)}
+          onSelect={handleSelect}
+        />
+      )}
+      <i className="arrow-left-icon" style={{ top: "30px" }}>
+        <FontAwesomeIcon icon={faArrowLeft} />
+      </i>
+      <LogoRescueFlow2 />
+      {contactMethod && <ReportLostComponents contactMethod={contactMethod} />}
+    </div>
+  );
 }

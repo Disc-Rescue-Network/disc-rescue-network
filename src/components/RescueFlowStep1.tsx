@@ -3,6 +3,7 @@ import LogoRescueFlow from "./LogoRescueFlow";
 import "../styles/rescueFlowStep.css";
 import CoursePickerForm from "./CoursePickerForm";
 import Button from "./Button";
+import { useState } from "react";
 
 interface RescueFlowProps {
   step: number;
@@ -11,6 +12,9 @@ interface RescueFlowProps {
 
 const RescueFlowStep1 = (props: RescueFlowProps) => {
   const { step, setStep } = props;
+
+  const [state, setState] = useState("");
+  const [course, setCourse] = useState("");
 
   return (
     <>
@@ -27,7 +31,7 @@ const RescueFlowStep1 = (props: RescueFlowProps) => {
         />
       </div>
       <div className="course-picker-step1">
-        <CoursePickerForm />
+        <CoursePickerForm setState={setState} setCourse={setCourse} />
       </div>
       <div className="buttons-rescue">
         <Button
