@@ -36,7 +36,10 @@ export default function ReportLostDisc() {
       <i className="arrow-left-icon" style={{ top: "30px" }}>
         <FontAwesomeIcon icon={faArrowLeft} />
       </i>
-      <LogoRescueFlow2 />
+        <LogoRescueFlow2 />
+        <div className="filters-option" >
+          <span onClick={() => setShowPopup(true)}>Filters</span>
+        </div>
       {contactMethod && <ReportLostComponents contactMethod={contactMethod} />}
     </div>
   );

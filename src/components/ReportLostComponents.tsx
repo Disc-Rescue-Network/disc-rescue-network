@@ -30,7 +30,7 @@ const ReportLostComponents = (props: HeaderReportLostProps) => {
     <div className={`report-lost-components ${className}`}>
       <h2>
         Enter The
-        <span className="fw-light">Network</span>
+        <span className="fw-light"> Network</span>
       </h2>
       <NameAndInitialForm />
       <FormReportLost2
