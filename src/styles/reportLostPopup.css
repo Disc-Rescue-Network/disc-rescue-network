@@ -19,6 +19,12 @@
     height: 60px;
 }
 
+.button-popup-phone:hover {
+    color: var(--secondary-blue);
+    background-color: var(--primary-white);
+    transition: ease 0.2s;
+}
+
 .button-popup-email {
     width: 50%;
     text-align: center;
@@ -31,6 +37,12 @@
     padding: 12px 8px;
     font-size: 1.5em;
     height: 60px;
+}
+
+.button-popup-email:hover {
+    color: var(--secondary-blue);
+    background-color: var(--primary-white);
+    transition: ease 0.2s;
 }
 
 .content-report-popup {
