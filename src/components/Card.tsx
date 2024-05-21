@@ -5,13 +5,15 @@ import { Disc } from "../App";
 
 interface CardProps {
   disc: Disc;
+  className?: string;
 }
 
 const Card = (props: CardProps) => {
-  const { disc } = props;
+  const { disc, className } = props;
+  const cardClassName = className ? `card-container ${className}` : "card-container";
 
   return (
-    <div className="card-container">
+    <div className={cardClassName}>
       <div className="disc-info">
         <div className="div-block-2">
           <div className="circle-overlay">

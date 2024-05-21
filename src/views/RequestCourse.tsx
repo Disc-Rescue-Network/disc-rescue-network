@@ -4,13 +4,31 @@ import LogoRescueFlow2 from "../components/LogoRescueFlow2";
 import RequestCourseComponents from "../components/RequestCourseComponents";
 import FormRequestCourse from "../components/FormRequestCourse";
 import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Settings() {  
+  const [step, setStep] = useState(1);
+
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    if (step > 1) {
+      setStep(step - 1);
+    }
+
+    if (step === 1) {
+      navigate("/");
+    }
+  };
+  
     return (
         <div className="container-request-course">
             <div className="main-section-request">
-            <i className="arrow-left-icon-request-course" style={{top: '70px'}}>
-                 <FontAwesomeIcon icon={faArrowLeft} />
+            <i className="arrow-left-icon-request-course" 
+                style={{top: '70px'}}
+                onClick={handleBack}>
+                <FontAwesomeIcon icon={faArrowLeft}/>
             </i>
             <div className="logo-request-course">
                 <LogoRescueFlow2 />

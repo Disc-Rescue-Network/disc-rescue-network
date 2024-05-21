@@ -3,12 +3,29 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../components/Footer";
 import LogoRescueFlow2 from "../components/LogoRescueFlow2";
 import StoreComponents from "../components/StoreComponents";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Store() {  
+  const [step, setStep] = useState(1);
+
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    if (step > 1) {
+      setStep(step - 1);
+    }
+
+    if (step === 1) {
+      navigate("/");
+    }
+  };
     return (
         <div className="container-store"> 
-            <i className="arrow-left-icon" style={{top: '30px'}}>
-                 <FontAwesomeIcon icon={faArrowLeft} />
+            <i className="arrow-left-icon" 
+                style={{top: '30px'}}
+                onClick={handleBack}>
+                <FontAwesomeIcon icon={faArrowLeft}/>
             </i>
             <LogoRescueFlow2 />
             <StoreComponents 

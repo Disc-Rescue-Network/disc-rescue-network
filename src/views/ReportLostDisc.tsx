@@ -4,6 +4,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import ReportLostComponents from "../components/ReportLostComponents";
 import { useState, useEffect } from "react";
 import PopUpReport from "../components/ReportLostPopup";
+import { useNavigate } from "react-router-dom";
 
 export default function ReportLostDisc() {
   const [showPopup, setShowPopup] = useState(true);
@@ -20,6 +21,20 @@ export default function ReportLostDisc() {
     setShowPopup(false);
   };
 
+  const [step, setStep] = useState(1);
+
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    if (step > 1) {
+      setStep(step - 1);
+    }
+
+    if (step === 1) {
+      navigate("/");
+    }
+  };
+
   return (
     <div className="container-report-lost-disc">
       {showPopup && (
@@ -33,8 +48,9 @@ export default function ReportLostDisc() {
           onSelect={handleSelect}
         />
       )}
-      <i className="arrow-left-icon" style={{ top: "30px" }}>
-        <FontAwesomeIcon icon={faArrowLeft} />
+      <i className="arrow-left-icon" style={{ top: "30px" }}
+           onClick={handleBack}>
+           <FontAwesomeIcon icon={faArrowLeft} />
       </i>
       <LogoRescueFlow2 />
       <div className="filters-option">
