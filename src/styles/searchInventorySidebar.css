@@ -1,0 +1,386 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+.main-wrapper {
+  transition: 0.5s;
+  right: 0;
+  position: relative;
+  height: auto;
+  min-height: 100%;
+  padding-top: 1rem;
+}
+
+.main-wrapper.open-sidebar {
+  right: 210px;
+  transition: 0.5s;
+}
+
+.disc-item.hidden,
+.load-more.hidden {
+  display: none;
+}
+
+.main-section button.stepbutton {
+  background-color: var(--primary-red);
+  width: 140px;
+  padding: 4px 0;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border: 2px solid transparent;
+}
+
+.main-section button.stepbutton:hover {
+  background-color: var(--primary-red);
+  width: 140px;
+  padding: 4px 0;
+  border: 2px solid transparent;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.accordion-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--bs-accordion-btn-padding-y) var(--bs-accordion-btn-padding-x);
+  font-size: 1rem;
+  color: var(--bs-accordion-btn-color);
+  text-align: left;
+  background-color: var(--bs-accordion-btn-bg);
+  border: 0;
+  border-radius: 0;
+  overflow-anchor: none;
+  transition: var(--bs-accordion-transition);
+}
+
+.container-search-inventory {
+  transition: margin-right 0.5s;
+}
+
+.container-search-inventory.open-body {
+  margin-right: 300px;
+  transition: ease 0.5s;
+}
+
+.asidebar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 9;
+  height: auto;
+  transition: 0.5s;
+  border-left: 2px solid var(--primary-red);
+  width: 0;
+  visibility: hidden;
+  background: var(--primary-grey);
+}
+
+.asidebar.open-sidebar {
+  width: 300px;
+  visibility: visible;
+  transition: 0.5s;
+  z-index: 100;
+  max-width: 40%;
+}
+
+@media only screen and (max-width: 640px) {
+  .asidebar.open-sidebar {
+      width: 175px;
+  }
+}
+
+.sidebar-header {
+  background: var(--primary-red);
+  text-align: center;
+  padding: 15px 0;
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  color: var(--primary-white);
+  font-size: 22px;
+}
+
+.filter-body {
+  background: var(--primary-grey);
+  overflow: hidden;
+  overflow-y: auto;
+  height: calc(100dvh - 75px);
+  padding: 20px 12px;
+}
+
+.filter-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.filter-body::-webkit-scrollbar-track {
+  background: var(--primary-grey);
+}
+
+.filter-body::-webkit-scrollbar-thumb {
+  background: var(--primary-red);
+}
+
+.filter-body::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-red);
+}
+
+.filter-body .accordion {
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
+}
+
+.filter-body .accordion .accordion-button::after {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px 6px 0 6px;
+  border-color: var(--primary-blue) transparent transparent transparent;
+  transform: var(--bs-accordion-btn-icon-transform);
+}
+
+.filter-body .accordion .accordion-button:not(.collapsed)::after {
+  transform: inherit;
+}
+
+.filter-body .accordion .accordion-header .accordion-button {
+  background: transparent;
+  box-shadow: none;
+  border: 0;
+  padding: 0;
+  color: var(--primary-black);
+  font-size: 20px;
+  letter-spacing: 0px;
+  font-weight: 500;
+}
+
+.accordion-button:not(.collapsed)::after {
+  background-image: var(--bs-accordion-btn-active-icon);
+  transform: var(--bs-accordion-btn-icon-transform); 
+}
+
+.accordion-button::after {
+  flex-shrink: 0;
+  width: var(--bs-accordion-btn-icon-width);
+  height: var(--bs-accordion-btn-icon-width);
+  margin-left: auto;
+  content: "";
+  background-image: var(--bs-accordion-btn-icon);
+  background-repeat: no-repeat;
+  background-size: var(--bs-accordion-btn-icon-width);
+  transition: var(--bs-accordion-btn-icon-transition);
+}
+
+.filter-body .accordion .accordion-item {
+  border: 0;
+  background: transparent;
+  margin-bottom: 15px;
+  height: auto;
+  max-height: calc(30dvh - 50px);
+}
+
+.filter-body .accordion .accordion-item .accordion-body ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  overflow-y: auto;
+  height: auto;
+  max-height: calc(30dvh - 100px);
+}
+
+.filter-body .accordion .accordion-item .accordion-body ul::-webkit-scrollbar {
+  width: 5px;
+}
+
+.filter-body
+  .accordion
+  .accordion-item
+  .accordion-body
+  ul::-webkit-scrollbar-track {
+  background: var(--primary-white);
+}
+
+.filter-body
+  .accordion
+  .accordion-item
+  .accordion-body
+  ul::-webkit-scrollbar-thumb {
+  background: var(--primary-blue);
+}
+
+.filter-body
+  .accordion
+  .accordion-item
+  .accordion-body
+  ul::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-blue);
+}
+
+.filter-body .accordion .accordion-item .accordion-body ul li {
+  font-weight: 400;
+  font-size: 20px;
+  padding: 0px 0 0px 5px;
+  position: relative;
+}
+
+.filter-body .accordion .accordion-item .accordion-body {
+  padding: 0;
+}
+
+.filter-footer {
+  margin-top: 1em;
+}
+
+.filter-footer .filter-search {
+  width: 100%;
+  text-align: center;
+  color: var(--primary-white);
+  background: var(--primary-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 1;
+  padding: 12px 8px;
+  border: 1px solid var(--primary-red);
+  margin-bottom: 10px;
+}
+
+.filter-footer .filter-reset {
+  border: 2px solid var(--primary-blue);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 1;
+  padding: 12px 8px;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 44%; /* unsure why this works but it wasnt centering the text so i adjusted the checkbox */
+  left: 0;
+  height: 12px;
+  width: 12px;
+  transform: translateY(-50%);
+  border: 1px solid var(--primary-blue);
+  background: var(--primary-blue);
+}
+
+.filter-text {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  margin: auto;
+  justify-content: start;
+}
+
+.hidden {
+  display: none;
+}
+
+/* When the checkbox is checked, add a blue background */
+.filter-checkbox input:checked ~ .checkmark {
+  background-color: var(--primary-blue);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.filter-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.filter-checkbox .checkmark:after {
+  left: 3px;
+  width: 4px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+
+.sort-toggle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.switch {
+  position: relative;
+  /* display: inline-block; */
+  width: 40px; /* Smaller width */
+  height: 22px; /* Smaller height */
+}
+
+#sortToggle {
+  margin-left: 10px;
+}
+
+.switch-label {
+  font-size: 12px; /* Smaller font size for the labels */
+  margin: 0 5px; /* Space around the labels */
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ff6347; /* Red background color */
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px; /* Adjusted for smaller height */
+  width: 18px; /* Adjusted for smaller width */
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196f3; /* Blue background color */
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(18px); /* Adjusted for smaller width */
+  -ms-transform: translateX(18px);
+  transform: translateX(18px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}

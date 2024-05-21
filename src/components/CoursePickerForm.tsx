@@ -1,3 +1,4 @@
+import { all } from "axios";
 import "../styles/rescueFlowForms.css";
 import { useEffect, useState } from "react";
 
@@ -121,11 +122,18 @@ interface Course {
   orgCode?: string;
 }
 
-const CoursePickerForm = () => {
+interface CoursePickerProps {
+  setCourse: (course: string) => void;
+  setState: (state: string) => void;
+}
+
+const CoursePickerForm = (props: CoursePickerProps) => {
   const [selectedState, setSelectedState] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
   const [uniqueStates, setUniqueStates] = useState<string[]>([]);
   const [allCourses, setAllCourses] = useState<Course[]>(courses);
+
+  const { setState, setCourse } = props;
 
   useEffect(() => {
     const states = stateTuples.map((tuple) => tuple[0]);
@@ -145,7 +153,9 @@ const CoursePickerForm = () => {
     if (correspondingCourse) {
       console.log(correspondingCourse.name);
       setSelectedCourse(correspondingCourse.name);
+      setCourse(correspondingCourse.name);
     }
+    setState(selectedState);
   };
 
   const handleCourseChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -165,6 +175,7 @@ const CoursePickerForm = () => {
     if (correspondingState) {
       setSelectedState(correspondingState);
     }
+    setCourse(selectedCourse);
   };
 
   useEffect(() => {
@@ -211,17 +222,19 @@ const CoursePickerForm = () => {
     setAllCourses(updatedCourses);
   }, []);
 
+  console.log("selected state", selectedState);
+
   const filteredCourses =
-    selectedState === "All"
+    selectedState === "All" || selectedState === "STATE" || selectedState === ""
       ? allCourses
       : allCourses.filter((course) => course.state === selectedState);
 
   return (
     <>
-      <div className="mt-5 mb-3 select-box-forms">
-        <div className="col-4-forms pe-0 arrow one">
+      <div className="mt-5 mb-3 select-box-forms report-lost-class">
+        <div className="col-4-forms pe-0 arrow one report-class-col-4">
           <select
-            className="form-select-rescue-flow"
+            className="form-select-rescue-flow report-lost-form-select"
             onChange={handleStateChange}
             value={selectedState}
           >
@@ -233,9 +246,9 @@ const CoursePickerForm = () => {
             ))}
           </select>
         </div>
-        <div className="col-8-forms pe-0 arrow">
+        <div className="col-8-forms pe-0 arrow report-class-col-8">
           <select
-            className="form-select-rescue-flow"
+            className="form-select-rescue-flow report-lost-form-select"
             value={selectedCourse}
             onChange={handleCourseChange}
           >
