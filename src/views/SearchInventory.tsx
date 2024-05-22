@@ -23,6 +23,7 @@ export default function SearchInventory () {
         colors: [],
         discNames: [],
     });
+    const [currentSort, setCurrentSort] = useState<string>("desc");
 
 
     const handleBack = () => {
@@ -52,6 +53,11 @@ export default function SearchInventory () {
         });
     };
 
+    const handleSortToggle = () => {
+        const newSort = currentSort === "asc" ? "desc" : "asc";
+        setCurrentSort(newSort);
+    };
+
     return (
         <div className={`container-search-inventory ${isSidebarOpen ? 'open-body' : ''}`}>
             <i className="arrow-left-icon-search-inventory" onClick={handleBack}>
@@ -67,8 +73,8 @@ export default function SearchInventory () {
                 <span className="filter-btn"
                   onClick={toggleSidebar}>Filters{" "} </span>
             </div>
-            <CourseSection filters={filters} setFilters={setFilters} />
-            <SearchInventorySidebar isOpen={isSidebarOpen} onFilter={handleFilter} onReset={handleReset} />
+            <CourseSection filters={filters} setFilters={setFilters} currentSort={currentSort} handleSortToggle={handleSortToggle}  />
+            <SearchInventorySidebar isOpen={isSidebarOpen} onFilter={handleFilter} onReset={handleReset} onSortChange={setCurrentSort} currentSort={currentSort} />
         </div>
     )
 }

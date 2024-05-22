@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import "../styles/searchInventorySidebar.css";
 import axios from "axios";
-import { Disc, DiscStateString } from "../App";
+import { Disc } from "../App";
 
 interface SearchInventorySidebarProps {
   isOpen: boolean;
   onFilter: (filters: FilterCriteria) => void;
   onReset: () => void;
+  onSortChange: (sort: string) => void;
+  currentSort: string;
 }
 
 interface FilterCriteria {
@@ -26,12 +28,13 @@ function getUniqueValues(arr: string[]): string[] {
   return arr.filter((value, index, self) => self.indexOf(value) === index);
 }
 
-export default function SearchInventorySidebar({ isOpen, onFilter, onReset }: SearchInventorySidebarProps) {
+export default function SearchInventorySidebar({ isOpen, onFilter, onReset, onSortChange, currentSort }: SearchInventorySidebarProps) {
   const [allDiscs, setAllDiscs] = useState<Disc[]>([]);
   const [brands, setBrands] = useState<{ brand: string; count: number }[]>([]);
   const [colors, setColors] = useState<{ color: string; count: number }[]>([]);
   const [discNames, setDiscNames] = useState<{ discName: string; count: number }[]>([]);
-  const [currentSort, setCurrentSort] = useState<string>("desc");
+  const [isOpenAccordion, setIsOpenAccordion] = useState(true);
+  
 
   useEffect(() => {
     const fetchDiscs = async () => {
@@ -74,26 +77,9 @@ export default function SearchInventorySidebar({ isOpen, onFilter, onReset }: Se
   fetchDiscs();
 }, []);
 
-useEffect(() => {
-  console.log("Sort status changed to:", currentSort);
-  loadDiscs(); 
-}, [currentSort]);
-
 const handleSortToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
   const newSort = event.target.checked ? "asc" : "desc";
-  console.log("New sort:", newSort);
-  setCurrentSort(newSort);
-  loadDiscs();
-};
-
-const loadDiscs = () => {
-  console.log("Sorting discs..."); 
-  const sortedDiscs = [...allDiscs].sort((a, b) => {
-    const dateA = new Date(a.dateFound).getTime();
-    const dateB = new Date(b.dateFound).getTime();
-    return currentSort === "asc" ? dateA - dateB : dateB - dateA;
-  });
-  setAllDiscs(sortedDiscs); 
+  onSortChange(newSort);
 };
 
 
@@ -122,6 +108,10 @@ const resetFilters = () => {
   onReset();
 };
 
+const toggleAccordion = () => {
+  setIsOpenAccordion(!isOpenAccordion);
+}
+
 return (
 <div className={`asidebar ${isOpen ? "open-sidebar" : ""}`}>
       <div className="sidebar-header">
@@ -141,7 +131,8 @@ return (
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingOne">
               <button
-                className="accordion-button"
+                onClick={toggleAccordion}
+                className={`accordion-button`}
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseOne"
@@ -153,7 +144,7 @@ return (
             </h2>
             <div
               id="collapseOne"
-              className="accordion-collapse collapse show"
+              className={`accordion-collapse collapse ${isOpenAccordion ? "show" : ""}`}
               aria-labelledby="headingOne"
             >
               <div className="accordion-body">
