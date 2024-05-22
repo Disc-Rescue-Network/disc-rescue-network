@@ -7,11 +7,23 @@ import { useState } from "react";
 import CourseSection from "../components/CourseSection";
 import SearchInventorySidebar from "../components/SearchInventorySidebar";
 
+interface FilterCriteria {
+    brands: string[];
+    colors: string[];
+    discNames: string[];
+  }
+
 
 export default function SearchInventory () {
     const navigate = useNavigate();
     const [step, setStep] = useState(1);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [filters, setFilters] = useState<FilterCriteria>({
+        brands: [],
+        colors: [],
+        discNames: [],
+    });
+
 
     const handleBack = () => {
     if (step > 1) {
@@ -25,6 +37,19 @@ export default function SearchInventory () {
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const handleFilter = (newFilters: FilterCriteria) => {
+        setFilters(newFilters);
+        setIsSidebarOpen(false);
+    };
+
+    const handleReset = () => {
+        setFilters({
+            brands: [],
+            colors: [],
+            discNames: [],
+        });
     };
 
     return (
@@ -42,8 +67,8 @@ export default function SearchInventory () {
                 <span className="filter-btn"
                   onClick={toggleSidebar}>Filters{" "} </span>
             </div>
-            <CourseSection />
-            <SearchInventorySidebar isOpen={isSidebarOpen} />
+            <CourseSection filters={filters} setFilters={setFilters} />
+            <SearchInventorySidebar isOpen={isSidebarOpen} onFilter={handleFilter} onReset={handleReset} />
         </div>
     )
 }

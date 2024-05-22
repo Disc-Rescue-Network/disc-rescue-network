@@ -3,13 +3,24 @@ import "../styles/courseSection.css"
 import axios from "axios";
 import { Disc, DiscStateString } from "../App";
 import CourseSectionDiscs from "./CourseSectionDiscs";
-import SearchInventorySidebar from "./SearchInventorySidebar";
 
-export default function CourseSection () {
+interface FilterCriteria {
+  brands: string[];
+  colors: string[];
+  discNames: string[];
+}
+
+interface CourseSectionProps {
+  filters: FilterCriteria;
+  setFilters: (filters: FilterCriteria) => void;
+}
+
+
+export default function CourseSection ({ filters}: CourseSectionProps) {
     const [allDiscs, setAllDiscs] = useState<Disc[]>([]);
     const [displayedDiscs, setDisplayedDiscs] = useState<Disc[]>([]);
     const [showLoadMore, setShowLoadMore] = useState(true);
-  
+
     useEffect(() => {
       const fetchDiscs = async () => {
         try {
@@ -27,14 +38,30 @@ export default function CourseSection () {
   
     useEffect(() => {
       // Filter by status
-      const filteredDiscs = allDiscs.filter(
-        (disc) =>
-          disc.status === DiscStateString.New ||
-          disc.status === DiscStateString.Unclaimed
+      applyFilters();
+  }, [allDiscs, filters]);
+
+  const applyFilters = () => {
+    const filteredDiscs = allDiscs.filter((disc) => {
+      const brand = disc.brand || ''; 
+      const color = disc.color || '';
+      const discName = disc.disc || '';
+
+      const matchesBrand = filters.brands.length === 0 || filters.brands.includes(brand);
+      const matchesColor = filters.colors.length === 0 || filters.colors.includes(color);
+      const matchesDiscName = filters.discNames.length === 0 || filters.discNames.includes(discName);
+
+      return (
+        (disc.status === DiscStateString.New || disc.status === DiscStateString.Unclaimed) &&
+        matchesBrand &&
+        matchesColor &&
+        matchesDiscName
       );
+    });
+
       setDisplayedDiscs(filteredDiscs.slice(0, 6)); 
       setShowLoadMore(filteredDiscs.length > 6); 
-    }, [allDiscs]);
+    };
   
     const loadMore = () => {
       const nextIndex = displayedDiscs.length + 6;

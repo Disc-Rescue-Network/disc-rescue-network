@@ -160,6 +160,10 @@
   font-weight: 500;
 }
 
+.accordion-header {
+  margin-bottom: 0px;
+}
+
 .accordion-button:not(.collapsed)::after {
   background-image: var(--bs-accordion-btn-active-icon);
   transform: var(--bs-accordion-btn-icon-transform); 
@@ -278,12 +282,36 @@
   background: var(--primary-blue);
 }
 
+.checkcount {
+  color: var(--primary-red);
+  padding-right: 5px;
+}
+
 .filter-text {
   display: flex;
   align-items: center;
   font-size: 15px;
   margin: auto;
-  justify-content: start;
+  justify-content: space-between;
+  
+}
+
+.filter-checkbox {
+  display: block;
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 15px;
+}
+
+.filter-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
 }
 
 .hidden {
