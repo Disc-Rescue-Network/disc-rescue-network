@@ -9,6 +9,7 @@ import Settings from "./views/Settings";
 import RequestCourse from "./views/RequestCourse";
 import ReportLostDisc from "./views/ReportLostDisc";
 import SearchInventory from "./views/SearchInventory";
+import Courses from "./views/Courses";
 
 // Define a Disc interface
 export interface Disc {
@@ -57,6 +58,7 @@ function App() {
         <Route path="/requestCourse" element= {<RequestCourse />} />
         <Route path="/reportLostDisc" element= {<ReportLostDisc />} />
         <Route path="/searchInventory" element= {<SearchInventory />} />
+        <Route path="courses" element={<Courses /> } />
       </Routes>
 
       <Footer />
