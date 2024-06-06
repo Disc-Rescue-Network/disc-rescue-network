@@ -2,6 +2,7 @@ import "../styles/card.css";
 import pinImage from "../assets/pin.png";
 import Button from "./Button";
 import { Disc } from "../App";
+import { useNavigate } from "react-router-dom";
 
 interface CardProps {
   disc: Disc;
@@ -11,7 +12,12 @@ interface CardProps {
 const Card = (props: CardProps) => {
   const { disc, className } = props;
   const cardClassName = className ? `card-container ${className}` : "card-container";
+  const navigate = useNavigate();
 
+  const handleClaimDiscClick = () => {
+    navigate("/claimDisc");
+  };
+  
   return (
     <div className={cardClassName}>
       <div className="disc-info">
@@ -52,9 +58,7 @@ const Card = (props: CardProps) => {
                 text={"Claim Disc"}
                 red={false}
                 className="unset-padding btn-2"
-                onClick={() => {
-                  alert("button clicked");
-                }}
+                onClick={handleClaimDiscClick}
               />
             </div>
           </div>
