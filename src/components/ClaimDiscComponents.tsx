@@ -3,6 +3,8 @@ import Button from "./Button";
 import NameAndInitialForm from "./NameAndInitialForm";
 import FormClaimDiscContact from "./FormClaimDiscContact";
 import "../styles/claimDiscComponents.css"
+import { useState } from "react";
+import "../styles/popupClaimDisc.css"
 
 interface HeaderReportLostProps {
   className?: string;
@@ -11,6 +13,15 @@ interface HeaderReportLostProps {
 
 const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const { className, contactMethod } = props;
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleScheduleButtonClick = () => {
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
 
   return (
     <div className={`report-lost-components ${className}`}>
@@ -33,9 +44,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
         red={true}
         border={true}
         className="button-claim-disc-form"
-        onClick={() => {
-          alert("button clicked");
-        }}
+        onClick={handleScheduleButtonClick} 
       />
       <Button
         text={"Surrender Disc"}
