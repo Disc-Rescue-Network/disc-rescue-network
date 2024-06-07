@@ -4,14 +4,16 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import ReportLostComponents from "../components/ReportLostComponents";
 import { useState, useEffect } from "react";
 import PopUpReport from "../components/ReportLostPopup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ClaimDiscComponents from "../components/ClaimDiscComponents";
 
-export default function ReportLostDisc() {
+export default function ClaimDisc() {
+  const { id } = useParams<{ id?: string }>();
   const [showPopup, setShowPopup] = useState(true);
-  const [contactMethod, setContactMethod] = useState<"phone" | "email">(
-    "phone"
-  );
+  const [contactMethod, setContactMethod] = useState<"phone" | "email">("phone");
+  const [step, setStep] = useState(1);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setShowPopup(true);
@@ -22,10 +24,6 @@ export default function ReportLostDisc() {
     setShowPopup(false);
   };
 
-  const [step, setStep] = useState(1);
-
-  const navigate = useNavigate();
-
   const handleBack = () => {
     if (step > 1) {
       setStep(step - 1);
@@ -35,6 +33,12 @@ export default function ReportLostDisc() {
       navigate("/");
     }
   };
+
+  if (id === undefined) {
+    return <div>Error: Disc ID is missing</div>;
+  }
+  
+  const discId = parseInt(id, 10);
 
   return (
     <div className="container-report-lost-disc">
