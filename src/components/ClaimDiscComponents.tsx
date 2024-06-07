@@ -5,6 +5,7 @@ import FormClaimDiscContact from "./FormClaimDiscContact";
 import "../styles/claimDiscComponents.css"
 import { useState } from "react";
 import "../styles/popupClaimDisc.css"
+import { PopupVerify } from "./PopupClaimDisc";
 
 interface HeaderReportLostProps {
   className?: string;
@@ -19,7 +20,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
     setShowPopup(true);
   };
 
-  const handleClosePopup = () => {
+  const closePopup = () => {
     setShowPopup(false);
   };
 
@@ -55,6 +56,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           alert("button clicked");
         }}
       />
+      {showPopup && <PopupVerify closePopupVerify={closePopup} claimDisc={() => {}} />}
     </div>
   );
 };

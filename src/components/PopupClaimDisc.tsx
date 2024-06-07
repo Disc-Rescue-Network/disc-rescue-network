@@ -1,4 +1,6 @@
-import React from 'react';
+import { useEffect } from "react";
+import "../styles/popupClaimDisc.css"
+import Button from "./Button";
 
 interface PopupVerifyProps {
   closePopupVerify: () => void;
@@ -11,10 +13,23 @@ interface PopupSurrenderProps {
 }
 
 export function PopupVerify({ closePopupVerify, claimDisc }: PopupVerifyProps) {
+  useEffect(() => {
+    const modal = document.getElementById("popup");
+    const communicationMethodLabel = document.getElementById("communicationMethodLabel");
+
+    if (modal && communicationMethodLabel) {
+      modal.style.display = "none";
+      communicationMethodLabel.textContent = "Phone Number For Release: ";
+    }
+  }, []);
+
   return (
     <div className="popup" style={{ flexDirection: 'column' }}>
       <div className="popup-content popup-claim-disc" id="popup-verify-content" style={{ margin: 'unset !important' }}>
-        <span className="close" id="close" onClick={closePopupVerify}>&times;</span>
+        <span className="close" id="close" onClick={closePopupVerify}>
+          <div className="line"></div>
+          <div className="line"></div>
+        </span>
         <h2 style={{ fontSize: '3rem', marginTop: '10px', marginBottom: '10px' }}>
           Verify Your <span className="fw-light">INFO</span>
         </h2>
@@ -41,13 +56,19 @@ export function PopupVerify({ closePopupVerify, claimDisc }: PopupVerifyProps) {
         <div id="loading-bar" className="loading-bar"></div>
       </div>
 
-      <div className="d-flex justify-content-center align-items-center mt-2 mb-2" style={{ flexDirection: 'column', width: '90%', maxWidth: '450px', background: 'transparent', justifyContent: 'flex-start', margin: 'auto', paddingBottom: '50px' }}>
-        <button className="stepbutton text-white mt-2 mb-3" onClick={claimDisc}>
-          Perfect! Give me my disc back!
-        </button>
-        <button className="rememberbtn fw-light" style={{ width: '80%', maxWidth: '450px' }} onClick={closePopupVerify}>
-          Need to adjust some pickup information
-        </button>
+      <div className="d-flex justify-content-center align-items-center mt-2 mb-2" style={{ flexDirection: 'column', width: '90%', maxWidth: '450px', background: 'transparent', justifyContent: 'flex-start', paddingBottom: '50px' }}>
+      <Button
+                text={"Perfect! Give me my disc back!"}
+                red={true}
+                className="button-red-popup-claim"
+                onClick={claimDisc}
+        />
+        <Button
+                text={"Need to adjust some pickup information"}
+                red={false}
+                className="button-blue-popup-claim"
+                onClick={closePopupVerify}
+        />
       </div>
     </div>
   );
