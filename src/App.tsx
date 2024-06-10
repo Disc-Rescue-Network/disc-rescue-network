@@ -60,7 +60,7 @@ function App() {
         <Route path="/reportLostDisc" element= {<ReportLostDisc />} />
         <Route path="/searchInventory" element= {<SearchInventory />} />
         <Route path="/courses" element={<Courses />} />
-        <Route path="/claimDisc" element={<ClaimDisc />} />
+        <Route path="/claimDisc/:id" element={<ClaimDisc />} />
       </Routes>
 
       <Footer />

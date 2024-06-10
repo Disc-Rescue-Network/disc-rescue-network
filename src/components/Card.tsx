@@ -15,7 +15,7 @@ const Card = (props: CardProps) => {
   const navigate = useNavigate();
 
   const handleClaimDiscClick = () => {
-    navigate("/claimDisc");
+    navigate(`/claimDisc/${disc.id}`);
   };
   
   return (
