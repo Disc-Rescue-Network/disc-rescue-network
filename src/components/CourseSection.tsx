@@ -24,6 +24,7 @@ export default function CourseSection({
   handleSortToggle,
 }: CourseSectionProps) {
   const [allDiscs, setAllDiscs] = useState<Disc[]>([]);
+  const [filteredDiscs, setFilteredDiscs] = useState<Disc[]>([]);
   const [displayedDiscs, setDisplayedDiscs] = useState<Disc[]>([]);
   const [showLoadMore, setShowLoadMore] = useState(true);
 
@@ -76,17 +77,14 @@ export default function CourseSection({
       }
     });
 
-    if (displayedDiscs.length === 0) {
-      setDisplayedDiscs(sortedDiscs.slice(0, 6));
-    } else {
-      setDisplayedDiscs(sortedDiscs.slice(0, displayedDiscs.length));
-    }
-    setShowLoadMore(sortedDiscs.length > displayedDiscs.length);
+    setFilteredDiscs(sortedDiscs); 
+    setDisplayedDiscs(sortedDiscs.slice(0, 6)); 
+    setShowLoadMore(sortedDiscs.length > 6); 
   };
 
   const loadMore = () => {
     const nextIndex = displayedDiscs.length + 6;
-    const nextDiscs = allDiscs
+    const nextDiscs = filteredDiscs.slice(0, nextIndex)
       .filter(
         (disc) =>
           disc.status === DiscStateString.New ||
