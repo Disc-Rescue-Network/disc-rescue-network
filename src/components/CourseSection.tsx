@@ -84,7 +84,7 @@ export default function CourseSection({
 
   const loadMore = () => {
     const nextIndex = displayedDiscs.length + 6;
-    const nextDiscs =  filteredDiscs.slice(0, nextIndex)
+    const nextDiscs = filteredDiscs.slice(0, nextIndex)
       .filter(
         (disc) =>
           disc.status === DiscStateString.New ||
