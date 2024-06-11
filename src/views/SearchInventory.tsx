@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import CourseSection from "../components/CourseSection";
 import SearchInventorySidebar from "../components/SearchInventorySidebar";
+import { Disc } from "../App";
 
 interface FilterCriteria {
     brands: string[];
@@ -27,6 +28,7 @@ export default function SearchInventory () {
     const [currentSort, setCurrentSort] = useState<string>("desc");
     const [courseName, setCourseName] = useState<string | null>(null);
     const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
+    const [displayedDiscs, setDisplayedDiscs] = useState<Disc[]>([])
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -87,8 +89,21 @@ export default function SearchInventory () {
                 <span className="filter-btn"
                   onClick={toggleSidebar}>Filters{" "} </span>
             </div>
-            <CourseSection filters={filters} setFilters={setFilters} currentSort={currentSort} handleSortToggle={handleSortToggle} selectedCourseId={selectedCourseId}  />
-            <SearchInventorySidebar isOpen={isSidebarOpen} onFilter={handleFilter} onReset={handleReset} onSortChange={setCurrentSort} currentSort={currentSort} />
+            <CourseSection 
+                filters={filters} 
+                setFilters={setFilters} 
+                currentSort={currentSort} 
+                handleSortToggle={handleSortToggle} 
+                selectedCourseId={selectedCourseId}  
+                displayedDiscsCards={displayedDiscs} 
+            />        
+            <SearchInventorySidebar 
+                isOpen={isSidebarOpen} 
+                onFilter={handleFilter} 
+                onReset={handleReset} 
+                onSortChange={setCurrentSort} 
+                currentSort={currentSort} 
+            />
         </div>
     )
 }

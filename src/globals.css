@@ -456,3 +456,19 @@ body {
     font-family: Lato;
     text-transform: uppercase;
 }
+
+.no-results-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  margin-top: 5rem;
+  color: var(--primary-blue);
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (max-width:500px) {
+  .no-results-message {
+    font-size: 1.5rem;
+  }
+}

@@ -16,13 +16,12 @@ interface CourseSectionProps {
   currentSort: string;
   handleSortToggle: () => void;
   selectedCourseId: string | null;
+  displayedDiscsCards: Disc[]; 
 }
 
 export default function CourseSection({
   filters,
-  setFilters,
   currentSort,
-  handleSortToggle,
   selectedCourseId,
 }: CourseSectionProps) {
   const [allDiscs, setAllDiscs] = useState<Disc[]>([]);
@@ -105,6 +104,10 @@ export default function CourseSection({
 
     setDisplayedDiscs(sortedNextDiscs);
     setShowLoadMore(nextIndex < allDiscs.length);
+
+    if (nextDiscs.length === 0) {
+      setDisplayedDiscs([]); 
+    }
   };
 
   return (
@@ -116,6 +119,9 @@ export default function CourseSection({
             Load More
           </a>
         </div>
+      )}
+      {displayedDiscs.length === 0 && (
+        <p className="no-results-message">No results for {selectedCourseId}</p>
       )}
     </div>
   );
