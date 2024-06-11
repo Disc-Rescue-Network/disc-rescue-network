@@ -109,7 +109,7 @@ export default function CourseSection({
 
   return (
     <div className="course-section">
-      <CourseSectionDiscs arrayOfDiscs={displayedDiscs} selectedCourseId={selectedCourseId} />
+      <CourseSectionDiscs arrayOfDiscs={displayedDiscs} />
       {showLoadMore && (
         <div className="load-more">
           <a className="more-btn" onClick={loadMore}>
