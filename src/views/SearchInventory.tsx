@@ -26,12 +26,14 @@ export default function SearchInventory () {
     });
     const [currentSort, setCurrentSort] = useState<string>("desc");
     const [courseName, setCourseName] = useState<string | null>(null);
+    const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
-        const course = params.get("course");
-        setCourseName(course ? decodeURIComponent(course) : null);
-    }, [location.search]);
+    const course = params.get("course");
+    setCourseName(course ? decodeURIComponent(course) : null);
+    setSelectedCourseId(course);
+  }, [location.search]);
 
     const handleBack = () => {
     if (step > 1) {
@@ -85,7 +87,7 @@ export default function SearchInventory () {
                 <span className="filter-btn"
                   onClick={toggleSidebar}>Filters{" "} </span>
             </div>
-            <CourseSection filters={filters} setFilters={setFilters} currentSort={currentSort} handleSortToggle={handleSortToggle}  />
+            <CourseSection filters={filters} setFilters={setFilters} currentSort={currentSort} handleSortToggle={handleSortToggle} selectedCourseId={selectedCourseId}  />
             <SearchInventorySidebar isOpen={isSidebarOpen} onFilter={handleFilter} onReset={handleReset} onSortChange={setCurrentSort} currentSort={currentSort} />
         </div>
     )
