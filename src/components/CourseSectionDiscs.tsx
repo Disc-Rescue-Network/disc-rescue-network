@@ -8,6 +8,7 @@ interface CourseDiscsProps {
 }
 
 const CourseSectionDiscs = ({ arrayOfDiscs }: CourseDiscsProps) => {
+
   return (
     <div className="row-search">
         {arrayOfDiscs.map((disc) => (

@@ -2,8 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import LogoRescueFlow2 from "../components/LogoRescueFlow2";
 import RequestCourseComponets from "../components/RequestCourseComponents";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import CourseSection from "../components/CourseSection";
 import SearchInventorySidebar from "../components/SearchInventorySidebar";
 
@@ -16,6 +16,7 @@ interface FilterCriteria {
 
 export default function SearchInventory () {
     const navigate = useNavigate();
+    const location = useLocation();
     const [step, setStep] = useState(1);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [filters, setFilters] = useState<FilterCriteria>({
@@ -24,7 +25,15 @@ export default function SearchInventory () {
         discNames: [],
     });
     const [currentSort, setCurrentSort] = useState<string>("desc");
+    const [courseName, setCourseName] = useState<string | null>(null);
+    const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
 
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+    const course = params.get("course");
+    setCourseName(course ? decodeURIComponent(course) : null);
+    setSelectedCourseId(course);
+  }, [location.search]);
 
     const handleBack = () => {
     if (step > 1) {
@@ -69,11 +78,16 @@ export default function SearchInventory () {
             <div className="search-inventory-componets" style={{ marginTop: '-3.5rem' }}>
                 <RequestCourseComponets className={"search-inventory-components"} baseText={"All Lost"} lightText={" Discs"} />
             </div>
+            <div>
+                <p className="course-name-search">
+                {courseName && `@ ${courseName}`}
+                </p>
+            </div>
             <div className="filter-button">
                 <span className="filter-btn"
                   onClick={toggleSidebar}>Filters{" "} </span>
             </div>
-            <CourseSection filters={filters} setFilters={setFilters} currentSort={currentSort} handleSortToggle={handleSortToggle}  />
+            <CourseSection filters={filters} setFilters={setFilters} currentSort={currentSort} handleSortToggle={handleSortToggle} selectedCourseId={selectedCourseId}  />
             <SearchInventorySidebar isOpen={isSidebarOpen} onFilter={handleFilter} onReset={handleReset} onSortChange={setCurrentSort} currentSort={currentSort} />
         </div>
     )

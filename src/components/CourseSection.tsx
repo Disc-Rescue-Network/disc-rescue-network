@@ -15,6 +15,7 @@ interface CourseSectionProps {
   setFilters: (filters: FilterCriteria) => void;
   currentSort: string;
   handleSortToggle: () => void;
+  selectedCourseId: string | null;
 }
 
 export default function CourseSection({
@@ -22,6 +23,7 @@ export default function CourseSection({
   setFilters,
   currentSort,
   handleSortToggle,
+  selectedCourseId,
 }: CourseSectionProps) {
   const [allDiscs, setAllDiscs] = useState<Disc[]>([]);
   const [filteredDiscs, setFilteredDiscs] = useState<Disc[]>([]);
@@ -45,7 +47,7 @@ export default function CourseSection({
 
   useEffect(() => {
     applyFilters();
-  }, [allDiscs, filters, currentSort]);
+  }, [allDiscs, filters, currentSort, selectedCourseId]);
 
   const applyFilters = () => {
     const filteredDiscs = allDiscs.filter((disc) => {
@@ -65,7 +67,8 @@ export default function CourseSection({
           disc.status === DiscStateString.Unclaimed) &&
         matchesBrand &&
         matchesColor &&
-        matchesDiscName
+        matchesDiscName &&
+        (!selectedCourseId || disc.course === selectedCourseId) 
       );
     });
 
