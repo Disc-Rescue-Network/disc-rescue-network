@@ -5,12 +5,19 @@ import "../styles/courseSection.css"
 
 interface CourseDiscsProps {
   arrayOfDiscs: Disc[];
+  selectedCourseId: string | null;
 }
 
-const CourseSectionDiscs = ({ arrayOfDiscs }: CourseDiscsProps) => {
+const CourseSectionDiscs = ({ arrayOfDiscs, selectedCourseId }: CourseDiscsProps) => {
+  let filteredDiscs = arrayOfDiscs;
+
+  if (selectedCourseId) {
+    filteredDiscs = arrayOfDiscs.filter((disc) => disc.course === selectedCourseId);
+  }
+
   return (
     <div className="row-search">
-        {arrayOfDiscs.map((disc) => (
+        {filteredDiscs.map((disc) => (
           <Card 
             className="card-course-section" 
             key={disc.id} 
