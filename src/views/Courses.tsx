@@ -26,6 +26,16 @@ export default function () {
       }
     };
 
+    const handleSearch = () => {
+      if (course) {
+        const encodedCourse = encodeURIComponent(course);
+        navigate(`/searchInventory?course=${encodedCourse}`);
+      } else {
+        alert("Please select a course.");
+      }
+    };
+
+
     return (
         <div className="container-store">
             <i className="arrow-left-icon" 
@@ -45,9 +55,7 @@ export default function () {
                 text={"Search at the Selected Course"}
                 red={true}
                 className="button-red-courses"
-                onClick={() => {
-                  alert("button clicked");
-                }}
+                onClick={handleSearch}
               />
         </div>
     )

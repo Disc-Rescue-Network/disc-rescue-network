@@ -444,3 +444,15 @@ body {
   right: 0;
   transform: translateY(-50%);
 }
+
+/* Search Inventory from Courses */
+
+.course-name-search {
+  margin: 0;
+    font-size: 1.5rem;
+    color: var(--primary-blue);
+    font-weight: 400;
+    letter-spacing: 0.8px;
+    font-family: Lato;
+    text-transform: uppercase;
+}
