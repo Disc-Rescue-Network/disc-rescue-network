@@ -15,9 +15,15 @@ interface HeaderReportLostProps {
 const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const { className, contactMethod } = props;
   const [showPopup, setShowPopup] = useState(false);
+  const [pickupLocation, setPickupLocation] = useState("");
+  const [pickupDate, setPickupDate] = useState("");
 
   const handleScheduleButtonClick = () => {
-    setShowPopup(true);
+    if (pickupLocation && pickupDate) {
+      setShowPopup(true);
+    } else {
+      alert("Please choose a pickup location and date.");
+    }
   };
 
   const closePopup = () => {
@@ -38,7 +44,9 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
       <NameAndInitialForm />
       <FormClaimDiscContact 
         contactMethod={contactMethod} 
-        initialName={"Choose a Pickup Location"} 
+        ChosePickup={"Choose a Pickup Location"} 
+        onPickupLocationChange={(location: string) => setPickupLocation(location)}
+        onPickupDateChange={(date: string) => setPickupDate(date)}
         />
       <Button
         text={"Schedule Your Disc Pickup"}
@@ -46,6 +54,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
         border={true}
         className="button-claim-disc-form"
         onClick={handleScheduleButtonClick} 
+        disabled={!pickupLocation || !pickupDate}
       />
       <Button
         text={"Surrender Disc"}
@@ -56,9 +65,11 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           alert("button clicked");
         }}
       />
-      {showPopup && <PopupVerify closePopupVerify={closePopup} claimDisc={() => {}} />}
+      {showPopup && <PopupVerify closePopupVerify={closePopup} claimDisc={() => {}} pickupLocation={pickupLocation} pickupDate={pickupDate}/>}
     </div>
   );
 };
 
 export default ClaimDiscComponents;
+
+

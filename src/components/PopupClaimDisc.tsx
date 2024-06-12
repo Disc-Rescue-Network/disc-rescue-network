@@ -5,6 +5,8 @@ import Button from "./Button";
 interface PopupVerifyProps {
   closePopupVerify: () => void;
   claimDisc: () => void;
+  pickupLocation: string;
+  pickupDate: string;
 }
 
 interface PopupSurrenderProps {
@@ -12,7 +14,7 @@ interface PopupSurrenderProps {
   surrenderDiscConfirm: () => void;
 }
 
-export function PopupVerify({ closePopupVerify, claimDisc }: PopupVerifyProps) {
+export function PopupVerify({ closePopupVerify, claimDisc, pickupLocation, pickupDate }: PopupVerifyProps) {
   useEffect(() => {
     const modal = document.getElementById("popup");
     const communicationMethodLabel = document.getElementById("communicationMethodLabel");
@@ -37,11 +39,11 @@ export function PopupVerify({ closePopupVerify, claimDisc }: PopupVerifyProps) {
           <div className="box-content-disc d-flex flex-column">
             <div className="verify-row">
               <label>Pickup Date:</label>
-              <span id="verifyPickupDate" className="fw-light"></span>
+              <span id="verifyPickupDate" className="fw-light">{pickupDate}</span>
             </div>
             <div className="verify-row">
               <label id="pickupLocationLabel">Pickup Location:</label>
-              <span id="verifyPickupLocation" className="fw-light"></span>
+              <span id="verifyPickupLocation" className="fw-light">{pickupLocation}</span>
             </div>
             <div className="verify-row">
               <label id="communicationMethodLabel"></label>
