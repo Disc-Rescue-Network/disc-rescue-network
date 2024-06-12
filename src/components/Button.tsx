@@ -10,6 +10,7 @@ interface ButtonProps {
   icon?: string;
   tilt?: boolean;
   border?: boolean;
+  disabled?: boolean;
 }
 
 export default function Button(props: ButtonProps) {
