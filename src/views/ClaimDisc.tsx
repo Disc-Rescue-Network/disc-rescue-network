@@ -6,17 +6,35 @@ import { useState, useEffect } from "react";
 import PopUpReport from "../components/ReportLostPopup";
 import { useNavigate, useParams } from "react-router-dom";
 import ClaimDiscComponents from "../components/ClaimDiscComponents";
+import { Disc } from "../App";
+import axios from "axios";
 
 export default function ClaimDisc() {
   const { id } = useParams<{ id?: string }>();
   const [showPopup, setShowPopup] = useState(true);
   const [contactMethod, setContactMethod] = useState<"phone" | "email">("phone");
   const [step, setStep] = useState(1);
+  const [arrayOfDiscs, setArrayOfDiscs] = useState<Disc[]>([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     setShowPopup(true);
+  }, []);
+
+  useEffect(() => {
+    const fetchDiscs = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.discrescuenetwork.com/inventory"
+        );
+        setArrayOfDiscs(response.data); 
+      } catch (error) {
+        console.error("Failed to fetch discs:", error);
+      }
+    };
+
+    fetchDiscs();
   }, []);
 
   const handleSelect = (choice: "phone" | "email") => {
@@ -61,7 +79,12 @@ export default function ClaimDisc() {
       <div className="filters-option-claim">
         <span onClick={() => setShowPopup(true)}>Contact Method</span>
       </div>
-      {contactMethod && <ClaimDiscComponents contactMethod={contactMethod} />}
+      {contactMethod && 
+        <ClaimDiscComponents 
+          contactMethod={contactMethod} 
+          arrayOfDiscs={arrayOfDiscs}
+          selectedDiscId={id}
+        />}
     </div>
   );
 }
