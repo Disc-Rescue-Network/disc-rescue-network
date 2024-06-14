@@ -78,7 +78,7 @@ export default function SearchInventory () {
                 <LogoRescueFlow2 />
             </div>
             <div className="search-inventory-componets" style={{ marginTop: '-3.5rem' }}>
-                <RequestCourseComponets className={"search-inventory-components"} baseText={"All Lost"} lightText={" Discs"} />
+                <RequestCourseComponets className="search-inventory-components" baseText={"All Lost"} lightText={" Discs"} />
             </div>
             <div>
                 <p className="course-name-search">

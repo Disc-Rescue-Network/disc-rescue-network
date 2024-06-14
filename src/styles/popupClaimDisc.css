@@ -287,3 +287,20 @@
   .verify-row-claim span {
     font-size: 20px;
   }
+
+  /* claim disc success */
+
+  .verify-row-claim-success {
+    margin-bottom: 1rem;
+  }
+
+  .verify-row-claim-success label {
+    font-weight: 600;
+    color: var(--primary-black);
+  }
+
+  @media screen and (max-width:500px) {
+    .verify-row-claim-success {
+      text-align: start;
+    }
+  }

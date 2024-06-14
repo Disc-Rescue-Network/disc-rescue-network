@@ -403,6 +403,10 @@ body {
   padding-bottom: 0 !important;
 }
 
+.search-inventory-components span {
+  color: var(--primary-blue);
+}
+
 @media screen and (max-width:500px) {
   .search-inventory-components h2 {
     font-size: 4rem !important;
@@ -471,4 +475,44 @@ body {
   .no-results-message {
     font-size: 1.5rem;
   }
+}
+
+.lato {
+  font-family: "Lato", sans-serif;
+}
+
+.light {
+  font-weight: 300;
+}
+
+.claim-border-bottom {
+  border-bottom: 1px solid var(--table-separator);
+}
+
+.no-color {
+  color: unset !important;
+}
+
+.no-flex-direction {
+  flex-direction: unset !important;
+}
+
+.grey-background {
+  background-color: var(--primary-grey);
+}
+
+.white-border {
+  border: 1px solid var(--primary-white) !important;
+}
+
+.verify-row {
+  margin-bottom: 5px;
+}
+
+.drop-shadow {
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.3);
+}
+
+.extra-padding {
+  padding: 30px !important; 
 }

@@ -3,10 +3,10 @@ import "../styles/popupClaimDisc.css"
 import Button from "./Button";
 import DiscsClaimDiscs from "./DiscsClaimDisc";
 import { Disc } from "../App";
+import { useNavigate } from "react-router-dom";
 
 interface PopupVerifyProps {
   closePopupVerify: () => void;
-  claimDisc: () => void;
   pickupLocation: string;
   pickupDate: string;
   pickupName: string;
@@ -19,7 +19,7 @@ interface PopupSurrenderProps {
   surrenderDiscConfirm: () => void;
 }
 
-export function PopupVerify({ closePopupVerify, claimDisc, pickupLocation, pickupDate, pickupName, arrayOfDiscs, selectedDiscId }: PopupVerifyProps) {
+export function PopupVerify({ closePopupVerify, pickupLocation, pickupDate, pickupName, arrayOfDiscs, selectedDiscId }: PopupVerifyProps) {
   useEffect(() => {
     const modal = document.getElementById("popup");
     const communicationMethodLabel = document.getElementById("communicationMethodLabel");
@@ -29,6 +29,20 @@ export function PopupVerify({ closePopupVerify, claimDisc, pickupLocation, picku
       communicationMethodLabel.textContent = "Phone Number For Release: ";
     }
   }, []);
+ 
+  const navigate = useNavigate();
+
+  const handleClaimDiscSuccess = () => {
+    navigate(`/claimDiscSuccess/${selectedDiscId}`, {
+      state: {
+        pickupLocation,
+        pickupDate,
+        pickupName,
+        arrayOfDiscs,
+        selectedDiscId
+      }
+    });
+  };
 
   return (
     <div className="popup" style={{ flexDirection: 'column' }}>
@@ -58,7 +72,6 @@ export function PopupVerify({ closePopupVerify, claimDisc, pickupLocation, picku
 
           <div className="verify-row" id="discInfoVerify" style={{ color: 'var(--primary-black) !important', width: '65%', maxWidth: '400px' }}>
            <DiscsClaimDiscs arrayOfDiscs={arrayOfDiscs} selectedDiscId={selectedDiscId} />
-
           </div>
         </div>
         <div id="loading-bar" className="loading-bar"></div>
@@ -69,7 +82,7 @@ export function PopupVerify({ closePopupVerify, claimDisc, pickupLocation, picku
                 text={"Perfect! Give me my disc back!"}
                 red={true}
                 className="button-red-popup-claim"
-                onClick={claimDisc}
+                onClick={handleClaimDiscSuccess}
         />
         <Button
                 text={"Need to adjust some pickup information"}

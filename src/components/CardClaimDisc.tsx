@@ -20,7 +20,7 @@ const CardClaim = (props: CardClaimProps) => {
           <div className="circle-overlay">
             <img src={pinImage} alt="pin-icon" />
           </div>
-          <div className="text-block-2">
+          <div className="text-block-2" >
             <div className="course-wrapper">{disc.course}</div>
           </div>
         </div>
@@ -29,9 +29,10 @@ const CardClaim = (props: CardClaimProps) => {
           loading="lazy"
           alt="disc"
           className="image"
+          style={{ boxShadow: '2px 2px 20px 2px rgba(0, 0, 0, 0.3)' }}
         />
         <div className="w-layout-grid grid grid-disc">
-          <div className="course-list" style={{height: '100px'}}>
+          <div className="course-list-claim" style={{ boxShadow: '2px 2px 20px 2px rgba(0, 0, 0, 0.3)' }}>
             <ul>
               <li>
                 <i className="bx bx-palette" />
