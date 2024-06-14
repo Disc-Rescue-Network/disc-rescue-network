@@ -6,20 +6,24 @@ import "../styles/claimDiscComponents.css"
 import { useState } from "react";
 import "../styles/popupClaimDisc.css"
 import { PopupVerify } from "./PopupClaimDisc";
+import { Disc } from "../App";
 
 interface HeaderReportLostProps {
   className?: string;
   contactMethod: "phone" | "email";
+  arrayOfDiscs: Disc[]; 
+  selectedDiscId: string; 
 }
 
 const ClaimDiscComponents = (props: HeaderReportLostProps) => {
-  const { className, contactMethod } = props;
+  const { className, contactMethod, arrayOfDiscs, selectedDiscId } = props;
   const [showPopup, setShowPopup] = useState(false);
   const [pickupLocation, setPickupLocation] = useState("");
   const [pickupDate, setPickupDate] = useState("");
+  const [pickupName, setPickupName] = useState("");
 
   const handleScheduleButtonClick = () => {
-    if (pickupLocation && pickupDate) {
+    if (pickupLocation && pickupDate && pickupName) {
       setShowPopup(true);
     } else {
       alert("Please choose a pickup location and date.");
@@ -45,9 +49,12 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
       <FormClaimDiscContact 
         contactMethod={contactMethod} 
         ChosePickup={"Choose a Pickup Location"} 
-        onPickupLocationChange={(location: string) => setPickupLocation(location)}
+        onPickupLocationChange={(location: string, name: string) => {
+          setPickupLocation(location);
+          setPickupName(name); 
+        }}
         onPickupDateChange={(date: string) => setPickupDate(date)}
-        />
+      />
       <Button
         text={"Schedule Your Disc Pickup"}
         red={true}
@@ -65,7 +72,14 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           alert("button clicked");
         }}
       />
-      {showPopup && <PopupVerify closePopupVerify={closePopup} claimDisc={() => {}} pickupLocation={pickupLocation} pickupDate={pickupDate}/>}
+      {showPopup && <PopupVerify 
+        closePopupVerify={closePopup}
+        claimDisc={() => { } }
+        pickupLocation={pickupLocation}
+        pickupDate={pickupDate}
+        pickupName={pickupName} 
+        arrayOfDiscs={arrayOfDiscs}
+        selectedDiscId={selectedDiscId}  />}
     </div>
   );
 };

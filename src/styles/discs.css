@@ -36,3 +36,9 @@
     background: red; 
     border-radius: 1px; 
 }
+
+.card-container-claim-discs {
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+}
