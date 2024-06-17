@@ -6,18 +6,28 @@ import "../styles/claimDiscComponents.css"
 import { useState } from "react";
 import "../styles/popupClaimDisc.css"
 import { PopupVerify } from "./PopupClaimDisc";
+import { Disc } from "../App";
 
 interface HeaderReportLostProps {
   className?: string;
   contactMethod: "phone" | "email";
+  arrayOfDiscs: Disc[]; 
+  selectedDiscId: string; 
 }
 
 const ClaimDiscComponents = (props: HeaderReportLostProps) => {
-  const { className, contactMethod } = props;
+  const { className, contactMethod, arrayOfDiscs, selectedDiscId } = props;
   const [showPopup, setShowPopup] = useState(false);
+  const [pickupLocation, setPickupLocation] = useState("");
+  const [pickupDate, setPickupDate] = useState("");
+  const [pickupName, setPickupName] = useState("");
 
   const handleScheduleButtonClick = () => {
-    setShowPopup(true);
+    if (pickupLocation && pickupDate && pickupName) {
+      setShowPopup(true);
+    } else {
+      alert("Please choose a pickup location and date.");
+    }
   };
 
   const closePopup = () => {
@@ -38,14 +48,20 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
       <NameAndInitialForm />
       <FormClaimDiscContact 
         contactMethod={contactMethod} 
-        initialName={"Choose a Pickup Location"} 
-        />
+        ChosePickup={"Choose a Pickup Location"} 
+        onPickupLocationChange={(location: string, name: string) => {
+          setPickupLocation(location);
+          setPickupName(name); 
+        }}
+        onPickupDateChange={(date: string) => setPickupDate(date)}
+      />
       <Button
         text={"Schedule Your Disc Pickup"}
         red={true}
         border={true}
         className="button-claim-disc-form"
         onClick={handleScheduleButtonClick} 
+        disabled={!pickupLocation || !pickupDate}
       />
       <Button
         text={"Surrender Disc"}
@@ -56,9 +72,17 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           alert("button clicked");
         }}
       />
-      {showPopup && <PopupVerify closePopupVerify={closePopup} claimDisc={() => {}} />}
+      {showPopup && <PopupVerify 
+        closePopupVerify={closePopup}
+        pickupLocation={pickupLocation}
+        pickupDate={pickupDate}
+        pickupName={pickupName} 
+        arrayOfDiscs={arrayOfDiscs}
+        selectedDiscId={selectedDiscId}  />}
     </div>
   );
 };
 
 export default ClaimDiscComponents;
+
+

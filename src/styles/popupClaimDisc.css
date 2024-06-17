@@ -204,7 +204,7 @@
     align-items: center;
     margin: 0 auto;
     padding: 10px;
-    width: 80%;
+    width: 100%;
     max-width: 600px;
     color: var(--primary-white);
     font-size: 1.2rem;
@@ -265,4 +265,42 @@
   .button-blue-popup-claim {
     width: 90%;
     font-size: 15px;
+  }
+
+  .verify-row label {
+    color: var(--primary-white)
+  }
+
+  .fw-light {
+    color: var(--primary-white);
+    font-weight: 300;
+  }
+
+  .box-content-disc {
+    width: 80%;
+  }
+
+  .verify-row-claim {
+    margin-bottom: 1rem;
+  }
+
+  .verify-row-claim span {
+    font-size: 20px;
+  }
+
+  /* claim disc success */
+
+  .verify-row-claim-success {
+    margin-bottom: 1rem;
+  }
+
+  .verify-row-claim-success label {
+    font-weight: 600;
+    color: var(--primary-black);
+  }
+
+  @media screen and (max-width:500px) {
+    .verify-row-claim-success {
+      text-align: start;
+    }
   }

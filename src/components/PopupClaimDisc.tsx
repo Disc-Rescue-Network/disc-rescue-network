@@ -1,10 +1,17 @@
 import { useEffect } from "react";
 import "../styles/popupClaimDisc.css"
 import Button from "./Button";
+import DiscsClaimDiscs from "./DiscsClaimDisc";
+import { Disc } from "../App";
+import { useNavigate } from "react-router-dom";
 
 interface PopupVerifyProps {
   closePopupVerify: () => void;
-  claimDisc: () => void;
+  pickupLocation: string;
+  pickupDate: string;
+  pickupName: string;
+  arrayOfDiscs: Disc[]; 
+  selectedDiscId: string;
 }
 
 interface PopupSurrenderProps {
@@ -12,7 +19,7 @@ interface PopupSurrenderProps {
   surrenderDiscConfirm: () => void;
 }
 
-export function PopupVerify({ closePopupVerify, claimDisc }: PopupVerifyProps) {
+export function PopupVerify({ closePopupVerify, pickupLocation, pickupDate, pickupName, arrayOfDiscs, selectedDiscId }: PopupVerifyProps) {
   useEffect(() => {
     const modal = document.getElementById("popup");
     const communicationMethodLabel = document.getElementById("communicationMethodLabel");
@@ -22,6 +29,20 @@ export function PopupVerify({ closePopupVerify, claimDisc }: PopupVerifyProps) {
       communicationMethodLabel.textContent = "Phone Number For Release: ";
     }
   }, []);
+ 
+  const navigate = useNavigate();
+
+  const handleClaimDiscSuccess = () => {
+    navigate(`/claimDiscSuccess/${selectedDiscId}`, {
+      state: {
+        pickupLocation,
+        pickupDate,
+        pickupName,
+        arrayOfDiscs,
+        selectedDiscId
+      }
+    });
+  };
 
   return (
     <div className="popup" style={{ flexDirection: 'column' }}>
@@ -30,27 +51,27 @@ export function PopupVerify({ closePopupVerify, claimDisc }: PopupVerifyProps) {
           <div className="line"></div>
           <div className="line"></div>
         </span>
-        <h2 style={{ fontSize: '3rem', marginTop: '10px', marginBottom: '10px' }}>
+        <h2 style={{ fontSize: '3rem', marginTop: '10px', marginBottom: '2px' }}>
           Verify Your <span className="fw-light">INFO</span>
         </h2>
         <div className="verify-info claim-disc">
           <div className="box-content-disc d-flex flex-column">
-            <div className="verify-row">
+            <div className="verify-row-claim">
               <label>Pickup Date:</label>
-              <span id="verifyPickupDate" className="fw-light"></span>
+              <span id="verifyPickupDate" className="fw-light"> {pickupDate}</span>
             </div>
-            <div className="verify-row">
+            <div className="verify-row-claim">
               <label id="pickupLocationLabel">Pickup Location:</label>
-              <span id="verifyPickupLocation" className="fw-light"></span>
+              <span id="verifyPickupLocation" className="fw-light"> {pickupName} {pickupLocation}</span>
             </div>
-            <div className="verify-row">
-              <label id="communicationMethodLabel"></label>
+            <div className="verify-row-claim">
+              <label id="communicationMethodLabel">Phone Number For Release:</label>
               <span id="verifyContactInfoForRelease" className="fw-light"></span>
             </div>
           </div>
 
           <div className="verify-row" id="discInfoVerify" style={{ color: 'var(--primary-black) !important', width: '65%', maxWidth: '400px' }}>
-            {/* disc info will be populated here */}
+           <DiscsClaimDiscs arrayOfDiscs={arrayOfDiscs} selectedDiscId={selectedDiscId} />
           </div>
         </div>
         <div id="loading-bar" className="loading-bar"></div>
@@ -61,7 +82,7 @@ export function PopupVerify({ closePopupVerify, claimDisc }: PopupVerifyProps) {
                 text={"Perfect! Give me my disc back!"}
                 red={true}
                 className="button-red-popup-claim"
-                onClick={claimDisc}
+                onClick={handleClaimDiscSuccess}
         />
         <Button
                 text={"Need to adjust some pickup information"}
