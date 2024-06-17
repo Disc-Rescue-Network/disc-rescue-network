@@ -74,7 +74,6 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
       />
       {showPopup && <PopupVerify 
         closePopupVerify={closePopup}
-        claimDisc={() => { } }
         pickupLocation={pickupLocation}
         pickupDate={pickupDate}
         pickupName={pickupName} 
