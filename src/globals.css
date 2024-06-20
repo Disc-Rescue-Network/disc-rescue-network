@@ -297,6 +297,15 @@ body {
   padding: 1rem;
   width: 100%;
   height: 100%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 500px) {
+  .container-store {
+    min-height: 100%;
+    height: auto;
+    padding-bottom: 100px;
+  }
 }
 
 .container-request-course {
@@ -363,7 +372,7 @@ body {
   justify-content: center;
   align-content: center;
   margin: 0 auto;
-  transform: translateY(150px);
+  transform: translateY(145px);
   font-size: 19px;
 }
 
@@ -375,7 +384,7 @@ body {
 
 @media screen and (max-width:500px) {
   .filters-option-claim {
-    transform: translateY(115px);
+    transform: translateY(96px);
     font-size: 16px;
   }
 }

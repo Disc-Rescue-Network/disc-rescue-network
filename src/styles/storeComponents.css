@@ -34,8 +34,9 @@
 @media screen and (max-width: 500px ) {
     .subheader-store {
         font-size: 1.5rem;
-        line-height: 1.8rem;
+        line-height: 1.6rem;
         max-width: 100%;
+        letter-spacing: 0.01rem;
     }
 }
 
