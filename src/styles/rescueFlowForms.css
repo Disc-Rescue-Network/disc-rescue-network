@@ -6,7 +6,7 @@
   flex-direction: row;
   gap: 0.5rem;
   justify-content: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .select-box-forms select:focus {
@@ -26,15 +26,21 @@
   appearance: none;
   position: relative;
   color: var(--primary-blue);
-  height: 55px !important;
+  height: 50px !important;
   font-family: inherit;
   font-weight: 500 !important;
 }
 
 .course-picker-step1 {
-  max-width: 500px;
-  width: 100%;
-  margin: auto;
+  max-width: 600px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 500px) {
+  .course-picker-step1 {
+    width: 100%;
+  }
 }
 
 .state {
@@ -48,14 +54,14 @@
 .col-4-forms {
   flex: 0 0 auto;
   width: 33.33333333%;
-  max-width: 150px;
+  max-width: 150px !important;
 }
 
 .col-8-forms {
   flex: 0 0 auto;
   width: 66.66666667%;
-  padding-left: 0;
-  max-width: 300px;
+  padding-left: 0 !important;
+  max-width: 300px !important;
 }
 
 .form-select-rescue-flow {
@@ -107,7 +113,7 @@
 .report-lost-class {
   max-width: 600px;
   width: 80%;
-  gap: .6rem;
+  gap: .7rem;
   justify-content: flex-start;
 }
 

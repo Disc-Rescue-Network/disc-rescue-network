@@ -246,10 +246,14 @@ footer {
   display: block;
 }
 
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 480px) {
   .footer-content span {
     font-size: 12px;
   }
+}
+
+span.img {
+  min-height: 30px;
 }
 
 .footer-before::before {

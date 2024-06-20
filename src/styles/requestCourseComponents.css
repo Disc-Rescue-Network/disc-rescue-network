@@ -82,12 +82,12 @@
   }
   
   .buttons-rescue {
-    max-width: 400px;
+    max-width: 600px;
     width: 80%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
     justify-content: center;
     margin-bottom: 1rem;
     align-items: center;
@@ -95,7 +95,7 @@
   
   .button-red-rescue {
     background-color: var(--primary-red);
-    width: 75%;
+    width: 60%;
     /* max-width: 250px; */
     padding: 8px 4px;
     border: 2px solid transparent;
@@ -106,7 +106,7 @@
   }
   
   .second-button-rescue {
-    width: 55%;
+    width: 50%;
     padding: 0px;
     background-color: var(--primary-blue);
     color: var(--primary-white);
