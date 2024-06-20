@@ -162,7 +162,8 @@ body {
   padding: 2rem;
   padding-top: 3rem;
   width: 100%;
-  height: 100%;
+  height: auto;
+  min-height: 100%;
 }
 
 .disc-container {
@@ -269,6 +270,18 @@ body {
   .wizardbox img {
     width: 40px;
     padding-top: 35px;
+  }
+}
+
+@media screen and (max-height: 820px) {
+  .wizardbox img {
+    width: 40px;
+  }
+
+  .wizardbox p {
+    font-size: 12px;
+    line-height: 1rem;
+    transform: translate(0px, -2px);
   }
 }
 
