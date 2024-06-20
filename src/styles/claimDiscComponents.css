@@ -205,3 +205,9 @@
     border-color: white;
     border-width: 0.5px;
 }
+
+@media screen and (max-width: 500px) {
+    .header-claim-disc {
+        font-size: 2.5rem !important;
+    }
+}

@@ -70,7 +70,8 @@
   }
   
   .popup-claim-disc {
-    min-height: 480px;
+    min-height: 500px;
+    margin-top: 2rem;
   }
   
   /* The Close Button */
@@ -302,5 +303,19 @@
   @media screen and (max-width:500px) {
     .verify-row-claim-success {
       text-align: start;
+    }
+  }
+
+  /* popup verify mobile */
+
+  @media screen and (max-width: 500px) {
+    .header-popup-claim-disc {
+      padding-bottom: 0 !important;
+      font-size: 2.5rem !important;
+      padding-top: 0.8rem;
+    }
+
+    .verify-row-claim {
+      margin-bottom: 0.5rem;
     }
   }
