@@ -12,7 +12,9 @@ import axios from "axios";
 export default function ClaimDisc() {
   const { id } = useParams<{ id?: string }>();
   const [showPopup, setShowPopup] = useState(true);
-  const [contactMethod, setContactMethod] = useState<"phone" | "email">("phone");
+  const [contactMethod, setContactMethod] = useState<"phone" | "email">(
+    "phone"
+  );
   const [step, setStep] = useState(1);
   const [arrayOfDiscs, setArrayOfDiscs] = useState<Disc[]>([]);
 
@@ -28,7 +30,7 @@ export default function ClaimDisc() {
         const response = await axios.get(
           "https://api.discrescuenetwork.com/inventory"
         );
-        setArrayOfDiscs(response.data); 
+        setArrayOfDiscs(response.data);
       } catch (error) {
         console.error("Failed to fetch discs:", error);
       }
@@ -55,7 +57,7 @@ export default function ClaimDisc() {
   if (id === undefined) {
     return <div>Error: Disc ID is missing</div>;
   }
-  
+
   const discId = parseInt(id, 10);
 
   return (
@@ -71,20 +73,24 @@ export default function ClaimDisc() {
           onSelect={handleSelect}
         />
       )}
-      <i className="arrow-left-icon" style={{ top: "30px" }}
-           onClick={handleBack}>
-           <FontAwesomeIcon icon={faArrowLeft} />
+      <i
+        className="arrow-left-icon"
+        style={{ top: "30px" }}
+        onClick={handleBack}
+      >
+        <FontAwesomeIcon icon={faArrowLeft} />
       </i>
       <LogoRescueFlow2 />
       <div className="filters-option-claim">
-        <span onClick={() => setShowPopup(true)}>Contact Method</span>
+        <span onClick={() => setShowPopup(true)}>Edit Contact Method</span>
       </div>
-      {contactMethod && 
-        <ClaimDiscComponents 
-          contactMethod={contactMethod} 
+      {contactMethod && (
+        <ClaimDiscComponents
+          contactMethod={contactMethod}
           arrayOfDiscs={arrayOfDiscs}
           selectedDiscId={id}
-        />}
+        />
+      )}
     </div>
   );
 }
