@@ -73,13 +73,13 @@
   font-weight: 500;
 }
 
-.smaller-text {
-  font-size: 0.8rem;
+.smaller-text-rescue {
+  font-size: 0.7rem;
   margin: 0px;
   padding: 0px;
   color: var(--primary-white);
-  margin-top: -15px;
   display: block;
+  letter-spacing: 0.08em;
 }
 
 .buttons-rescue {

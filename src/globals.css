@@ -197,6 +197,13 @@ body {
   gap: 1rem;
 }
 
+@media screen and (max-width: 500px){
+  .container-home {
+    padding-top: 7rem;
+    padding-bottom: 90px;
+  }
+}
+
 .arrow-left-icon {
   position: absolute;
   top: 80px;
