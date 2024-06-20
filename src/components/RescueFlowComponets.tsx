@@ -27,7 +27,7 @@ const RescueFlowComponets = (props: HeaderRescueFlowProps) => {
                 {whereText}
                 <span className="secondary-missing-text">{secondMissingText}</span>  
             </h3>
-            <span className="smaller-text">{smallerText}</span>
+            <span className="smaller-text-rescue">{smallerText}</span>
         </div>
     )
 }
