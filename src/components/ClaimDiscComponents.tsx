@@ -36,7 +36,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
 
   return (
     <div className={`report-lost-components ${className}`}>
-        <h2>
+        <h2 className="header-claim-disc">
           Let's Get Your
           <span className="fw-light"> Disc</span>
         </h2>
