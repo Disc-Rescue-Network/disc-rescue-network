@@ -29,7 +29,7 @@
   width: 100%;
   max-width: 600px;
   border-radius: 0;
-  height: 55px;
+  height: 50px !important;
   border: none;
   display: block !important;
   font-family: "Bebas Neue";
@@ -45,14 +45,20 @@
 .buttons-rescue-step2 {
     max-width: 600px;
     width: 80%;
-    margin: auto;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
     justify-content: center;
     align-items: center;
     padding-right: 10px;
 }  
+
+@media screen and (max-width: 500px) {
+    .buttons-rescue-step2 {
+        padding-right: 0;
+    }
+}
 
 @media screen and (min-width: 768px) {
     .col-md-10 {

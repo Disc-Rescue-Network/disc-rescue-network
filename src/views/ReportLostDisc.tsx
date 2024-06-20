@@ -48,13 +48,16 @@ export default function ReportLostDisc() {
           onSelect={handleSelect}
         />
       )}
-      <i className="arrow-left-icon" style={{ top: "30px" }}
-           onClick={handleBack}>
-           <FontAwesomeIcon icon={faArrowLeft} />
+      <i
+        className="arrow-left-icon"
+        style={{ top: "30px" }}
+        onClick={handleBack}
+      >
+        <FontAwesomeIcon icon={faArrowLeft} />
       </i>
       <LogoRescueFlow2 />
       <div className="filters-option">
-        <span onClick={() => setShowPopup(true)}>Contact Method</span>
+        <span onClick={() => setShowPopup(true)}>Edit Contact Method</span>
       </div>
       {contactMethod && <ReportLostComponents contactMethod={contactMethod} />}
     </div>

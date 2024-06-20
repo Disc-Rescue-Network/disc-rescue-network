@@ -5,11 +5,28 @@
     margin: 0;
 }
 
+.buttons-rescue-popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 90%;
+    max-width: 450px;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.red-button-popup {
+    width: 90%;
+    max-width: 450px;
+    height: 50px !important;
+}
+
 .blue-button-popup {
     height: 30px;
     font-size: 15px;
     font-weight: 300;
     margin-top: 0.5rem;
     padding: 9px;
-    width: 90%;
+    width: 80%;
 }

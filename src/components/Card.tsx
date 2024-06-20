@@ -57,7 +57,7 @@ const Card = (props: CardProps) => {
               <Button
                 text={"Claim Disc"}
                 red={false}
-                className="unset-padding btn-2"
+                className="unset-padding btn-2 padding"
                 onClick={handleClaimDiscClick}
               />
             </div>

@@ -42,7 +42,7 @@ function Home() {
       <FullLogoHeader />
       <HomePageButtons />
       <div className="disc-container">
-        <Subheader text="Recently Added Discs" />
+        <Subheader text="RECENTLY TURNED IN DISCS" />
         <Discs arrayOfDiscs={filteredDiscs} />
       </div>
     </div>
