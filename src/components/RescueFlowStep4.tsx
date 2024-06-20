@@ -48,7 +48,7 @@ const RescueFlowStep4 = (props: RescueFlowProps) => {
                 />
                 {/* This button needs to be approximately the height: 30px */}
             <Button  
-                text={"Select Brand"}
+                text={"Don't Know It"}
                 red={false}
                 border={true}
                 className="second-button-rescue white-border"

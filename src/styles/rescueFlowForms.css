@@ -54,14 +54,14 @@
 .col-4-forms {
   flex: 0 0 auto;
   width: 33.33333333%;
-  max-width: 150px !important;
+  max-width: 150px;
 }
 
 .col-8-forms {
   flex: 0 0 auto;
   width: 66.66666667%;
-  padding-left: 0 !important;
-  max-width: 300px !important;
+  padding-left: 0;
+  max-width: 300px;
 }
 
 .form-select-rescue-flow {
