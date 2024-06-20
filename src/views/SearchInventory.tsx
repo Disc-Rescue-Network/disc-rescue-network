@@ -29,6 +29,7 @@ export default function SearchInventory () {
     const [courseName, setCourseName] = useState<string | null>(null);
     const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
     const [displayedDiscs, setDisplayedDiscs] = useState<Disc[]>([])
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -36,6 +37,15 @@ export default function SearchInventory () {
     setCourseName(course ? decodeURIComponent(course) : null);
     setSelectedCourseId(course);
   }, [location.search]);
+
+  useEffect(() => {
+    const handleResize = () => {
+        setIsMobile(window.innerWidth <= 500);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+}, []);
 
     const handleBack = () => {
     if (step > 1) {
@@ -74,7 +84,7 @@ export default function SearchInventory () {
             <i className="arrow-left-icon-search-inventory" onClick={handleBack}>
                 <FontAwesomeIcon icon={faArrowLeft} />
             </i>
-            <div className="logo-search-inventory" style={{ marginTop: '1rem'}}>
+            <div className={`logo-search-inventory ${isMobile ? 'no-margin' : ''}`} style={{ marginTop: '1rem'}}>
                 <LogoRescueFlow2 />
             </div>
             <div className="search-inventory-componets" style={{ marginTop: '-3.5rem' }}>

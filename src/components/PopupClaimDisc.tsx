@@ -46,14 +46,17 @@ export function PopupVerify({ closePopupVerify, pickupLocation, pickupDate, pick
 
   return (
     <div className="popup" style={{ flexDirection: 'column' }}>
-      <div className="popup-content popup-claim-disc" id="popup-verify-content" style={{ margin: 'unset !important' }}>
+      <div className="popup-content popup-claim-disc" id="popup-verify-content">
         <span className="close" id="close" onClick={closePopupVerify}>
           <div className="line"></div>
           <div className="line"></div>
         </span>
         <h2 style={{ fontSize: '3rem', marginTop: '10px', marginBottom: '2px' }}>
           Verify Your <span className="fw-light">INFO</span>
-        </h2>
+        </h2>  
+        <div className="verify-row" id="discInfoVerify" style={{ color: 'var(--primary-black) !important', width: '60%', maxWidth: '400px' }}>
+           <DiscsClaimDiscs arrayOfDiscs={arrayOfDiscs} selectedDiscId={selectedDiscId} />
+        </div>
         <div className="verify-info claim-disc">
           <div className="box-content-disc d-flex flex-column">
             <div className="verify-row-claim">
@@ -68,10 +71,6 @@ export function PopupVerify({ closePopupVerify, pickupLocation, pickupDate, pick
               <label id="communicationMethodLabel">Phone Number For Release:</label>
               <span id="verifyContactInfoForRelease" className="fw-light"></span>
             </div>
-          </div>
-
-          <div className="verify-row" id="discInfoVerify" style={{ color: 'var(--primary-black) !important', width: '65%', maxWidth: '400px' }}>
-           <DiscsClaimDiscs arrayOfDiscs={arrayOfDiscs} selectedDiscId={selectedDiscId} />
           </div>
         </div>
         <div id="loading-bar" className="loading-bar"></div>

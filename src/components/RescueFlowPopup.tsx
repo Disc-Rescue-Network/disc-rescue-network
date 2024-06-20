@@ -12,7 +12,7 @@ const RescueFlowPopup: React.FC<Props> = ({ onClosePopup }) => {
     
     return (
         <div className="popup" style={{ display: 'flex', flexDirection: 'column' }}>
-            <div className="popup-content" style={{ width: '80%' }}>
+            <div className="popup-content" style={{ width: '90%' }}>
                 <div className="verify-info">
                     <div className="verify-row" id="discInfoVerify">
                         <CardsRescueFLow 
@@ -26,10 +26,11 @@ const RescueFlowPopup: React.FC<Props> = ({ onClosePopup }) => {
                     </div>
                 </div>
             </div>
-            <div className="buttons-rescue">
+            <div className="buttons-rescue-popup">
                 <Button 
                     text={"Perfect! Give me my disc back!"} 
                     red={true}
+                    className={"red-button-popup"}
                     onClick={() => {
                     alert("button clicked");
                     }}                
