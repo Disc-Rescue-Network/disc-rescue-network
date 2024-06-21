@@ -28,12 +28,18 @@ function getUniqueValues(arr: string[]): string[] {
   return arr.filter((value, index, self) => self.indexOf(value) === index);
 }
 
-export default function SearchInventorySidebar({ isOpen, onFilter, onReset, onSortChange, currentSort }: SearchInventorySidebarProps) {
+export default function SearchInventorySidebar({
+  isOpen,
+  onFilter,
+  onReset,
+  onSortChange,
+  currentSort,
+}: SearchInventorySidebarProps) {
   const [allDiscs, setAllDiscs] = useState<Disc[]>([]);
+  const [filteredDiscs, setFilteredDiscs] = useState<Disc[]>([]);
   const [brands, setBrands] = useState<{ brand: string; count: number }[]>([]);
   const [colors, setColors] = useState<{ color: string; count: number }[]>([]);
   const [discNames, setDiscNames] = useState<{ discName: string; count: number }[]>([]);
-  
 
   useEffect(() => {
     const fetchDiscs = async () => {
@@ -41,74 +47,96 @@ export default function SearchInventorySidebar({ isOpen, onFilter, onReset, onSo
         const response = await axios.get("https://api.discrescuenetwork.com/inventory");
         const discs: Disc[] = response.data;
         setAllDiscs(discs);
+        setFilteredDiscs(discs);
+        processFilters(discs);
+      } catch (error) {
+        console.error("Failed to fetch discs:", error);
+      }
+    };
 
-         // Process brands
-         const brands = getUniqueValues(discs.map((disc) => disc.brand || ""));
-         const brandCounts = countOccurrences(discs.map((disc) => disc.brand || ""));
-         const brandsWithCounts = brands.map((brand) => ({
-           brand: brand || "Brand not Listed",
-           count: brandCounts[brand] || 0,
-         }));
-         setBrands(brandsWithCounts);
- 
-         // Process colors
-         const colors = getUniqueValues(discs.map((disc) => disc.color));
-         const colorCounts = countOccurrences(discs.map((disc) => disc.color));
-         const colorsWithCounts = colors.map((color) => ({
-           color: color || "No Color Listed",
-           count: colorCounts[color] || 0,
-         }));
-         setColors(colorsWithCounts);
- 
-         // Process disc names
-         const discNames = getUniqueValues(discs.map((disc) => disc.disc));
-         const discNameCounts = countOccurrences(discs.map((disc) => disc.disc));
-         const discNamesWithCounts = discNames.map((discName) => ({
-           discName: discName || "Disc Name not Listed",
-           count: discNameCounts[discName] || 0,
-         }));
-         setDiscNames(discNamesWithCounts);
-       } catch (error) {
-         console.error("Failed to fetch discs:", error);
-       }
-     };
+    fetchDiscs();
+  }, []);
 
-  fetchDiscs();
-}, []);
+  const processFilters = (discs: Disc[]) => {
+    // Process brands
+    const brands = getUniqueValues(discs.map((disc) => disc.brand || ""));
+    const brandCounts = countOccurrences(discs.map((disc) => disc.brand || ""));
+    const brandsWithCounts = brands.map((brand) => ({
+      brand: brand || "Brand not Listed",
+      count: brandCounts[brand] || 0,
+    }));
+    setBrands(brandsWithCounts);
 
-const handleSortToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
-  const newSort = event.target.checked ? "asc" : "desc";
-  onSortChange(newSort);
-};
+    // Process colors
+    const colors = getUniqueValues(discs.map((disc) => disc.color));
+    const colorCounts = countOccurrences(discs.map((disc) => disc.color));
+    const colorsWithCounts = colors.map((color) => ({
+      color: color || "No Color Listed",
+      count: colorCounts[color] || 0,
+    }));
+    setColors(colorsWithCounts);
 
-
-const handleFilterSearch = () => {
-  const selectedBrands = Array.from(document.querySelectorAll("input[name='filter_brand']:checked")).map(input => (input as HTMLInputElement).value);
-  const selectedColors = Array.from(document.querySelectorAll("input[name='filter_color']:checked")).map(input => (input as HTMLInputElement).value);
-  const selectedDiscNames = Array.from(document.querySelectorAll("input[name='filter_discName']:checked")).map(input => (input as HTMLInputElement).value);
-
-  onFilter ({
-    brands: selectedBrands,
-    colors: selectedColors,
-    discNames: selectedDiscNames,
-  });
-};
-
-const resetFilters = () => {
-  const initialFilters: FilterCriteria = {
-    brands: [],
-    colors: [],
-    discNames: [],
+    // Process disc names
+    const discNames = getUniqueValues(discs.map((disc) => disc.disc));
+    const discNameCounts = countOccurrences(discs.map((disc) => disc.disc));
+    const discNamesWithCounts = discNames.map((discName) => ({
+      discName: discName || "Disc Name not Listed",
+      count: discNameCounts[discName] || 0,
+    }));
+    setDiscNames(discNamesWithCounts);
   };
-  
-  onFilter(initialFilters);
-  const selectedInputs = document.querySelectorAll<HTMLInputElement>("input[type=checkbox]:checked");
-  selectedInputs.forEach(input => input.checked = false);
-  onReset();
-};
 
-return (
-<div className={`asidebar ${isOpen ? "open-sidebar" : ""}`}>
+  const handleSortToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newSort = event.target.checked ? "asc" : "desc";
+    onSortChange(newSort);
+  };
+
+  const handleFilterSearch = () => {
+    const selectedBrands = Array.from(document.querySelectorAll("input[name='filter_brand']:checked")).map(
+      (input) => (input as HTMLInputElement).value
+    );
+    const selectedColors = Array.from(document.querySelectorAll("input[name='filter_color']:checked")).map(
+      (input) => (input as HTMLInputElement).value
+    );
+    const selectedDiscNames = Array.from(document.querySelectorAll("input[name='filter_discName']:checked")).map(
+      (input) => (input as HTMLInputElement).value
+    );
+
+    const filteredDiscs = allDiscs.filter(
+      (disc) =>
+        (selectedBrands.length === 0 || selectedBrands.includes(disc.brand ?? "")) &&
+        (selectedColors.length === 0 || selectedColors.includes(disc.color ?? "")) &&
+        (selectedDiscNames.length === 0 || selectedDiscNames.includes(disc.disc ?? ""))
+    );
+
+    setFilteredDiscs(filteredDiscs);
+    processFilters(filteredDiscs);
+
+    onFilter({
+      brands: selectedBrands,
+      colors: selectedColors,
+      discNames: selectedDiscNames,
+    });
+  };
+
+  const resetFilters = () => {
+    const initialFilters: FilterCriteria = {
+      brands: [],
+      colors: [],
+      discNames: [],
+    };
+
+    setFilteredDiscs(allDiscs);
+    processFilters(allDiscs);
+
+    onFilter(initialFilters);
+    const selectedInputs = document.querySelectorAll<HTMLInputElement>("input[type=checkbox]:checked");
+    selectedInputs.forEach((input) => (input.checked = false));
+    onReset();
+  };
+
+  return (
+    <div className={`asidebar ${isOpen ? "open-sidebar" : ""}`}>
       <div className="sidebar-header">
         <h2>FILTER AND SORT</h2>
       </div>
@@ -116,7 +144,7 @@ return (
         <div className="sort-toggle">
           <label className="switch-label">Desc</label>
           <label className="switch">
-          <input type="checkbox" id="sortToggle" onChange={handleSortToggle} />
+            <input type="checkbox" id="sortToggle" onChange={handleSortToggle} />
             <span className="slider round"></span>
           </label>
           <label className="switch-label">Asc</label>
@@ -148,7 +176,8 @@ return (
                       <label className="filter-checkbox">
                         <input type="checkbox" name="filter_brand" value={brand.brand} />
                         <span className="checkmark"></span>
-                        <span className="filter-text">{brand.brand}
+                        <span className="filter-text">
+                          {brand.brand}
                           <span className="checkcount">({brand.count})</span>
                         </span>
                       </label>
@@ -183,7 +212,8 @@ return (
                       <label className="filter-checkbox">
                         <input type="checkbox" name="filter_color" value={color.color} />
                         <span className="checkmark"></span>
-                        <span className="filter-text">{color.color}
+                        <span className="filter-text">
+                          {color.color}
                           <span className="checkcount">({color.count})</span>
                         </span>
                       </label>
@@ -218,8 +248,9 @@ return (
                       <label className="filter-checkbox">
                         <input type="checkbox" name="filter_discName" value={discName.discName} />
                         <span className="checkmark"></span>
-                        <span className="filter-text">{discName.discName}
-                        <span className="checkcount">({discName.count})</span>
+                        <span className="filter-text">
+                          {discName.discName}
+                          <span className="checkcount">({discName.count})</span>
                         </span>
                       </label>
                     </li>
@@ -230,17 +261,10 @@ return (
           </div>
         </div>
         <div className="filter-footer">
-          <a
-            href="javascript:void(0);"
-            className="filter-search"
-            onClick={handleFilterSearch}>
+          <a href="javascript:void(0);" className="filter-search" onClick={handleFilterSearch}>
             Filter and Search
           </a>
-          <a
-            href="javascript:void(0);"
-            className="filter-reset"
-            onClick={resetFilters}
-          >
+          <a href="javascript:void(0);" className="filter-reset" onClick={resetFilters}>
             Reset Filters
           </a>
         </div>
