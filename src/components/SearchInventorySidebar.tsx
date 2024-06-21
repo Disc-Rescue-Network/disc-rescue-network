@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../styles/searchInventorySidebar.css";
 import axios from "axios";
 import { Disc } from "../App";
+import { useLocation } from "react-router-dom";
 
 interface SearchInventorySidebarProps {
   isOpen: boolean;
@@ -35,6 +36,10 @@ export default function SearchInventorySidebar({
   onSortChange,
   currentSort,
 }: SearchInventorySidebarProps) {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const courseId = queryParams.get("course");
+
   const [allDiscs, setAllDiscs] = useState<Disc[]>([]);
   const [filteredDiscs, setFilteredDiscs] = useState<Disc[]>([]);
   const [brands, setBrands] = useState<{ brand: string; count: number }[]>([]);
@@ -47,15 +52,20 @@ export default function SearchInventorySidebar({
         const response = await axios.get("https://api.discrescuenetwork.com/inventory");
         const discs: Disc[] = response.data;
         setAllDiscs(discs);
-        setFilteredDiscs(discs);
-        processFilters(discs);
+        filterDiscs(discs, courseId);
       } catch (error) {
         console.error("Failed to fetch discs:", error);
       }
     };
 
     fetchDiscs();
-  }, []);
+  }, [courseId]);
+
+  const filterDiscs = (discs: Disc[], courseId: string | null) => {
+    const filteredDiscs = courseId ? discs.filter(disc => disc.course === courseId) : discs;
+    setFilteredDiscs(filteredDiscs);
+    processFilters(filteredDiscs);
+  };
 
   const processFilters = (discs: Disc[]) => {
     // Process brands
@@ -104,9 +114,10 @@ export default function SearchInventorySidebar({
 
     const filteredDiscs = allDiscs.filter(
       (disc) =>
-        (selectedBrands.length === 0 || selectedBrands.includes(disc.brand ?? "")) &&
-        (selectedColors.length === 0 || selectedColors.includes(disc.color ?? "")) &&
-        (selectedDiscNames.length === 0 || selectedDiscNames.includes(disc.disc ?? ""))
+        (!courseId || disc.course === courseId) &&
+        (selectedBrands.length === 0 || selectedBrands.includes(disc.brand || "")) &&
+        (selectedColors.length === 0 || selectedColors.includes(disc.color || "")) &&
+        (selectedDiscNames.length === 0 || selectedDiscNames.includes(disc.disc || ""))
     );
 
     setFilteredDiscs(filteredDiscs);
@@ -126,8 +137,7 @@ export default function SearchInventorySidebar({
       discNames: [],
     };
 
-    setFilteredDiscs(allDiscs);
-    processFilters(allDiscs);
+    filterDiscs(allDiscs, courseId);
 
     onFilter(initialFilters);
     const selectedInputs = document.querySelectorAll<HTMLInputElement>("input[type=checkbox]:checked");
@@ -157,9 +167,9 @@ export default function SearchInventorySidebar({
                 className="accordion-button"
                 type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#collapseTwo"
+                data-bs-target="#collapseOne"
                 aria-expanded="true"
-                aria-controls="collapseTwo"
+                aria-controls="collapseOne"
               >
                 Disc Brand
               </button>

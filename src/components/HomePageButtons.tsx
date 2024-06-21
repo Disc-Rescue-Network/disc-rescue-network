@@ -15,7 +15,7 @@ const HomePageButtons = () => {
   };
 
   const openSearchCourses = () => {
-    navigate("/searchCourses");
+    navigate("/courses");
   };
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
