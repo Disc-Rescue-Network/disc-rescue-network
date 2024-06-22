@@ -1,19 +1,25 @@
 import pinImage from "../assets/pin.png";
 import Button from "./Button";
 
-
 type CardProps = {
-    Course: string;
-    img: string;
-    Color: string;
-    Name: string;
-    DiscAndBrand: string;
-    showButton: boolean;
-  };
+  Course: string;
+  img: string;
+  Color: string;
+  Name: string;
+  DiscAndBrand: string;
+  showButton: boolean;
+};
 
-const CardsRescueFLow = ({ Course, img, Color, Name, DiscAndBrand, showButton }: CardProps) => {
-    return (
-    <div className="card-container" style={{ justifyContent: 'center' }}>
+const CardsRescueFLow = ({
+  Course,
+  img,
+  Color,
+  Name,
+  DiscAndBrand,
+  showButton,
+}: CardProps) => {
+  return (
+    <div className="card-container" style={{ justifyContent: "center" }}>
       <div className="disc-info">
         <div className="div-block-2">
           <div className="circle-overlay">
@@ -23,9 +29,15 @@ const CardsRescueFLow = ({ Course, img, Color, Name, DiscAndBrand, showButton }:
             <div className="course-wrapper">{Course}</div>
           </div>
         </div>
-        <img src={img} loading="lazy" alt="disc" className="image" style={{ backgroundColor: '#353535' }}/>
+        <img
+          src={img}
+          loading="lazy"
+          alt="disc"
+          className="image"
+          style={{ backgroundColor: "#353535" }}
+        />
         <div className="w-layout-grid grid grid-disc">
-          <div className="course-list" style={{ height: '110px' }}>
+          <div className="course-list" style={{ height: "110px" }}>
             <ul>
               <li>
                 <i className="bx bx-palette" />
@@ -41,22 +53,22 @@ const CardsRescueFLow = ({ Course, img, Color, Name, DiscAndBrand, showButton }:
               </li>
             </ul>
             {showButton && (
-               <div className="card-button-container">
-               <Button
-                 text={"Claim Disc"}
-                 red={true}
-                 className="unset-padding btn-2 button-popup"
-                 onClick={() => {
-                   alert("button clicked");
-                 }}
-               />
-             </div>
+              <div className="card-button-container">
+                <Button
+                  text={"Claim Disc"}
+                  red={true}
+                  className="btn-2 button-popup padding-1"
+                  onClick={() => {
+                    alert("button clicked");
+                  }}
+                />
+              </div>
             )}
           </div>
         </div>
       </div>
     </div>
-    );
-}
+  );
+};
 
 export default CardsRescueFLow;

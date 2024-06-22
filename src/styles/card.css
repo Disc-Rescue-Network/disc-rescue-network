@@ -161,7 +161,7 @@ button {
 
 .btn-2 {
   height: 25px;
-  max-width: 70px;
+  max-width: 120px;
   min-height: unset;
   font-size: 0.9rem;
   letter-spacing: normal;
@@ -182,9 +182,15 @@ button {
   margin: 0;
 }
 
-.padding {
-  padding-top: 2px;
+.padding-1 {
+  padding: 4px;
+  letter-spacing: 2px;
+  margin: 0;
 }
+
+/* .padding {
+  padding-top: 2px;
+} */
 
 .button-popup {
   height: 23px;

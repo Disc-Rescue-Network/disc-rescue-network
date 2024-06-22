@@ -11,13 +11,15 @@ interface CardProps {
 
 const Card = (props: CardProps) => {
   const { disc, className } = props;
-  const cardClassName = className ? `card-container ${className}` : "card-container";
+  const cardClassName = className
+    ? `card-container ${className}`
+    : "card-container";
   const navigate = useNavigate();
 
   const handleClaimDiscClick = () => {
     navigate(`/claimDisc/${disc.id}`);
   };
-  
+
   return (
     <div className={cardClassName}>
       <div className="disc-info">
@@ -57,7 +59,7 @@ const Card = (props: CardProps) => {
               <Button
                 text={"Claim Disc"}
                 red={false}
-                className="unset-padding btn-2 padding"
+                className="padding-1 btn-2 padding"
                 onClick={handleClaimDiscClick}
               />
             </div>
