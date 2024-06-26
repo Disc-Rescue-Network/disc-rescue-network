@@ -85,7 +85,15 @@
 .sidebar-header h2 {
   margin: 0;
   color: var(--primary-white);
-  font-size: 22px;
+  font-size: 1rem;
+  font-family: "Akira Expanded", sans-serif;
+  letter-spacing: 1.5px;
+}
+
+@media screen and (max-width:500px) {
+  .sidebar-header h2 {
+    font-size: 0.55rem;
+  }
 }
 
 .filter-body {
@@ -390,7 +398,7 @@
 }
 
 .filter-footer {
-  margin-top: 1em;
+  margin-top: 1.5rem;
 }
 
 .filter-footer .filter-search {
@@ -409,16 +417,30 @@
   margin-bottom: 10px;
 }
 
+
 .filter-footer .filter-reset {
   border: 2px solid var(--primary-sea-blue);
+  color: var(--secondary-safety-sky-blue);
+  font-family: "Akira Expanded", sans-serif;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  font-size: 16px;
-  line-height: 1;
-  padding: 12px 8px;
+  font-size: 0.9rem;
+  letter-spacing: 1.5px;
+  padding: 15px 5px;
+}
+
+.filter-footer .filter-reset:hover {
+  color:  var(--primary-sea-blue); 
+  transition: ease 0.2s;
+}
+
+@media screen and (max-width:500px) {
+  .filter-footer .filter-reset {
+    font-size: 0.55rem;
+  }
 }
 
 /* Create a custom checkbox */
