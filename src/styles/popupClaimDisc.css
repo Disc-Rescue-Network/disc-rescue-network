@@ -15,13 +15,20 @@
   
   .popup h2 {
     color: var(--primary-white);
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 600;
     margin-left: 5px;
     margin-right: 5px;
     margin-top: 0;
     margin-bottom: 0.5rem;
     line-height: 1.2;
+    font-family: "Thiccboi", sans-serif;
+  }
+
+  @media screen and (max-width: 500px ) {
+    .popup h2 {
+      font-size: 1.3rem;
+    }
   }
   
   .popup p {
@@ -41,7 +48,7 @@
   .popup .redText {
     color: var(--primary-white);
     text-decoration: underline;
-    text-decoration-color: var(--primary-red);
+    text-decoration-color: var(--primary-burnt-orange);
     text-underline-offset: 2px;
     font-weight: 600;
     /* -webkit-text-stroke: .5px var(--primary-red); */
@@ -59,13 +66,13 @@
     height: auto;
     max-width: 650px;
     max-height: 700px;
-    background-color: var(--primary-blue);
+    background-color: var(--primary-sea-blue);
     position: relative;
     margin: 20px auto;
     padding: 20px;
-    border: 1px solid var(--primary-blue);
+    border: 1px solid var(--primary-sea-blue);
     border-radius: 0px;
-    border: 3px solid var(--secondary-blue);
+    border: 3px solid var(--secondary-safety-sky-blue);
     overflow-y: auto;
   }
   
@@ -88,7 +95,7 @@
     width: 16px;
     height: 4px;
     top: 8px;
-    background-color: var(--secondary-blue);
+    background-color: var(--secondary-safety-sky-blue);
     position: absolute;
     transform: translateY(-50%);
   }
@@ -120,7 +127,7 @@
   }
   
   .main-section .missingtext-blue {
-    color: var(--secondary-blue);
+    color: var(--secondary-safety-sky-blue);
   }
   
   .smaller-text {
@@ -140,7 +147,7 @@
   }
   
   .stepbutton {
-    background-color: var(--primary-red);
+    background-color: var(--primary-burnt-orange);
     width: 90%;
     /* max-width: 200px; */
     padding: 8px 4px;
@@ -152,7 +159,7 @@
   }
   
   .failurebutton {
-    background-color: var(--primary-red);
+    background-color: var(--primary-burnt-orange);
     width: 65%;
     max-width: 400px;
     padding: 8px 4px;
@@ -164,7 +171,7 @@
   }
   
   .main-section button.stepbutton {
-    background-color: var(--primary-red);
+    background-color: var(--primary-burnt-orange);
     width: 60%;
     /* max-width: 250px; */
     padding: 8px 4px;
@@ -175,7 +182,7 @@
   }
   
   .main-section button.failurebutton {
-    background-color: var(--primary-red);
+    background-color: var(--primary-burnt-orange);
     width: 80%;
     max-width: 400px;
     padding: 8px 4px;
@@ -188,13 +195,13 @@
   
   .failurebutton:hover {
     cursor: pointer;
-    background-color: var(--primary-blue) !important;
+    background-color: var(--primary-sea-blue) !important;
     border: 2px solid var(--primary-white) !important;
   }
   
   .stepbutton:hover {
     cursor: pointer;
-    background-color: var(--primary-blue) !important;
+    background-color: var(--primary-sea-blue) !important;
     border: 2px solid var(--primary-white) !important;
   }
   
@@ -212,7 +219,7 @@
   }
   
   .find-my-disc-button {
-    background-color: var(--primary-red);
+    background-color: var(--primary-burnt-orange);
     color: var(--primary-white);
     border: none;
     text-align: center;
@@ -221,11 +228,11 @@
     font-size: 1.5rem;
     margin: 4px 2px;
     cursor: pointer;
-    border: 2px solid var(--primary-red);
+    border: 2px solid var(--primary-burnt-orange);
     border-radius: 0px;
     width: 80%;
     height: 60px;
-    letter-spacing: 1px;
+    letter-spacing: 0px;
   }
   
   .close {
@@ -241,7 +248,7 @@
     width: 16px;
     height: 4px;
     top: 8px;
-    background-color: var(--secondary-blue);
+    background-color: var(--secondary-safety-sky-blue);
     position: absolute;
     transform: translateY(-50%);
   }

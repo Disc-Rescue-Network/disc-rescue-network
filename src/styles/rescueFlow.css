@@ -14,3 +14,49 @@
     object-fit: contain;
     padding-top: 0.5rem;
 }
+
+.icon-logo-store {
+    height: auto;
+    width: 120px;
+    margin: 0px;
+    padding: 0px;
+    object-fit: contain;
+    padding-top: 0.5rem;
+}
+
+@media screen and (max-width:500px) {
+    .icon-logo-store {
+        margin-bottom: 0 !important;
+    }
+}
+
+
+.Logo-rescue-search-inventory {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.icon-logo-rescue-search-inventory {
+    height: auto;
+    width: 120px;
+    margin: 0px;
+    padding: 0px;
+    object-fit: contain;
+    padding-bottom: 1rem;
+}
+
+@media screen and (max-width: 500px) {
+    .icon-logo-rescue-search-inventory {
+        padding-bottom: 1rem;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .icon-logo-rescue {
+        margin-top: 0;
+    }
+}
+

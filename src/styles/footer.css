@@ -10,7 +10,7 @@
 }
 
 .fab {
-  background-color: var(--primary-red);
+  background-color: var(--primary-burnt-orange);
   border: none;
   /* border: 3px solid #e3e3e3; */
   border-radius: 50%;
@@ -47,7 +47,7 @@
   height: 225px;
   border-radius: 50%;
   opacity: 0.65;
-  background-color: var(--primary-red);
+  background-color: var(--primary-burnt-orange);
   display: none;
   flex-direction: column;
   justify-content: center;
@@ -70,28 +70,28 @@
   bottom: 100%;
   width: 120px;
   text-align: center;
-  color: var(--secondary-blue) !important;
+  color: var(--secondary-safety-sky-blue) !important;
   font-size: 0.9rem;
   transform: translateX(-50%);
   cursor: pointer;
 }
 
 .fab-menu-item-text {
-  color: var(--secondary-blue) !important;
+  color: var(--secondary-safety-sky-blue) !important;
   margin: 0px;
   padding: 0px;
   text-align: center;
 }
 
 .fab-menu-item-text-left {
-  color: var(--secondary-blue) !important;
+  color: var(--secondary-safety-sky-blue) !important;
   margin: 0px;
   padding: 0px;
   padding-left: 10px;
 }
 
 .fab-menu-item-text-right {
-  color: var(--secondary-blue) !important;
+  color: var(--secondary-safety-sky-blue) !important;
   margin: 0px;
   padding: 0px;
   text-align: left;
@@ -102,7 +102,7 @@
   left: -10%;
   top: 30%;
   transform: translate(-50%, -50);
-  color: var(--secondary-blue);
+  color: var(--secondary-safety-sky-blue);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -118,7 +118,7 @@
   top: -15%;
   left: 50%;
   transform: translate(-50%, 0);
-  color: var(--secondary-blue);
+  color: var(--secondary-safety-sky-blue);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -134,7 +134,7 @@
   top: 30%;
   right: -140px;
   transform: translate(-50%, -50%);
-  color: var(--secondary-blue);
+  color: var(--secondary-safety-sky-blue);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -148,7 +148,7 @@
 
 .fab-menu-item i {
   color: white;
-  background-color: var(--secondary-blue);
+  background-color: var(--secondary-safety-sky-blue);
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -168,7 +168,7 @@
 }
 
 footer {
-  background-color: var(--primary-blue);
+  background-color: var(--primary-sea-blue);
   position: fixed;
   bottom: 0;
   left: 0;
@@ -178,7 +178,7 @@ footer {
 }
 
 .secondary-footer {
-  background-color: var(--secondary-blue) !important;
+  background-color: var(--secondary-safety-sky-blue) !important;
 }
 
 .footer-content {

@@ -30,6 +30,7 @@ export interface Disc {
   claimBy?: string | null;
   brand?: string | null;
   dateSold?: string | null;
+  imageUrl?: string;
 }
 
 export enum DiscStateString {

@@ -20,7 +20,7 @@
 }
 
 .main-section button.stepbutton {
-  background-color: var(--primary-red);
+  background-color: var(--primary-burnt-orange);
   width: 140px;
   padding: 4px 0;
   border: none;
@@ -31,7 +31,7 @@
 }
 
 .main-section button.stepbutton:hover {
-  background-color: var(--primary-red);
+  background-color: var(--primary-burnt-orange);
   width: 140px;
   padding: 4px 0;
   border: 2px solid transparent;
@@ -56,7 +56,7 @@
   z-index: 9;
   height: auto;
   transition: 0.5s;
-  border-left: 2px solid var(--primary-red);
+  border-left: 2px solid var(--primary-burnt-orange);
   width: 0;
   visibility: hidden;
   background: var(--primary-grey);
@@ -77,7 +77,7 @@
 }
 
 .sidebar-header {
-  background: var(--primary-red);
+  background: var(--primary-burnt-orange);
   text-align: center;
   padding: 15px 0;
 }
@@ -105,11 +105,11 @@
 }
 
 .filter-body::-webkit-scrollbar-thumb {
-  background: var(--primary-red);
+  background: var(--primary-burnt-orange);
 }
 
 .filter-body::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-red);
+  background: var(--primary-burnt-orange);
 }
 
 .filter-body .accordion {
@@ -125,7 +125,7 @@
   height: 0;
   border-style: solid;
   border-width: 7px 6px 0 6px;
-  border-color: var(--primary-blue) transparent transparent transparent;
+  border-color: var(--primary-sea-blue) transparent transparent transparent;
   transform: var(--bs-accordion-btn-icon-transform);
 }
 
@@ -367,7 +367,7 @@
   .accordion-item
   .accordion-body
   ul::-webkit-scrollbar-thumb {
-  background: var(--primary-blue);
+  background: var(--primary-sea-blue);
 }
 
 .filter-body
@@ -375,7 +375,7 @@
   .accordion-item
   .accordion-body
   ul::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-blue);
+  background: var(--primary-sea-blue);
 }
 
 .filter-body .accordion .accordion-item .accordion-body ul li {
@@ -397,7 +397,7 @@
   width: 100%;
   text-align: center;
   color: var(--primary-white);
-  background: var(--primary-red);
+  background: var(--primary-burnt-orange);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -405,12 +405,12 @@
   font-size: 16px;
   line-height: 1;
   padding: 12px 8px;
-  border: 1px solid var(--primary-red);
+  border: 1px solid var(--primary-burnt-orange);
   margin-bottom: 10px;
 }
 
 .filter-footer .filter-reset {
-  border: 2px solid var(--primary-blue);
+  border: 2px solid var(--primary-sea-blue);
   width: 100%;
   display: flex;
   align-items: center;
@@ -429,12 +429,12 @@
   height: 12px;
   width: 12px;
   transform: translateY(-50%);
-  border: 1px solid var(--primary-blue);
-  background: var(--primary-blue);
+  border: 1px solid var(--primary-sea-blue);
+  background: var(--primary-sea-blue);
 }
 
 .checkcount {
-  color: var(--primary-red);
+  color: var(--primary-burnt-orange);
   padding-right: 5px;
 }
 
@@ -471,7 +471,7 @@
 
 /* When the checkbox is checked, add a blue background */
 .filter-checkbox input:checked ~ .checkmark {
-  background-color: var(--primary-blue);
+  background-color: var(--primary-sea-blue);
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -528,7 +528,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ff6347; /* Red background color */
+  background-color: var(--primary-burnt-orange); /* Red background color */
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }

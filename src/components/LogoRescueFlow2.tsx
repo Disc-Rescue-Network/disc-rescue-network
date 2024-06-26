@@ -1,5 +1,5 @@
 import "../styles/rescueFlow.css"
-import LogoRescue from "../assets/icon_logo_transparent_300x300.png"
+import LogoRescue from "../assets/newAssets/centerwrap_logo.png"
 
 const LogoRescueFlow = () => {
     const handleLogoClick = () => {
@@ -8,7 +8,7 @@ const LogoRescueFlow = () => {
     return (
         <div  className="Logo-rescue-store">
             <img 
-                className="icon-logo-rescue" 
+                className="icon-logo-store" 
                 src={LogoRescue} 
                 alt="Logo Rescue Flow" 
                 onClick={handleLogoClick}

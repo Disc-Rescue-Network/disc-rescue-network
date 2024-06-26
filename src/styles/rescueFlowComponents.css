@@ -51,7 +51,7 @@
 }
 
 .rescue-flow-components .overtext-secondary {
-  color: var(--secondary-blue);
+  color: var(--secondary-safety-sky-blue);
   text-shadow: 0px 2px 3px #ffffff4f;
   font-family: "Bebas Neue", sans-serif;
   font-weight: 100;
@@ -69,7 +69,7 @@
 }
 
 .secondary-missing-text {
-  color: var(--secondary-blue);
+  color: var(--secondary-safety-sky-blue);
   font-weight: 500;
 }
 
@@ -95,7 +95,7 @@
 }
 
 .button-red-rescue {
-  background-color: var(--primary-red);
+  background-color: var(--primary-burnt-orange);
   width: 75%;
   /* max-width: 250px; */
   padding: 8px 4px;
@@ -109,7 +109,7 @@
 .second-button-rescue {
   width: 55%;
   padding: 0px;
-  background-color: var(--primary-blue);
+  background-color: var(--primary-sea-blue);
   color: var(--primary-white);
   font-size: 14px;
   letter-spacing: 0.08em;

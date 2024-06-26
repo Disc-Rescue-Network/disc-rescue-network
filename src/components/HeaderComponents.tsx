@@ -1,4 +1,4 @@
-import imgLogo from "../assets/full_logo_transparent_1740x300.png";
+import imgLogo from "../assets/newAssets/DRN_Final_NewLogo.png";
 import "../styles/fullLogoHeader.css";
 
 const FullLogoHeader = () => {

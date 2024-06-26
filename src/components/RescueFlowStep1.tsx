@@ -46,7 +46,7 @@ const RescueFlowStep1 = (props: RescueFlowProps) => {
           text={"Don't Remember"}
           red={false}
           border={true}
-          className="second-button-rescue white-border"
+          className="second-button-rescue-3 white-border"
           onClick={() => {
             setStep(step + 1);
           }}

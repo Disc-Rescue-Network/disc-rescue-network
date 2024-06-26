@@ -1,5 +1,32 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap&family=Roboto");
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@700&display=swap");
+
+/* AKIRA Expanded */
+@font-face {
+  font-family: "Akira Expanded";
+  src: url("./fonts/AkiraExpanded.eot");
+  src: url("./fonts/AkiraExpanded.eot?#iefix") format("embedded-opentype"),
+       url("./fonts/AkiraExpanded.woff2") format("woff2"),
+       url("./fonts/AkiraExpanded.woff") format("woff"),
+       url("./fonts/AkiraExpanded.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Thiccboi Bold */
+@font-face {
+  font-family: "Thiccboi";
+  src: url("./fonts/ThiccboiBold.eot");
+  src: url("./fonts/ThiccboiBold.eot?#iefix") format("embedded-opentype"),
+       url("./fonts/ThiccboiBold.woff2") format("woff2"),
+       url("./fonts/ThiccboiBold.woff") format("woff"),
+       url("./fonts/ThiccboiBold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
 
 @font-face {
   font-family: "Bebas Neue";
@@ -42,15 +69,15 @@
 
 :root,
 #root {
-  --primary-blue: #005daa;
-  --border-primary-blue: #228de5;
+  --primary-sea-blue: #005daa;
+  --border-primary-blue: #3f88c8;
   --dark-primary: #353535;
-  --secondary-blue: #228de5;
+  --secondary-safety-sky-blue: #3f88c8;
   --primary-black: #000000;
   --border-primary-black: #606060;
-  --primary-red: #ef3f3f;
-  --secondary-red: #b90c0c;
-  --border-primary-red: #b90c0c;
+  --primary-burnt-orange: #EF3F3F;
+  --secondary-red: #D31E47;
+  --border-primary-red: #D31E47;
   --primary-white: #ffffff;
   --primary-grey: #f7f7f7;
   --primary-green: #55de1f;
@@ -129,7 +156,7 @@ body {
 /* RescueFlow Styles */
 
 .beta-banner {
-  background-color: var(--primary-red);
+  background-color: var(--primary-burnt-orange);
   color: var(--primary-white);
   border: none;
   padding: 6px;
@@ -149,7 +176,7 @@ body {
 }
 
 #reverse {
-  background-color: var(--primary-blue);
+  background-color: var(--primary-sea-blue);
   width: 100%;
   height: 100dvh;
   overflow-x: none;
@@ -158,7 +185,7 @@ body {
 }
 
 .container-rescue {
-  background-color: var(--primary-blue);
+  background-color: var(--primary-sea-blue);
   padding: 2rem;
   padding-top: 3rem;
   width: 100%;
@@ -288,7 +315,7 @@ body {
   .wizardbox p {
     font-size: 12px;
     line-height: 1rem;
-    transform: translate(0px, -2px);
+    transform: translate(0px, 7px);
   }
 }
 
@@ -324,6 +351,12 @@ body {
   align-items: center;
 }
 
+@media screen and (max-width: 500px ) {
+  .main-section-request {
+    width: 90%;
+  }
+}
+
 .container-report-lost-disc {
   background-color: var(--border-primary-blue);
   padding: 1rem;
@@ -342,19 +375,19 @@ body {
   justify-content: center;
   align-content: center;
   margin: 0 auto;
-  transform: translateY(80px);
+  transform: translateY(74px);
   font-size: 19px;
 }
 
 .filters-option span:hover{
-  color: var(--primary-red);
+  color: var(--primary-burnt-orange);
   transition: ease 0.3s;
   cursor: pointer;
 }
 
 @media screen and (max-width:500px) {
   .filters-option {
-    transform: translateY(83px);
+    transform: translateY(74px);
     font-size: 18px;
   }
 }
@@ -377,7 +410,7 @@ body {
 }
 
 .filters-option-claim span:hover{
-  color: var(--primary-red);
+  color: var(--primary-burnt-orange);
   transition: ease 0.3s;
   cursor: pointer;
 }
@@ -420,7 +453,7 @@ body {
   top: 30px;
   left: 15%;
   font-size: 30px;
-  color: var(--primary-blue);
+  color: var(--primary-sea-blue);
   padding: 5px;
   cursor: pointer;
 }
@@ -434,16 +467,19 @@ body {
 
 .search-inventory-components {
   margin-bottom: 0 !important;
+  margin-top: 1rem !important;
 }
 
 .search-inventory-components h2 {
-  color: var(--primary-blue) !important;
-  letter-spacing: 2px;
+  color: var(--primary-sea-blue) !important;
+  letter-spacing: 0.5px;
   padding-bottom: 0 !important;
+  font-family: "Bebas Neue", sans-serif !important;
+  font-size: 7.5rem !important;
 }
 
 .search-inventory-components span {
-  color: var(--primary-blue);
+  color: var(--primary-sea-blue);
 }
 
 @media screen and (max-width:500px) {
@@ -470,7 +506,7 @@ body {
   position: relative;
   border: 0;
   background: transparent;
-  color: var(--primary-blue);
+  color: var(--primary-sea-blue);
   padding: 0 15px;
 }
 
@@ -482,7 +518,7 @@ body {
   height: 0;
   border-style: solid;
   border-width: 6px 4px 0 4px;
-  border-color: var(--primary-blue) transparent transparent transparent;
+  border-color: var(--primary-sea-blue) transparent transparent transparent;
   top: 43%;
   right: 0;
   transform: translateY(-50%);
@@ -493,7 +529,7 @@ body {
 .course-name-search {
   margin: 0;
     font-size: 1.5rem;
-    color: var(--primary-blue);
+    color: var(--primary-sea-blue);
     font-weight: 400;
     letter-spacing: 0.8px;
     font-family: Lato;
@@ -506,7 +542,7 @@ body {
   align-items: center;
   font-size: 2rem;
   margin-top: 5rem;
-  color: var(--primary-blue);
+  color: var(--primary-sea-blue);
   text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
