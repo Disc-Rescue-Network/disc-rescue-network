@@ -184,7 +184,7 @@ export default function SearchInventorySidebar({
                   {brands.map((brand, index) => (
                     <li key={index}>
                       <label className="filter-checkbox">
-                        <input type="checkbox" name="filter_brand" value={brand.brand} />
+                        <input type="checkbox" name="filter_brand" value={brand.brand} onChange={handleFilterSearch}/>
                         <span className="checkmark"></span>
                         <span className="filter-text">
                           {brand.brand}
@@ -220,7 +220,7 @@ export default function SearchInventorySidebar({
                   {colors.map((color, index) => (
                     <li key={index}>
                       <label className="filter-checkbox">
-                        <input type="checkbox" name="filter_color" value={color.color} />
+                        <input type="checkbox" name="filter_color" value={color.color} onChange={handleFilterSearch}/>
                         <span className="checkmark"></span>
                         <span className="filter-text">
                           {color.color}
@@ -256,7 +256,7 @@ export default function SearchInventorySidebar({
                   {discNames.map((discName, index) => (
                     <li key={index}>
                       <label className="filter-checkbox">
-                        <input type="checkbox" name="filter_discName" value={discName.discName} />
+                        <input type="checkbox" name="filter_discName" value={discName.discName} onChange={handleFilterSearch}/>
                         <span className="checkmark"></span>
                         <span className="filter-text">
                           {discName.discName}
@@ -271,9 +271,9 @@ export default function SearchInventorySidebar({
           </div>
         </div>
         <div className="filter-footer">
-          <a href="javascript:void(0);" className="filter-search" onClick={handleFilterSearch}>
+          {/* <a href="javascript:void(0);" className="filter-search" onClick={handleFilterSearch}>
             Filter and Search
-          </a>
+          </a> */}
           <a href="javascript:void(0);" className="filter-reset" onClick={resetFilters}>
             Reset Filters
           </a>
