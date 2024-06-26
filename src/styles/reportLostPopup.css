@@ -7,7 +7,7 @@
 .button-popup-phone {
     width: 50%;
     text-align: center;
-    background-color: var(--secondary-blue);
+    background-color: var(--secondary-safety-sky-blue);
     color: var(--primary-white);
     letter-spacing: 0.5px;
     font-weight: 600;
@@ -20,7 +20,7 @@
 }
 
 .button-popup-phone:hover {
-    color: var(--secondary-blue);
+    color: var(--secondary-safety-sky-blue);
     background-color: var(--primary-white);
     transition: ease 0.2s;
 }
@@ -28,7 +28,7 @@
 .button-popup-email {
     width: 50%;
     text-align: center;
-    background-color: var(--primary-red);
+    background-color: var(--primary-burnt-orange);
     color: var(--primary-white);
     letter-spacing: 0.5px;
     font-weight: 600;
@@ -40,7 +40,7 @@
 }
 
 .button-popup-email:hover {
-    color: var(--secondary-blue);
+    color: var(--secondary-safety-sky-blue);
     background-color: var(--primary-white);
     transition: ease 0.2s;
 }

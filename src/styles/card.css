@@ -1,8 +1,8 @@
 :root {
-  --primary-blue: #005daa;
-  --secondary-blue: #228de5;
+  --primary-sea-blue: #005daa;
+  --secondary-safety-sky-blue: #3f88c8;
   --primary-black: #000000;
-  --primary-red: #d31245;
+  --primary-burnt-orange: #EF3F3F;
   --primary-white: #ffffff;
   --primary-grey: #f7f7f7;
   --primary-green: #55de1f;
@@ -48,7 +48,7 @@ button {
   width: 40px;
   height: 38px;
   border-radius: 50%;
-  background-color: var(--primary-red);
+  background-color: var(--primary-burnt-orange);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,7 +61,7 @@ button {
 }
 
 .text-block-2 {
-  background-color: var(--primary-red);
+  background-color: var(--primary-burnt-orange);
   width: 103px;
   height: 20px;
   color: rgb(231, 230, 230);

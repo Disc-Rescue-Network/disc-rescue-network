@@ -1,5 +1,6 @@
 import "../styles/card.css";
 import pinImage from "../assets/pin.png";
+import noImageFound from "../assets/newAssets/noimagefound_drn.png";
 import Button from "./Button";
 import { Disc } from "../App";
 import { useNavigate } from "react-router-dom";
@@ -32,10 +33,11 @@ const Card = (props: CardProps) => {
           </div>
         </div>
         <img
-          src="https://i.ebayimg.com/images/g/y-gAAOSwHtdlCbey/s-l1200.jpg"
+          src={disc.imageUrl || "https://i.ebayimg.com/images/g/y-gAAOSwHtdlCbey/s-l1200.jpg"}
           loading="lazy"
           alt="disc"
           className="image"
+          onError={(e) => { e.currentTarget.src = noImageFound; }}
         />
         <div className="w-layout-grid grid grid-disc">
           <div className="course-list">

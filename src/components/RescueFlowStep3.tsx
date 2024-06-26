@@ -43,14 +43,14 @@ const RescueFlowStep3 = (props: RescueFlowProps) => {
             <Button  
                 text={"Let's Try This Again"}
                 red={true}
-                className="button-red-rescue"
+                className="button-red-rescue-3"
                 onClick={openPopup}/>
                 {/* This button needs to be approximately the height: 30px */}
             <Button  
                 text={"Didn't Write One"}
                 red={false}
                 border={true}
-                className="second-button-rescue white-border"
+                className="second-button-rescue-3 white-border"
                 onClick={() => {
                   setStep(step + 1);
                 }}                

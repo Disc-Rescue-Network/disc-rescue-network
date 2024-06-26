@@ -3,8 +3,8 @@
     align-items: center;
     justify-content: center;
     /* text-align: center; */
-    background-color: var(--secondary-blue);
-    border: 2px solid var(--secondary-blue);
+    background-color: var(--secondary-safety-sky-blue);
+    border: 2px solid var(--secondary-safety-sky-blue);
     position: relative;
     width: 100%;
     font-size: 14px;
@@ -50,7 +50,7 @@
 
   /* Style the 'OR' circle for smaller devices */
   /* .input-dropdown-wrapper .circle-or {
-        background-color: var(--secondary-blue);
+        background-color: var(--secondary-safety-sky-blue);
         color: white;
         border: 2px solid transparent;
         font-size: 12px;
@@ -73,7 +73,7 @@
     } */
 
   .input-dropdown-wrapper .circle-or {
-    background-color: var(--secondary-blue);
+    background-color: var(--secondary-safety-sky-blue);
     color: white;
     border: 2px solid transparent;
     font-size: 14px; /* Adjust as needed */
@@ -146,7 +146,7 @@
     } */
 
   .input-dropdown-wrapper input::placeholder {
-    color: var(--primary-blue);
+    color: var(--primary-sea-blue);
     display: flex;
     justify-content: center;
     text-align: center;
@@ -181,7 +181,7 @@
     -moz-appearance: none;
     appearance: none;
     background-color: var(--primary-white);
-    color: var(--primary-red);
+    color: var(--primary-burnt-orange);
     font-size: 1.1rem;
     font-family: "Bebas Neue";
     font-weight: 400;
@@ -189,7 +189,7 @@
   }
 
   .input-dropdown-wrapper select option {
-    color: var(--primary-red);
+    color: var(--primary-burnt-orange);
   }
 
   .input-dropdown-wrapper select option {
@@ -200,7 +200,7 @@
     align-self: center;
     margin: auto;
     font-size: 1rem;
-    color: var(--primary-red);
+    color: var(--primary-burnt-orange);
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;    

@@ -41,7 +41,7 @@ p {
 .popup .redText {
   color: var(--primary-white);
   text-decoration: underline;
-  text-decoration-color: var(--primary-red);
+  text-decoration-color: var(--primary-burnt-orange);
   text-underline-offset: 2px;
   font-weight: 600;
   /* -webkit-text-stroke: .5px var(--primary-red); */
@@ -59,13 +59,13 @@ p {
   height: auto;
   max-width: 650px;
   max-height: 700px;
-  background-color: var(--primary-blue);
+  background-color: var(--primary-sea-blue);
   position: relative;
   margin: 20px auto;
   padding: 20px;
-  border: 1px solid var(--primary-blue);
+  border: 1px solid var(--primary-sea-blue);
   border-radius: 0px;
-  border: 3px solid var(--secondary-blue);
+  border: 3px solid var(--secondary-safety-sky-blue);
   overflow-y: auto;
 }
 
@@ -87,7 +87,7 @@ p {
   width: 16px;
   height: 4px;
   top: 8px;
-  background-color: var(--secondary-blue);
+  background-color: var(--secondary-safety-sky-blue);
   position: absolute;
   transform: translateY(-50%);
 }
@@ -139,7 +139,7 @@ h4.confirmd {
 }
 
 .stepbutton {
-  background-color: var(--primary-red);
+  background-color: var(--primary-burnt-orange);
   width: 90%;
   /* max-width: 200px; */
   padding: 8px 4px;
@@ -151,7 +151,7 @@ h4.confirmd {
 }
 
 .failurebutton {
-  background-color: var(--primary-red);
+  background-color: var(--primary-burnt-orange);
   width: 65%;
   max-width: 400px;
   padding: 8px 4px;
@@ -163,7 +163,7 @@ h4.confirmd {
 }
 
 .main-section button.stepbutton {
-  background-color: var(--primary-red);
+  background-color: var(--primary-burnt-orange);
   width: 60%;
   /* max-width: 250px; */
   padding: 8px 4px;
@@ -174,7 +174,7 @@ h4.confirmd {
 }
 
 .main-section button.failurebutton {
-  background-color: var(--primary-red);
+  background-color: var(--primary-burnt-orange);
   width: 80%;
   max-width: 400px;
   padding: 8px 4px;
@@ -187,13 +187,13 @@ h4.confirmd {
 
 .failurebutton:hover {
   cursor: pointer;
-  background-color: var(--primary-blue) !important;
+  background-color: var(--primary-sea-blue) !important;
   border: 2px solid var(--primary-white) !important;
 }
 
 .stepbutton:hover {
   cursor: pointer;
-  background-color: var(--primary-blue) !important;
+  background-color: var(--primary-sea-blue) !important;
   border: 2px solid var(--primary-white) !important;
 }
 
@@ -211,7 +211,7 @@ h4.confirmd {
 }
 
 .find-my-disc-button {
-  background-color: var(--primary-red);
+  background-color: var(--primary-burnt-orange);
   color: var(--primary-white);
   border: none;
   text-align: center;
@@ -220,7 +220,7 @@ h4.confirmd {
   font-size: 1.5rem;
   margin: 4px 2px;
   cursor: pointer;
-  border: 2px solid var(--primary-red);
+  border: 2px solid var(--primary-burnt-orange);
   border-radius: 0px;
   width: 80%;
   height: 60px;

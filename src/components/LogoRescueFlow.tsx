@@ -1,5 +1,5 @@
 import "../styles/rescueFlow.css"
-import LogoRescue from "../assets/icon_logo_transparent_300x300_secondary.png"
+import LogoRescue from "../assets/newAssets/Logomark_white.png"
 
 const LogoRescueFlow = () => {
     const handleLogoClick = () => {
@@ -12,6 +12,7 @@ const LogoRescueFlow = () => {
                 src={LogoRescue} 
                 alt="Logo Rescue Flow" 
                 onClick={handleLogoClick}
+                style={{ marginBottom: '1rem' }}
             />
         </div>
     )

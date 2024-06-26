@@ -34,7 +34,7 @@
 .load-more .more-btn {
   text-align: center;
   color: var(--primary-white);
-  background: var(--secondary-blue);
+  background: var(--secondary-safety-sky-blue);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,7 +43,7 @@
   line-height: 1.2;
   padding: 5px 0px;
   letter-spacing: 0.6px;
-  border: 1px solid var(--secondary-blue);
+  border: 1px solid var(--secondary-safety-sky-blue);
   max-width: 110px;
   margin: 0 auto;
   cursor: pointer;
@@ -51,7 +51,7 @@
 }
 
 .more-btn:hover {
-  background: var(--primary-red);
+  background: var(--primary-burnt-orange);
   color: var(--primary-white);
   border: 1px solid var(--primary-white);
 }
@@ -118,15 +118,15 @@
 }
 
 .course-section::-webkit-scrollbar-track {
-  background: var(--primary-blue);
+  background: var(--primary-sea-blue);
 }
 
 .course-section::-webkit-scrollbar-thumb {
-  background: var(--primary-red);
+  background: var(--primary-burnt-orange);
 }
 
 .course-section::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-red);
+  background: var(--primary-burnt-orange);
 }
 
 .filter-checkbox {

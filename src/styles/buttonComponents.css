@@ -36,8 +36,8 @@
 
 .btn-description {
   text-align: center;
-  color: var(--primary-blue);
-  font-size: 1em;
+  color: var(--primary-sea-blue);
+  font-size: 1rem;
   font-weight: 500;
   margin: 0px;
   padding: 0px;
@@ -47,6 +47,6 @@
 }
 
 .rescue-flow {
-  color: var(--primary-red);
+  color: var(--primary-burnt-orange);
   cursor: pointer;
 }
