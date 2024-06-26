@@ -103,7 +103,7 @@
     padding: 8px 4px;
     border: 2px solid transparent;
     font-weight: 500;
-    letter-spacing: 0px;
+    letter-spacing: 1.5px;
     height: 50px;
     font-family: "Akira Expanded", sans-serif;
     padding: 0;
@@ -140,20 +140,13 @@
     /* max-width: 250px; */
     border: 2px solid transparent;
     font-weight: 500;
-    letter-spacing: 0px;
+    letter-spacing: 1.5px;
     height: 50px;
     font-family: "Akira Expanded", sans-serif;
     padding: 0;
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
-  @media screen and (max-width: 500px) {
-    .button-red-rescue-3 {
-      width: 85%;
-      font-size: 0.7rem;
-    }
-  }
-  
   .second-button-rescue-3 {
     width: 50%;
     padding: 0px;
@@ -164,6 +157,29 @@
     font-weight: 600;
     height: 30px;
     transform: scaleY(0.8);
+  }
+
+  @media screen and (max-width: 500px) {
+    .button-red-rescue-3 {
+      width: 90%;
+      font-size: 0.7rem;
+    }
+    .second-button-rescue-3 {
+      width: 60%;
+    }
+  }
+
+  .button-red-rescue-5 {
+    background-color: var(--primary-burnt-orange);
+    width: 60%;
+    /* max-width: 250px; */
+    border: 2px solid transparent;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    height: 50px;
+    font-family: "Akira Expanded", sans-serif;
+    padding: 0;
+    font-size: 0.9rem;
   }
 
   .second-button-rescue-5 {
@@ -179,12 +195,15 @@
   }
 
   @media screen and (max-width: 500px) {
+    .button-red-rescue-5 {
+      width: 90%;
+      font-size: 0.7rem;
+    }
     .second-button-rescue-5 {
       width: 60%;
       font-size: 0.9rem;
     }
   }
-
   
   .white-border {
     border-color: var(--primary-white);

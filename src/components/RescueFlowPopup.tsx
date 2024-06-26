@@ -1,7 +1,7 @@
 import "../styles/rescueFlowPopup.css";
 import Button from "./Button";
 import CardsRescueFLow from "./CardsRescueFlow";
-import imageLogo from "../assets/DRN_WebLogo_HDPI.png";
+import imageLogo from "../assets/newAssets/noimagefound_drn.png";
 
 
 interface Props {

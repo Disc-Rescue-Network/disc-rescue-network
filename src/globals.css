@@ -160,7 +160,7 @@ body {
   color: var(--primary-white);
   border: none;
   padding: 6px;
-  font-size: 14px;
+  font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 1px;
   width: 100%;
@@ -171,8 +171,15 @@ body {
   left: 0px;
 }
 
+@media screen and (max-width: 500px) {
+  .beta-banner {
+    font-size: 0.5rem;
+  }
+}
+
 .content-beta-banner {
   padding: 3px;
+  font-family: "Akira Expanded", sans-serif;
 }
 
 #reverse {

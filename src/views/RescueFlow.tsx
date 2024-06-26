@@ -37,7 +37,7 @@ export default function RescueFlow() {
       {step === 3 && <RescueFlowStep3 step={step} setStep={setStep}/>}
       {step === 4 && <RescueFlowStep4 step={step} setStep={setStep}/>}
       {step === 5 && <RescueFlowStep5 step={step} setStep={setStep}/>}
-      {step === 6 && <RescueFLowFailure step={step} setStep={setStep}/>}
+      {step === 6 && <RescueFLowFailure/>}
       {step === 1 && (
         <div className="wizardbox">
           <img src={Arrow} alt="arrow" />

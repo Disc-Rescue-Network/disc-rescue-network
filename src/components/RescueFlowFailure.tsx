@@ -2,14 +2,20 @@ import Button from "./Button";
 import LogoRescueFlow from "./LogoRescueFlow"
 import HeaderRescueFlow from "./RescueFlowComponets";
 import "../styles/rescueFlowFailure.css";
+import { useNavigate } from "react-router-dom";
 
-interface RescueFlowProps {
-    step: number;
-    setStep: (step: number) => void;
-  }
+const RescueFLowFailure = () => {
+    const navigate = useNavigate();
 
-const RescueFLowFailure = (props: RescueFlowProps) => {
-    const { step, setStep } = props;
+    const ReportLostDisc = () => {
+      navigate("/reportLostDisc");
+    };
+
+    const SearchAll = () => {
+        navigate("/searchInventory");
+      };
+  
+
     return (
         <>
         <LogoRescueFlow />
@@ -28,17 +34,13 @@ const RescueFLowFailure = (props: RescueFlowProps) => {
                 text={"Report My Disc Lost and Help The Wizard"}
                 red={true}
                 className="button-red-rescue-failure"
-                onClick={() => {
-                  alert("button clicked");
-                }}/>
+                onClick={ReportLostDisc}/>
             <Button  
                 text={"Fine, I'll do it Myself"}
                 red={false}
                 border={true}
                 className="second-button-rescue-failure white-border"
-                onClick={() => {
-                    setStep(step + 1);
-                  }}               
+                onClick={SearchAll}               
                 />
             </div>   
         </>  

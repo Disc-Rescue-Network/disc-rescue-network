@@ -16,7 +16,7 @@
     }
 
     .custom-rescue-flow-failure .smaller-text-rescue {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     @media screen and (max-width: 500px) {
@@ -54,15 +54,16 @@
         height: 50px;
         font-family: "Akira Expanded", sans-serif;
         padding: 0;
-        font-size: 0.9rem;
-        letter-spacing: 0px;
+        font-size: 0.8rem;
+        letter-spacing: 1.5px;
         width: 520px;
     }
 
     @media screen and (max-width: 500px) {
         .button-red-rescue-failure {
             font-size: 0.55rem;
-            width: 320px;
+            width: 330px;
+            letter-spacing: 0.5px;
         }
     }
 
