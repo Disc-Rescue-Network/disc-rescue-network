@@ -37,7 +37,7 @@ const RescueFlowStep1 = (props: RescueFlowProps) => {
         <Button
           text={"Next Step"}
           red={true}
-          className="button-red-rescue"
+          className="button-red-rescue-3"
           onClick={() => {
             setStep(step + 1);
           }}

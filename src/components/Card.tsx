@@ -33,7 +33,7 @@ const Card = (props: CardProps) => {
           </div>
         </div>
         <img
-          src={disc.imageUrl || "https://i.ebayimg.com/images/g/y-gAAOSwHtdlCbey/s-l1200.jpg"}
+          src={disc.imageUrl || noImageFound}
           loading="lazy"
           alt="disc"
           className="image"
