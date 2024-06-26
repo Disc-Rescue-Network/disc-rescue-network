@@ -22,9 +22,18 @@
     max-width: 610px;
     width: 85%;
     margin-left: 10px;
+    font-family: "Akira Expanded", sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0px;
+    padding: 0;
+  }
+
+  @media screen and (max-width: 500px) {
+    .button-report-lost {
+      font-size: 0.6rem;
+    }
   }
 
   .button-report-lost:hover {
-    background-color: var(--primary-blue);
+    background-color: var(--primary-sea-blue);
   }
-  

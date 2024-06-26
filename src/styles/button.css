@@ -17,18 +17,18 @@ button {
 }
 
 .red {
-  background-color: var(--primary-red);
+  background-color: var(--primary-burnt-orange);
   border: 2px solid var(--border-primary-red);
 }
 
 .red:hover,
 .blue:hover {
   background-color: var(--border-primary-blue);
-  border: 2px solid var(--primary-blue);
+  border: 2px solid var(--primary-sea-blue);
 }
 
 .blue {
-  background-color: var(--primary-blue);
+  background-color: var(--primary-sea-blue);
   border: 2px solid var(--border-primary-blue);
 }
 

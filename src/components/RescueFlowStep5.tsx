@@ -29,7 +29,7 @@ const RescueFlowStep5 = (props: RescueFlowProps) => {
             <Button  
                 text={"Show Me The Discs"}
                 red={true}
-                className="button-red-rescue-step2"
+                className="button-red-rescue-3"
                 onClick={() => {
                   alert("button clicked");
                 }}/>
@@ -38,7 +38,7 @@ const RescueFlowStep5 = (props: RescueFlowProps) => {
                 text={"This Is Just Sad Now"}
                 red={false}
                 border={true}
-                className="second-button-rescue white-border"
+                className="second-button-rescue-5 white-border"
                 onClick={() => {
                     setStep(step + 1);
                   }}               

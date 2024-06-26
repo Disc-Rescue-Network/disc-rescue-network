@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import CourseSection from "../components/CourseSection";
 import SearchInventorySidebar from "../components/SearchInventorySidebar";
 import { Disc } from "../App";
+import LogoRescueFlow3 from "../components/LogoRescueFlow3";
 
 interface FilterCriteria {
     brands: string[];
@@ -85,9 +86,9 @@ export default function SearchInventory () {
                 <FontAwesomeIcon icon={faArrowLeft} />
             </i>
             <div className={`logo-search-inventory ${isMobile ? 'no-margin' : ''}`} style={{ marginTop: '1rem'}}>
-                <LogoRescueFlow2 />
+                <LogoRescueFlow3 />
             </div>
-            <div className="search-inventory-componets" style={{ marginTop: '-3.5rem' }}>
+            <div className="search-inventory-componets">
                 <RequestCourseComponets className="search-inventory-components" baseText={"All Lost"} lightText={" Discs"} />
             </div>
             <div>

@@ -1,5 +1,6 @@
 import "../styles/card.css";
 import pinImage from "../assets/pin.png";
+import noImageFound from "../assets/newAssets/noimagefound_drn.png";
 import Button from "./Button";
 import { Disc } from "../App";
 import { useNavigate } from "react-router-dom";
@@ -11,13 +12,15 @@ interface CardProps {
 
 const Card = (props: CardProps) => {
   const { disc, className } = props;
-  const cardClassName = className ? `card-container ${className}` : "card-container";
+  const cardClassName = className
+    ? `card-container ${className}`
+    : "card-container";
   const navigate = useNavigate();
 
   const handleClaimDiscClick = () => {
     navigate(`/claimDisc/${disc.id}`);
   };
-  
+
   return (
     <div className={cardClassName}>
       <div className="disc-info">
@@ -30,10 +33,11 @@ const Card = (props: CardProps) => {
           </div>
         </div>
         <img
-          src="https://i.ebayimg.com/images/g/y-gAAOSwHtdlCbey/s-l1200.jpg"
+          src={disc.imageUrl || "https://i.ebayimg.com/images/g/y-gAAOSwHtdlCbey/s-l1200.jpg"}
           loading="lazy"
           alt="disc"
           className="image"
+          onError={(e) => { e.currentTarget.src = noImageFound; }}
         />
         <div className="w-layout-grid grid grid-disc">
           <div className="course-list">
@@ -57,7 +61,7 @@ const Card = (props: CardProps) => {
               <Button
                 text={"Claim Disc"}
                 red={false}
-                className="unset-padding btn-2 padding"
+                className="padding-1 btn-2 padding"
                 onClick={handleClaimDiscClick}
               />
             </div>
