@@ -10,11 +10,12 @@ interface PopupReportProps {
     content: string;
     onClose: () => void;
     onSelect: (choice: 'phone' | 'email') => void;
+    className?: string;
 }
 
-const PopUpReport: React.FC<PopupReportProps> = ({ title, redText, content, onClose, onSelect }) => {
+const PopUpReport: React.FC<PopupReportProps> = ({ title, redText, content, onClose, onSelect, className }) => {
     return (
-        <div className="popup" style={{ display: 'flex' }}>
+        <div  className={`popup ${className}`} style={{ display: 'flex' }}>
             <div className="popup-content">
                 <span className="close" id="close" onClick={onClose}>
                     <div className='line'></div>
