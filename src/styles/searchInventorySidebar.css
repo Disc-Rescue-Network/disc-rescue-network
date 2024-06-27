@@ -524,7 +524,6 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
 }
 
 .switch {
@@ -585,3 +584,32 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+/* new changes close sidebar button */
+
+.close-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4rem;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 500px) {
+  .close-button {
+    gap: 0;
+  }
+}
+
+.close-sidebar-button {
+  font-size: 1.2rem;
+  color: var(--primary-burnt-orange);
+  border: none; 
+  background-color: var(--primary-grey);
+  text-align: start;
+  padding: 0;
+  margin: 0;
+  width: 30px;
+  font-family: "Akira Expanded", sans serif;
+}
+

@@ -10,6 +10,7 @@ interface SearchInventorySidebarProps {
   onReset: () => void;
   onSortChange: (sort: string) => void;
   currentSort: string;
+  onClose: () => void;
 }
 
 interface FilterCriteria {
@@ -35,6 +36,7 @@ export default function SearchInventorySidebar({
   onReset,
   onSortChange,
   currentSort,
+  onClose,
 }: SearchInventorySidebarProps) {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -165,6 +167,8 @@ export default function SearchInventorySidebar({
         <h2>FILTER AND SORT</h2>
       </div>
       <div className="filter-body">
+        <div className="close-button">
+        <button className="close-sidebar-button" onClick={onClose}>x</button>
         <div className="sort-toggle">
           <label className="switch-label">Desc</label>
           <label className="switch">
@@ -173,7 +177,7 @@ export default function SearchInventorySidebar({
           </label>
           <label className="switch-label">Asc</label>
         </div>
-
+        </div>
         <div className="accordion" id="accordionExample">
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingOne">
