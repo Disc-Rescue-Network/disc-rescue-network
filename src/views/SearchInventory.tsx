@@ -31,6 +31,7 @@ export default function SearchInventory () {
     const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
     const [displayedDiscs, setDisplayedDiscs] = useState<Disc[]>([])
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
+    
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -62,9 +63,13 @@ export default function SearchInventory () {
         setIsSidebarOpen(!isSidebarOpen);
     };
 
+    const onClose = () => {
+        setIsSidebarOpen(false)
+    };
+
     const handleFilter = (newFilters: FilterCriteria) => {
         setFilters(newFilters);
-        setIsSidebarOpen(false);
+        setIsSidebarOpen(true);
     };
 
     const handleReset = () => {
@@ -114,6 +119,7 @@ export default function SearchInventory () {
                 onReset={handleReset} 
                 onSortChange={setCurrentSort} 
                 currentSort={currentSort} 
+                onClose={onClose}
             />
         </div>
     )
