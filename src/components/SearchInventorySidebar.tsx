@@ -46,13 +46,19 @@ export default function SearchInventorySidebar({
   const [colors, setColors] = useState<{ color: string; count: number }[]>([]);
   const [discNames, setDiscNames] = useState<{ discName: string; count: number }[]>([]);
 
+  const [selectedFilters, setSelectedFilters] = useState<FilterCriteria>({
+    brands: [],
+    colors: [],
+    discNames: [],
+  });
+
   useEffect(() => {
     const fetchDiscs = async () => {
       try {
         const response = await axios.get("https://api.discrescuenetwork.com/inventory");
         const discs: Disc[] = response.data;
         setAllDiscs(discs);
-        filterDiscs(discs, courseId);
+        filterDiscs(discs, courseId, selectedFilters);
       } catch (error) {
         console.error("Failed to fetch discs:", error);
       }
@@ -61,8 +67,19 @@ export default function SearchInventorySidebar({
     fetchDiscs();
   }, [courseId]);
 
-  const filterDiscs = (discs: Disc[], courseId: string | null) => {
-    const filteredDiscs = courseId ? discs.filter(disc => disc.course === courseId) : discs;
+  const filterDiscs = (discs: Disc[], courseId: string | null, filters: FilterCriteria) => {
+    let filteredDiscs = courseId ? discs.filter(disc => disc.course === courseId) : discs;
+
+    if (filters.brands.length > 0) {
+      filteredDiscs = filteredDiscs.filter(disc => filters.brands.includes(disc.brand || ""));
+    }
+    if (filters.colors.length > 0) {
+      filteredDiscs = filteredDiscs.filter(disc => filters.colors.includes(disc.color || ""));
+    }
+    if (filters.discNames.length > 0) {
+      filteredDiscs = filteredDiscs.filter(disc => filters.discNames.includes(disc.disc || ""));
+    }
+
     setFilteredDiscs(filteredDiscs);
     processFilters(filteredDiscs);
   };
@@ -101,33 +118,26 @@ export default function SearchInventorySidebar({
     onSortChange(newSort);
   };
 
-  const handleFilterSearch = () => {
-    const selectedBrands = Array.from(document.querySelectorAll("input[name='filter_brand']:checked")).map(
-      (input) => (input as HTMLInputElement).value
-    );
-    const selectedColors = Array.from(document.querySelectorAll("input[name='filter_color']:checked")).map(
-      (input) => (input as HTMLInputElement).value
-    );
-    const selectedDiscNames = Array.from(document.querySelectorAll("input[name='filter_discName']:checked")).map(
-      (input) => (input as HTMLInputElement).value
-    );
+  const handleFilterSearch = (filterType: string, value: string) => {
+    const newFilters = { ...selectedFilters };
+    if (filterType === "brand") {
+      newFilters.brands = newFilters.brands.includes(value)
+        ? newFilters.brands.filter((brand) => brand !== value)
+        : [...newFilters.brands, value];
+    } else if (filterType === "color") {
+      newFilters.colors = newFilters.colors.includes(value)
+        ? newFilters.colors.filter((color) => color !== value)
+        : [...newFilters.colors, value];
+    } else if (filterType === "discName") {
+      newFilters.discNames = newFilters.discNames.includes(value)
+        ? newFilters.discNames.filter((discName) => discName !== value)
+        : [...newFilters.discNames, value];
+    }
 
-    const filteredDiscs = allDiscs.filter(
-      (disc) =>
-        (!courseId || disc.course === courseId) &&
-        (selectedBrands.length === 0 || selectedBrands.includes(disc.brand || "")) &&
-        (selectedColors.length === 0 || selectedColors.includes(disc.color || "")) &&
-        (selectedDiscNames.length === 0 || selectedDiscNames.includes(disc.disc || ""))
-    );
+    setSelectedFilters(newFilters);
+    filterDiscs(allDiscs, courseId, newFilters);
 
-    setFilteredDiscs(filteredDiscs);
-    processFilters(filteredDiscs);
-
-    onFilter({
-      brands: selectedBrands,
-      colors: selectedColors,
-      discNames: selectedDiscNames,
-    });
+    onFilter(newFilters);
   };
 
   const resetFilters = () => {
@@ -137,13 +147,17 @@ export default function SearchInventorySidebar({
       discNames: [],
     };
 
-    filterDiscs(allDiscs, courseId);
+    filterDiscs(allDiscs, courseId, initialFilters);
 
-    onFilter(initialFilters);
+    setSelectedFilters(initialFilters);
     const selectedInputs = document.querySelectorAll<HTMLInputElement>("input[type=checkbox]:checked");
     selectedInputs.forEach((input) => (input.checked = false));
     onReset();
   };
+
+  useEffect(() => {
+    filterDiscs(allDiscs, courseId, selectedFilters);
+  }, [selectedFilters, courseId]);
 
   return (
     <div className={`asidebar ${isOpen ? "open-sidebar" : ""}`}>
@@ -184,7 +198,13 @@ export default function SearchInventorySidebar({
                   {brands.map((brand, index) => (
                     <li key={index}>
                       <label className="filter-checkbox">
-                        <input type="checkbox" name="filter_brand" value={brand.brand} onChange={handleFilterSearch}/>
+                        <input
+                          type="checkbox"
+                          name="filter_brand"
+                          value={brand.brand}
+                          checked={selectedFilters.brands.includes(brand.brand)}
+                          onChange={() => handleFilterSearch("brand", brand.brand)}
+                        />
                         <span className="checkmark"></span>
                         <span className="filter-text">
                           {brand.brand}
@@ -220,7 +240,13 @@ export default function SearchInventorySidebar({
                   {colors.map((color, index) => (
                     <li key={index}>
                       <label className="filter-checkbox">
-                        <input type="checkbox" name="filter_color" value={color.color} onChange={handleFilterSearch}/>
+                        <input
+                          type="checkbox"
+                          name="filter_color"
+                          value={color.color}
+                          checked={selectedFilters.colors.includes(color.color)}
+                          onChange={() => handleFilterSearch("color", color.color)}
+                        />
                         <span className="checkmark"></span>
                         <span className="filter-text">
                           {color.color}
@@ -256,7 +282,13 @@ export default function SearchInventorySidebar({
                   {discNames.map((discName, index) => (
                     <li key={index}>
                       <label className="filter-checkbox">
-                        <input type="checkbox" name="filter_discName" value={discName.discName} onChange={handleFilterSearch}/>
+                        <input
+                          type="checkbox"
+                          name="filter_discName"
+                          value={discName.discName}
+                          checked={selectedFilters.discNames.includes(discName.discName)}
+                          onChange={() => handleFilterSearch("discName", discName.discName)}
+                        />
                         <span className="checkmark"></span>
                         <span className="filter-text">
                           {discName.discName}
@@ -271,9 +303,6 @@ export default function SearchInventorySidebar({
           </div>
         </div>
         <div className="filter-footer">
-          {/* <a href="javascript:void(0);" className="filter-search" onClick={handleFilterSearch}>
-            Filter and Search
-          </a> */}
           <a href="javascript:void(0);" className="filter-reset" onClick={resetFilters}>
             Reset Filters
           </a>
