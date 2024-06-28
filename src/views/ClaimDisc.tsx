@@ -71,6 +71,7 @@ export default function ClaimDisc() {
           }
           onClose={() => setShowPopup(false)}
           onSelect={handleSelect}
+          className="header-popup-claimDisc"
         />
       )}
       <i

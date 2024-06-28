@@ -7,6 +7,7 @@ import { useState } from "react";
 import "../styles/popupClaimDisc.css"
 import { PopupVerify } from "./PopupClaimDisc";
 import { Disc } from "../App";
+import PopUpSurrender from "./PopupSurrender";
 
 interface HeaderReportLostProps {
   className?: string;
@@ -21,6 +22,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const [pickupLocation, setPickupLocation] = useState("");
   const [pickupDate, setPickupDate] = useState("");
   const [pickupName, setPickupName] = useState("");
+  const [showPopupSurrender, setShowPopupSurrender] = useState(false);
 
   const handleScheduleButtonClick = () => {
     if (pickupLocation && pickupDate && pickupName) {
@@ -33,6 +35,14 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const closePopup = () => {
     setShowPopup(false);
   };
+
+  const openPopup = () => {
+    setShowPopupSurrender(true)
+  }
+
+  const closePopupSurrender = () => {
+    setShowPopupSurrender(false)
+  }
 
   return (
     <div className={`report-lost-components ${className}`}>
@@ -68,9 +78,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
         red={false}
         border={true}
         className="button-claim-disc-form"
-        onClick={() => {
-          alert("button clicked");
-        }}
+        onClick={openPopup}
       />
       {showPopup && <PopupVerify 
         closePopupVerify={closePopup}
@@ -79,6 +87,13 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
         pickupName={pickupName} 
         arrayOfDiscs={arrayOfDiscs}
         selectedDiscId={selectedDiscId}  />}
+
+      {showPopupSurrender && <PopUpSurrender 
+        className="popup-surrender-disc"
+        title={"You are about to Surrender Your Disc"}  
+        content={"Hi There! Surrendering your disc is just like a donation. This disc can be sold by the course to raise funds for things like new tee pads, new baskets or general maintenance."} 
+        onClose={closePopupSurrender} 
+      />}  
     </div>
   );
 };

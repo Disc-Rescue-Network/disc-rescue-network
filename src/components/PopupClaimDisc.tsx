@@ -51,7 +51,7 @@ export function PopupVerify({ closePopupVerify, pickupLocation, pickupDate, pick
           <div className="line"></div>
           <div className="line"></div>
         </span>
-        <h2 className="header-popup-claim-disc" style={{ fontSize: '3rem', marginTop: '10px', marginBottom: '2px' }}>
+        <h2 className="header-popup-claim-disc" style={{ fontSize: '3rem', marginTop: '10px', marginBottom: '2px', textTransform: 'uppercase'}}>
           Verify Your <span className="fw-light">INFO</span>
         </h2>  
         <div className="verify-row" id="discInfoVerify" style={{ color: 'var(--primary-black) !important', width: '60%', maxWidth: '400px' }}>
@@ -66,10 +66,6 @@ export function PopupVerify({ closePopupVerify, pickupLocation, pickupDate, pick
             <div className="verify-row-claim">
               <label id="pickupLocationLabel">Pickup Location:</label>
               <span id="verifyPickupLocation" className="fw-light"> {pickupName} {pickupLocation}</span>
-            </div>
-            <div className="verify-row-claim">
-              <label id="communicationMethodLabel">Phone Number For Release:</label>
-              <span id="verifyContactInfoForRelease" className="fw-light"></span>
             </div>
           </div>
         </div>

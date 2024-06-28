@@ -369,6 +369,8 @@ body {
   padding: 1rem;
   width: 100%;
   height: 100%;
+  overflow: auto;
+  padding-bottom: 90px;
 }
 
 .filters-option {
@@ -424,7 +426,7 @@ body {
 
 @media screen and (max-width:500px) {
   .filters-option-claim {
-    transform: translateY(96px);
+    transform: translateY(82px);
     font-size: 16px;
   }
 }
