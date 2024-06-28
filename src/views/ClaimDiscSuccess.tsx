@@ -43,10 +43,10 @@ export default function ClaimDiscSuccess () {
                         <label id="pickupLocationLabel">Pickup Location:</label>
                         <span id="verifyPickupLocation" className="lato"> {pickupName} {pickupLocation}</span>
                     </div>
-                        <div className="verify-row-claim-success">
+                        {/* <div className="verify-row-claim-success">
                         <label id="communicationMethodLabel">Phone Number For Release:</label>
                         <span id="verifyContactInfoForRelease" className="lato"></span>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="verify-row" id="discInfoVerify" style={{ color: 'var(--primary-black) !important', width: '65%', maxWidth: '400px' }}>
             <DiscsClaimDiscs arrayOfDiscs={arrayOfDiscs} selectedDiscId={selectedDiscId} />

@@ -34,6 +34,7 @@
   display: block !important;
   font-family: "Bebas Neue";
   font-weight: 400;
+  color: var(--primary-sea-blue);
 }
 
 .form-control-step::placeholder {
