@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "../styles/popupClaimDisc.css"
 import Button from "./Button";
 import DiscsClaimDiscs from "./DiscsClaimDisc";
@@ -12,7 +12,8 @@ interface PopupVerifyProps {
   pickupName: string;
   arrayOfDiscs: Disc[]; 
   selectedDiscId: string;
-  contactMethod: "phone" | "email"; 
+  contactMethod: "phone" | "email";
+  contactValue: string; 
 }
 
 interface PopupSurrenderProps {
@@ -20,7 +21,9 @@ interface PopupSurrenderProps {
   surrenderDiscConfirm: () => void;
 }
 
-export function PopupVerify({ closePopupVerify, pickupLocation, pickupDate, pickupName, arrayOfDiscs, selectedDiscId, contactMethod }: PopupVerifyProps) {
+export function PopupVerify({ closePopupVerify, pickupLocation, pickupDate, pickupName, arrayOfDiscs, selectedDiscId, contactMethod, contactValue }: PopupVerifyProps) {
+  const [contactInfo, setContactInfo] = useState("");
+
   useEffect(() => {
     const modal = document.getElementById("popup");
     const communicationMethodLabel = document.getElementById("communicationMethodLabel");
@@ -29,6 +32,7 @@ export function PopupVerify({ closePopupVerify, pickupLocation, pickupDate, pick
       modal.style.display = "none";
       communicationMethodLabel.textContent = contactMethod === "phone" ? "Phone Number For Release: " : "Email For Release: ";
     }
+    setContactInfo("");
   }, [contactMethod]);
  
   const navigate = useNavigate();
@@ -71,7 +75,7 @@ export function PopupVerify({ closePopupVerify, pickupLocation, pickupDate, pick
             </div>
             <div className="verify-row-claim">
               <label id="communicationMethodLabel">{contactMethod === "phone" ? "Phone Number For Release: " : "Email For Release: "}</label>
-              <span id="verifyContactInfoForRelease" className="fw-light"></span>
+              <span id="verifyContactInfoForRelease" className="fw-light">{contactMethod === "phone" ? contactValue : (contactMethod === "email" ? contactValue : "")}</span>
             </div>
           </div>
         </div>
