@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/claimDiscComponents.css";
 
 interface State {
@@ -58,11 +58,17 @@ interface FormReportLostColorProps {
   ChosePickup: string;
   onPickupLocationChange: (location: string, name: string) => void;
   onPickupDateChange: (date: string) => void;
+  onContactChange: (contact: string) => void;
 }
 
 const FormClaimDiscContact = (props: FormReportLostColorProps) => {
-  const { contactMethod, ChosePickup, onPickupLocationChange, onPickupDateChange } = props;
+  const { contactMethod, ChosePickup, onPickupLocationChange, onPickupDateChange, onContactChange } = props;
   const placeholder = contactMethod === "email" ? "Email Address" : "Phone Number Written on The Disc";
+  const [contactValue, setContactValue] = useState("");
+
+  useEffect(() => {
+    setContactValue("");
+  }, [contactMethod]);
 
   const handleLocationChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedDate = event.target.value;
@@ -77,11 +83,36 @@ const FormClaimDiscContact = (props: FormReportLostColorProps) => {
     onPickupDateChange(selectedDate);
   };
 
+  const formatPhoneNumber = (value: string) => {
+    if (!value) return value;
+    const phoneNumber = value.replace(/[^\d]/g, "");
+    const phoneNumberLength = phoneNumber.length;
+    if (phoneNumberLength < 4) return phoneNumber;
+    if (phoneNumberLength < 7) {
+      return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
+    }
+    return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`;
+  };
+
+  const handleContactChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let formattedContact = event.target.value;
+    if (contactMethod === "phone") {
+      formattedContact = formatPhoneNumber(formattedContact);
+    }
+    setContactValue(formattedContact);
+    onContactChange(formattedContact);
+  }
+
   return (
     <>
       <div className="select-box-claim">
         <div className="col-10 claim-disc-form" style={{ padding: "0" }}>
-          <input placeholder={placeholder} type={contactMethod === "email" ? "email" : "text"} />
+          <input 
+            placeholder={placeholder} 
+            type={contactMethod === "email" ? "email" : "text"} 
+            value={contactValue}
+            onChange={handleContactChange}
+          />
         </div>
         <div className="col-10 pe-0 arrow one">
           <select className="form-select-claim" onChange={(event) => { handleLocationChange(event); handleDateChange(event); }}>
