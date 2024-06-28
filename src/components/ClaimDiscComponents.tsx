@@ -84,9 +84,11 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
         closePopupVerify={closePopup}
         pickupLocation={pickupLocation}
         pickupDate={pickupDate}
-        pickupName={pickupName} 
+        pickupName={pickupName}
         arrayOfDiscs={arrayOfDiscs}
-        selectedDiscId={selectedDiscId}  />}
+        selectedDiscId={selectedDiscId} 
+        contactMethod={contactMethod}  
+      />}
 
       {showPopupSurrender && <PopUpSurrender 
         className="popup-surrender-disc"

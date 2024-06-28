@@ -157,6 +157,7 @@
     height: 55px !important;
     padding-left: 5px;
     border-radius: 0;
+    font-size: 15px;
 }
 
 .report-lost input::placeholder {

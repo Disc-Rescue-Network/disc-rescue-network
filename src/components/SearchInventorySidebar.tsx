@@ -19,6 +19,8 @@ interface FilterCriteria {
   discNames: string[];
 }
 
+type SectionType = "brand" | "color" | "discName";
+
 function countOccurrences(arr: string[]): Record<string, number> {
   return arr.reduce((acc, value) => {
     acc[value] = (acc[value] || 0) + 1;
@@ -47,6 +49,7 @@ export default function SearchInventorySidebar({
   const [brands, setBrands] = useState<{ brand: string; count: number }[]>([]);
   const [colors, setColors] = useState<{ color: string; count: number }[]>([]);
   const [discNames, setDiscNames] = useState<{ discName: string; count: number }[]>([]);
+  const [activeSections, setActiveSections] = useState<SectionType[]>(["brand", "color", "discName"]);
 
   const [selectedFilters, setSelectedFilters] = useState<FilterCriteria>({
     brands: [],
@@ -161,6 +164,14 @@ export default function SearchInventorySidebar({
     filterDiscs(allDiscs, courseId, selectedFilters);
   }, [selectedFilters, courseId]);
 
+  const toggleSection = (section: SectionType) => {
+    setActiveSections(prevState =>
+      prevState.includes(section)
+        ? prevState.filter(activeSection => activeSection !== section)
+        : [...prevState, section]
+    );
+  };
+
   return (
     <div className={`asidebar ${isOpen ? "open-sidebar" : ""}`}>
       <div className="sidebar-header">
@@ -182,19 +193,19 @@ export default function SearchInventorySidebar({
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingOne">
               <button
-                className="accordion-button"
+                className={`accordion-button ${activeSections.includes("brand") ? "expanded" : ""}`}
                 type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapseOne"
-                aria-expanded="true"
+                onClick={() => toggleSection("brand")}
+                aria-expanded={activeSections.includes("brand")}
                 aria-controls="collapseOne"
               >
+
                 Disc Brand
               </button>
             </h2>
             <div
               id="collapseOne"
-              className="accordion-collapse collapse show"
+              className={`accordion-collapse collapse ${activeSections.includes ("brand") ? "show" : ""}`}
               aria-labelledby="headingOne"
             >
               <div className="accordion-body">
@@ -224,11 +235,10 @@ export default function SearchInventorySidebar({
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingTwo">
               <button
-                className="accordion-button"
+                className={`accordion-button ${activeSections.includes("color") ? "expanded" : ""}`}
                 type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapseTwo"
-                aria-expanded="true"
+                onClick={() => toggleSection("color")}
+                aria-expanded={activeSections.includes("color")}
                 aria-controls="collapseTwo"
               >
                 Disc Color
@@ -236,7 +246,7 @@ export default function SearchInventorySidebar({
             </h2>
             <div
               id="collapseTwo"
-              className="accordion-collapse collapse show"
+              className={`accordion-collapse collapse ${activeSections.includes("color") ? "show" : ""}`}
               aria-labelledby="headingTwo"
             >
               <div className="accordion-body">
@@ -266,11 +276,10 @@ export default function SearchInventorySidebar({
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingThree">
               <button
-                className="accordion-button"
+                className={`accordion-button ${activeSections.includes("discName") ? "expanded" : ""}`}
                 type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapseThree"
-                aria-expanded="true"
+                onClick={() => toggleSection("discName")}
+                aria-expanded={activeSections.includes("discName")}
                 aria-controls="collapseThree"
               >
                 Disc Name
@@ -278,7 +287,7 @@ export default function SearchInventorySidebar({
             </h2>
             <div
               id="collapseThree"
-              className="accordion-collapse collapse show"
+              className={`accordion-collapse collapse ${activeSections.includes ("discName") ? "show" : ""}`}
               aria-labelledby="headingThree"
             >
               <div className="accordion-body">

@@ -10,19 +10,17 @@ import DiscsClaimDiscs from "../components/DiscsClaimDisc";
 
 export default function ClaimDiscSuccess () {
     const location = useLocation();
-    const { pickupLocation, pickupDate, pickupName, arrayOfDiscs, selectedDiscId } = location.state || {};
+    const { pickupLocation, pickupDate, pickupName, arrayOfDiscs, selectedDiscId, contactMethod } = location.state || {};
     const [step, setStep] = useState(1);
     const navigate = useNavigate();
 
     const handleBack = () => {
-      if (step > 1) {
-        setStep(step - 1);
-      }
-  
-      if (step === 1) {
-        navigate("/");
-      }
-    };
+        if (step > 1) {
+          setStep(step - 1);
+        } else {
+          navigate(-1); 
+        }
+      };
     return (
         <div className="container-store"> 
             <i className="arrow-left-icon" 
@@ -43,10 +41,12 @@ export default function ClaimDiscSuccess () {
                         <label id="pickupLocationLabel">Pickup Location:</label>
                         <span id="verifyPickupLocation" className="lato"> {pickupName} {pickupLocation}</span>
                     </div>
-                        {/* <div className="verify-row-claim-success">
-                        <label id="communicationMethodLabel">Phone Number For Release:</label>
+                    <div className="verify-row-claim-success">
+                        <label id="communicationMethodLabel">
+                          {contactMethod === "phone" ? "Phone Number For Release:" : "Email For Release:"}
+                        </label>
                         <span id="verifyContactInfoForRelease" className="lato"></span>
-                    </div> */}
+                    </div>
                 </div>
                 <div className="verify-row" id="discInfoVerify" style={{ color: 'var(--primary-black) !important', width: '65%', maxWidth: '400px' }}>
             <DiscsClaimDiscs arrayOfDiscs={arrayOfDiscs} selectedDiscId={selectedDiscId} />

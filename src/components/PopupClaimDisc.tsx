@@ -12,6 +12,7 @@ interface PopupVerifyProps {
   pickupName: string;
   arrayOfDiscs: Disc[]; 
   selectedDiscId: string;
+  contactMethod: "phone" | "email"; 
 }
 
 interface PopupSurrenderProps {
@@ -19,16 +20,16 @@ interface PopupSurrenderProps {
   surrenderDiscConfirm: () => void;
 }
 
-export function PopupVerify({ closePopupVerify, pickupLocation, pickupDate, pickupName, arrayOfDiscs, selectedDiscId }: PopupVerifyProps) {
+export function PopupVerify({ closePopupVerify, pickupLocation, pickupDate, pickupName, arrayOfDiscs, selectedDiscId, contactMethod }: PopupVerifyProps) {
   useEffect(() => {
     const modal = document.getElementById("popup");
     const communicationMethodLabel = document.getElementById("communicationMethodLabel");
 
     if (modal && communicationMethodLabel) {
       modal.style.display = "none";
-      communicationMethodLabel.textContent = "Phone Number For Release: ";
+      communicationMethodLabel.textContent = contactMethod === "phone" ? "Phone Number For Release: " : "Email For Release: ";
     }
-  }, []);
+  }, [contactMethod]);
  
   const navigate = useNavigate();
 
@@ -39,7 +40,8 @@ export function PopupVerify({ closePopupVerify, pickupLocation, pickupDate, pick
         pickupDate,
         pickupName,
         arrayOfDiscs,
-        selectedDiscId
+        selectedDiscId,
+        contactMethod
       }
     });
   };
@@ -66,6 +68,10 @@ export function PopupVerify({ closePopupVerify, pickupLocation, pickupDate, pick
             <div className="verify-row-claim">
               <label id="pickupLocationLabel">Pickup Location:</label>
               <span id="verifyPickupLocation" className="fw-light"> {pickupName} {pickupLocation}</span>
+            </div>
+            <div className="verify-row-claim">
+              <label id="communicationMethodLabel">{contactMethod === "phone" ? "Phone Number For Release: " : "Email For Release: "}</label>
+              <span id="verifyContactInfoForRelease" className="fw-light"></span>
             </div>
           </div>
         </div>
