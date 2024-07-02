@@ -261,6 +261,11 @@
     font-weight: 500;
   }
 
+  .red-button-surrender:hover {
+    background-color: var(--primary-sea-blue);
+    transition: 0.3s ease;
+  }
+
   .success-message-surrender {
     color: var(--primary-white);
     font-size: 3rem;
@@ -279,6 +284,29 @@
     }
 
     .claim-disc-success h2 {
+      font-size: 3rem !important;
+    }
+  }
+
+  /* success report lost disc */
+
+  .success-message-report-lost {
+    color: var(--primary-white);
+    font-size: 3rem;
+    width: 72%;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+    line-height: 1.3;
+  }
+
+  @media screen and (max-width: 500px) {
+    .success-message-report-lost {
+      font-size: 1.5rem;
+      width: 90%;
+    }
+
+    .success-message-report-lost h4 {
       font-size: 3rem !important;
     }
   }
