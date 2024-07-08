@@ -23,6 +23,8 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const [pickupDate, setPickupDate] = useState("");
   const [pickupName, setPickupName] = useState("");
   const [contactValue, setContactValue] = useState("");
+  const [initial, setInitial] = useState("");
+  const [lastName, setLastName] = useState("");
   const [showPopupSurrender, setShowPopupSurrender] = useState(false);
 
   const handleScheduleButtonClick = () => {
@@ -45,6 +47,14 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
     setShowPopupSurrender(false)
   }
 
+  const handleInitialChange = (value: string) => {
+    setInitial(value);
+  };
+
+  const handleLastNameChange = (value: string) => {
+    setLastName(value);
+  };
+
   return (
     <div className={`report-lost-components ${className}`}>
         <h2 className="header-claim-disc">
@@ -56,7 +66,10 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
         <span className="missingtext"> Info</span>
         .
       </h2>
-      <NameAndInitialForm />
+      <NameAndInitialForm 
+        onInitialChange={handleInitialChange}
+        onLastNameChange={handleLastNameChange}
+      />
       <FormClaimDiscContact 
         contactMethod={contactMethod}
         ChosePickup={"Choose a Pickup Location"}

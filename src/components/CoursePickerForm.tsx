@@ -86,7 +86,7 @@ const CoursePickerForm = (props: CoursePickerProps) => {
         const states = Array.from(new Set(validCourses.map((course: Course) => stateAbbreviations[course.state] || course.state)));
         setUniqueStates(["All", ...states]);
       } catch (error) {
-        console.error('Error when searching for courses:', error);
+        console.error('Erro ao buscar os cursos:', error);
       }
     };
 
@@ -94,41 +94,37 @@ const CoursePickerForm = (props: CoursePickerProps) => {
   }, []);
 
   const handleStateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedState(event.target.value);
     const selectedState = event.target.value;
-    console.log(selectedState);
-
-    const correspondingCourse = allCourses.find(
-      (course) => (stateAbbreviations[course.state] || course.state) === selectedState
-    );
-    console.log(correspondingCourse);
-    console.log(allCourses);
-    if (correspondingCourse) {
-      console.log(correspondingCourse.courseName);
-      setSelectedCourse(correspondingCourse.courseName);
-      setCourse(correspondingCourse.courseName);
-    }
+    setSelectedState(selectedState);
     setState(selectedState);
+
+    setSelectedCourse("");
+    setCourse("");
+
+    console.log(selectedState);
   };
 
   const handleCourseChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    if (event.target.value === "SELECT A COURSE") {
+    const selectedCourse = event.target.value;
+    setSelectedCourse(selectedCourse);
+    setCourse(selectedCourse);
+
+    if (selectedCourse === "SELECT A COURSE") {
       setSelectedState("");
+      setState("");
       return;
     }
-
-    setSelectedCourse(event.target.value);
-
-    const selectedCourse = event.target.value;
-    console.log(selectedCourse);
 
     const correspondingState = allCourses.find(
       (course) => course.courseName === selectedCourse
     )?.state;
     if (correspondingState) {
-      setSelectedState(stateAbbreviations[correspondingState] || correspondingState);
+      const stateAbbreviation = stateAbbreviations[correspondingState] || correspondingState;
+      setSelectedState(stateAbbreviation);
+      setState(stateAbbreviation);
     }
-    setCourse(selectedCourse);
+
+    console.log(selectedCourse);
   };
 
   console.log("selected state", selectedState);
@@ -139,38 +135,36 @@ const CoursePickerForm = (props: CoursePickerProps) => {
       : allCourses.filter((course) => (stateAbbreviations[course.state] || course.state) === selectedState);
 
   return (
-    <>
-      <div className="mt-5 mb-3 select-box-forms report-lost-class">
-        <div className="col-4-forms pe-0 arrow one report-class-col-4">
-          <select
-            className="form-select-rescue-flow report-lost-form-select"
-            onChange={handleStateChange}
-            value={selectedState}
-          >
-            <option value="">STATE</option>
-            {uniqueStates.map((state, index) => (
-              <option key={index} value={state}>
-                {state}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="col-8-forms pe-0 arrow report-class-col-8">
-          <select
-            className="form-select-rescue-flow report-lost-form-select"
-            value={selectedCourse}
-            onChange={handleCourseChange}
-          >
-            <option value="">SELECT A COURSE</option>
-            {filteredCourses.map((course, index) => (
-              <option key={index} value={course.courseName}>
-                {course.courseName}
-              </option>
-            ))}
-          </select>
-        </div>
+    <div className="mt-5 mb-3 select-box-forms report-lost-class">
+      <div className="col-4-forms pe-0 arrow one report-class-col-4">
+        <select
+          className="form-select-rescue-flow report-lost-form-select"
+          onChange={handleStateChange}
+          value={selectedState}
+        >
+          <option value="">STATE</option>
+          {uniqueStates.map((state, index) => (
+            <option key={index} value={state}>
+              {state}
+            </option>
+          ))}
+        </select>
       </div>
-    </>
+      <div className="col-8-forms pe-0 arrow report-class-col-8">
+        <select
+          className="form-select-rescue-flow report-lost-form-select"
+          value={selectedCourse}
+          onChange={handleCourseChange}
+        >
+          <option value="">SELECT A COURSE</option>
+          {filteredCourses.map((course, index) => (
+            <option key={index} value={course.courseName}>
+              {course.courseName}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
   );
 };
 
