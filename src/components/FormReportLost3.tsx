@@ -12,15 +12,24 @@ var stateTuples = [
 interface FormReportLostProps {
     initialName: string;
     lastName: string;
+    onBrandChange: (value: string) => void;
+    onDiscNameChange: (value: string) => void;
 }
 
-const FormReportLost = (props: FormReportLostProps) => {
-    const { initialName, lastName } = props
+const FormReportLost: React.FC<FormReportLostProps> = ({ initialName, lastName, onBrandChange, onDiscNameChange }) => {
+    const handleBrandChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        onBrandChange(event.target.value);
+    };
+
+    const handleDiscNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        onDiscNameChange(event.target.value);
+    };
+    
     return (
         <>
             <div className="select-box-report">
             <div className="col-4 pe-0 arrow one">
-            <select className="form-select-report">
+            <select className="form-select-report" onChange={handleBrandChange}>
                         <option value="All">{initialName}</option>
                         {stateTuples.map((state, index) => (
                             <option key={index} value={state[1]}>{state[0]}</option>
@@ -28,7 +37,7 @@ const FormReportLost = (props: FormReportLostProps) => {
                     </select>
             </div>
             <div className="col-8 report-lost">
-                <input placeholder={lastName}/>
+            <input placeholder={lastName} onChange={handleDiscNameChange}/>
             </div>
         </div>
         </>
@@ -36,3 +45,5 @@ const FormReportLost = (props: FormReportLostProps) => {
 }
 
 export default FormReportLost
+
+ 

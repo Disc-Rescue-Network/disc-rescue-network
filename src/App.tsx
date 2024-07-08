@@ -13,6 +13,7 @@ import Courses from "./views/Courses";
 import ClaimDisc from "./views/ClaimDisc";
 import ClaimDiscSuccess from "./views/ClaimDiscSuccess";
 import SurrenderDiscSuccess from "./views/SurrenderDiscSuccess";
+import ReportLostDiscSuccess from "./views/ReportLostDiscSuccess";
 
 // Define a Disc interface
 export interface Disc {
@@ -66,6 +67,7 @@ function App() {
         <Route path="/claimDisc/:id" element={<ClaimDisc />} />
         <Route path="/claimDiscSuccess/:id" element={<ClaimDiscSuccess />} />
         <Route path="/surrenderDiscSuccess" element={<SurrenderDiscSuccess />} />
+        <Route path="/reportLostDiscSuccess" element={<ReportLostDiscSuccess />} />
       </Routes>
 
       <Footer />
