@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import LogoRescueFlow2 from "../components/LogoRescueFlow2";
 import RequestCourseComponets from "../components/RequestCourseComponents";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -14,7 +13,6 @@ interface FilterCriteria {
     colors: string[];
     discNames: string[];
   }
-
 
 export default function SearchInventory () {
     const navigate = useNavigate();

@@ -1,18 +1,18 @@
+import React, { useState } from "react";
 import HeaderRescueFlow from "./RescueFlowComponets";
 import LogoRescueFlow from "./LogoRescueFlow";
 import "../styles/rescueFlowStep.css";
 import CoursePickerForm from "./CoursePickerForm";
 import Button from "./Button";
-import { useState } from "react";
+import { SearchParams } from '../views/RescueFlow';
 
-interface RescueFlowProps {
+interface RescueFlowStep1Props {
   step: number;
   setStep: (step: number) => void;
+  handleNextStep: (newParams: SearchParams) => void;
 }
 
-const RescueFlowStep1 = (props: RescueFlowProps) => {
-  const { step, setStep } = props;
-
+const RescueFlowStep1: React.FC<RescueFlowStep1Props> = ({ step, handleNextStep }) => {
   const [state, setState] = useState("");
   const [course, setCourse] = useState("");
 
@@ -37,9 +37,9 @@ const RescueFlowStep1 = (props: RescueFlowProps) => {
         <Button
           text={"Next Step"}
           red={true}
-          className="button-red-rescue-3"
+          className="button-red-rescue-5"
           onClick={() => {
-            setStep(step + 1);
+            handleNextStep({ course });
           }}
         />
         <Button
@@ -48,7 +48,7 @@ const RescueFlowStep1 = (props: RescueFlowProps) => {
           border={true}
           className="second-button-rescue-3 white-border"
           onClick={() => {
-            setStep(step + 1);
+            handleNextStep({});
           }}
         />
       </div>

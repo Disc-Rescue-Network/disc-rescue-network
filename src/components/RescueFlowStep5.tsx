@@ -1,15 +1,20 @@
 import Button from "./Button";
-import FormStep from "./FormStep2";
 import LogoRescueFlow from "./LogoRescueFlow";
 import HeaderRescueFlow from "./RescueFlowComponets";
+import { SearchParams } from '../views/RescueFlow';
+import FormStep5 from "./FormStep5";
+import { useState } from "react";
 
 interface RescueFlowProps {
     step: number;
     setStep: (step: number) => void;
+    handleNextStep: (newParams: SearchParams) => void;
   }
 
 const RescueFlowStep5 = (props: RescueFlowProps) => {
-    const { step, setStep } = props;
+    const { step, setStep, handleNextStep } = props;
+
+    const [color, setColor] = useState("");
     return (
         <>
         <LogoRescueFlow />
@@ -24,16 +29,15 @@ const RescueFlowStep5 = (props: RescueFlowProps) => {
                 smallerText={"Last minute hail mary to save the flow..."}
             />
             </div>
-            <FormStep inputName={"Whats Color Is It?!"} />
+            <FormStep5 inputName={"Whats Color Is It?!"} setColor={setColor} />
             <div className="buttons-rescue-step2">
             <Button  
                 text={"Show Me The Discs"}
                 red={true}
                 className="button-red-rescue-5"
                 onClick={() => {
-                  alert("button clicked");
-                }}/>
-                {/* This button needs to be approximately the height: 30px */}
+                    handleNextStep({ color });
+                  }}/>
             <Button  
                 text={"This Is Just Sad Now"}
                 red={false}
