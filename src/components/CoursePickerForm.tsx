@@ -108,12 +108,13 @@ const CoursePickerForm = (props: CoursePickerProps) => {
     const selectedState = event.target.value;
     setSelectedState(selectedState);
     setState(selectedState);
-    setSelectedCourse(
+    const course =
       allCourses.find(
         (course) =>
           (stateAbbreviations[course.state] || course.state) === selectedState
-      )?.courseName || ""
-    );
+      )?.courseName || "";
+    setSelectedCourse(course);
+    setCourse(course);
   };
 
   const handleCourseChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

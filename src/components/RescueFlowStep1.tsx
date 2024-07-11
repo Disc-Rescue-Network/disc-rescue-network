@@ -4,17 +4,29 @@ import LogoRescueFlow from "./LogoRescueFlow";
 import "../styles/rescueFlowStep.css";
 import CoursePickerForm from "./CoursePickerForm";
 import Button from "./Button";
-import { SearchParams } from '../views/RescueFlow';
+import { SearchParams } from "../views/RescueFlow";
+import { Disc } from "../App";
 
 interface RescueFlowStep1Props {
   step: number;
   setStep: (step: number) => void;
-  handleNextStep: (newParams: SearchParams) => void;
+  handleNextStep: (newSearchParams: SearchParams) => void;
+  checkInventory: (inventory: Disc[], searchParams: SearchParams) => Disc[];
+  searchParams: SearchParams;
+  setSearchParams: (searchParams: SearchParams) => void;
 }
 
-const RescueFlowStep1: React.FC<RescueFlowStep1Props> = ({ step, handleNextStep }) => {
+const RescueFlowStep1: React.FC<RescueFlowStep1Props> = ({
+  step,
+  handleNextStep,
+  checkInventory,
+  searchParams,
+  setSearchParams,
+}) => {
   const [state, setState] = useState("");
   const [course, setCourse] = useState("");
+  // console.log("State", state);
+  // console.log("Course", course);
 
   return (
     <>
@@ -39,7 +51,11 @@ const RescueFlowStep1: React.FC<RescueFlowStep1Props> = ({ step, handleNextStep 
           red={true}
           className="button-red-rescue-5"
           onClick={() => {
-            handleNextStep({ course });
+            console.log("Course", course);
+            const newParams = { ...searchParams, course };
+            console.log("New Params", newParams);
+            setSearchParams(newParams);
+            handleNextStep(newParams);
           }}
         />
         <Button
@@ -48,7 +64,9 @@ const RescueFlowStep1: React.FC<RescueFlowStep1Props> = ({ step, handleNextStep 
           border={true}
           className="second-button-rescue-3 white-border"
           onClick={() => {
-            handleNextStep({});
+            console.log("Skipping, no course");
+            const newParams = { ...searchParams, course: "" };
+            handleNextStep(newParams);
           }}
         />
       </div>

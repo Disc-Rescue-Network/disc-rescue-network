@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import RescueFLowFailure from "../components/RescueFlowFailure";
 import RescueFlowPopup from "../components/RescueFlowPopup";
 import axios from "axios";
+import { useInventory } from "../hooks/useInventory";
+import { Disc } from "../App";
 
 export interface SearchParams {
   course?: string;
@@ -25,7 +27,9 @@ export default function RescueFlow() {
   const [step, setStep] = useState(1);
   const [searchParams, setSearchParams] = useState<SearchParams>({});
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [matchedDiscs, setMatchedDiscs] = useState([]); 
+  const [matchedDiscs, setMatchedDiscs] = useState<Disc[]>([]);
+
+  const { inventory, fetchInventory } = useInventory();
 
   const navigate = useNavigate();
 
@@ -40,29 +44,46 @@ export default function RescueFlow() {
   };
 
   const updateSearchParams = (newParams: SearchParams) => {
+    console.log("Updating search params", newParams);
     setSearchParams((prevParams) => ({ ...prevParams, ...newParams }));
   };
 
-  const checkInventory = async (params: SearchParams) => {
-    try {
-      const response = await axios.get('https://api.discrescuenetwork.com/inventory', { params });
-      return response.data;
-    } catch (error) {
-      console.error('Error checking inventory:', error);
-      return [];
-    }
+  const checkInventory = (
+    inventory: Disc[],
+    searchParams: SearchParams
+  ): Disc[] => {
+    return inventory.filter((disc) => {
+      return (
+        (!searchParams.color || disc.color === searchParams.color) &&
+        (!searchParams.brand || disc.brand === searchParams.brand) &&
+        (!searchParams.name || disc.name === searchParams.name) &&
+        (!searchParams.phoneNumber ||
+          disc.phoneNumber === searchParams.phoneNumber) &&
+        (!searchParams.course || disc.course === searchParams.course)
+      );
+    });
   };
 
-  const handleNextStep = async (newParams: SearchParams) => {
-    updateSearchParams(newParams);
-    const matches = await checkInventory({ ...searchParams, ...newParams });
+  const handleNextStep = async (newSearchParams: SearchParams) => {
+    console.log("Handle next step");
+    console.log("New Params", newSearchParams);
+    const matches = await checkInventory(inventory, newSearchParams);
+
+    console.log("Matches", matches);
+
+    if (matches.length === 0) {
+      console.log("No matches found");
+      setStep(step + 1); // should we skip to the end???
+      return;
+    }
 
     if (matches.length <= 6) {
-      setMatchedDiscs(matches); 
-      setIsPopupOpen(true); 
+      console.log("1-6 matches found", matches);
+      setMatchedDiscs(matches);
+      setIsPopupOpen(true);
     } else {
+      console.log("More than 6 matches found, moving to next step");
       setStep(step + 1);
-      navigate(`/rescueflow?${new URLSearchParams({ ...searchParams, ...newParams }).toString()}`);
     }
   };
 
@@ -76,17 +97,50 @@ export default function RescueFlow() {
         <FontAwesomeIcon icon={faArrowLeft} />
       </i>
       <BetaBanner Course={"This is a Beta version of the DRN Platform."} />
-      {step === 1 && <RescueFlowStep1 step={step} setStep={setStep} handleNextStep={handleNextStep} />}
-      {step === 2 && <RescueFlowStep2 step={step} setStep={setStep} handleNextStep={handleNextStep} />}
-      {step === 3 && <RescueFlowStep3 step={step} setStep={setStep} handleNextStep={handleNextStep} />}
-      {step === 4 && <RescueFlowStep4 step={step} setStep={setStep} handleNextStep={handleNextStep} />}
-      {step === 5 && <RescueFlowStep5 step={step} setStep={setStep} handleNextStep={handleNextStep} />}
+      {step === 1 && (
+        <RescueFlowStep1
+          step={step}
+          setStep={setStep}
+          handleNextStep={handleNextStep}
+          checkInventory={checkInventory}
+          searchParams={searchParams}
+          setSearchParams={updateSearchParams}
+        />
+      )}
+      {step === 2 && (
+        <RescueFlowStep2
+          step={step}
+          setStep={setStep}
+          handleNextStep={handleNextStep}
+        />
+      )}
+      {step === 3 && (
+        <RescueFlowStep3
+          step={step}
+          setStep={setStep}
+          handleNextStep={handleNextStep}
+        />
+      )}
+      {step === 4 && (
+        <RescueFlowStep4
+          step={step}
+          setStep={setStep}
+          handleNextStep={handleNextStep}
+        />
+      )}
+      {step === 5 && (
+        <RescueFlowStep5
+          step={step}
+          setStep={setStep}
+          handleNextStep={handleNextStep}
+        />
+      )}
       {step === 6 && <RescueFLowFailure />}
       {isPopupOpen && (
-        <RescueFlowPopup 
-          onClosePopup={closePopup} 
-          arrayOfDiscs={matchedDiscs} 
-          selectedDiscId={""} 
+        <RescueFlowPopup
+          onClosePopup={closePopup}
+          arrayOfDiscs={matchedDiscs}
+          selectedDiscId={""}
         />
       )}
       {step === 1 && (
