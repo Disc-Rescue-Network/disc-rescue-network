@@ -43,18 +43,18 @@ const RescueFlowStep4 = (props: RescueFlowProps) => {
           smallerText={"We probably just couldn't read the handwriting..."}
         />
       </div>
-      <FormStep4
-        inputBrand={"Type The Brand of Discs"}
-        selectBrand={"Select Brand"}
-      />
+      <FormStep4 inputBrand={"Enter Brand"} brand={brand} setBrand={setBrand} />
       <div className="buttons-rescue">
         <Button
           text={"Show me the discs"}
           red={true}
           className="button-red-rescue-3"
           onClick={() => {
-            handleNextStep({ brand });
-            openPopup();
+            console.log("brand", brand);
+            const newParams = { ...searchParams, brand };
+            console.log("New Params", newParams);
+            setSearchParams(newParams);
+            handleNextStep(newParams);
           }}
         />
         <Button
@@ -63,6 +63,10 @@ const RescueFlowStep4 = (props: RescueFlowProps) => {
           border={true}
           className="second-button-rescue-3 white-border"
           onClick={() => {
+            console.log("skipping to next step");
+            const newParams = { ...searchParams, brand: "" };
+            console.log("New Params", newParams);
+            setSearchParams(newParams);
             setStep(step + 1);
           }}
         />

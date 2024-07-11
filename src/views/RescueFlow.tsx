@@ -14,6 +14,7 @@ import RescueFlowPopup from "../components/RescueFlowPopup";
 import axios from "axios";
 import { useInventory } from "../hooks/useInventory";
 import { Disc } from "../App";
+import Fuse from "fuse.js";
 
 export interface SearchParams {
   course?: string;
@@ -59,17 +60,54 @@ export default function RescueFlow() {
   const checkInventory = (searchParams: SearchParams): Disc[] => {
     console.log("searchParams", searchParams);
     console.log("inventory", inventory);
-    return inventory.filter((disc) => {
-      return (
-        (!searchParams.color || disc.color === searchParams.color) &&
-        (!searchParams.brand || disc.brand === searchParams.brand) &&
-        (!searchParams.name || disc.name === searchParams.name) &&
-        (!searchParams.phoneNumber ||
-          disc.phoneNumber === searchParams.phoneNumber) &&
-        (!searchParams.course || disc.course === searchParams.course)
-      );
-    });
+
+    const options = {
+      keys: [
+        { name: "course", weight: 0.2 },
+        { name: "name", weight: 0.4 },
+        { name: "phoneNumber", weight: 0.2 },
+        { name: "color", weight: 0.1 },
+        { name: "brand", weight: 0.1 },
+      ],
+      threshold: 0.4, // Adjust the threshold as needed
+    };
+
+    const fuse = new Fuse(inventory, options);
+
+    const query: Record<string, string>[] = [];
+    if (searchParams.course) {
+      query.push({ course: searchParams.course });
+    }
+    if (searchParams.name) {
+      query.push({ name: searchParams.name });
+    }
+    if (searchParams.phoneNumber) {
+      query.push({ phoneNumber: searchParams.phoneNumber });
+    }
+
+    if (query.length === 0) {
+      return inventory; // Return all if no query provided
+    }
+
+    const result = fuse.search({ $and: query });
+
+    return result.map(({ item }) => item);
   };
+
+  // const checkInventory = (searchParams: SearchParams): Disc[] => {
+  //   console.log("searchParams", searchParams);
+  //   console.log("inventory", inventory);
+  //   return inventory.filter((disc) => {
+  //     return (
+  //       (!searchParams.color || disc.color === searchParams.color) &&
+  //       (!searchParams.brand || disc.brand === searchParams.brand) &&
+  //       (!searchParams.name || disc.name === searchParams.name) &&
+  //       (!searchParams.phoneNumber ||
+  //         disc.phoneNumber === searchParams.phoneNumber) &&
+  //       (!searchParams.course || disc.course === searchParams.course)
+  //     );
+  //   });
+  // };
 
   const handleNextStep = async (newSearchParams: SearchParams) => {
     console.log("Handle next step");
@@ -96,6 +134,7 @@ export default function RescueFlow() {
 
   const closePopup = () => {
     setIsPopupOpen(false);
+    setStep(step + 1);
   };
 
   return (

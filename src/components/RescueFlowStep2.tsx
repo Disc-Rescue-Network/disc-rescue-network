@@ -69,6 +69,9 @@ const RescueFlowStep2 = (props: RescueFlowProps) => {
           border={true}
           className="second-button-rescue-3 white-border"
           onClick={() => {
+            const newParams = { ...searchParams, phoneNumber: "" };
+            console.log("New Params", newParams);
+            setSearchParams(newParams);
             setStep(step + 1);
           }}
         />
