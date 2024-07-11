@@ -12,7 +12,7 @@ const Discs = ({ arrayOfDiscs }: DiscsProps) => {
     <div className="discs">
       <div className="card-container-discs">
         {arrayOfDiscs.map((disc) => (
-          <Card key={disc.id} disc={disc} />
+          <Card key={disc.id} disc={disc} showButton={true} />
         ))}
       </div>
     </div>

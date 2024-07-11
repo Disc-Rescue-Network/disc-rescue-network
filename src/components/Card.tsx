@@ -8,10 +8,11 @@ import { useNavigate } from "react-router-dom";
 interface CardProps {
   disc: Disc;
   className?: string;
+  showButton: boolean;
 }
 
 const Card = (props: CardProps) => {
-  const { disc, className } = props;
+  const { disc, className, showButton } = props;
   const cardClassName = className
     ? `card-container ${className}`
     : "card-container";
@@ -37,7 +38,9 @@ const Card = (props: CardProps) => {
           loading="lazy"
           alt="disc"
           className="image"
-          onError={(e) => { e.currentTarget.src = noImageFound; }}
+          onError={(e) => {
+            e.currentTarget.src = noImageFound;
+          }}
         />
         <div className="w-layout-grid grid grid-disc">
           <div className="course-list">
@@ -58,12 +61,14 @@ const Card = (props: CardProps) => {
               </li>
             </ul>
             <div className="card-button-container">
-              <Button
-                text={"Claim Disc"}
-                red={false}
-                className="padding-1 btn-2 padding"
-                onClick={handleClaimDiscClick}
-              />
+              {showButton && (
+                <Button
+                  text={"Claim Disc"}
+                  red={false}
+                  className="padding-1 btn-2 padding"
+                  onClick={handleClaimDiscClick}
+                />
+              )}
             </div>
           </div>
         </div>

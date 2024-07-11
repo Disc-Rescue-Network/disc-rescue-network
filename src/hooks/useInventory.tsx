@@ -7,7 +7,7 @@ interface InventoryHook {
   inventory: Disc[];
   errorMessage: string;
   showErrorMessage: boolean;
-  fetchInventory: (course: string, token: string | null) => void;
+  fetchInventory: (course?: string) => void;
   loading: boolean;
 }
 
@@ -22,10 +22,11 @@ export const useInventory = (): InventoryHook => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
 
-  const fetchInventory = async (course: string) => {
+  const fetchInventory = async (course?: string) => {
     try {
+      const params = course ? { course } : {};
       const response = await axios.get(`${API_BASE_URL}/inventory`, {
-        params: { course },
+        params,
       });
 
       const convertedInventory = response.data.map((disc: Disc) => ({

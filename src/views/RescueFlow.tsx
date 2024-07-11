@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import BetaBanner from "../components/BetaBanner";
@@ -31,6 +31,14 @@ export default function RescueFlow() {
 
   const { inventory, fetchInventory } = useInventory();
 
+  useEffect(() => {
+    if (inventory.length === 0) {
+      console.log("Fetching inventory");
+      fetchInventory();
+    }
+    console.log("Inventory", inventory);
+  }, []);
+
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -48,10 +56,9 @@ export default function RescueFlow() {
     setSearchParams((prevParams) => ({ ...prevParams, ...newParams }));
   };
 
-  const checkInventory = (
-    inventory: Disc[],
-    searchParams: SearchParams
-  ): Disc[] => {
+  const checkInventory = (searchParams: SearchParams): Disc[] => {
+    console.log("searchParams", searchParams);
+    console.log("inventory", inventory);
     return inventory.filter((disc) => {
       return (
         (!searchParams.color || disc.color === searchParams.color) &&
@@ -67,7 +74,7 @@ export default function RescueFlow() {
   const handleNextStep = async (newSearchParams: SearchParams) => {
     console.log("Handle next step");
     console.log("New Params", newSearchParams);
-    const matches = await checkInventory(inventory, newSearchParams);
+    const matches = checkInventory(newSearchParams);
 
     console.log("Matches", matches);
 
@@ -102,7 +109,6 @@ export default function RescueFlow() {
           step={step}
           setStep={setStep}
           handleNextStep={handleNextStep}
-          checkInventory={checkInventory}
           searchParams={searchParams}
           setSearchParams={updateSearchParams}
         />
@@ -112,6 +118,8 @@ export default function RescueFlow() {
           step={step}
           setStep={setStep}
           handleNextStep={handleNextStep}
+          searchParams={searchParams}
+          setSearchParams={updateSearchParams}
         />
       )}
       {step === 3 && (
@@ -119,6 +127,8 @@ export default function RescueFlow() {
           step={step}
           setStep={setStep}
           handleNextStep={handleNextStep}
+          searchParams={searchParams}
+          setSearchParams={updateSearchParams}
         />
       )}
       {step === 4 && (
@@ -126,6 +136,8 @@ export default function RescueFlow() {
           step={step}
           setStep={setStep}
           handleNextStep={handleNextStep}
+          searchParams={searchParams}
+          setSearchParams={updateSearchParams}
         />
       )}
       {step === 5 && (
@@ -133,6 +145,8 @@ export default function RescueFlow() {
           step={step}
           setStep={setStep}
           handleNextStep={handleNextStep}
+          searchParams={searchParams}
+          setSearchParams={updateSearchParams}
         />
       )}
       {step === 6 && <RescueFLowFailure />}
@@ -140,7 +154,6 @@ export default function RescueFlow() {
         <RescueFlowPopup
           onClosePopup={closePopup}
           arrayOfDiscs={matchedDiscs}
-          selectedDiscId={""}
         />
       )}
       {step === 1 && (

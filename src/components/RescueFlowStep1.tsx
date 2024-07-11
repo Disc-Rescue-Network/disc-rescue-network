@@ -11,7 +11,6 @@ interface RescueFlowStep1Props {
   step: number;
   setStep: (step: number) => void;
   handleNextStep: (newSearchParams: SearchParams) => void;
-  checkInventory: (inventory: Disc[], searchParams: SearchParams) => Disc[];
   searchParams: SearchParams;
   setSearchParams: (searchParams: SearchParams) => void;
 }
@@ -19,7 +18,6 @@ interface RescueFlowStep1Props {
 const RescueFlowStep1: React.FC<RescueFlowStep1Props> = ({
   step,
   handleNextStep,
-  checkInventory,
   searchParams,
   setSearchParams,
 }) => {
