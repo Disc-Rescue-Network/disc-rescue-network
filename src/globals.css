@@ -326,6 +326,18 @@ body {
   }
 }
 
+@media screen and (max-height: 760px) {
+  .wizardbox img {
+    width: 37px;
+  }
+
+  .wizardbox p {
+    font-size: 12px;
+    line-height: 1rem;
+    transform: translate(0px, 12px);
+  }
+}
+
 .container-store {
   background-color: var(--border-primary-blue);
   padding: 1rem;

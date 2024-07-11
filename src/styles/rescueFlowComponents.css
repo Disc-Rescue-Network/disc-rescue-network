@@ -26,6 +26,12 @@
   }
 }
 
+@media screen and (max-height: 760px) {
+  .rescue-flow-components h2 {
+    font-size: 5.5rem;
+  }
+}
+
 @media screen and (max-width: 500px) {
   .rescue-flow-components h2 {
     font-size: 2.5rem;

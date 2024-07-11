@@ -2,18 +2,21 @@ import Button from "./Button";
 import LogoRescueFlow from "./LogoRescueFlow";
 import FormStep3 from "./FormStep3";
 import HeaderRescueFlow from "./RescueFlowComponets";
-import { useState } from "react";
+import React, { useState } from "react";
 import RescueFlowPopupStep3 from "./RescueFlowPopupStep3";
+import { SearchParams } from '../views/RescueFlow';
 
 interface RescueFlowProps {
   step: number;
   setStep: (step: number) => void;
+  handleNextStep: (newParams: SearchParams) => void;
 }
 
 const RescueFlowStep3 = (props: RescueFlowProps) => {
-  const { step, setStep } = props;
+  const { step, setStep, handleNextStep } = props;
 
     const [isPopupOpen, setIsPopupOpen] = useState(false); 
+    const [name, setName] = useState("");
 
     const openPopup = () => {
       setIsPopupOpen(true);
@@ -36,16 +39,17 @@ const RescueFlowStep3 = (props: RescueFlowProps) => {
                 secondMissingText={" Miss."}
                 smallerText={"Not to worry, Let's keep searching"}
                 />      
-        </div>
-        {/* I'll solve the form-control in this */}
-         <FormStep3 initialName={"First Initial"} lastName={"Enter Last Name"} />
+        </div>        
+         <FormStep3 initialName={"First Initial"} lastName={"Enter Last Name"} setName={(value) => setName(`${value.initial} ${value.last}`)} />
          <div className="buttons-rescue">
             <Button  
                 text={"Let's Try This Again"}
                 red={true}
-                className="button-red-rescue-3"
-                onClick={openPopup}/>
-                {/* This button needs to be approximately the height: 30px */}
+                className="button-red-rescue-5"
+                onClick={() => {
+                  handleNextStep({ name });
+                  openPopup();
+                }}/>                
             <Button  
                 text={"Didn't Write One"}
                 red={false}

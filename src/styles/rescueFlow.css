@@ -15,6 +15,12 @@
     padding-top: 0.5rem;
 }
 
+@media screen and (max-height: 760px) {
+    .icon-logo-rescue {
+        width: 85px;
+    }
+}
+
 .icon-logo-store {
     height: auto;
     width: 120px;
