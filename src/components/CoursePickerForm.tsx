@@ -15,56 +15,56 @@ interface CoursePickerProps {
 }
 
 const stateAbbreviations: { [key: string]: string } = {
-  "Alabama": "AL",
-  "Alaska": "AK",
-  "Arizona": "AZ",
-  "Arkansas": "AR",
-  "California": "CA",
-  "Colorado": "CO",
-  "Connecticut": "CT",
-  "Delaware": "DE",
-  "Florida": "FL",
-  "Georgia": "GA",
-  "Hawaii": "HI",
-  "Idaho": "ID",
-  "Illinois": "IL",
-  "Indiana": "IN",
-  "Iowa": "IA",
-  "Kansas": "KS",
-  "Kentucky": "KY",
-  "Louisiana": "LA",
-  "Maine": "ME",
-  "Maryland": "MD",
-  "Massachusetts": "MA",
-  "Michigan": "MI",
-  "Minnesota": "MN",
-  "Mississippi": "MS",
-  "Missouri": "MO",
-  "Montana": "MT",
-  "Nebraska": "NE",
-  "Nevada": "NV",
+  Alabama: "AL",
+  Alaska: "AK",
+  Arizona: "AZ",
+  Arkansas: "AR",
+  California: "CA",
+  Colorado: "CO",
+  Connecticut: "CT",
+  Delaware: "DE",
+  Florida: "FL",
+  Georgia: "GA",
+  Hawaii: "HI",
+  Idaho: "ID",
+  Illinois: "IL",
+  Indiana: "IN",
+  Iowa: "IA",
+  Kansas: "KS",
+  Kentucky: "KY",
+  Louisiana: "LA",
+  Maine: "ME",
+  Maryland: "MD",
+  Massachusetts: "MA",
+  Michigan: "MI",
+  Minnesota: "MN",
+  Mississippi: "MS",
+  Missouri: "MO",
+  Montana: "MT",
+  Nebraska: "NE",
+  Nevada: "NV",
   "New Hampshire": "NH",
   "New Jersey": "NJ",
   "New Mexico": "NM",
   "New York": "NY",
   "North Carolina": "NC",
   "North Dakota": "ND",
-  "Ohio": "OH",
-  "Oklahoma": "OK",
-  "Oregon": "OR",
-  "Pennsylvania": "PA",
+  Ohio: "OH",
+  Oklahoma: "OK",
+  Oregon: "OR",
+  Pennsylvania: "PA",
   "Rhode Island": "RI",
   "South Carolina": "SC",
   "South Dakota": "SD",
-  "Tennessee": "TN",
-  "Texas": "TX",
-  "Utah": "UT",
-  "Vermont": "VT",
-  "Virginia": "VA",
-  "Washington": "WA",
+  Tennessee: "TN",
+  Texas: "TX",
+  Utah: "UT",
+  Vermont: "VT",
+  Virginia: "VA",
+  Washington: "WA",
   "West Virginia": "WV",
-  "Wisconsin": "WI",
-  "Wyoming": "WY"
+  Wisconsin: "WI",
+  Wyoming: "WY",
 };
 
 const CoursePickerForm = (props: CoursePickerProps) => {
@@ -78,15 +78,26 @@ const CoursePickerForm = (props: CoursePickerProps) => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get<Course[]>('https://api.discrescuenetwork.com/coursesData');
-        const validCourses = response.data.filter((course: Course) => course.city && course.state && course.courseName);
-        
+        const response = await axios.get<Course[]>(
+          "https://api.discrescuenetwork.com/coursesData"
+        );
+        const validCourses = response.data.filter(
+          (course: Course) => course.city && course.state && course.courseName
+        );
+
         setAllCourses(validCourses);
-        
-        const states = Array.from(new Set(validCourses.map((course: Course) => stateAbbreviations[course.state] || course.state)));
+
+        const states = Array.from(
+          new Set(
+            validCourses.map(
+              (course: Course) =>
+                stateAbbreviations[course.state] || course.state
+            )
+          )
+        );
         setUniqueStates(["All", ...states]);
       } catch (error) {
-        console.error('Erro ao buscar os cursos:', error);
+        console.error("Erro ao buscar os cursos:", error);
       }
     };
 
@@ -97,11 +108,12 @@ const CoursePickerForm = (props: CoursePickerProps) => {
     const selectedState = event.target.value;
     setSelectedState(selectedState);
     setState(selectedState);
-
-    setSelectedCourse("");
-    setCourse("");
-
-    console.log(selectedState);
+    setSelectedCourse(
+      allCourses.find(
+        (course) =>
+          (stateAbbreviations[course.state] || course.state) === selectedState
+      )?.courseName || ""
+    );
   };
 
   const handleCourseChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -119,7 +131,8 @@ const CoursePickerForm = (props: CoursePickerProps) => {
       (course) => course.courseName === selectedCourse
     )?.state;
     if (correspondingState) {
-      const stateAbbreviation = stateAbbreviations[correspondingState] || correspondingState;
+      const stateAbbreviation =
+        stateAbbreviations[correspondingState] || correspondingState;
       setSelectedState(stateAbbreviation);
       setState(stateAbbreviation);
     }
@@ -132,7 +145,10 @@ const CoursePickerForm = (props: CoursePickerProps) => {
   const filteredCourses =
     selectedState === "All" || selectedState === "STATE" || selectedState === ""
       ? allCourses
-      : allCourses.filter((course) => (stateAbbreviations[course.state] || course.state) === selectedState);
+      : allCourses.filter(
+          (course) =>
+            (stateAbbreviations[course.state] || course.state) === selectedState
+        );
 
   return (
     <div className="mt-5 mb-3 select-box-forms report-lost-class">
