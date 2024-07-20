@@ -44,9 +44,9 @@ const RescueFlowStep3 = (props: RescueFlowProps) => {
         />
       </div>
       <FormStep3
-        initialName={"First Initial"}
-        lastName={"Enter Last Name"}
-        setName={(value) => setName(`${value.initial} ${value.last}`)}
+        firstName={""}
+        lastName={""}
+        setName={(value) => setName(`${value.first} ${value.last}`)}
       />
       <div className="buttons-rescue">
         <Button

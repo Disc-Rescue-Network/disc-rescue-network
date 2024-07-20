@@ -20,7 +20,7 @@ const RescueFlowPopup: React.FC<Props> = ({ onClosePopup, arrayOfDiscs }) => {
   };
 
   return (
-    <div className="popup" style={{ display: "flex", flexDirection: "column" }}>
+    <div className="popup">
       <div className="popup-content" style={{ width: "90%" }}>
         <div className="verify-info">
           <div className="verify-row" id="discInfoVerify">
@@ -38,14 +38,14 @@ const RescueFlowPopup: React.FC<Props> = ({ onClosePopup, arrayOfDiscs }) => {
         </div>
       </div>
       <div className="buttons-rescue-popup">
-        <Button
+        {arrayOfDiscs.length === 1 && (<Button
           text={"Perfect! Give me my disc back!"}
           red={true}
           className={"red-button-popup"}
           onClick={handleClaimDisc}
-        />
+        />)}
         <Button
-          text={"This Is Not Mine"}
+          text={"I do not see my disc"}
           red={false}
           className={"blue-button-popup"}
           onClick={onClosePopup}
