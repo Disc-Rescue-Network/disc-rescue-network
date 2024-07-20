@@ -59,16 +59,23 @@ export default function RescueFlow() {
 
   function checkInventory(searchParams: SearchParams, inventory: Disc[]) {
     // Helper function to check if a disc matches the search criteria
-    const matchesSearchParams = (disc: Disc, params: Partial<typeof searchParams>) => {
+    const matchesSearchParams = (
+      disc: Disc,
+      params: Partial<typeof searchParams>
+    ) => {
       return Object.entries(params).every(([key, value]) => {
         console.log("Checking", key, value);
-      
+
         // Assert that key is a keyof Disc to satisfy TypeScript's type checking
         const discKey = key as keyof Disc;
-        // Ensure both values are treated as strings and trim them before comparison
-        const paramValue = String(value).trim();
-        const discValue = String(disc[discKey]).trim();
-        if(params.name === "Jon " && params.brand === "Innova" && discValue === paramValue) {
+        // Ensure both values are treated as strings, trim them, and convert to lower case before comparison
+        const paramValue = String(value).trim().toLowerCase();
+        const discValue = String(disc[discKey]).trim().toLowerCase();
+        if (
+          params.name === "Jon " &&
+          params.brand === "Innova" &&
+          discValue === paramValue
+        ) {
           console.log("Param value", paramValue);
           console.log("Disc value", discValue);
           console.log("Match?", discValue === paramValue);
@@ -77,77 +84,88 @@ export default function RescueFlow() {
       });
     };
 
-  // Filter out null or empty search parameters
-  const filteredSearchParams = Object.fromEntries(
-    Object.entries(searchParams).filter(([_, value]) => value != null && value !== "")
-  );
+    // Filter out null or empty search parameters
+    const filteredSearchParams = Object.fromEntries(
+      Object.entries(searchParams).filter(
+        ([_, value]) => value != null && value !== ""
+      )
+    );
 
-  // Generate all combinations of the search parameters
-  const keys = Object.keys(filteredSearchParams);
-  const combinations = [];
-  for (let i = keys.length; i > 0; i--) { // Start from full combination to single keys
-    const combos = combine(keys, i);
-    combinations.push(...combos);
-  }
-
-   // Ensure every valid combination includes 'name' or 'phone number', with 'course', 'color', and 'brand' being supplementary
-  const validCombinations = combinations.filter(combo => combo.includes("name") || combo.includes("phone number"));
-
-  // Helper function to generate combinations of the keys
-  function combine(keys: string[], size: number): string[][] {
-    const combinations: string[][] = [];
-
-    function _combine(start: number, combo: string[]) {
-      if (combo.length === size) {
-        combinations.push(combo);
-        return;
-      }
-      for (let i = start; i < keys.length; i++) {
-        _combine(i + 1, combo.concat(keys[i]));
-      }
+    // Generate all combinations of the search parameters
+    const keys = Object.keys(filteredSearchParams);
+    const combinations = [];
+    for (let i = keys.length; i > 0; i--) {
+      // Start from full combination to single keys
+      const combos = combine(keys, i);
+      combinations.push(...combos);
     }
 
-    _combine(0, []);
-    return combinations;
+    // Ensure every valid combination includes 'name' or 'phone number', with 'course', 'color', and 'brand' being supplementary
+    const validCombinations = combinations.filter(
+      (combo) => combo.includes("name") || combo.includes("phone number")
+    );
+
+    // Helper function to generate combinations of the keys
+    function combine(keys: string[], size: number): string[][] {
+      const combinations: string[][] = [];
+
+      function _combine(start: number, combo: string[]) {
+        if (combo.length === size) {
+          combinations.push(combo);
+          return;
+        }
+        for (let i = start; i < keys.length; i++) {
+          _combine(i + 1, combo.concat(keys[i]));
+        }
+      }
+
+      _combine(0, []);
+      return combinations;
+    }
+
+    // Collect matches from all valid combinations
+    const allMatchingDiscs = new Set<Disc>();
+    for (const combo of validCombinations) {
+      const paramsToCheck = Object.fromEntries(
+        combo.map((key) => [key, filteredSearchParams[key]])
+      );
+      console.log("Checking params", paramsToCheck);
+      const matchingDiscs = inventory.filter((disc) =>
+        matchesSearchParams(disc, paramsToCheck)
+      );
+      console.log("Matching discs in combos array", matchingDiscs);
+      matchingDiscs.forEach((disc) => allMatchingDiscs.add(disc));
+      console.log("All matching discs in combos array", allMatchingDiscs);
+    }
+
+    // Convert the Set back to an array to return
+    return Array.from(allMatchingDiscs);
   }
 
-  // Collect matches from all valid combinations
-  const allMatchingDiscs = new Set<Disc>();
-  for (const combo of validCombinations) {
-    const paramsToCheck = Object.fromEntries(combo.map(key => [key, filteredSearchParams[key]]));
-    console.log("Checking params", paramsToCheck);
-    const matchingDiscs = inventory.filter(disc => matchesSearchParams(disc, paramsToCheck));
-    console.log("Matching discs in combos array", matchingDiscs);
-    matchingDiscs.forEach(disc => allMatchingDiscs.add(disc));
-    console.log("All matching discs in combos array", allMatchingDiscs);
-  }
+  const handleNextStep = async (newSearchParams: SearchParams) => {
+    console.log("Handle next step");
+    console.log("New Params", newSearchParams);
+    const matches = checkInventory(newSearchParams, inventory).filter(
+      (disc) => !rejectedDiscs.includes(disc)
+    );
 
-  // Convert the Set back to an array to return
-  return Array.from(allMatchingDiscs);
-}
+    console.log("Matches", matches);
 
-const handleNextStep = async (newSearchParams: SearchParams) => {
-  console.log("Handle next step");
-  console.log("New Params", newSearchParams);
-  const matches = checkInventory(newSearchParams, inventory).filter(disc => !rejectedDiscs.includes(disc));
+    if (matches.length === 0) {
+      console.log("No matches found");
+      setStep(step + 1); // should we skip to the end???
+      return;
+    }
 
-  console.log("Matches", matches);
-
-  if (matches.length === 0) {
-    console.log("No matches found");
-    setStep(step + 1); // should we skip to the end???
-    return;
-  }
-
-  if (matches.length <= 6) {
-    console.log("1-6 matches found", matches);
-    setMatchedDiscs(matches);
-    setIsPopupOpen(true);
-  } else {
-    console.log("More than 6 matches found, moving to next step");
-    setStep(step + 1);
-  }
-};
+    if (matches.length <= 6) {
+      console.log("1-6 matches found", matches);
+      setMatchedDiscs(matches);
+      setIsPopupOpen(true);
+    } else {
+      console.log("More than 6 matches found, moving to next step");
+      setStep(step + 1);
+    }
+  };
 
   // const checkInventory = (searchParams: SearchParams): Disc[] => {
   //   console.log("searchParams", searchParams);
@@ -201,11 +219,9 @@ const handleNextStep = async (newSearchParams: SearchParams) => {
   //   });
   // };
 
-  
-
   const closePopup = () => {
     setIsPopupOpen(false);
-    setRejectedDiscs(previousValues => [...previousValues, ...matchedDiscs]);
+    setRejectedDiscs((previousValues) => [...previousValues, ...matchedDiscs]);
     setStep(step + 1);
   };
 
