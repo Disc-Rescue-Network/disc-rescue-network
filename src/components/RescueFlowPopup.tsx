@@ -13,10 +13,9 @@ interface Props {
 
 const RescueFlowPopup: React.FC<Props> = ({ onClosePopup, arrayOfDiscs }) => {
   const navigate = useNavigate();
-  const [selectedDiscId, setSelectedDiscId] = useState<string>("");
 
-  const handleClaimDisc = () => {
-    navigate(`/claimDisc/${selectedDiscId}`);
+  const handleClaimDisc = (discID: string) => {
+    navigate(`/claimDisc/${discID}`);
   };
 
   return (
@@ -26,7 +25,7 @@ const RescueFlowPopup: React.FC<Props> = ({ onClosePopup, arrayOfDiscs }) => {
           <div className="verify-row" id="discInfoVerify">
             {arrayOfDiscs.length === 1 && (
               <div className="discs-claim">
-                <div className="card-container-claim-discs">
+                <div className="card-container-claim-single-disc">
                   <Card disc={arrayOfDiscs[0]} showButton={false} />
                 </div>
               </div>
@@ -42,7 +41,12 @@ const RescueFlowPopup: React.FC<Props> = ({ onClosePopup, arrayOfDiscs }) => {
           text={"Perfect! Give me my disc back!"}
           red={true}
           className={"red-button-popup"}
-          onClick={handleClaimDisc}
+          onClick={() => {
+            console.log("Claiming disc", arrayOfDiscs[0]);
+            console.log("Selected disc id", arrayOfDiscs[0].id);
+            handleClaimDisc(arrayOfDiscs[0].id!.toString());
+          }
+          }
         />)}
         <Button
           text={"I do not see my disc"}

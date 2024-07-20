@@ -42,3 +42,12 @@
   grid-template-columns: repeat(2, 1fr);
   padding: 5px;
 }
+
+.card-container-claim-single-disc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+
+}
