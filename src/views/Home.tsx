@@ -8,29 +8,20 @@ import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
 import { Disc, DiscStateString } from "../App";
 import axios from "axios";
+import { useInventory } from "../hooks/useInventory";
 
 function Home() {
-  const [allDiscs, setAllDiscs] = useState<Disc[]>([]);
+  const { inventory, fetchInventory } = useInventory();
 
-  useEffect(() => {
-    const fetchDiscs = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.discrescuenetwork.com/inventory"
-        );
-        setAllDiscs(response.data); // Assuming the API response directly contains the array of discs
-      } catch (error) {
-        console.error("Failed to fetch discs:", error);
-      }
-    };
-
-    fetchDiscs();
-  }, []);
-
-  console.log("All Discs", allDiscs);
+  React.useEffect(() => {
+    if (inventory.length === 0) {
+      console.log("Fetching inventory");
+      fetchInventory();
+    }
+  }, [inventory]);
 
   //Filter by status
-  const filteredDiscs = allDiscs.filter(
+  const filteredDiscs = inventory.filter(
     (disc) =>
       disc.status === DiscStateString.New ||
       disc.status === DiscStateString.Unclaimed

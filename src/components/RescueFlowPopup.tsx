@@ -1,49 +1,58 @@
 import "../styles/rescueFlowPopup.css";
+import { useNavigate } from "react-router-dom";
 import Button from "./Button";
-import CardsRescueFLow from "./CardsRescueFlow";
-import imageLogo from "../assets/newAssets/noimagefound_drn.png";
-
+import { Disc } from "../App";
+import { useState } from "react";
+import RescueFlowDiscsArray from "./RescueFlowDiscsArray";
+import Card from "./Card";
 
 interface Props {
-    onClosePopup: () => void;
+  onClosePopup: () => void;
+  arrayOfDiscs: Disc[];
 }
 
-const RescueFlowPopup: React.FC<Props> = ({ onClosePopup }) => {
-    
-    return (
-        <div className="popup" style={{ display: 'flex', flexDirection: 'column' }}>
-            <div className="popup-content" style={{ width: '90%' }}>
-                <div className="verify-info">
-                    <div className="verify-row" id="discInfoVerify">
-                        <CardsRescueFLow 
-                            Course={"Tranquility Trails"}
-                            img={imageLogo}
-                            Color={"Green"}
-                            Name={"D. Bryant"}
-                            DiscAndBrand={"Discraft Buzz"} 
-                            showButton={false}     
-                        />
-                    </div>
+const RescueFlowPopup: React.FC<Props> = ({ onClosePopup, arrayOfDiscs }) => {
+  const navigate = useNavigate();
+  const [selectedDiscId, setSelectedDiscId] = useState<string>("");
+
+  const handleClaimDisc = () => {
+    navigate(`/claimDisc/${selectedDiscId}`);
+  };
+
+  return (
+    <div className="popup">
+      <div className="popup-content" style={{ width: "90%" }}>
+        <div className="verify-info">
+          <div className="verify-row" id="discInfoVerify">
+            {arrayOfDiscs.length === 1 && (
+              <div className="discs-claim">
+                <div className="card-container-claim-discs">
+                  <Card disc={arrayOfDiscs[0]} showButton={false} />
                 </div>
-            </div>
-            <div className="buttons-rescue-popup">
-                <Button 
-                    text={"Perfect! Give me my disc back!"} 
-                    red={true}
-                    className={"red-button-popup"}
-                    onClick={() => {
-                    alert("button clicked");
-                    }}                
-                />
-                <Button 
-                    text={"This Is Not Mine"} 
-                    red={false}
-                    className={"blue-button-popup"}
-                    onClick={onClosePopup}                
-                />
-            </div>
+              </div>
+            )}
+            {arrayOfDiscs.length !== 1 && (
+              <RescueFlowDiscsArray arrayOfDiscs={arrayOfDiscs} />
+            )}
+          </div>
         </div>
-    )
-}
+      </div>
+      <div className="buttons-rescue-popup">
+        {arrayOfDiscs.length === 1 && (<Button
+          text={"Perfect! Give me my disc back!"}
+          red={true}
+          className={"red-button-popup"}
+          onClick={handleClaimDisc}
+        />)}
+        <Button
+          text={"I do not see my disc"}
+          red={false}
+          className={"blue-button-popup"}
+          onClick={onClosePopup}
+        />
+      </div>
+    </div>
+  );
+};
 
 export default RescueFlowPopup;

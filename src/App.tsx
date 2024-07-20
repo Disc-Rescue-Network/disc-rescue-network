@@ -14,6 +14,7 @@ import ClaimDisc from "./views/ClaimDisc";
 import ClaimDiscSuccess from "./views/ClaimDiscSuccess";
 import SurrenderDiscSuccess from "./views/SurrenderDiscSuccess";
 import ReportLostDiscSuccess from "./views/ReportLostDiscSuccess";
+import { useInventory } from "./hooks/useInventory";
 
 // Define a Disc interface
 export interface Disc {
@@ -53,21 +54,36 @@ export const API_BASE_URL = "https://api.discrescuenetwork.com"; //production UR
 //export const API_BASE_URL = "http://127.0.0.1:3001"; // local testing
 
 function App() {
+  const { inventory, fetchInventory } = useInventory();
+
+  React.useEffect(() => {
+    if (inventory.length === 0) {
+      console.log("Fetching inventory");
+      fetchInventory();
+    }
+  }, [inventory]);
+
   return (
     <div className="app">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/rescueflow" element={<RescueFlow />} />
-        <Route path="/store" element= {<Store />} />
-        <Route path="/settings" element= {<Settings />} />
-        <Route path="/requestCourse" element= {<RequestCourse />} />
-        <Route path="/reportLostDisc" element= {<ReportLostDisc />} />
-        <Route path="/searchInventory" element= {<SearchInventory />} />
+        <Route path="/store" element={<Store />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/requestCourse" element={<RequestCourse />} />
+        <Route path="/reportLostDisc" element={<ReportLostDisc />} />
+        <Route path="/searchInventory" element={<SearchInventory />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/claimDisc/:id" element={<ClaimDisc />} />
         <Route path="/claimDiscSuccess/:id" element={<ClaimDiscSuccess />} />
-        <Route path="/surrenderDiscSuccess" element={<SurrenderDiscSuccess />} />
-        <Route path="/reportLostDiscSuccess" element={<ReportLostDiscSuccess />} />
+        <Route
+          path="/surrenderDiscSuccess"
+          element={<SurrenderDiscSuccess />}
+        />
+        <Route
+          path="/reportLostDiscSuccess"
+          element={<ReportLostDiscSuccess />}
+        />
       </Routes>
 
       <Footer />

@@ -1,5 +1,5 @@
 import "../styles/rescueFlow.css"
-import LogoRescue from "../assets/newAssets/center_logo.png"
+import LogoRescue from "../assets/newAssets/logomark_transparent.png"
 
 const LogoRescueFlow3 = () => {
     const handleLogoClick = () => {

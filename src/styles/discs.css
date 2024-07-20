@@ -6,39 +6,39 @@
 }
 
 .card-container-discs {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-    padding: 5px 0px;
-    overflow-x: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  padding: 5px 0px;
+  overflow-x: auto;
+  gap: 1.5rem;
+  max-width: 1350px;
+  margin: auto;
+}
+
+@media screen and (max-width: 500px) {
+  .card-container-discs {
     gap: 1.5rem;
-    max-width: 1350px;
-    margin: auto;
+    max-width: 800px;
+    width: 100%;
+    overflow-x: visible;
   }
+}
 
-  @media screen and (max-width: 500px){
-    .card-container-discs {
-      gap: 1.5rem;
-      max-width: 800px;
-      width: 100%;
-      overflow-x: visible;
-    }
-  }
-
-  .card-container-discs::-webkit-scrollbar {
-    width: 10px; 
-    height: 15px;
-    background-color: var(--primary-white);
+.card-container-discs::-webkit-scrollbar {
+  width: 10px;
+  height: 15px;
+  background-color: var(--primary-white);
 }
 
 .card-container-discs::-webkit-scrollbar-thumb {
-    background: red; 
-    border-radius: 1px; 
+  background: red;
+  border-radius: 1px;
 }
 
 .card-container-claim-discs {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   padding: 5px;
 }

@@ -1,51 +1,67 @@
 import Button from "./Button";
-import FormStep from "./FormStep2";
 import LogoRescueFlow from "./LogoRescueFlow";
 import HeaderRescueFlow from "./RescueFlowComponets";
+import { SearchParams } from "../views/RescueFlow";
+import FormStep5 from "./FormStep5";
+import { useState } from "react";
 
 interface RescueFlowProps {
-    step: number;
-    setStep: (step: number) => void;
-  }
+  step: number;
+  setStep: (step: number) => void;
+  handleNextStep: (newParams: SearchParams) => void;
+  searchParams: SearchParams;
+  setSearchParams: (searchParams: SearchParams) => void;
+}
 
 const RescueFlowStep5 = (props: RescueFlowProps) => {
-    const { step, setStep } = props;
-    return (
-        <>
-        <LogoRescueFlow />
-            <div className="rescue-flow-step">
-            <HeaderRescueFlow 
-                baseText={"Rescue Flow"}
-                lightText={"Wizard"} 
-                baseNumber={"5"} 
-                lightNumber={" / 5"} 
-                whereText={"Shoot For The"} 
-                secondMissingText={" Moon."} 
-                smallerText={"Last minute hail mary to save the flow..."}
-            />
-            </div>
-            <FormStep inputName={"Whats Color Is It?!"} />
-            <div className="buttons-rescue-step2">
-            <Button  
-                text={"Show Me The Discs"}
-                red={true}
-                className="button-red-rescue-5"
-                onClick={() => {
-                  alert("button clicked");
-                }}/>
-                {/* This button needs to be approximately the height: 30px */}
-            <Button  
-                text={"This Is Just Sad Now"}
-                red={false}
-                border={true}
-                className="second-button-rescue-5 white-border"
-                onClick={() => {
-                    setStep(step + 1);
-                  }}               
-                />
-            </div>    
-        </>
-    )
-}
+  const { step, setStep, handleNextStep, searchParams, setSearchParams } =
+    props;
+
+  const [color, setColor] = useState("");
+  return (
+    <>
+      <LogoRescueFlow />
+      <div className="rescue-flow-step">
+        <HeaderRescueFlow
+          baseText={"Rescue Flow"}
+          lightText={"Wizard"}
+          baseNumber={"5"}
+          lightNumber={" / 5"}
+          whereText={"Shoot For The"}
+          secondMissingText={" Moon."}
+          smallerText={"Last minute hail mary to save the flow..."}
+        />
+      </div>
+      <FormStep5 inputName={"Whats Color Is It?!"} setColor={setColor} />
+      <div className="buttons-rescue-step2">
+        <Button
+          text={"Show Me The Discs"}
+          red={true}
+          className="button-red-rescue-5"
+          onClick={() => {
+            console.log("color", color);
+            const newParams = { ...searchParams, color };
+            console.log("New Params", newParams);
+            setSearchParams(newParams);
+            handleNextStep(newParams);
+          }}
+        />
+        <Button
+          text={"This Is Just Sad Now"}
+          red={false}
+          border={true}
+          className="second-button-rescue-5 white-border"
+          onClick={() => {
+            console.log("skipping to next step");
+            const newParams = { ...searchParams, color: "" };
+            console.log("New Params", newParams);
+            setSearchParams(newParams);
+            setStep(step + 1);
+          }}
+        />
+      </div>
+    </>
+  );
+};
 
 export default RescueFlowStep5;

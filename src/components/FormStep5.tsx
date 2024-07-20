@@ -2,11 +2,11 @@ import "../styles/formStep2.css";
 
 interface FormStepProps {
     inputName: string;
-    setPhoneNumber: (value: string) => void;
+    setColor: (value: string) => void;
 }
 
-const FormStep: React.FC<FormStepProps> = (props) => {
-    const { inputName, setPhoneNumber } = props;
+const FormStep5: React.FC<FormStepProps> = (props) => {
+    const { inputName, setColor} = props;
 
     return (
         <div className="select-box-step">
@@ -14,11 +14,11 @@ const FormStep: React.FC<FormStepProps> = (props) => {
                 <input
                     className="form-control-step"
                     placeholder={inputName}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    onChange={(e) => setColor(e.target.value)}
                 />
             </div>
         </div>
     );
 };
 
-export default FormStep;
+export default FormStep5;

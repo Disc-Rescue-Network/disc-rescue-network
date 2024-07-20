@@ -1,56 +1,46 @@
-import "../styles/formStep3.css"
-
-var stateTuples = [
-    ["A"],
-    ["B"],
-    ["C"],
-    ["D"],
-    ["E"],
-    ["F"],
-    ["G"],
-    ["H"],
-    ["I"],
-    ["J"],
-    ["K"],
-    ["L"],
-    ["M"],
-    ["N"],
-    ["O"],
-    ["P"],
-    ["T"],
-    ["U"],
-    ["V"],
-    ["X"],
-    ["W"],
-    ["Y"],
-    ["Z"],
-];
-
+import React, { useState } from "react";
+import "../styles/formStep3.css";
 
 interface FormStep3Props {
-    initialName: string;
+    firstName: string;
     lastName: string;
+    setName: (value: { first: string; last: string }) => void;
 }
 
-const FormStep3 = (props: FormStep3Props) => {
-    const { initialName, lastName } = props
+const FormStep3: React.FC<FormStep3Props> = ({ firstName, lastName, setName }) => {
+    const [first, setFirst] = useState("");
+    const [last, setLast] = useState("");
+
+    const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newFirst = e.target.value;
+        setFirst(newFirst);
+        setName({ first: newFirst, last });
+    };
+
+    const handleLastChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newLast = e.target.value;
+        setLast(newLast);
+        setName({ first, last: newLast });
+    };
+
     return (
-        <>
-            <div className="mt-5 mb-3 select-box step3">
-            <div className="col-4 pe-0 arrow one">
-            <select className="form-select">
-                        <option value="All">{initialName}</option>
-                        {stateTuples.map((state, index) => (
-                            <option key={index} value={state[1]}>{state[0]}</option>
-                        ))}
-                    </select>
+        <div className="mt-5 mb-3 select-box step3">
+            <div className="col-6 pe-0 arrow one">
+           <input
+                    placeholder={"Enter First Name"}
+                    value={first}
+                    onChange={handleFirstNameChange}
+                />
             </div>
-            <div className="col-8-step3">
-                <input placeholder={lastName}/>
+            <div className="col-6">
+                <input
+                    placeholder={"Enter Last Name"}
+                    value={last}
+                    onChange={handleLastChange}
+                />
             </div>
         </div>
-        </>
-    )
-}
+    );
+};
 
-export default FormStep3
+export default FormStep3;
