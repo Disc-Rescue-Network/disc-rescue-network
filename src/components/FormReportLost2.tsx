@@ -1,26 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useInventory } from "../hooks/useInventory";
+import { Disc } from "../App";
 
-var stateTuples = [
-    ["Green"],
-    ["Gold"],
-    ["Blue"],
-    ["Purple"],
-    ["Pink"],
-    ["Yellow"],
-    ["White"],
-    ["Orange"],
-    ["Red"],
-    ["Light Blue"],
-    ["Tie Die"],
-    ["Glow"],
-    ["Grey"],
-    ["Blue GLow"],
-    ["Blue Clear"],
-    ["Teal Blue"],
-    ["Halo Red"],
-    ["Red Dye"],
-    ["Other"],
-];
 
 interface FormReportLostColorProps {
     color: string;
@@ -34,6 +15,21 @@ const FormReportLost2 = (props: FormReportLostColorProps) => {
     const { color, number, contactMethod, onContactValueChange, onColorChange } = props
     const placeholder = contactMethod === 'email' ? 'Email Address' : number;
     const [contactValue, setContactValue] = useState("");
+
+    const { inventory, fetchInventory, loading  } = useInventory();
+    const [colors, setColors] = useState<string[]>([]);
+
+    useEffect(() => {
+        fetchInventory();
+    }, []);
+
+    useEffect(() => {
+        console.log('Inventory:', inventory);
+        if (inventory && inventory.length > 0) {
+            const uniqueColors = Array.from(new Set(inventory.map((disc: Disc) => disc.color)));
+            setColors(uniqueColors.filter((color): color is string => Boolean(color)));
+        }
+    }, [inventory]);
 
     const handleContactChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         let value = event.target.value;
@@ -56,26 +52,29 @@ const FormReportLost2 = (props: FormReportLostColorProps) => {
     };
     
     return (
-        <>
-            <div className="select-box-report">
-            <div className="col-4 pe-0 arrow one">
-            <select className="form-select-report" onChange={(e) => onColorChange(e.target.value)}>
-                        <option value="All">{color}</option>
-                        {stateTuples.map((state, index) => (
-                            <option key={index} value={state[1]}>{state[0]}</option>
-                        ))}
-                    </select>
+        <div className="select-box-report">
+            <div className="col-4 pe-0">
+                <input
+                    className="form-select-report"
+                    placeholder="Color"
+                    onChange={(e) => onColorChange(e.target.value)}
+                    list="colors"
+                />
+                <datalist id="colors">
+                    {colors.map((color, index) => (
+                        <option key={index} value={color} />
+                    ))}
+                </datalist>
             </div>
             <div className="col-8 report-lost">
-            <input 
-                placeholder={placeholder} 
-                type={contactMethod === 'email' ? 'email' : 'text'}
-                value={contactValue} 
-                onChange={handleContactChange}
-            />
+                <input 
+                    placeholder={placeholder} 
+                    type={contactMethod === 'email' ? 'email' : 'text'}
+                    value={contactValue} 
+                    onChange={handleContactChange}
+                />
             </div>
         </div>
-        </>
     )
 }
 
