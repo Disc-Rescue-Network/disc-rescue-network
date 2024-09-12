@@ -15,6 +15,7 @@ import ClaimDiscSuccess from "./views/ClaimDiscSuccess";
 import SurrenderDiscSuccess from "./views/SurrenderDiscSuccess";
 import ReportLostDiscSuccess from "./views/ReportLostDiscSuccess";
 import { useInventory } from "./hooks/useInventory";
+import BetaBanner from "./components/BetaBanner";
 
 // Define a Disc interface
 export interface Disc {
@@ -65,6 +66,11 @@ function App() {
 
   return (
     <div className="app">
+      <BetaBanner
+        Text={
+          "This is currently under development and is not live. Please email support@discrescuenetwork.com for help."
+        }
+      />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/rescueflow" element={<RescueFlow />} />

@@ -230,7 +230,6 @@ export default function RescueFlow() {
       <i className="arrow-left-icon" onClick={handleBack}>
         <FontAwesomeIcon icon={faArrowLeft} />
       </i>
-      <BetaBanner Course={"This is a Beta version of the DRN Platform."} />
       {step === 1 && (
         <RescueFlowStep1
           step={step}
