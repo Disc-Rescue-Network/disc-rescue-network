@@ -46,12 +46,14 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
   };
 
   const reportLostDisc = () => {
-    navigate("/reportLostDisc");
+    window.location.href = "https://discrescuenetwork.com/report-lost-disc";
+    // navigate("/reportLostDisc");
     toggleFabMenu();
   };
 
   const requestCourse = () => {
-    navigate("/requestCourse");
+    window.location.href = "https://discrescuenetwork.com/request-course";
+    // navigate("/requestCourse");
     toggleFabMenu();
   };
 
