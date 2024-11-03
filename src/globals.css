@@ -7,9 +7,9 @@
   font-family: "Akira Expanded";
   src: url("./fonts/AkiraExpanded.eot");
   src: url("./fonts/AkiraExpanded.eot?#iefix") format("embedded-opentype"),
-       url("./fonts/AkiraExpanded.woff2") format("woff2"),
-       url("./fonts/AkiraExpanded.woff") format("woff"),
-       url("./fonts/AkiraExpanded.ttf") format("truetype");
+    url("./fonts/AkiraExpanded.woff2") format("woff2"),
+    url("./fonts/AkiraExpanded.woff") format("woff"),
+    url("./fonts/AkiraExpanded.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -20,9 +20,9 @@
   font-family: "Thiccboi";
   src: url("./fonts/ThiccboiBold.eot");
   src: url("./fonts/ThiccboiBold.eot?#iefix") format("embedded-opentype"),
-       url("./fonts/ThiccboiBold.woff2") format("woff2"),
-       url("./fonts/ThiccboiBold.woff") format("woff"),
-       url("./fonts/ThiccboiBold.ttf") format("truetype");
+    url("./fonts/ThiccboiBold.woff2") format("woff2"),
+    url("./fonts/ThiccboiBold.woff") format("woff"),
+    url("./fonts/ThiccboiBold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -75,9 +75,9 @@
   --secondary-safety-sky-blue: #3f88c8;
   --primary-black: #000000;
   --border-primary-black: #606060;
-  --primary-burnt-orange: #EF3F3F;
-  --secondary-red: #D31E47;
-  --border-primary-red: #D31E47;
+  --primary-burnt-orange: #ef3f3f;
+  --secondary-red: #d31e47;
+  --border-primary-red: #d31e47;
   --primary-white: #ffffff;
   --primary-grey: #f7f7f7;
   --primary-green: #55de1f;
@@ -99,6 +99,11 @@ body {
   height: 100dvh;
   width: 100dvw;
   /* max-width: 1300px; */
+}
+
+a {
+  text-decoration: underline;
+  color: var(--primary-green);
 }
 
 .app {
@@ -231,7 +236,7 @@ body {
   gap: 1rem;
 }
 
-@media screen and (max-width: 500px){
+@media screen and (max-width: 500px) {
   .container-home {
     padding-top: 7rem;
     padding-bottom: 90px;
@@ -344,6 +349,7 @@ body {
   width: 100%;
   height: 100%;
   overflow: auto;
+  margin-top: 20px;
 }
 
 @media screen and (max-width: 500px) {
@@ -352,6 +358,11 @@ body {
     height: auto;
     padding-bottom: 100px;
   }
+}
+
+.fw-light {
+  color: var(--primary-white);
+  font-weight: 300;
 }
 
 .container-request-course {
@@ -370,7 +381,7 @@ body {
   align-items: center;
 }
 
-@media screen and (max-width: 500px ) {
+@media screen and (max-width: 500px) {
   .main-section-request {
     width: 90%;
   }
@@ -400,13 +411,13 @@ body {
   font-size: 19px;
 }
 
-.filters-option span:hover{
+.filters-option span:hover {
   color: var(--primary-burnt-orange);
   transition: ease 0.3s;
   cursor: pointer;
 }
 
-@media screen and (max-width:500px) {
+@media screen and (max-width: 500px) {
   .filters-option {
     transform: translateY(74px);
     font-size: 18px;
@@ -430,13 +441,13 @@ body {
   font-size: 19px;
 }
 
-.filters-option-claim span:hover{
+.filters-option-claim span:hover {
   color: var(--primary-burnt-orange);
   transition: ease 0.3s;
   cursor: pointer;
 }
 
-@media screen and (max-width:500px) {
+@media screen and (max-width: 500px) {
   .filters-option-claim {
     transform: translateY(82px);
     font-size: 16px;
@@ -503,7 +514,7 @@ body {
   color: var(--primary-sea-blue);
 }
 
-@media screen and (max-width:500px) {
+@media screen and (max-width: 500px) {
   .search-inventory-components h2 {
     font-size: 4rem !important;
   }
@@ -551,12 +562,12 @@ body {
 
 .course-name-search {
   margin: 0;
-    font-size: 1.5rem;
-    color: var(--primary-sea-blue);
-    font-weight: 400;
-    letter-spacing: 0.8px;
-    font-family: Lato;
-    text-transform: uppercase;
+  font-size: 1.5rem;
+  color: var(--primary-sea-blue);
+  font-weight: 400;
+  letter-spacing: 0.8px;
+  font-family: Lato;
+  text-transform: uppercase;
 }
 
 .no-results-message {
@@ -569,7 +580,7 @@ body {
   text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-@media screen and (max-width:500px) {
+@media screen and (max-width: 500px) {
   .no-results-message {
     font-size: 1.5rem;
   }
@@ -612,9 +623,8 @@ body {
 }
 
 .extra-padding {
-  padding: 30px !important; 
+  padding: 30px !important;
 }
-
 
 /* Logo Search Inventory */
 
@@ -623,4 +633,3 @@ body {
     margin-top: 0 !important;
   }
 }
-

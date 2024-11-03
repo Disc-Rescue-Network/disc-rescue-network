@@ -24,13 +24,12 @@ const RequestCourseComponets = (props: HeaderRescueRequestProps) => {
         {baseText}
         <span className="fw-light"> {lightText}</span>
       </h2>
-      <h4 className="where-request">
-        {whereText}{" "}
-        <a href="https://discrescuenetwork.com/request-course">{linkText}</a>
+      <h3 className="where-request">
+        {whereText}
         <span className="secondary-missing-text-request">
           {secondMissingText}
         </span>
-      </h4>
+      </h3>
     </div>
   );
 };
