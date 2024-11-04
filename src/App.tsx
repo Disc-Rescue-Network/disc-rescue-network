@@ -79,6 +79,7 @@ export interface Disc {
   orgCode: string;
   createdAt: string;
   updatedAt: string;
+  claims: Claim[];
 }
 
 export enum DiscStateString {
@@ -92,6 +93,13 @@ export enum DiscStateString {
   Sold = "SOLD",
   SoldOffline = "SOLD_OFFLINE",
   Surrendered = "SURRENDERED",
+}
+
+export interface Claim {
+  id: number;
+  discId: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export const API_BASE_URL = "https://apis.discrescuenetwork.com"; //production URL
