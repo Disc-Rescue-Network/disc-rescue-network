@@ -3,6 +3,8 @@ import "../styles/searchInventorySidebar.css";
 import axios from "axios";
 import { API_BASE_URL, Disc } from "../App";
 import { useLocation } from "react-router-dom";
+import React from "react";
+import { useInventory } from "../hooks/useInventory";
 
 interface SearchInventorySidebarProps {
   isOpen: boolean;
@@ -44,7 +46,6 @@ export default function SearchInventorySidebar({
   const queryParams = new URLSearchParams(location.search);
   const courseId = queryParams.get("course");
 
-  const [allDiscs, setAllDiscs] = useState<Disc[]>([]);
   const [filteredDiscs, setFilteredDiscs] = useState<Disc[]>([]);
   const [brands, setBrands] = useState<{ brand: string; count: number }[]>([]);
   const [colors, setColors] = useState<{ color: string; count: number }[]>([]);
@@ -63,20 +64,14 @@ export default function SearchInventorySidebar({
     discNames: [],
   });
 
-  useEffect(() => {
-    const fetchDiscs = async () => {
-      try {
-        const response = await axios.get(`${API_BASE_URL}/inventory`);
-        const discs: Disc[] = response.data;
-        setAllDiscs(discs);
-        filterDiscs(discs, courseId, selectedFilters);
-      } catch (error) {
-        console.error("Failed to fetch discs:", error);
-      }
-    };
+  const { inventory, fetchInventory, loading } = useInventory();
 
-    fetchDiscs();
-  }, [courseId]);
+  React.useEffect(() => {
+    if (inventory.length === 0) {
+      console.log("Fetching inventory");
+      fetchInventory(courseId!);
+    }
+  }, [inventory]);
 
   const filterDiscs = (
     discs: Disc[],
@@ -164,7 +159,7 @@ export default function SearchInventorySidebar({
     }
 
     setSelectedFilters(newFilters);
-    filterDiscs(allDiscs, courseId, newFilters);
+    filterDiscs(inventory, courseId, newFilters);
 
     onFilter(newFilters);
   };
@@ -176,7 +171,7 @@ export default function SearchInventorySidebar({
       discNames: [],
     };
 
-    filterDiscs(allDiscs, courseId, initialFilters);
+    filterDiscs(inventory, courseId, initialFilters);
 
     setSelectedFilters(initialFilters);
     const selectedInputs = document.querySelectorAll<HTMLInputElement>(
@@ -187,8 +182,8 @@ export default function SearchInventorySidebar({
   };
 
   useEffect(() => {
-    filterDiscs(allDiscs, courseId, selectedFilters);
-  }, [selectedFilters, courseId]);
+    filterDiscs(inventory, courseId, selectedFilters);
+  }, [inventory, selectedFilters, courseId]);
 
   const toggleSection = (section: SectionType) => {
     setActiveSections((prevState) =>
