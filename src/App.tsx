@@ -51,8 +51,8 @@ export enum DiscStateString {
   Surrendered = "SURRENDERED",
 }
 
-export const API_BASE_URL = "https://api.discrescuenetwork.com"; //production URL
-//export const API_BASE_URL = "http://localhost:8080"; // local testing
+//export const API_BASE_URL = "https://api.discrescuenetwork.com"; //production URL
+export const API_BASE_URL = "http://localhost:8080"; // local testing
 
 function App() {
   const { inventory, fetchInventory } = useInventory();
@@ -68,7 +68,7 @@ function App() {
     <div className="app">
       <BetaBanner
         Text={
-          "This is currently under development and is not live. Please email support@discrescuenetwork.com for help."
+          "This is currently under development. Please email support@discrescuenetwork.com for help."
         }
       />
       <Routes>
