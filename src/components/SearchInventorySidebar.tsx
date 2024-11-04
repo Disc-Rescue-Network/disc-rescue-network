@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../styles/searchInventorySidebar.css";
 import axios from "axios";
-import { Disc } from "../App";
+import { API_BASE_URL, Disc } from "../App";
 import { useLocation } from "react-router-dom";
 
 interface SearchInventorySidebarProps {
@@ -48,8 +48,14 @@ export default function SearchInventorySidebar({
   const [filteredDiscs, setFilteredDiscs] = useState<Disc[]>([]);
   const [brands, setBrands] = useState<{ brand: string; count: number }[]>([]);
   const [colors, setColors] = useState<{ color: string; count: number }[]>([]);
-  const [discNames, setDiscNames] = useState<{ discName: string; count: number }[]>([]);
-  const [activeSections, setActiveSections] = useState<SectionType[]>(["brand", "color", "discName"]);
+  const [discNames, setDiscNames] = useState<
+    { discName: string; count: number }[]
+  >([]);
+  const [activeSections, setActiveSections] = useState<SectionType[]>([
+    "brand",
+    "color",
+    "discName",
+  ]);
 
   const [selectedFilters, setSelectedFilters] = useState<FilterCriteria>({
     brands: [],
@@ -60,7 +66,7 @@ export default function SearchInventorySidebar({
   useEffect(() => {
     const fetchDiscs = async () => {
       try {
-        const response = await axios.get("https://api.discrescuenetwork.com/inventory");
+        const response = await axios.get(`${API_BASE_URL}/inventory`);
         const discs: Disc[] = response.data;
         setAllDiscs(discs);
         filterDiscs(discs, courseId, selectedFilters);
@@ -72,17 +78,29 @@ export default function SearchInventorySidebar({
     fetchDiscs();
   }, [courseId]);
 
-  const filterDiscs = (discs: Disc[], courseId: string | null, filters: FilterCriteria) => {
-    let filteredDiscs = courseId ? discs.filter(disc => disc.course === courseId) : discs;
+  const filterDiscs = (
+    discs: Disc[],
+    courseId: string | null,
+    filters: FilterCriteria
+  ) => {
+    let filteredDiscs = courseId
+      ? discs.filter((disc) => disc.course.name === courseId)
+      : discs;
 
     if (filters.brands.length > 0) {
-      filteredDiscs = filteredDiscs.filter(disc => filters.brands.includes(disc.brand || ""));
+      filteredDiscs = filteredDiscs.filter((disc) =>
+        filters.brands.includes(disc.disc.brand.name || "")
+      );
     }
     if (filters.colors.length > 0) {
-      filteredDiscs = filteredDiscs.filter(disc => filters.colors.includes(disc.color || ""));
+      filteredDiscs = filteredDiscs.filter((disc) =>
+        filters.colors.includes(disc.color || "")
+      );
     }
     if (filters.discNames.length > 0) {
-      filteredDiscs = filteredDiscs.filter(disc => filters.discNames.includes(disc.disc || ""));
+      filteredDiscs = filteredDiscs.filter((disc) =>
+        filters.discNames.includes(disc.disc.brand.name || "")
+      );
     }
 
     setFilteredDiscs(filteredDiscs);
@@ -91,8 +109,12 @@ export default function SearchInventorySidebar({
 
   const processFilters = (discs: Disc[]) => {
     // Process brands
-    const brands = getUniqueValues(discs.map((disc) => disc.brand || ""));
-    const brandCounts = countOccurrences(discs.map((disc) => disc.brand || ""));
+    const brands = getUniqueValues(
+      discs.map((disc) => disc.disc.brand.name || "")
+    );
+    const brandCounts = countOccurrences(
+      discs.map((disc) => disc.disc.brand.name || "")
+    );
     const brandsWithCounts = brands.map((brand) => ({
       brand: brand || "Brand not Listed",
       count: brandCounts[brand] || 0,
@@ -109,8 +131,10 @@ export default function SearchInventorySidebar({
     setColors(colorsWithCounts);
 
     // Process disc names
-    const discNames = getUniqueValues(discs.map((disc) => disc.disc));
-    const discNameCounts = countOccurrences(discs.map((disc) => disc.disc));
+    const discNames = getUniqueValues(discs.map((disc) => disc.disc.name));
+    const discNameCounts = countOccurrences(
+      discs.map((disc) => disc.disc.name)
+    );
     const discNamesWithCounts = discNames.map((discName) => ({
       discName: discName || "Disc Name not Listed",
       count: discNameCounts[discName] || 0,
@@ -155,7 +179,9 @@ export default function SearchInventorySidebar({
     filterDiscs(allDiscs, courseId, initialFilters);
 
     setSelectedFilters(initialFilters);
-    const selectedInputs = document.querySelectorAll<HTMLInputElement>("input[type=checkbox]:checked");
+    const selectedInputs = document.querySelectorAll<HTMLInputElement>(
+      "input[type=checkbox]:checked"
+    );
     selectedInputs.forEach((input) => (input.checked = false));
     onReset();
   };
@@ -165,9 +191,9 @@ export default function SearchInventorySidebar({
   }, [selectedFilters, courseId]);
 
   const toggleSection = (section: SectionType) => {
-    setActiveSections(prevState =>
+    setActiveSections((prevState) =>
       prevState.includes(section)
-        ? prevState.filter(activeSection => activeSection !== section)
+        ? prevState.filter((activeSection) => activeSection !== section)
         : [...prevState, section]
     );
   };
@@ -179,33 +205,42 @@ export default function SearchInventorySidebar({
       </div>
       <div className="filter-body">
         <div className="close-button">
-        <button className="close-sidebar-button" onClick={onClose}>x</button>
-        <div className="sort-toggle">
-          <label className="switch-label">Desc</label>
-          <label className="switch">
-            <input type="checkbox" id="sortToggle" onChange={handleSortToggle} />
-            <span className="slider round"></span>
-          </label>
-          <label className="switch-label">Asc</label>
-        </div>
+          <button className="close-sidebar-button" onClick={onClose}>
+            x
+          </button>
+          <div className="sort-toggle">
+            <label className="switch-label">Desc</label>
+            <label className="switch">
+              <input
+                type="checkbox"
+                id="sortToggle"
+                onChange={handleSortToggle}
+              />
+              <span className="slider round"></span>
+            </label>
+            <label className="switch-label">Asc</label>
+          </div>
         </div>
         <div className="accordion" id="accordionExample">
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingOne">
               <button
-                className={`accordion-button ${activeSections.includes("brand") ? "expanded" : ""}`}
+                className={`accordion-button ${
+                  activeSections.includes("brand") ? "expanded" : ""
+                }`}
                 type="button"
                 onClick={() => toggleSection("brand")}
                 aria-expanded={activeSections.includes("brand")}
                 aria-controls="collapseOne"
               >
-
                 Disc Brand
               </button>
             </h2>
             <div
               id="collapseOne"
-              className={`accordion-collapse collapse ${activeSections.includes ("brand") ? "show" : ""}`}
+              className={`accordion-collapse collapse ${
+                activeSections.includes("brand") ? "show" : ""
+              }`}
               aria-labelledby="headingOne"
             >
               <div className="accordion-body">
@@ -218,7 +253,9 @@ export default function SearchInventorySidebar({
                           name="filter_brand"
                           value={brand.brand}
                           checked={selectedFilters.brands.includes(brand.brand)}
-                          onChange={() => handleFilterSearch("brand", brand.brand)}
+                          onChange={() =>
+                            handleFilterSearch("brand", brand.brand)
+                          }
                         />
                         <span className="checkmark"></span>
                         <span className="filter-text">
@@ -235,7 +272,9 @@ export default function SearchInventorySidebar({
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingTwo">
               <button
-                className={`accordion-button ${activeSections.includes("color") ? "expanded" : ""}`}
+                className={`accordion-button ${
+                  activeSections.includes("color") ? "expanded" : ""
+                }`}
                 type="button"
                 onClick={() => toggleSection("color")}
                 aria-expanded={activeSections.includes("color")}
@@ -246,7 +285,9 @@ export default function SearchInventorySidebar({
             </h2>
             <div
               id="collapseTwo"
-              className={`accordion-collapse collapse ${activeSections.includes("color") ? "show" : ""}`}
+              className={`accordion-collapse collapse ${
+                activeSections.includes("color") ? "show" : ""
+              }`}
               aria-labelledby="headingTwo"
             >
               <div className="accordion-body">
@@ -259,7 +300,9 @@ export default function SearchInventorySidebar({
                           name="filter_color"
                           value={color.color}
                           checked={selectedFilters.colors.includes(color.color)}
-                          onChange={() => handleFilterSearch("color", color.color)}
+                          onChange={() =>
+                            handleFilterSearch("color", color.color)
+                          }
                         />
                         <span className="checkmark"></span>
                         <span className="filter-text">
@@ -276,7 +319,9 @@ export default function SearchInventorySidebar({
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingThree">
               <button
-                className={`accordion-button ${activeSections.includes("discName") ? "expanded" : ""}`}
+                className={`accordion-button ${
+                  activeSections.includes("discName") ? "expanded" : ""
+                }`}
                 type="button"
                 onClick={() => toggleSection("discName")}
                 aria-expanded={activeSections.includes("discName")}
@@ -287,7 +332,9 @@ export default function SearchInventorySidebar({
             </h2>
             <div
               id="collapseThree"
-              className={`accordion-collapse collapse ${activeSections.includes ("discName") ? "show" : ""}`}
+              className={`accordion-collapse collapse ${
+                activeSections.includes("discName") ? "show" : ""
+              }`}
               aria-labelledby="headingThree"
             >
               <div className="accordion-body">
@@ -299,8 +346,12 @@ export default function SearchInventorySidebar({
                           type="checkbox"
                           name="filter_discName"
                           value={discName.discName}
-                          checked={selectedFilters.discNames.includes(discName.discName)}
-                          onChange={() => handleFilterSearch("discName", discName.discName)}
+                          checked={selectedFilters.discNames.includes(
+                            discName.discName
+                          )}
+                          onChange={() =>
+                            handleFilterSearch("discName", discName.discName)
+                          }
                         />
                         <span className="checkmark"></span>
                         <span className="filter-text">
@@ -316,7 +367,11 @@ export default function SearchInventorySidebar({
           </div>
         </div>
         <div className="filter-footer">
-          <a href="javascript:void(0);" className="filter-reset" onClick={resetFilters}>
+          <a
+            href="javascript:void(0);"
+            className="filter-reset"
+            onClick={resetFilters}
+          >
             Reset Filters
           </a>
         </div>

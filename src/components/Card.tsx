@@ -22,6 +22,8 @@ const Card = (props: CardProps) => {
     navigate(`/claimDisc/${disc.id}`);
   };
 
+  console.log(disc);
+
   return (
     <div className={cardClassName}>
       <div className="disc-info">
@@ -30,11 +32,11 @@ const Card = (props: CardProps) => {
             <img src={pinImage} alt="pin-icon" />
           </div>
           <div className="text-block-2">
-            <div className="course-wrapper">{disc.course}</div>
+            <div className="course-wrapper">{disc.course.name}</div>
           </div>
         </div>
         <img
-          src={disc.imageUrl || noImageFound}
+          src={disc.topImage || noImageFound}
           loading="lazy"
           alt="disc"
           className="image"
@@ -56,7 +58,7 @@ const Card = (props: CardProps) => {
               <li>
                 <i className="bx bx-purchase-tag" />
                 <span>
-                  {disc.brand} {disc.disc}
+                  {disc.disc.brand.name} {disc.disc.name}
                 </span>
               </li>
             </ul>

@@ -12,7 +12,9 @@ interface InventoryHook {
 }
 
 const convertToEST = (httpTimestamp: string) => {
+  console.log("Converting timestamp:", httpTimestamp);
   const dateUTC = DateTime.fromHTTP(httpTimestamp, { zone: "utc" });
+  console.log("Converted to UTC:", dateUTC);
   return dateUTC.toFormat("yyyy-MM-dd");
 };
 
@@ -25,21 +27,29 @@ export const useInventory = (): InventoryHook => {
   const fetchInventory = async (course?: string) => {
     try {
       const params = course ? { course } : {};
-      const response = await axios.get(`${API_BASE_URL}/inventory`, {
-        params,
-      });
+      let allItems: Disc[] = [];
+      let currentPage = 1;
+      let hasNextPage = true;
 
-      const convertedInventory = response.data.map((disc: Disc) => ({
-        ...disc,
-        dateFound: convertToEST(disc.dateFound),
-        dateTexted: disc.dateTexted ? convertToEST(disc.dateTexted) : null,
-        dateClaimed: disc.dateClaimed ? convertToEST(disc.dateClaimed) : null,
-        claimBy: disc.claimBy ? convertToEST(disc.claimBy) : null,
-      }));
+      while (hasNextPage) {
+        const response = await axios.get(
+          `${API_BASE_URL}/inventory?pageSize=100&page=${currentPage}`,
+          { params }
+        );
 
-      setInventory(convertedInventory);
+        const discResponse = response.data.data.items;
+        allItems = [...allItems, ...discResponse]; // Add items from current page to the total list
+
+        // Check if there is a next page
+        hasNextPage = response.data.data.hasNextPage;
+        currentPage += 1; // Increment page number for the next request
+      }
+
+      console.log("Full Inventory response:", allItems);
+      setInventory(allItems);
       setLoading(false);
     } catch (error) {
+      console.error("Error fetching inventory:", error);
       setErrorMessage(
         `Error fetching inventory: ${
           error instanceof Error ? error.message : String(error)

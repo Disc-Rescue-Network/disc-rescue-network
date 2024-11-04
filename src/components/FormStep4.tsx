@@ -27,7 +27,13 @@ const FormStep4 = (props: FormStep4Props) => {
     }
   }, [inventory]);
 
-  const brands = Array.from(new Set(inventory.map((disc) => disc.brand).filter(brand => brand && brand.trim() !== ""))).sort((a, b) => a!.localeCompare(b!));
+  const brands = Array.from(
+    new Set(
+      inventory
+        .map((disc) => disc.disc.brand.name)
+        .filter((brand) => brand && brand.trim() !== "")
+    )
+  ).sort((a, b) => a!.localeCompare(b!));
   console.log("brands", brands);
 
   return (
@@ -38,21 +44,25 @@ const FormStep4 = (props: FormStep4Props) => {
         onChange={handleBrandInputChange}
       />
       <div className="circle-or">OR</div>
-          <select
+      <select
         className="select-brand-dropdown"
         value={brand}
         onChange={handleBrandChange}
       >
         <option value="">Select Brand</option>
-                        {
-                  Array.from(new Set(inventory.map((disc) => disc.brand).filter(brand => brand && brand.trim() !== "")))
-                    .sort((a, b) => a!.localeCompare(b!)) // Add this line to sort alphabetically
-                    .map((brand) => (
-                      <option key={brand} value={brand!}>
-                        {brand}
-                      </option>
-                    ))
-                }
+        {Array.from(
+          new Set(
+            inventory
+              .map((disc) => disc.disc.brand.name)
+              .filter((brand) => brand && brand.trim() !== "")
+          )
+        )
+          .sort((a, b) => a!.localeCompare(b!)) // Add this line to sort alphabetically
+          .map((brand) => (
+            <option key={brand} value={brand!}>
+              {brand}
+            </option>
+          ))}
       </select>
     </div>
   );
