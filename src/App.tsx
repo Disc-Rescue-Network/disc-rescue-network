@@ -17,28 +17,71 @@ import ReportLostDiscSuccess from "./views/ReportLostDiscSuccess";
 import { useInventory } from "./hooks/useInventory";
 import BetaBanner from "./components/BetaBanner";
 
-// Define a Disc interface
-export interface Disc {
-  id?: number;
-  course: string;
+export interface Course {
+  id: number;
+  orgCode: string;
   name: string;
-  disc: string;
-  phoneNumber: string;
+  state: string;
+  city: string;
+  shortCode: string;
+  createdAt: Date;
+  updatedAt: Date;
+  activeForLostAndFound: boolean;
+  shortLink: string;
+  link: string;
+  udiscLeagueURL: string | null;
+}
+
+// Updated Brand interface
+export interface Brand {
+  id: number;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Updated DiscDetail interface to represent the nested disc object
+export interface DiscDetail {
+  id: number;
+  name: string;
+  plasticType: string | null;
+  category: string | null;
+  brandId: number;
+  createdAt: string;
+  updatedAt: string;
+  brand: Brand; // Nested brand object
+}
+
+// Updated Disc interface to match the new format
+export interface Disc {
+  id: number;
   bin: string;
-  dateFound: string;
-  dateTexted?: string | null;
-  dateClaimed?: string | null;
-  status: DiscStateString;
-  comments?: string | null;
+  bottomImage: string | null;
+  category: string | null;
+  claimBy: string;
+  course: Course;
   color: string;
-  claimBy?: string | null;
-  brand?: string | null;
-  dateSold?: string | null;
-  imageUrl?: string;
+  comments: string | null;
+  dateClaimed: string | null;
+  dateFound: string;
+  dateSold: string | null;
+  dateTexted: string | null;
+  deleted: number; // Changed from boolean to match your format
+  disc: DiscDetail; // Nested DiscDetail object
+  name: string;
+  phoneNumber: string | null;
+  status: DiscStateString;
+  topImage: string | null;
+  subcategory: string | null;
+  labels?: string[]; // Optional field
+  action?: string; // Optional field
+  dateOfReminderText?: string | null;
+  orgCode: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export enum DiscStateString {
-  New = "NEW",
   Unclaimed = "UNCLAIMED",
   PendingDropoff = "PENDING_DROPOFF",
   PendingStorePickup = "PENDING_STORE_PICKUP",
@@ -51,8 +94,8 @@ export enum DiscStateString {
   Surrendered = "SURRENDERED",
 }
 
-export const API_BASE_URL = "https://api.discrescuenetwork.com"; //production URL
-//export const API_BASE_URL = "http://localhost:8080"; // local testing
+//export const API_BASE_URL = "https://api.discrescuenetwork.com"; //production URL
+export const API_BASE_URL = "http://localhost:8080"; // local testing
 
 function App() {
   const { inventory, fetchInventory } = useInventory();
@@ -68,7 +111,7 @@ function App() {
     <div className="app">
       <BetaBanner
         Text={
-          "This is currently under development and is not live. Please email support@discrescuenetwork.com for help."
+          "This is currently under development. Please email support@discrescuenetwork.com for help."
         }
       />
       <Routes>

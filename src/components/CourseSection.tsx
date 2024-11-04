@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import "../styles/courseSection.css";
 import axios from "axios";
-import { Disc, DiscStateString } from "../App";
+import { API_BASE_URL, Disc, DiscStateString } from "../App";
 import CourseSectionDiscs from "./CourseSectionDiscs";
+import { useInventory } from "../hooks/useInventory";
+import React from "react";
+import SkeletonCard from "./SkeletonCard";
 
 interface FilterCriteria {
   brands: string[];
@@ -16,7 +19,7 @@ interface CourseSectionProps {
   currentSort: string;
   handleSortToggle: () => void;
   selectedCourseId: string | null;
-  displayedDiscsCards: Disc[]; 
+  displayedDiscsCards: Disc[];
 }
 
 export default function CourseSection({
@@ -24,94 +27,94 @@ export default function CourseSection({
   currentSort,
   selectedCourseId,
 }: CourseSectionProps) {
-  const [allDiscs, setAllDiscs] = useState<Disc[]>([]);
   const [filteredDiscs, setFilteredDiscs] = useState<Disc[]>([]);
   const [displayedDiscs, setDisplayedDiscs] = useState<Disc[]>([]);
   const [showLoadMore, setShowLoadMore] = useState(true);
 
-  useEffect(() => {
-    const fetchDiscs = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.discrescuenetwork.com/inventory"
-        );
-        setAllDiscs(response.data); // Assuming the API response directly contains the array of discs
-      } catch (error) {
-        console.error("Failed to fetch discs:", error);
-      }
-    };
+  const { inventory, fetchInventory, loading } = useInventory();
 
-    fetchDiscs();
-  }, []);
+  React.useEffect(() => {
+    if (inventory.length === 0) {
+      console.log("Fetching inventory");
+      fetchInventory();
+    }
+  }, [inventory]);
 
   useEffect(() => {
+    console.log("Inventory", inventory);
     applyFilters();
-  }, [allDiscs, filters, currentSort, selectedCourseId]);
+  }, [inventory, filters, currentSort, selectedCourseId]);
 
   const applyFilters = () => {
-    const filteredDiscs = allDiscs.filter((disc) => {
-      const brand = disc.brand || "";
+    const filteredDiscs = inventory.filter((disc) => {
+      console.log("Applying filters");
+      console.log("selectedCourseId", selectedCourseId);
+
+      const brand = disc.disc.brand || "";
       const color = disc.color || "";
-      const discName = disc.disc || "";
+      const discName = disc.disc.name || "";
 
       const matchesBrand =
-        filters.brands.length === 0 || filters.brands.includes(brand);
+        filters.brands.length === 0 || filters.brands.includes(brand.name);
       const matchesColor =
         filters.colors.length === 0 || filters.colors.includes(color);
       const matchesDiscName =
         filters.discNames.length === 0 || filters.discNames.includes(discName);
 
       return (
-        (disc.status === DiscStateString.New ||
-          disc.status === DiscStateString.Unclaimed) &&
+        disc.status === DiscStateString.Unclaimed &&
         matchesBrand &&
         matchesColor &&
         matchesDiscName &&
-        (!selectedCourseId || disc.course === selectedCourseId) 
+        (!selectedCourseId || disc.course.name === selectedCourseId)
       );
     });
 
     const sortedDiscs = filteredDiscs.sort((a, b) => {
       if (currentSort === "asc") {
-        return a.disc.localeCompare(b.disc);
+        return a.disc.name.localeCompare(b.disc.name);
       } else {
-        return b.disc.localeCompare(a.disc);
+        return b.disc.name.localeCompare(a.disc.name);
       }
     });
 
-    setFilteredDiscs(sortedDiscs); 
-    setDisplayedDiscs(sortedDiscs.slice(0, 6)); 
-    setShowLoadMore(sortedDiscs.length > 6); 
+    setFilteredDiscs(sortedDiscs);
+    setDisplayedDiscs(sortedDiscs.slice(0, 6));
+    setShowLoadMore(sortedDiscs.length > 6);
   };
 
   const loadMore = () => {
     const nextIndex = displayedDiscs.length + 6;
-    const nextDiscs = filteredDiscs.slice(0, nextIndex)
-      .filter(
-        (disc) =>
-          disc.status === DiscStateString.New ||
-          disc.status === DiscStateString.Unclaimed
-      )
+    const nextDiscs = filteredDiscs
+      .slice(0, nextIndex)
+      .filter((disc) => disc.status === DiscStateString.Unclaimed)
       .slice(0, nextIndex);
 
     const sortedNextDiscs = nextDiscs.sort((a, b) => {
       if (currentSort === "asc") {
-        return a.disc.localeCompare(b.disc);
+        return a.disc.name.localeCompare(b.disc.name);
       } else {
-        return b.disc.localeCompare(a.disc);
+        return b.disc.name.localeCompare(a.disc.name);
       }
     });
 
     setDisplayedDiscs(sortedNextDiscs);
-    setShowLoadMore(nextIndex < allDiscs.length);
+    setShowLoadMore(nextIndex < inventory.length);
 
     if (nextDiscs.length === 0) {
-      setDisplayedDiscs([]); 
+      setDisplayedDiscs([]);
     }
   };
 
   return (
     <div className="course-section">
+      {loading && (
+        <div className="card-container-discs">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <SkeletonCard key={index} />
+          ))}
+        </div>
+      )}
       <CourseSectionDiscs arrayOfDiscs={displayedDiscs} />
       {showLoadMore && (
         <div className="load-more">
@@ -120,7 +123,7 @@ export default function CourseSection({
           </a>
         </div>
       )}
-      {displayedDiscs.length === 0 && (
+      {displayedDiscs.length === 0 && !loading && (
         <p className="no-results-message">No results for {selectedCourseId}</p>
       )}
     </div>

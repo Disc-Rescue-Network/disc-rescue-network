@@ -37,17 +37,18 @@ const RescueFlowPopup: React.FC<Props> = ({ onClosePopup, arrayOfDiscs }) => {
         </div>
       </div>
       <div className="buttons-rescue-popup">
-        {arrayOfDiscs.length === 1 && (<Button
-          text={"Perfect! Give me my disc back!"}
-          red={true}
-          className={"red-button-popup"}
-          onClick={() => {
-            console.log("Claiming disc", arrayOfDiscs[0]);
-            console.log("Selected disc id", arrayOfDiscs[0].id);
-            handleClaimDisc(arrayOfDiscs[0].id!.toString());
-          }
-          }
-        />)}
+        {arrayOfDiscs.length === 1 && (
+          <Button
+            text={"Perfect! Give me my disc back!"}
+            red={true}
+            className={"red-button-popup"}
+            onClick={() => {
+              console.log("Claiming disc", arrayOfDiscs[0]);
+              console.log("Selected disc id", arrayOfDiscs[0].id);
+              handleClaimDisc(arrayOfDiscs[0].id!.toString());
+            }}
+          />
+        )}
         <Button
           text={"I do not see my disc"}
           red={false}

@@ -3,11 +3,24 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import LogoRescueFlow2 from "../components/LogoRescueFlow2";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Alert,
+  CircularProgress,
+  withStyles,
+} from "@mui/material";
 import { API_BASE_URL } from "../App";
+import { relative } from "path";
+import { WhiteBorderTextField } from "../components/WhiteBorderTextField";
+import CheckOptInStatusForm from "../components/CheckOptInStatusForm";
 
 export default function Settings() {
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [optInStatus, setOptInStatus] = useState<boolean | null>(null);
+  const [optInStatus, setOptInStatus] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -36,34 +49,35 @@ export default function Settings() {
     }
   };
 
+  const handleOptInOut = async (newStatus: boolean) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      await axios.put(`${API_BASE_URL}/sms/phone-opt-in`, {
+        phoneNumber,
+        smsConsent: newStatus ? 1 : 0,
+      });
+      setOptInStatus(newStatus ? true : false);
+    } catch (err) {
+      setError("Error updating opt-in status. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const optInColor = optInStatus
+    ? "var(--primary-green)"
+    : "var(--primary-red)";
+
   return (
     <div className="container-store">
-      <i
-        className="arrow-left-icon"
-        style={{ top: "70px" }}
-        onClick={handleBack}
-      >
+      <i className="arrow-left-icon" onClick={handleBack}>
         <FontAwesomeIcon icon={faArrowLeft} />
       </i>
       <LogoRescueFlow2 />
       <h2>Check Opt-In Status</h2>
-      <div>
-        <input
-          type="text"
-          placeholder="Enter phone number"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          style={{ margin: "10px 0", padding: "8px", width: "100%" }}
-        />
-        <button
-          onClick={handleCheckOptInStatus}
-          disabled={loading || !phoneNumber}
-        >
-          {loading ? "Checking..." : "Check Status"}
-        </button>
-      </div>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {optInStatus && <p>Opt-In Status: {optInStatus}</p>}
+      <CheckOptInStatusForm />
     </div>
   );
 }

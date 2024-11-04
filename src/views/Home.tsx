@@ -20,11 +20,10 @@ function Home() {
     }
   }, [inventory]);
 
+  console.log(inventory);
   //Filter by status
   const filteredDiscs = inventory.filter(
-    (disc) =>
-      disc.status === DiscStateString.New ||
-      disc.status === DiscStateString.Unclaimed
+    (disc) => disc.status === DiscStateString.Unclaimed
   );
   console.log(filteredDiscs);
 

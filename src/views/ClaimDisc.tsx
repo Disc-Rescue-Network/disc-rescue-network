@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import PopUpReport from "../components/ReportLostPopup";
 import { useNavigate, useParams } from "react-router-dom";
 import ClaimDiscComponents from "../components/ClaimDiscComponents";
-import { Disc } from "../App";
+import { API_BASE_URL, Disc } from "../App";
 import axios from "axios";
 
 export default function ClaimDisc() {
@@ -27,9 +27,7 @@ export default function ClaimDisc() {
   useEffect(() => {
     const fetchDiscs = async () => {
       try {
-        const response = await axios.get(
-          "https://api.discrescuenetwork.com/inventory"
-        );
+        const response = await axios.get(`${API_BASE_URL}/inventory`);
         setArrayOfDiscs(response.data);
       } catch (error) {
         console.error("Failed to fetch discs:", error);
