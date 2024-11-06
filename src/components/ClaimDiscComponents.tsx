@@ -7,7 +7,9 @@ import { useState } from "react";
 import "../styles/popupClaimDisc.css";
 import { PopupVerify } from "./PopupClaimDisc";
 import { Disc } from "../App";
-import PopUpSurrender from "./PopupSurrender";
+import PopUpSurrender, { Pickup } from "./PopupSurrender";
+import { useNavigate } from "react-router-dom";
+import { VerifyOTP } from "./VerifyOTP";
 
 interface HeaderReportLostProps {
   className?: string;
@@ -27,6 +29,8 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [showPopupSurrender, setShowPopupSurrender] = useState(false);
+  const navigate = useNavigate();
+  const [showOTP, setShowOTP] = useState(false);
 
   const handleScheduleButtonClick = () => {
     if (pickupDays && pickupTimes && pickupName) {
@@ -45,6 +49,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   };
 
   const closePopupSurrender = () => {
+    // Reset the form
     setShowPopupSurrender(false);
   };
 
@@ -54,6 +59,14 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
 
   const handleLastNameChange = (value: string) => {
     setLastName(value);
+  };
+
+  const SurrenderSuccess = () => {
+    navigate("/surrenderDiscSuccess");
+  };
+
+  const verifyPCM = (pickupInfo: Pickup) => {
+    setShowOTP(true);
   };
 
   return (
@@ -114,7 +127,12 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
             "Hi There! Surrendering your disc is just like a donation. This disc can be sold by the course to raise funds for things like new tee pads, new baskets or general maintenance."
           }
           onClose={closePopupSurrender}
+          onSuccess={verifyPCM}
         />
+      )}
+
+      {showOTP && (
+        <VerifyOTP open={showOTP} onClose={() => setShowOTP(false)} />
       )}
     </div>
   );
