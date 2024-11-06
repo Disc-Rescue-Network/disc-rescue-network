@@ -18,7 +18,7 @@ export default function ClaimDisc() {
     "phone"
   );
   const [step, setStep] = useState(1);
-  const { inventory, fetchInventory } = useInventory();
+  const { inventory, loading, fetchInventory } = useInventory();
 
   React.useEffect(() => {
     if (inventory.length === 0) {
@@ -55,8 +55,12 @@ export default function ClaimDisc() {
   const discId = parseInt(id, 10);
   const disc = inventory.find((d) => d.id === discId);
 
-  if (disc === undefined) {
+  if (disc === undefined && !loading) {
     return <div>Error: Disc not found</div>;
+  }
+
+  if (disc === undefined) {
+    return <div>Loading...</div>;
   }
 
   return (

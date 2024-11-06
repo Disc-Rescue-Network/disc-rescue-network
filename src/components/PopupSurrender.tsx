@@ -5,18 +5,6 @@ import Button from "./Button";
 import "../styles/reportLostPopup.css";
 import { API_BASE_URL, Disc } from "../App";
 
-interface PopupReportProps {
-  title: string;
-  content: string;
-  onClose: () => void;
-  onSuccess: (pickup: Pickup) => void;
-  className?: string;
-  disc: Disc;
-  pickupName: string;
-  pickupDays: string[];
-  pickupTimes: string[];
-}
-
 export interface Pickup {
   tofAccepted: boolean;
   verified: boolean;
@@ -41,6 +29,19 @@ export interface PickupInfo {
   createdAt: string;
 }
 
+interface PopupReportProps {
+  title: string;
+  content: string;
+  onClose: () => void;
+  onSuccess: (pickup: Pickup) => void;
+  className?: string;
+  disc: Disc;
+  pickupName: string;
+  pickupPreferences: string[];
+  // pickupDays: string[];
+  // pickupTimes: string[];
+}
+
 const PopUpSurrender: React.FC<PopupReportProps> = ({
   title,
   content,
@@ -49,8 +50,9 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
   className,
   disc,
   pickupName,
-  pickupTimes,
-  pickupDays,
+  pickupPreferences,
+  // pickupTimes,
+  // pickupDays,
 }) => {
   const [loading, setLoading] = React.useState(false);
 
@@ -64,8 +66,9 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
         phoneNumber: disc.phoneNumber,
         pickup: {
           courseId: 4,
-          day: pickupDays,
-          time: pickupTimes,
+          preferences: pickupPreferences,
+          // day: pickupDays,
+          // time: pickupTimes,
         },
         surrendered: true,
       });

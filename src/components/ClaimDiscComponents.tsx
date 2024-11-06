@@ -21,8 +21,9 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const { className, contactMethod, disc } = props;
   const [showPopup, setShowPopup] = useState(false);
   const [pickupName, setPickupName] = useState("");
-  const [pickupDays, setPickupDays] = useState<string[]>([]);
-  const [pickupTimes, setPickupTimes] = useState<string[]>([]);
+  const [pickupPreferences, setPickupPreferences] = useState<string[]>([]);
+  // const [pickupDays, setPickupDays] = useState<string[]>([]);
+  // const [pickupTimes, setPickupTimes] = useState<string[]>([]);
 
   const [contactValue, setContactValue] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -32,7 +33,12 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const [showOTP, setShowOTP] = useState(false);
 
   const handleScheduleButtonClick = () => {
-    if (pickupDays && pickupTimes && pickupName) {
+    // if (pickupDays && pickupTimes && pickupName) {
+    //   setShowPopup(true);
+    // } else {
+    //   alert("Please choose your preferred pickup days/times.");
+    // }
+    if (pickupPreferences && pickupName) {
       setShowPopup(true);
     } else {
       alert("Please choose your preferred pickup days/times.");
@@ -90,11 +96,15 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
       />
       <FormClaimDiscContact
         contactMethod={contactMethod}
-        pickupDays={pickupDays}
-        pickupTimes={pickupTimes}
+        // pickupDays={pickupDays}
+        // pickupTimes={pickupTimes}
+        pickupPreferences={pickupPreferences}
         onContactChange={(contact: string) => setContactValue(contact)}
-        onPickupDaysChange={(days: string[]) => setPickupDays(days)}
-        onPickupTimesChange={(times: string[]) => setPickupTimes(times)}
+        // onPickupDaysChange={(days: string[]) => setPickupDays(days)}
+        // onPickupTimesChange={(times: string[]) => setPickupTimes(times)}
+        onPickupPreferencesChange={(preferences: string[]) =>
+          setPickupPreferences(preferences)
+        }
       />
       <Button
         text={"Schedule Your Disc Pickup"}
@@ -102,7 +112,8 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
         border={true}
         className="button-claim-disc-form"
         onClick={handleScheduleButtonClick}
-        disabled={!pickupDays || !pickupTimes || !pickupName}
+        disabled={!pickupPreferences || !pickupName}
+        // disabled={!pickupDays || !pickupTimes || !pickupName}
       />
       <Button
         text={"Surrender Disc"}
@@ -114,8 +125,9 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
       {showPopup && (
         <PopupVerify
           closePopupVerify={closePopup}
-          pickupDays={pickupDays}
-          pickupTimes={pickupTimes}
+          pickupPreferences={pickupPreferences}
+          // pickupDays={pickupDays}
+          // pickupTimes={pickupTimes}
           pickupName={pickupName}
           disc={disc}
           contactMethod={contactMethod}
@@ -133,8 +145,9 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           onClose={closePopupSurrender}
           onSuccess={verifyPCM}
           pickupName={pickupName}
-          pickupDays={pickupDays}
-          pickupTimes={pickupTimes}
+          pickupPreferences={pickupPreferences}
+          // pickupDays={pickupDays}
+          // pickupTimes={pickupTimes}
           disc={disc}
         />
       )}
