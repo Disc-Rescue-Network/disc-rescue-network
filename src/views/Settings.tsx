@@ -76,6 +76,12 @@ export default function Settings() {
         <FontAwesomeIcon icon={faArrowLeft} />
       </i>
       <LogoRescueFlow2 />
+      <h4
+        className="subheader-store"
+        style={{ width: "100%", maxWidth: "unset" }}
+      >
+        Check Opt In Status
+      </h4>
       <CheckOptInStatusForm />
     </div>
   );

@@ -18,7 +18,7 @@ const ReportLostComponents = (props: HeaderReportLostProps) => {
   const [showPopupReport, setShowPopupReport] = useState(false);
   const { className, contactMethod } = props;
   const [contactValue, setContactValue] = useState("");
-  const [firstNameInitial, setFirstNameInitial] = useState("First Initial");
+  const [firstName, setFirstName] = useState("First Initial");
   const [lastName, setLastName] = useState("");
   const [color, setColor] = useState("Color");
   const [course, setCourse] = useState("Select a Course");
@@ -38,8 +38,8 @@ const ReportLostComponents = (props: HeaderReportLostProps) => {
     setContactValue(value);
   };
 
-  const handleInitialChange = (value: string) => {
-    setFirstNameInitial(value);
+  const handleFirstNameChange = (value: string) => {
+    setFirstName(value);
   };
 
   const handleLastNameChange = (value: string) => {
@@ -65,7 +65,7 @@ const ReportLostComponents = (props: HeaderReportLostProps) => {
         <span className="fw-light"> Network</span>
       </h2>
       <NameAndInitialForm
-        onInitialChange={handleInitialChange}
+        onFirstNameChange={handleFirstNameChange}
         onLastNameChange={handleLastNameChange}
       />
       <FormReportLost2
@@ -91,7 +91,7 @@ const ReportLostComponents = (props: HeaderReportLostProps) => {
       {showPopupReport && (
         <PopupReportLostDisc
           title={"Verify your info"}
-          name={`${firstNameInitial}. ${lastName}`}
+          name={`${firstName} ${lastName}`}
           contactMethod={contactMethod}
           contactValue={contactValue}
           disc={`${color} ${discName} (${brand})`}

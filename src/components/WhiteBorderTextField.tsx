@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { TextField } from "@material-ui/core";
 
 export const WhiteBorderTextField = styled(TextField)`
+  z-index: 0; // Add z-index
   & label.Mui-focused {
     color: var(--primary-sea-blue); // Update text color
     font-family: "Bebas Neue", sans-serif; // Set font family for placeholder

@@ -74,12 +74,6 @@ export default function CheckOptInStatusForm() {
         width: "100%",
       }}
     >
-      <h4
-        className="subheader-store"
-        style={{ width: "100%", maxWidth: "unset" }}
-      >
-        Check Opt In Status
-      </h4>
       <Box
         display="flex"
         flexDirection="column"

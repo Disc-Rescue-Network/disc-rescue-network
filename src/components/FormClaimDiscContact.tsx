@@ -1,87 +1,33 @@
 import React, { useEffect, useState } from "react";
 import "../styles/claimDiscComponents.css";
 
-interface State {
-  id: number;
-  Name: string;
-  Date: string;
-  Location: string;
-}
-
-const stateTuples: State[] = [
-  {
-    id: 0,
-    Name: "Johns Simple Store Pickup",
-    Date: "Wednesday",
-    Location: "1234 Main Street, City, ST 12333",
-  },
-  {
-    id: 1,
-    Name: "Johns Simple Store Pickup",
-    Date: "Thursday",
-    Location: "1234 Main Street, City, ST 12333",
-  },
-  {
-    id: 2,
-    Name: "Johns Simple Store Pickup",
-    Date: "Friday",
-    Location: "1234 Main Street, City, ST 12333",
-  },
-  {
-    id: 3,
-    Name: "Johns Simple Store Pickup",
-    Date: "Saturday",
-    Location: "1234 Main Street, City, ST 12333",
-  },
-  {
-    id: 4,
-    Name: "Johns Simple Store Pickup",
-    Date: "Sunday",
-    Location: "1234 Main Street, City, ST 12333",
-  },
-  {
-    id: 5,
-    Name: "Johns Simple Store Pickup",
-    Date: "Monday",
-    Location: "1234 Main Street, City, ST 12333",
-  },
-  {
-    id: 6,
-    Name: "Johns Simple Store Pickup",
-    Date: "Tuesday",
-    Location: "1234 Main Street, City, ST 12333",
-  },
-];
-
 interface FormReportLostColorProps {
   contactMethod: "phone" | "email";
-  ChosePickup: string;
-  onPickupLocationChange: (location: string, name: string) => void;
-  onPickupDateChange: (date: string) => void;
+  pickupDays: string[];
+  pickupTimes: string[];
   onContactChange: (contact: string) => void;
+  onPickupDaysChange: (days: string[]) => void;
+  onPickupTimesChange: (times: string[]) => void;
 }
 
 const FormClaimDiscContact = (props: FormReportLostColorProps) => {
-  const { contactMethod, ChosePickup, onPickupLocationChange, onPickupDateChange, onContactChange } = props;
-  const placeholder = contactMethod === "email" ? "Email Address" : "Phone Number Written on The Disc";
+  const {
+    contactMethod,
+    pickupDays,
+    pickupTimes,
+    onContactChange,
+    onPickupDaysChange,
+    onPickupTimesChange,
+  } = props;
+  const placeholder =
+    contactMethod === "email"
+      ? "Email Address"
+      : "Phone Number Written on The Disc";
   const [contactValue, setContactValue] = useState("");
 
   useEffect(() => {
     setContactValue("");
   }, [contactMethod]);
-
-  const handleLocationChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedDate = event.target.value;
-    const selectedState = stateTuples.find(state => state.Date === selectedDate);
-    if (selectedState) {
-      onPickupLocationChange(selectedState.Location, selectedState.Name);
-    }
-  };
-
-  const handleDateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedDate = event.target.value;
-    onPickupDateChange(selectedDate);
-  };
 
   const formatPhoneNumber = (value: string) => {
     if (!value) return value;
@@ -91,7 +37,10 @@ const FormClaimDiscContact = (props: FormReportLostColorProps) => {
     if (phoneNumberLength < 7) {
       return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
     }
-    return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`;
+    return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(
+      3,
+      6
+    )}-${phoneNumber.slice(6, 10)}`;
   };
 
   const handleContactChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,28 +50,83 @@ const FormClaimDiscContact = (props: FormReportLostColorProps) => {
     }
     setContactValue(formattedContact);
     onContactChange(formattedContact);
-  }
+  };
 
+  const togglePickupDay = (day: string) => {
+    const updatedDays = pickupDays.includes(day)
+      ? pickupDays.filter((d) => d !== day)
+      : [...pickupDays, day];
+    onPickupDaysChange(updatedDays);
+  };
+
+  const togglePickupTime = (time: string) => {
+    const updatedTimes = pickupTimes.includes(time)
+      ? pickupTimes.filter((t) => t !== time)
+      : [...pickupTimes, time];
+    onPickupTimesChange(updatedTimes);
+  };
   return (
     <>
       <div className="select-box-claim">
         <div className="col-10 claim-disc-form" style={{ padding: "0" }}>
-          <input 
-            placeholder={placeholder} 
-            type={contactMethod === "email" ? "email" : "text"} 
+          <input
+            placeholder={placeholder}
+            type={contactMethod === "email" ? "email" : "text"}
             value={contactValue}
             onChange={handleContactChange}
           />
         </div>
-        <div className="col-10 pe-0 arrow one">
-          <select className="form-select-claim" onChange={(event) => { handleLocationChange(event); handleDateChange(event); }}>
-            <option value="All">{ChosePickup}</option>
-            {stateTuples.map((state) => (
-              <option key={state.id} value={state.Date}>
-                {state.Name} ({state.Date})
-              </option>
-            ))}
-          </select>
+      </div>
+
+      <div className="pickup-preferences">
+        <h4>Pickup Preferences</h4>
+
+        <div className="preference-select">
+          <h5>Days: {pickupDays.join(", ")}</h5>
+          <label>
+            <input
+              type="checkbox"
+              checked={pickupDays.includes("weekdays")}
+              onChange={() => togglePickupDay("weekdays")}
+            />
+            Weekdays
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={pickupDays.includes("weekends")}
+              onChange={() => togglePickupDay("weekends")}
+            />
+            Weekends
+          </label>
+        </div>
+
+        <div className="preference-select">
+          <h5>Times: {pickupTimes.join(", ")}</h5>
+          <label>
+            <input
+              type="checkbox"
+              checked={pickupTimes.includes("morning")}
+              onChange={() => togglePickupTime("morning")}
+            />
+            Morning
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={pickupTimes.includes("afternoon")}
+              onChange={() => togglePickupTime("afternoon")}
+            />
+            Afternoon
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={pickupTimes.includes("night")}
+              onChange={() => togglePickupTime("night")}
+            />
+            Night
+          </label>
         </div>
       </div>
     </>

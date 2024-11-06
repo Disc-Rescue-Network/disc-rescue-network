@@ -49,6 +49,7 @@ export default function CourseSection({
     const filteredDiscs = inventory.filter((disc) => {
       console.log("Applying filters");
       console.log("selectedCourseId", selectedCourseId);
+      console.log("filters", filters);
 
       const brand = disc.disc.brand || "";
       const color = disc.color || "";
@@ -77,6 +78,8 @@ export default function CourseSection({
         return b.disc.name.localeCompare(a.disc.name);
       }
     });
+
+    console.log("Sorted discs", sortedDiscs);
 
     setFilteredDiscs(sortedDiscs);
     setDisplayedDiscs(sortedDiscs.slice(0, 6));

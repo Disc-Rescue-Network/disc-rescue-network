@@ -105,10 +105,10 @@ export default function SearchInventorySidebar({
   const processFilters = (discs: Disc[]) => {
     // Process brands
     const brands = getUniqueValues(
-      discs.map((disc) => disc.disc.brand.name || "")
+      filteredDiscs.map((disc) => disc.disc.brand.name || "")
     );
     const brandCounts = countOccurrences(
-      discs.map((disc) => disc.disc.brand.name || "")
+      filteredDiscs.map((disc) => disc.disc.brand.name || "")
     );
     const brandsWithCounts = brands.map((brand) => ({
       brand: brand || "Brand not Listed",
@@ -117,8 +117,10 @@ export default function SearchInventorySidebar({
     setBrands(brandsWithCounts);
 
     // Process colors
-    const colors = getUniqueValues(discs.map((disc) => disc.color));
-    const colorCounts = countOccurrences(discs.map((disc) => disc.color));
+    const colors = getUniqueValues(filteredDiscs.map((disc) => disc.color));
+    const colorCounts = countOccurrences(
+      filteredDiscs.map((disc) => disc.color)
+    );
     const colorsWithCounts = colors.map((color) => ({
       color: color || "No Color Listed",
       count: colorCounts[color] || 0,
@@ -126,9 +128,11 @@ export default function SearchInventorySidebar({
     setColors(colorsWithCounts);
 
     // Process disc names
-    const discNames = getUniqueValues(discs.map((disc) => disc.disc.name));
+    const discNames = getUniqueValues(
+      filteredDiscs.map((disc) => disc.disc.name)
+    );
     const discNameCounts = countOccurrences(
-      discs.map((disc) => disc.disc.name)
+      filteredDiscs.map((disc) => disc.disc.name)
     );
     const discNamesWithCounts = discNames.map((discName) => ({
       discName: discName || "Disc Name not Listed",

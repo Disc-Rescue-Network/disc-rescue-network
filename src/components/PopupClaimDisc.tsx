@@ -7,9 +7,9 @@ import Card from "./Card";
 
 interface PopupVerifyProps {
   closePopupVerify: () => void;
-  pickupLocation: string;
-  pickupDate: string;
   pickupName: string;
+  pickupDays: string[];
+  pickupTimes: string[];
   arrayOfDiscs: Disc[];
   selectedDiscId: string;
   contactMethod: "phone" | "email";
@@ -23,8 +23,8 @@ interface PopupSurrenderProps {
 
 export function PopupVerify({
   closePopupVerify,
-  pickupLocation,
-  pickupDate,
+  pickupDays,
+  pickupTimes,
   pickupName,
   arrayOfDiscs,
   selectedDiscId,
@@ -68,8 +68,8 @@ export function PopupVerify({
   const handleClaimDiscSuccess = () => {
     navigate(`/claimDiscSuccess/${selectedDiscId}`, {
       state: {
-        pickupLocation,
-        pickupDate,
+        pickupDays,
+        pickupTimes,
         pickupName,
         arrayOfDiscs,
         selectedDiscId,
@@ -118,14 +118,15 @@ export function PopupVerify({
               <label>Pickup Date:</label>
               <span id="verifyPickupDate" className="fw-light">
                 {" "}
-                {pickupDate}
+                {pickupDays.join(", ")} @ {pickupTimes.join(", ")}
               </span>
             </div>
             <div className="verify-row-claim">
               <label id="pickupLocationLabel">Pickup Location:</label>
               <span id="verifyPickupLocation" className="fw-light">
                 {" "}
-                {pickupName} {pickupLocation}
+                {pickupName} {disc?.course.name} ({disc?.course.city},{" "}
+                {disc?.course.state})
               </span>
             </div>
             <div className="verify-row-claim">
