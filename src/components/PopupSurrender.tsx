@@ -3,7 +3,7 @@ import React from "react";
 import "../styles/popupComponent.css";
 import Button from "./Button";
 import "../styles/reportLostPopup.css";
-import { API_BASE_URL } from "../App";
+import { API_BASE_URL, Disc } from "../App";
 
 interface PopupReportProps {
   title: string;
@@ -11,6 +11,10 @@ interface PopupReportProps {
   onClose: () => void;
   onSuccess: (pickup: Pickup) => void;
   className?: string;
+  disc: Disc;
+  pickupName: string;
+  pickupDays: string[];
+  pickupTimes: string[];
 }
 
 export interface Pickup {
@@ -27,11 +31,11 @@ export interface Pickup {
   createdAt: string;
 }
 
-interface PickupInfo {
+export interface PickupInfo {
   id: number;
   courseId: number;
-  day: string;
-  time: string;
+  day: string[];
+  time: string[];
   claimId: number;
   updatedAt: string;
   createdAt: string;
@@ -43,33 +47,42 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
   onClose,
   onSuccess,
   className,
+  disc,
+  pickupName,
+  pickupTimes,
+  pickupDays,
 }) => {
   const [loading, setLoading] = React.useState(false);
 
   const handleSurrenderDisc = async () => {
     setLoading(true);
     try {
+      const jsonBody = JSON.stringify({
+        comments: `${pickupName} has surrendered this disc`,
+        itemId: disc.id,
+        userId: 1,
+        phoneNumber: disc.phoneNumber,
+        pickup: {
+          courseId: 4,
+          day: pickupDays,
+          time: pickupTimes,
+        },
+        surrendered: true,
+      });
+      console.log(jsonBody);
+
       const response = await fetch(`${API_BASE_URL}/inventory/claim`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          comments: "Testing",
-          itemId: 322,
-          userId: 1,
-          phoneNumber: "+16099554266",
-          pickup: {
-            courseId: 4,
-            day: "weekday",
-            time: "afternoon",
-          },
-          surrendered: true,
-        }),
+        body: jsonBody,
       });
 
       if (!response.ok) {
         console.log(response);
+        console.log(response.statusText);
+        console.log(await response.json());
         throw new Error("Network response was not ok");
       }
 

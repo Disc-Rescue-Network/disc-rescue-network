@@ -8,6 +8,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import ClaimDiscComponents from "../components/ClaimDiscComponents";
 import { API_BASE_URL, Disc } from "../App";
 import axios from "axios";
+import { useInventory } from "../hooks/useInventory";
+import React from "react";
 
 export default function ClaimDisc() {
   const { id } = useParams<{ id?: string }>();
@@ -16,25 +18,19 @@ export default function ClaimDisc() {
     "phone"
   );
   const [step, setStep] = useState(1);
-  const [arrayOfDiscs, setArrayOfDiscs] = useState<Disc[]>([]);
+  const { inventory, fetchInventory } = useInventory();
+
+  React.useEffect(() => {
+    if (inventory.length === 0) {
+      console.log("Fetching inventory");
+      fetchInventory();
+    }
+  }, [inventory]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     setShowPopup(true);
-  }, []);
-
-  useEffect(() => {
-    const fetchDiscs = async () => {
-      try {
-        const response = await axios.get(`${API_BASE_URL}/inventory`);
-        setArrayOfDiscs(response.data);
-      } catch (error) {
-        console.error("Failed to fetch discs:", error);
-      }
-    };
-
-    fetchDiscs();
   }, []);
 
   const handleSelect = (choice: "phone" | "email") => {
@@ -57,6 +53,11 @@ export default function ClaimDisc() {
   }
 
   const discId = parseInt(id, 10);
+  const disc = inventory.find((d) => d.id === discId);
+
+  if (disc === undefined) {
+    return <div>Error: Disc not found</div>;
+  }
 
   return (
     <div className="container-report-lost-disc">
@@ -84,11 +85,7 @@ export default function ClaimDisc() {
         <span onClick={() => setShowPopup(true)}>Edit Contact Method</span>
       </div>
       {contactMethod && (
-        <ClaimDiscComponents
-          contactMethod={contactMethod}
-          arrayOfDiscs={arrayOfDiscs}
-          selectedDiscId={id}
-        />
+        <ClaimDiscComponents contactMethod={contactMethod} disc={disc} />
       )}
     </div>
   );

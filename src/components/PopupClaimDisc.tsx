@@ -10,8 +10,7 @@ interface PopupVerifyProps {
   pickupName: string;
   pickupDays: string[];
   pickupTimes: string[];
-  arrayOfDiscs: Disc[];
-  selectedDiscId: string;
+  disc: Disc;
   contactMethod: "phone" | "email";
   contactValue: string;
 }
@@ -26,8 +25,7 @@ export function PopupVerify({
   pickupDays,
   pickupTimes,
   pickupName,
-  arrayOfDiscs,
-  selectedDiscId,
+  disc,
   contactMethod,
   contactValue,
 }: PopupVerifyProps) {
@@ -51,28 +49,13 @@ export function PopupVerify({
 
   const navigate = useNavigate();
 
-  const [disc, setDisc] = useState<Disc | null>(null);
-
-  useEffect(() => {
-    const selectedDiscIdNumber = parseInt(selectedDiscId);
-    const selectedDisc = arrayOfDiscs.find(
-      (disc) => disc.id === selectedDiscIdNumber
-    );
-    if (!selectedDisc) {
-      console.error("Disc not found", selectedDiscIdNumber, arrayOfDiscs);
-      return;
-    }
-    setDisc(selectedDisc);
-  }, [selectedDiscId, arrayOfDiscs]);
-
   const handleClaimDiscSuccess = () => {
-    navigate(`/claimDiscSuccess/${selectedDiscId}`, {
+    navigate(`/claimDiscSuccess/${disc.id}`, {
       state: {
         pickupDays,
         pickupTimes,
         pickupName,
-        arrayOfDiscs,
-        selectedDiscId,
+        disc,
         contactMethod,
       },
     });

@@ -14,12 +14,11 @@ import { VerifyOTP } from "./VerifyOTP";
 interface HeaderReportLostProps {
   className?: string;
   contactMethod: "phone" | "email";
-  arrayOfDiscs: Disc[];
-  selectedDiscId: string;
+  disc: Disc;
 }
 
 const ClaimDiscComponents = (props: HeaderReportLostProps) => {
-  const { className, contactMethod, arrayOfDiscs, selectedDiscId } = props;
+  const { className, contactMethod, disc } = props;
   const [showPopup, setShowPopup] = useState(false);
   const [pickupName, setPickupName] = useState("");
   const [pickupDays, setPickupDays] = useState<string[]>([]);
@@ -55,10 +54,12 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
 
   const handleFirstNameChange = (value: string) => {
     setFirstName(value);
+    setPickupName(`${value} ${lastName}`);
   };
 
   const handleLastNameChange = (value: string) => {
     setLastName(value);
+    setPickupName(`${firstName} ${value}`);
   };
 
   const SurrenderSuccess = () => {
@@ -68,6 +69,10 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const verifyPCM = (pickupInfo: Pickup) => {
     setShowOTP(true);
   };
+
+  if (!disc) {
+    return <div>Error: Disc not found</div>;
+  }
 
   return (
     <div className={`report-lost-components ${className}`}>
@@ -112,8 +117,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           pickupDays={pickupDays}
           pickupTimes={pickupTimes}
           pickupName={pickupName}
-          arrayOfDiscs={arrayOfDiscs}
-          selectedDiscId={selectedDiscId}
+          disc={disc}
           contactMethod={contactMethod}
           contactValue={contactValue}
         />
@@ -128,6 +132,10 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           }
           onClose={closePopupSurrender}
           onSuccess={verifyPCM}
+          pickupName={pickupName}
+          pickupDays={pickupDays}
+          pickupTimes={pickupTimes}
+          disc={disc}
         />
       )}
 

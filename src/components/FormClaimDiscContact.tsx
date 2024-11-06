@@ -86,18 +86,18 @@ const FormClaimDiscContact = (props: FormReportLostColorProps) => {
           <label>
             <input
               type="checkbox"
-              checked={pickupDays.includes("weekdays")}
-              onChange={() => togglePickupDay("weekdays")}
+              checked={pickupDays.includes("weekday")}
+              onChange={() => togglePickupDay("weekday")}
             />
-            Weekdays
+            Weekday
           </label>
           <label>
             <input
               type="checkbox"
-              checked={pickupDays.includes("weekends")}
-              onChange={() => togglePickupDay("weekends")}
+              checked={pickupDays.includes("weekend")}
+              onChange={() => togglePickupDay("weekend")}
             />
-            Weekends
+            Weekend
           </label>
         </div>
 
