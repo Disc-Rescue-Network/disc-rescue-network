@@ -205,10 +205,6 @@
   }
 }
 
-.white-border {
-  border-color: var(--primary-white);
-}
-
 .logo-request-course {
   margin-top: 1.5rem;
 }

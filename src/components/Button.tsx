@@ -14,7 +14,7 @@ interface ButtonProps {
 }
 
 export default function Button(props: ButtonProps) {
-  const { text, onClick, red, className, icon, tilt, border } = props;
+  const { text, onClick, red, className, icon, tilt, border, disabled } = props;
   const [showIcon, setShowIcon] = React.useState(false);
   const [tiltStyle, setTiltStyle] = React.useState("rotate(30deg)");
 
@@ -42,6 +42,7 @@ export default function Button(props: ButtonProps) {
         border ? "" : "no-border"
       } `}
       onClick={onClick}
+      disabled={disabled}
     >
       {showIcon && (
         <img

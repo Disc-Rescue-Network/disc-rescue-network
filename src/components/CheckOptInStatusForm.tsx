@@ -7,6 +7,8 @@ import {
   Typography,
   Alert,
   CircularProgress,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 import { API_BASE_URL } from "../App";
 import { WhiteBorderTextField } from "../components/WhiteBorderTextField";
@@ -17,6 +19,7 @@ export default function CheckOptInStatusForm() {
   const [optInStatus, setOptInStatus] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isConsentChecked, setIsConsentChecked] = useState(false);
   const navigate = useNavigate();
 
   const handleCheckOptInStatus = async () => {
@@ -64,7 +67,19 @@ export default function CheckOptInStatusForm() {
   const optInColor = optInStatus ? "var(--primary-green)" : "var(--error-red)";
 
   return (
-    <>
+    <Box
+      sx={{
+        textAlign: "center",
+        margin: "auto",
+        width: "100%",
+      }}
+    >
+      <h4
+        className="subheader-store"
+        style={{ width: "100%", maxWidth: "unset" }}
+      >
+        Check Opt In Status
+      </h4>
       <Box
         display="flex"
         flexDirection="column"
@@ -78,15 +93,16 @@ export default function CheckOptInStatusForm() {
           fullWidth
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
+          style={{ width: "100%", borderRadius: "0px" }}
         />
-        <Button
-          variant="contained"
+        <button
           onClick={handleCheckOptInStatus}
           disabled={loading || !phoneNumber}
-          sx={{ mb: 2 }}
+          className="button-red-courses btn red"
+          style={{ width: "100%", margin: "0px" }}
         >
           {loading ? <CircularProgress size={24} /> : "Check Opt In Status"}
-        </Button>
+        </button>
       </Box>
 
       {error && (
@@ -100,49 +116,84 @@ export default function CheckOptInStatusForm() {
           display="flex"
           flexDirection="column"
           alignItems="center"
-          sx={{ mt: 2 }}
+          sx={{ mt: 4 }}
         >
-          <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
-            <Typography variant="body1">Opt-In Status:</Typography>
-            <Typography sx={{ fontWeight: "bold", color: optInColor }}>
-              {optInStatus ? "Opted In" : "Opted Out"}
+          <Box sx={{ display: "flex", flexDirection: "row", gap: 4 }}>
+            <Typography
+              sx={{
+                fontFamily: "Bebas Neue",
+                fontSize: "1.2rem",
+                letterSpacing: "1px",
+                color: "var(--primary-white)",
+              }}
+            >
+              Opt-In Status:
+            </Typography>
+            <Typography
+              sx={{
+                fontFamily: "Bebas Neue",
+                fontWeight: "bold",
+                fontSize: "1.2rem",
+                letterSpacing: "1px",
+                color: optInColor,
+              }}
+            >
+              {optInStatus
+                ? "Congrats! You're opted into the Rescue Network and will receive all notifications."
+                : "Ooops! Looks like you haven't opted into the Rescue Network. Please click below to opt in and you will receive all future notifications."}
             </Typography>
           </Box>
           {optInStatus ? (
-            <Button
-              onClick={() => handleOptInOut(false)}
+            <Box
               sx={{
+                display: "flex",
+                flexDirection: "row",
+                width: "100%",
+                margin: "auto",
+                justifyContent: "center",
                 mt: 2,
-                maxWidth: "600px",
-                color: "var(--primary-white)",
-                backgroundColor: "var(--error-red)",
-                ":hover": {
-                  backgroundColor: "var(--primary-white)",
-                  color: "var(--error-red)",
-                },
               }}
             >
-              Opt Out
-            </Button>
+              <button
+                onClick={() => handleOptInOut(false)}
+                className={`button-red-courses btn red`}
+                style={{ width: "100%", margin: "0px" }}
+              >
+                {loading ? <CircularProgress size={24} /> : "Opt Out"}
+              </button>
+            </Box>
           ) : (
-            <Button
-              onClick={() => handleOptInOut(true)}
-              sx={{
-                mt: 2,
-                maxWidth: "600px",
-                color: "var(--primary-white)",
-                backgroundColor: "var(--primary-green)",
-                ":hover": {
-                  backgroundColor: "var(--primary-white)",
-                  color: "var(--primary-green)",
-                },
-              }}
-            >
-              Opt In
-            </Button>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={isConsentChecked}
+                    onChange={(e) => setIsConsentChecked(e.target.checked)}
+                    color="primary"
+                  />
+                }
+                label="By signing up, you agree to receive recurring automated text messages from Disc Rescue Network regarding our application at the number provided. Consent is not a condition of any purchase. Reply STOP to cancel at any time. Msg and data rates may apply."
+                sx={{
+                  mt: 2,
+                  maxWidth: "600px",
+                  textAlign: "left",
+                  color: "var(--primary-white)",
+                }}
+              />
+              <button
+                onClick={() => handleOptInOut(true)}
+                disabled={!isConsentChecked}
+                className={`button-red-courses btn red ${
+                  !isConsentChecked ? "disabled" : ""
+                }`}
+                style={{ width: "100%", margin: "0px" }}
+              >
+                {loading ? <CircularProgress size={24} /> : "Opt In"}
+              </button>
+            </Box>
           )}
         </Box>
       )}
-    </>
+    </Box>
   );
 }

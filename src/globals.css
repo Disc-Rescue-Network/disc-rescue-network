@@ -121,6 +121,12 @@ a {
   padding: 0px;
 }
 
+.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 .container {
   min-height: 100%;
   height: auto;
