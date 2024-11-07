@@ -96,37 +96,6 @@ const FormClaimDiscContact: React.FC<FormReportLostColorProps> = ({
         </div>
       </div>
 
-      {/* <div className="mt-5 mb-3 select-box-forms report-lost-class">
-        <div className="col-4-forms pe-0 arrow one report-class-col-4">
-          <select
-            className="form-select-rescue-flow report-lost-form-select"
-            onChange={handleStateChange}
-            value={selectedState}
-          >
-            <option value="">STATE</option>
-            {uniqueStates.map((state, index) => (
-              <option key={index} value={state}>
-                {state}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="col-8-forms pe-0 arrow report-class-col-8">
-          <select
-            className="form-select-rescue-flow report-lost-form-select"
-            value={selectedCourse}
-            onChange={handleCourseChange}
-          >
-            <option value="">SELECT A COURSE</option>
-            {filteredCourses.map((course, index) => (
-              <option key={index} value={course.courseName}>
-                {course.courseName}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div> */}
-
       <h4 className="header-claim-disc white-text">Pickup Preferences</h4>
 
       {preferences.map((pref, index) => (
@@ -138,6 +107,7 @@ const FormClaimDiscContact: React.FC<FormReportLostColorProps> = ({
                 handlePreferenceChange(index, "day", e.target.value as string)
               }
               className="form-select-claim"
+              style={{ marginTop: "5px" }}
             >
               <option value="" disabled>
                 Select Day
@@ -154,6 +124,7 @@ const FormClaimDiscContact: React.FC<FormReportLostColorProps> = ({
                 handlePreferenceChange(index, "time", e.target.value as string)
               }
               className="form-select-claim"
+              style={{ marginTop: "5px" }}
             >
               <option value="" disabled>
                 Select Time
@@ -170,14 +141,45 @@ const FormClaimDiscContact: React.FC<FormReportLostColorProps> = ({
         startIcon={<AddIcon />}
         onClick={addPreference}
         variant="outlined"
-        sx={{ alignSelf: "flex-start" }}
+        sx={{
+          my: 2,
+          alignSelf: "flex-center",
+          maxWidth: "fit-content",
+          color: "var(--primary-sea-blue)",
+          backgroundColor: "var(--primary-white)",
+          borderRadius: "0px",
+          fontFamily: "Bebas Neue",
+          fontWeight: "bold",
+          letterSpacing: "1px",
+          alignItems: "center",
+          textAlign: "center",
+          justifyContent: "center",
+        }}
       >
         Add Pickup Option
       </Button>
 
-      <Typography variant="body1">
-        Selected Preferences: {pickupPreferences.join(", ")}
-      </Typography>
+      {pickupPreferences.length > 0 && (
+        <Typography
+          variant="body1"
+          sx={{
+            my: 2,
+            color: "var(--primary-white)",
+            fontFamily: "Bebas Neue",
+            fontWeight: "bold",
+            letterSpacing: "1px",
+            fontSize: "1.2rem",
+            wordWrap: "normal",
+            wordBreak: "normal",
+            maxWidth: "600px",
+          }}
+        >
+          <span style={{ color: "var(--primary-green)" }}>
+            Selected Preferences:
+          </span>{" "}
+          {pickupPreferences.join(", ")}
+        </Typography>
+      )}
     </>
   );
 };
