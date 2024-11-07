@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import "../styles/popupClaimDisc.css";
 import Button from "./Button";
-import { Disc } from "../App";
+import { API_BASE_URL, Course, Disc } from "../App";
 import { useNavigate } from "react-router-dom";
 import Card from "./Card";
+import React from "react";
+import { useCourses } from "../hooks/useCourses";
+import { Pickup } from "./PopupSurrender";
 
 interface PopupVerifyProps {
-  closePopupVerify: () => void;
+  onClose: () => void;
   pickupName: string;
   pickupPreferences: string[];
   disc: Disc;
   contactMethod: "phone" | "email";
   contactValue: string;
+  onSuccess: (pickup: Pickup) => void;
 }
 
 interface PopupSurrenderProps {
@@ -20,12 +24,13 @@ interface PopupSurrenderProps {
 }
 
 export function PopupVerify({
-  closePopupVerify,
+  onClose,
   pickupPreferences,
   pickupName,
   disc,
   contactMethod,
   contactValue,
+  onSuccess,
 }: PopupVerifyProps) {
   const [contactInfo, setContactInfo] = useState("");
 
@@ -45,23 +50,71 @@ export function PopupVerify({
     setContactInfo("");
   }, [contactMethod]);
 
-  const navigate = useNavigate();
+  const [loading, setLoading] = React.useState(false);
+  const { courses, fetchCourses, loading: loadingCourses } = useCourses();
 
-  const handleClaimDiscSuccess = () => {
-    navigate(`/claimDiscSuccess/${disc.id}`, {
-      state: {
-        pickupPreferences,
-        pickupName,
-        disc,
-        contactMethod,
-      },
-    });
+  useEffect(() => {
+    if (courses.length === 0) {
+      fetchCourses();
+    }
+  }, []);
+
+  const handleClaimDisc = async () => {
+    setLoading(true);
+    try {
+      const courseId = courses.find(
+        (course: Course) => course.orgCode === disc.course.orgCode
+      )?.id;
+
+      if (!courseId) {
+        throw new Error("Course not found");
+      }
+
+      const jsonBody = JSON.stringify({
+        comments: `${pickupName} wants to claim this disc`,
+        itemId: disc.id,
+        userId: 1,
+        phoneNumber: disc.phoneNumber,
+        pickup: {
+          courseId: courseId,
+          preference: pickupPreferences,
+        },
+        surrendered: false,
+      });
+      console.log(jsonBody);
+
+      const response = await fetch(`${API_BASE_URL}/inventory/claim`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: jsonBody,
+      });
+
+      if (!response.ok) {
+        console.log(response);
+        console.log(response.statusText);
+        console.log(await response.json());
+        throw new Error("Network response was not ok");
+      }
+
+      // get OTP
+      const data = await response.json();
+      const pickupInfo = data.data as Pickup;
+      console.log(pickupInfo);
+      onSuccess(pickupInfo);
+      onClose();
+    } catch (error) {
+      console.error("Failed to surrender disc:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="popup" style={{ flexDirection: "column" }}>
       <div className="popup-content popup-claim-disc" id="popup-verify-content">
-        <span className="close" id="close" onClick={closePopupVerify}>
+        <span className="close" id="close" onClick={onClose}>
           <div className="line"></div>
           <div className="line"></div>
         </span>
@@ -81,21 +134,31 @@ export function PopupVerify({
           id="discInfoVerify"
           style={{
             color: "var(--primary-black) !important",
-            width: "60%",
-            maxWidth: "400px",
+            width: "100%",
           }}
         >
-          {" "}
-          <div className="discs-claim">
-            <div className="card-container-claim-discs">
-              {disc && <Card disc={disc} showButton={false} />}
-            </div>
+          <div
+            className="discs-claim"
+            style={{
+              width: "100%",
+              margin: "auto",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {disc && (
+              <Card
+                disc={disc}
+                showButton={false}
+                className="center-important"
+              />
+            )}
           </div>
         </div>
         <div className="verify-info claim-disc">
           <div className="box-content-disc d-flex flex-column">
             <div className="verify-row-claim">
-              <label>Pickup Date:</label>
+              <label>Preferred Pickup Windows:</label>
               <span id="verifyPickupDate" className="fw-light">
                 {" "}
                 {pickupPreferences.join(", ")}
@@ -104,9 +167,7 @@ export function PopupVerify({
             <div className="verify-row-claim">
               <label id="pickupLocationLabel">Pickup Location:</label>
               <span id="verifyPickupLocation" className="fw-light">
-                {" "}
-                {pickupName} {disc?.course.name} ({disc?.course.city},{" "}
-                {disc?.course.state})
+                {disc?.course.name} - {disc?.course.city}, {disc?.course.state}
               </span>
             </div>
             <div className="verify-row-claim">
@@ -143,13 +204,13 @@ export function PopupVerify({
           text={"Perfect! Give me my disc back!"}
           red={true}
           className="button-red-popup-claim"
-          onClick={handleClaimDiscSuccess}
+          onClick={handleClaimDisc}
         />
         <Button
           text={"Need to adjust some pickup information"}
           red={false}
           className="button-blue-popup-claim"
-          onClick={closePopupVerify}
+          onClick={onClose}
         />
       </div>
     </div>

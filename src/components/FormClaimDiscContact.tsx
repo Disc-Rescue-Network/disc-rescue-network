@@ -85,7 +85,7 @@ const FormClaimDiscContact: React.FC<FormReportLostColorProps> = ({
 
   return (
     <>
-      <div className="select-box-claim">
+      <div className="select-box-claim" style={{ marginBottom: "20px" }}>
         <div className="col-10 claim-disc-form" style={{ padding: "0" }}>
           <input
             placeholder={placeholder}

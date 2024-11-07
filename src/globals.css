@@ -113,7 +113,7 @@ a {
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 0px;
+  margin-top: 10px;
   margin-bottom: 0px;
   width: 100%;
   height: 100%;
@@ -123,6 +123,10 @@ a {
 
 .white-text {
   color: var(--primary-white);
+}
+
+.center-important {
+  justify-content: center !important;
 }
 
 h4 {
@@ -182,26 +186,23 @@ h4 {
   color: var(--primary-white);
   border: none;
   padding: 6px;
-  font-size: 0.7rem;
-  font-weight: 500;
+  font-size: 1.2rem;
+  font-weight: bold;
   letter-spacing: 1px;
   width: 100%;
   height: auto;
   max-height: 50px;
+  overflow: hidden;
   position: fixed;
   top: 0px;
   left: 0px;
+  font-family: "Bebas Neue", sans-serif;
 }
 
 @media screen and (max-width: 500px) {
   .beta-banner {
-    font-size: 0.5rem;
+    font-size: 0.9rem;
   }
-}
-
-.content-beta-banner {
-  padding: 3px;
-  font-family: "Akira Expanded", sans-serif;
 }
 
 #reverse {

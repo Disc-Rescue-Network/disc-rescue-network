@@ -6,17 +6,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import RequestCourseComponents from "../components/RequestCourseComponents";
 import "../styles/requestCourseComponents.css";
 import RescueFlowDiscsArray from "../components/RescueFlowDiscsArray";
+import Card from "../components/Card";
 
 export default function ClaimDiscSuccess() {
   const location = useLocation();
-  const {
-    pickupLocation,
-    pickupDate,
-    pickupName,
-    arrayOfDiscs,
-    selectedDiscId,
-    contactMethod,
-  } = location.state || {};
+  const { pickupPreferences, pickupName, disc, contactMethod, contactValue } =
+    location.state || {};
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
 
@@ -49,17 +44,16 @@ export default function ClaimDiscSuccess() {
       <div className="verify-info claim-disc claim-border-bottom no-flex-direction no-color grey-background white-border drop-shadow extra-padding">
         <div className="box-content-disc-success d-flex flex-column">
           <div className="verify-row-claim-success">
-            <label>Pickup Date:</label>
-            <span id="verifyPickupDate" className="lato">
+            <label>Pickup Preferences:</label>
+            <span id="verifyPickupPreferences" className="lato">
               {" "}
-              {pickupDate}
+              {pickupPreferences.join(", ") || "No Preference"}
             </span>
           </div>
           <div className="verify-row-claim-success">
             <label id="pickupLocationLabel">Pickup Location:</label>
             <span id="verifyPickupLocation" className="lato">
-              {" "}
-              {pickupName} {pickupLocation}
+              {disc?.course.name} - {disc?.course.city}, {disc?.course.state}
             </span>
           </div>
           <div className="verify-row-claim-success">
@@ -68,7 +62,9 @@ export default function ClaimDiscSuccess() {
                 ? "Phone Number For Release:"
                 : "Email For Release:"}
             </label>
-            <span id="verifyContactInfoForRelease" className="lato"></span>
+            <span id="verifyContactInfoForRelease" className="lato">
+              {contactValue}
+            </span>
           </div>
         </div>
         <div
@@ -80,7 +76,9 @@ export default function ClaimDiscSuccess() {
             maxWidth: "400px",
           }}
         >
-          <RescueFlowDiscsArray arrayOfDiscs={arrayOfDiscs} />
+          {disc && (
+            <Card disc={disc} showButton={false} className="center-important" />
+          )}
         </div>
       </div>
     </div>

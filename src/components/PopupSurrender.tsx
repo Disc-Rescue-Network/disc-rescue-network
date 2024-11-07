@@ -7,6 +7,11 @@ import { API_BASE_URL, Disc } from "../App";
 import { useCourses } from "../hooks/useCourses";
 
 export interface Pickup {
+  vid: number;
+  claim: Claim;
+}
+
+export interface Claim {
   tofAccepted: boolean;
   verified: boolean;
   id: number;

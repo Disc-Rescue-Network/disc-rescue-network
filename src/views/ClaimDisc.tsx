@@ -79,12 +79,15 @@ export default function ClaimDisc() {
       )}
       <i
         className="arrow-left-icon"
-        style={{ top: "30px" }}
+        style={{ top: "70px" }}
         onClick={handleBack}
       >
         <FontAwesomeIcon icon={faArrowLeft} />
       </i>
-      <LogoRescueFlow2 />
+      <div style={{ marginTop: "20px" }}>
+        <LogoRescueFlow2 />
+      </div>
+
       <div className="filters-option-claim">
         <span onClick={() => setShowPopup(true)}>Edit Contact Method</span>
       </div>
