@@ -10,13 +10,25 @@ import {
   Box,
 } from "@mui/material";
 import { API_BASE_URL } from "../App";
+import { Pickup } from "./PopupSurrender";
 
 interface VerifyOTPProps {
   open: boolean;
   onClose: () => void;
+  onSurrenderClose: () => void;
+  onClaimClose: () => void;
+  isSurrender: boolean;
+  pickupInfo?: Pickup | null;
 }
 
-export function VerifyOTP({ open, onClose }: VerifyOTPProps) {
+export function VerifyOTP({
+  open,
+  onClose,
+  onSurrenderClose,
+  onClaimClose,
+  isSurrender,
+  pickupInfo,
+}: VerifyOTPProps) {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const [loading, setLoading] = React.useState(false);
@@ -79,7 +91,7 @@ export function VerifyOTP({ open, onClose }: VerifyOTPProps) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          vid: 13,
+          vid: pickupInfo?.vid,
           otp: otpValue,
           tofAccepted: true,
         }),
@@ -87,11 +99,16 @@ export function VerifyOTP({ open, onClose }: VerifyOTPProps) {
       if (!response.ok) {
         console.log(response);
         console.log(response.statusText);
-        console.log(response.json());
+        console.log(await response.json());
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
       console.log("Verify OTP response:", data);
+      if (isSurrender) {
+        onSurrenderClose();
+      } else {
+        onClaimClose();
+      }
     } catch (error) {
       console.error("Failed to verify OTP:", error);
     } finally {

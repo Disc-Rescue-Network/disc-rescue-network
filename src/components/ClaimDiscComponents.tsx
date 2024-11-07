@@ -22,6 +22,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const [showPopup, setShowPopup] = useState(false);
   const [pickupName, setPickupName] = useState("");
   const [pickupPreferences, setPickupPreferences] = useState<string[]>([]);
+  const [isSurrender, setIsSurrender] = useState(false);
 
   const [contactValue, setContactValue] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -29,10 +30,12 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const [showPopupSurrender, setShowPopupSurrender] = useState(false);
   const navigate = useNavigate();
   const [showOTP, setShowOTP] = useState(false);
+  const [pickupInfo, setPickupInfo] = useState<Pickup | null>(null);
 
   const handleScheduleButtonClick = () => {
     if (pickupPreferences && pickupName) {
       setShowPopup(true);
+      setIsSurrender(false);
     } else {
       alert("Please choose your preferred pickup days/times.");
     }
@@ -44,6 +47,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
 
   const openPopup = () => {
     setShowPopupSurrender(true);
+    setIsSurrender(true);
   };
 
   const closePopupSurrender = () => {
@@ -61,17 +65,40 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
     setPickupName(`${firstName} ${value}`);
   };
 
-  const SurrenderSuccess = () => {
+  const handleSurrenderSuccess = () => {
     navigate("/surrenderDiscSuccess");
   };
 
   const verifyPCM = (pickupInfo: Pickup) => {
     setShowOTP(true);
+    setPickupInfo(pickupInfo);
   };
 
   if (!disc) {
     return <div>Error: Disc not found</div>;
   }
+
+  const otpVerifiedSurrender = () => {
+    setShowOTP(false);
+    handleSurrenderSuccess();
+  };
+
+  const otpVerifiedClaim = () => {
+    setShowOTP(false);
+    handleClaimDiscSuccess();
+  };
+
+  const handleClaimDiscSuccess = () => {
+    navigate(`/claimDiscSuccess/${disc.id}`, {
+      state: {
+        pickupPreferences,
+        pickupName,
+        disc,
+        contactMethod,
+        contactValue,
+      },
+    });
+  };
 
   return (
     <div className={`report-lost-components ${className}`}>
@@ -112,12 +139,13 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
       />
       {showPopup && (
         <PopupVerify
-          closePopupVerify={closePopup}
+          onClose={closePopup}
           pickupPreferences={pickupPreferences}
           pickupName={pickupName}
           disc={disc}
           contactMethod={contactMethod}
           contactValue={contactValue}
+          onSuccess={verifyPCM}
         />
       )}
 
@@ -137,7 +165,14 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
       )}
 
       {showOTP && (
-        <VerifyOTP open={showOTP} onClose={() => setShowOTP(false)} />
+        <VerifyOTP
+          open={showOTP}
+          onClose={() => setShowOTP(false)}
+          onClaimClose={() => otpVerifiedClaim()}
+          onSurrenderClose={() => otpVerifiedSurrender()}
+          isSurrender={isSurrender}
+          pickupInfo={pickupInfo}
+        />
       )}
     </div>
   );

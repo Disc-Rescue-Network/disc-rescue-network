@@ -16,6 +16,7 @@ import SurrenderDiscSuccess from "./views/SurrenderDiscSuccess";
 import ReportLostDiscSuccess from "./views/ReportLostDiscSuccess";
 import { useInventory } from "./hooks/useInventory";
 import BetaBanner from "./components/BetaBanner";
+import { Claim } from "./components/PopupSurrender";
 
 export interface Course {
   id: number;
@@ -95,13 +96,6 @@ export enum DiscStateString {
   Surrendered = "SURRENDERED",
 }
 
-export interface Claim {
-  id: number;
-  discId: number;
-  createdAt: string;
-  updatedAt: string;
-}
-
 export const API_BASE_URL = "https://apis.discrescuenetwork.com"; //production URL
 //export const API_BASE_URL = "http://localhost:8080"; // local testing
 
@@ -119,7 +113,7 @@ function App() {
     <div className="app">
       <BetaBanner
         Text={
-          "This is currently under development. Please email support@discrescuenetwork.com for help."
+          "This app is currently in development. Please email support@discrescuenetwork.com for help."
         }
       />
       <Routes>
