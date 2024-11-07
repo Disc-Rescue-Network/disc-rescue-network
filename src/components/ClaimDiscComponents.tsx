@@ -7,31 +7,34 @@ import { useState } from "react";
 import "../styles/popupClaimDisc.css";
 import { PopupVerify } from "./PopupClaimDisc";
 import { Disc } from "../App";
-import PopUpSurrender from "./PopupSurrender";
+import PopUpSurrender, { Pickup } from "./PopupSurrender";
+import { useNavigate } from "react-router-dom";
+import { VerifyOTP } from "./VerifyOTP";
 
 interface HeaderReportLostProps {
   className?: string;
   contactMethod: "phone" | "email";
-  arrayOfDiscs: Disc[];
-  selectedDiscId: string;
+  disc: Disc;
 }
 
 const ClaimDiscComponents = (props: HeaderReportLostProps) => {
-  const { className, contactMethod, arrayOfDiscs, selectedDiscId } = props;
+  const { className, contactMethod, disc } = props;
   const [showPopup, setShowPopup] = useState(false);
-  const [pickupLocation, setPickupLocation] = useState("");
-  const [pickupDate, setPickupDate] = useState("");
   const [pickupName, setPickupName] = useState("");
+  const [pickupPreferences, setPickupPreferences] = useState<string[]>([]);
+
   const [contactValue, setContactValue] = useState("");
-  const [initial, setInitial] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [showPopupSurrender, setShowPopupSurrender] = useState(false);
+  const navigate = useNavigate();
+  const [showOTP, setShowOTP] = useState(false);
 
   const handleScheduleButtonClick = () => {
-    if (pickupLocation && pickupDate && pickupName) {
+    if (pickupPreferences && pickupName) {
       setShowPopup(true);
     } else {
-      alert("Please choose a pickup location and date.");
+      alert("Please choose your preferred pickup days/times.");
     }
   };
 
@@ -44,16 +47,31 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   };
 
   const closePopupSurrender = () => {
+    // Reset the form
     setShowPopupSurrender(false);
   };
 
-  const handleInitialChange = (value: string) => {
-    setInitial(value);
+  const handleFirstNameChange = (value: string) => {
+    setFirstName(value);
+    setPickupName(`${value} ${lastName}`);
   };
 
   const handleLastNameChange = (value: string) => {
     setLastName(value);
+    setPickupName(`${firstName} ${value}`);
   };
+
+  const SurrenderSuccess = () => {
+    navigate("/surrenderDiscSuccess");
+  };
+
+  const verifyPCM = (pickupInfo: Pickup) => {
+    setShowOTP(true);
+  };
+
+  if (!disc) {
+    return <div>Error: Disc not found</div>;
+  }
 
   return (
     <div className={`report-lost-components ${className}`}>
@@ -66,18 +84,16 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
         <span className="missingtext"> Info</span>.
       </h2>
       <NameAndInitialForm
-        onInitialChange={handleInitialChange}
+        onFirstNameChange={handleFirstNameChange}
         onLastNameChange={handleLastNameChange}
       />
       <FormClaimDiscContact
         contactMethod={contactMethod}
-        ChosePickup={"Choose a Pickup Location"}
-        onPickupLocationChange={(location: string, name: string) => {
-          setPickupLocation(location);
-          setPickupName(name);
-        }}
-        onPickupDateChange={(date: string) => setPickupDate(date)}
+        pickupPreferences={pickupPreferences}
         onContactChange={(contact: string) => setContactValue(contact)}
+        onPickupPreferencesChange={(preferences: string[]) =>
+          setPickupPreferences(preferences)
+        }
       />
       <Button
         text={"Schedule Your Disc Pickup"}
@@ -85,7 +101,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
         border={true}
         className="button-claim-disc-form"
         onClick={handleScheduleButtonClick}
-        disabled={!pickupLocation || !pickupDate}
+        disabled={!pickupPreferences || !pickupName}
       />
       <Button
         text={"Surrender Disc"}
@@ -97,11 +113,9 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
       {showPopup && (
         <PopupVerify
           closePopupVerify={closePopup}
-          pickupLocation={pickupLocation}
-          pickupDate={pickupDate}
+          pickupPreferences={pickupPreferences}
           pickupName={pickupName}
-          arrayOfDiscs={arrayOfDiscs}
-          selectedDiscId={selectedDiscId}
+          disc={disc}
           contactMethod={contactMethod}
           contactValue={contactValue}
         />
@@ -115,7 +129,15 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
             "Hi There! Surrendering your disc is just like a donation. This disc can be sold by the course to raise funds for things like new tee pads, new baskets or general maintenance."
           }
           onClose={closePopupSurrender}
+          onSuccess={verifyPCM}
+          pickupName={pickupName}
+          pickupPreferences={pickupPreferences}
+          disc={disc}
         />
+      )}
+
+      {showOTP && (
+        <VerifyOTP open={showOTP} onClose={() => setShowOTP(false)} />
       )}
     </div>
   );

@@ -1,67 +1,67 @@
 .buttons-report-popup {
-    display: flex;
-    flex-direction: row;
-    width: 80%;
+  display: flex;
+  flex-direction: row;
+  width: 80%;
 }
 
 .button-popup-phone {
-    width: 50%;
-    text-align: center;
-    background-color: var(--secondary-safety-sky-blue);
-    color: var(--primary-white);
-    letter-spacing: 0.5px;
-    font-weight: 600;
-    border: none;
-    border-radius: 0px;
-    padding: 12px 8px;
-    font-size: 1.5em;
-    margin-right: 10px;
-    height: 60px;
+  width: 50%;
+  text-align: center;
+  background-color: var(--secondary-safety-sky-blue) !important;
+  color: var(--primary-white) !important;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  border: none;
+  border-radius: 0px;
+  padding: 12px 8px;
+  font-size: 1.5em;
+  margin-right: 10px;
+  height: 60px;
 }
 
 .button-popup-phone:hover {
-    color: var(--secondary-safety-sky-blue);
-    background-color: var(--primary-white);
-    transition: ease 0.2s;
+  color: var(--secondary-safety-sky-blue) !important;
+  background-color: var(--primary-white) !important;
+  transition: ease 0.2s;
 }
 
 .button-popup-email {
-    width: 50%;
-    text-align: center;
-    background-color: var(--primary-burnt-orange);
-    color: var(--primary-white);
-    letter-spacing: 0.5px;
-    font-weight: 600;
-    border: none;
-    border-radius: 0px;
-    padding: 12px 8px;
-    font-size: 1.5em;
-    height: 60px;
+  width: 50%;
+  text-align: center;
+  background-color: var(--primary-burnt-orange) !important;
+  color: var(--primary-white) !important;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  border: none;
+  border-radius: 0px;
+  padding: 12px 8px;
+  font-size: 1.5em;
+  height: 60px;
 }
 
 .button-popup-email:hover {
-    color: var(--secondary-safety-sky-blue);
-    background-color: var(--primary-white);
-    transition: ease 0.2s;
+  color: var(--secondary-safety-sky-blue) !important;
+  background-color: var(--primary-white) !important;
+  transition: ease 0.2s;
 }
 
 .content-report-popup {
-    margin-bottom: 1rem;
-    width: 96%;
+  margin-bottom: 1rem;
+  width: 96%;
 }
 
 /* popupReportLostDisc */
 
 .title-report-popup {
-    text-transform: uppercase;
-    font-size: 2.5rem !important;
+  text-transform: uppercase;
+  font-size: 2.5rem !important;
 }
 
 @media screen and (max-width: 500px) {
-    .title-report-popup {
-        font-size: 1.9rem !important;
-        margin-bottom: 0 !important;
-    }
+  .title-report-popup {
+    font-size: 1.9rem !important;
+    margin-bottom: 0 !important;
+  }
 }
 
 .verify-info {
@@ -81,45 +81,45 @@
 }
 
 .verify-row-report {
-    color: var(--primary-white);
-    font-size: 1.2rem;
+  color: var(--primary-white);
+  font-size: 1.2rem;
 }
 
 .buttons-report-lost-popup {
-    width: 100%;
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 1rem;
+  width: 100%;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
 }
 
 .button-popup-report-lost-red {
-    margin-right: 10px;
-    max-height: 60px;
-    max-width: 400px;
-    font-size: 0.9rem;
-    padding: 16px 8px;
-    font-weight: 500;
+  margin-right: 10px;
+  max-height: 60px;
+  max-width: 400px;
+  font-size: 0.9rem;
+  padding: 16px 8px;
+  font-weight: 500;
 }
 
 .button-popup-report-lost-red:hover {
-    background-color: var(--primary-white);
-    color: var(--secondary-safety-sky-blue);
-    transition: 0.3s ease;
+  background-color: var(--primary-white);
+  color: var(--secondary-safety-sky-blue);
+  transition: 0.3s ease;
 }
 
 .button-popup-report-lost-blue {
-    margin-right: 10px;
-    max-height: 60px;
-    max-width: 400px;
-    font-size: 0.9rem;
-    padding: 16px 8px;
-    background-color: var(--secondary-safety-sky-blue);
-    font-weight: 500;
+  margin-right: 10px;
+  max-height: 60px;
+  max-width: 400px;
+  font-size: 0.9rem;
+  padding: 16px 8px;
+  background-color: var(--secondary-safety-sky-blue);
+  font-weight: 500;
 }
 
 .button-popup-report-lost-blue:hover {
-    background-color: var(--primary-white);
-    color: var(--secondary-safety-sky-blue);
-    transition: 0.3s ease;
+  background-color: var(--primary-white);
+  color: var(--secondary-safety-sky-blue);
+  transition: 0.3s ease;
 }

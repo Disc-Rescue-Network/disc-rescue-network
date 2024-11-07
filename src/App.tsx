@@ -79,6 +79,7 @@ export interface Disc {
   orgCode: string;
   createdAt: string;
   updatedAt: string;
+  claims: Claim[];
 }
 
 export enum DiscStateString {
@@ -94,8 +95,15 @@ export enum DiscStateString {
   Surrendered = "SURRENDERED",
 }
 
-export const API_BASE_URL = "https://apis.discrescuenetwork.com"; //production URL
-//export const API_BASE_URL = "http://localhost:8080"; // local testing
+export interface Claim {
+  id: number;
+  discId: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+//export const API_BASE_URL = "https://apis.discrescuenetwork.com"; //production URL
+export const API_BASE_URL = "http://localhost:8080"; // local testing
 
 function App() {
   const { inventory, fetchInventory } = useInventory();

@@ -7,11 +7,9 @@ import Card from "./Card";
 
 interface PopupVerifyProps {
   closePopupVerify: () => void;
-  pickupLocation: string;
-  pickupDate: string;
   pickupName: string;
-  arrayOfDiscs: Disc[];
-  selectedDiscId: string;
+  pickupPreferences: string[];
+  disc: Disc;
   contactMethod: "phone" | "email";
   contactValue: string;
 }
@@ -23,11 +21,9 @@ interface PopupSurrenderProps {
 
 export function PopupVerify({
   closePopupVerify,
-  pickupLocation,
-  pickupDate,
+  pickupPreferences,
   pickupName,
-  arrayOfDiscs,
-  selectedDiscId,
+  disc,
   contactMethod,
   contactValue,
 }: PopupVerifyProps) {
@@ -51,28 +47,12 @@ export function PopupVerify({
 
   const navigate = useNavigate();
 
-  const [disc, setDisc] = useState<Disc | null>(null);
-
-  useEffect(() => {
-    const selectedDiscIdNumber = parseInt(selectedDiscId);
-    const selectedDisc = arrayOfDiscs.find(
-      (disc) => disc.id === selectedDiscIdNumber
-    );
-    if (!selectedDisc) {
-      console.error("Disc not found", selectedDiscIdNumber, arrayOfDiscs);
-      return;
-    }
-    setDisc(selectedDisc);
-  }, [selectedDiscId, arrayOfDiscs]);
-
   const handleClaimDiscSuccess = () => {
-    navigate(`/claimDiscSuccess/${selectedDiscId}`, {
+    navigate(`/claimDiscSuccess/${disc.id}`, {
       state: {
-        pickupLocation,
-        pickupDate,
+        pickupPreferences,
         pickupName,
-        arrayOfDiscs,
-        selectedDiscId,
+        disc,
         contactMethod,
       },
     });
@@ -118,14 +98,15 @@ export function PopupVerify({
               <label>Pickup Date:</label>
               <span id="verifyPickupDate" className="fw-light">
                 {" "}
-                {pickupDate}
+                {pickupPreferences.join(", ")}
               </span>
             </div>
             <div className="verify-row-claim">
               <label id="pickupLocationLabel">Pickup Location:</label>
               <span id="verifyPickupLocation" className="fw-light">
                 {" "}
-                {pickupName} {pickupLocation}
+                {pickupName} {disc?.course.name} ({disc?.course.city},{" "}
+                {disc?.course.state})
               </span>
             </div>
             <div className="verify-row-claim">

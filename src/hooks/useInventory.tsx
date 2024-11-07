@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { API_BASE_URL, Disc } from "../App";
+import { API_BASE_URL, Disc, DiscStateString } from "../App";
 import { DateTime } from "luxon";
 
 interface InventoryHook {
@@ -46,6 +46,15 @@ export const useInventory = (): InventoryHook => {
       }
 
       console.log("Full Inventory response:", allItems);
+      //filter out discs that are claimed, sold, or for sale
+      allItems = allItems.filter(
+        (disc) =>
+          disc.status !== DiscStateString.Claimed &&
+          disc.status !== DiscStateString.Sold &&
+          disc.status !== DiscStateString.SoldOffline &&
+          disc.status !== DiscStateString.ForSale &&
+          disc.status !== DiscStateString.Surrendered
+      );
       setInventory(allItems);
       setLoading(false);
     } catch (error) {
