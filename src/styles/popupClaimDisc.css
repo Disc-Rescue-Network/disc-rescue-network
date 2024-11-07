@@ -70,7 +70,7 @@ p {
   position: relative;
   margin: 20px auto;
   padding: 20px;
-  border: 1px solid var(--primary-sea-blue);
+  border: 2px solid var(--primary-sea-blue);
   border-radius: 0px;
   border: 3px solid var(--secondary-safety-sky-blue);
   overflow-y: auto;

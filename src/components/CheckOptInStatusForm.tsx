@@ -72,6 +72,7 @@ export default function CheckOptInStatusForm() {
         textAlign: "center",
         margin: "auto",
         width: "100%",
+        maxWidth: "600px",
       }}
     >
       <Box
@@ -113,29 +114,46 @@ export default function CheckOptInStatusForm() {
           sx={{ mt: 4 }}
         >
           <Box sx={{ display: "flex", flexDirection: "row", gap: 4 }}>
-            <Typography
+            {/* <Typography
               sx={{
                 fontFamily: "Bebas Neue",
                 fontSize: "1.2rem",
                 letterSpacing: "1px",
                 color: "var(--primary-white)",
+                fontWeight: "bold",
               }}
             >
               Opt-In Status:
-            </Typography>
-            <Typography
-              sx={{
-                fontFamily: "Bebas Neue",
-                fontWeight: "bold",
-                fontSize: "1.2rem",
-                letterSpacing: "1px",
-                color: optInColor,
-              }}
-            >
-              {optInStatus
-                ? "Congrats! You're opted into the Rescue Network and will receive all notifications."
-                : "Ooops! Looks like you haven't opted into the Rescue Network. Please click below to opt in and you will receive all future notifications."}
-            </Typography>
+            </Typography> */}
+            {optInStatus ? (
+              <Typography
+                sx={{
+                  fontFamily: "Bebas Neue",
+                  fontWeight: "bold",
+                  fontSize: "1.2rem",
+                  letterSpacing: "1px",
+                  color: "var(--primary-white)",
+                }}
+              >
+                <span style={{ color: optInColor }}>Congrats!</span> You're
+                opted into the Rescue Network and will receive all
+                notifications.
+              </Typography>
+            ) : (
+              <Typography
+                sx={{
+                  fontFamily: "Bebas Neue",
+                  fontWeight: "bold",
+                  fontSize: "1.2rem",
+                  letterSpacing: "1px",
+                  color: "var(--primary-white)",
+                }}
+              >
+                <span style={{ color: optInColor }}>Ooops!</span> Looks like you
+                haven't opted into the Rescue Network. Please click below to opt
+                in and you will receive all future notifications.
+              </Typography>
+            )}
           </Box>
           {optInStatus ? (
             <Box
@@ -145,19 +163,21 @@ export default function CheckOptInStatusForm() {
                 width: "100%",
                 margin: "auto",
                 justifyContent: "center",
-                mt: 2,
+                mt: 4,
               }}
             >
               <button
                 onClick={() => handleOptInOut(false)}
-                className={`button-red-courses btn red`}
+                className={`button-blue-courses btn blue`}
                 style={{ width: "100%", margin: "0px" }}
               >
                 {loading ? <CircularProgress size={24} /> : "Opt Out"}
               </button>
             </Box>
           ) : (
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            <Box
+              sx={{ display: "flex", flexDirection: "column", mt: 4, gap: 4 }}
+            >
               <FormControlLabel
                 control={
                   <Checkbox
@@ -177,7 +197,7 @@ export default function CheckOptInStatusForm() {
               <button
                 onClick={() => handleOptInOut(true)}
                 disabled={!isConsentChecked}
-                className={`button-red-courses btn red ${
+                className={`button-blue-courses btn blue ${
                   !isConsentChecked ? "disabled" : ""
                 }`}
                 style={{ width: "100%", margin: "0px" }}

@@ -261,11 +261,9 @@ const FormClaimDiscContact: React.FC<FormReportLostColorProps> = ({
             <MenuItem value="" disabled>
               Select Time
             </MenuItem>
-            <MenuItem value="Morning (7am-12pm)">Morning (7am-12pm)</MenuItem>
-            <MenuItem value="Afternoon (12pm-5pm)">
-              Afternoon (12pm-5pm)
-            </MenuItem>
-            <MenuItem value="Evening (5pm-9pm)">Evening (5pm-9pm)</MenuItem>
+            <MenuItem value="Morning">Morning (7am-12pm)</MenuItem>
+            <MenuItem value="Afternoon">Afternoon (12pm-5pm)</MenuItem>
+            <MenuItem value="Evening">Evening (5pm-9pm)</MenuItem>
           </Select>
         </Box>
       ))}

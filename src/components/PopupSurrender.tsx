@@ -1,9 +1,10 @@
 // PopUpSurrender.tsx
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/popupComponent.css";
 import Button from "./Button";
 import "../styles/reportLostPopup.css";
 import { API_BASE_URL, Disc } from "../App";
+import { useCourses } from "../hooks/useCourses";
 
 export interface Pickup {
   tofAccepted: boolean;
@@ -55,6 +56,13 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
   // pickupDays,
 }) => {
   const [loading, setLoading] = React.useState(false);
+  const { courses, fetchCourses, loading: loadingCourses } = useCourses();
+
+  useEffect(() => {
+    if (courses.length === 0) {
+      fetchCourses();
+    }
+  }, []);
 
   const handleSurrenderDisc = async () => {
     setLoading(true);
@@ -65,8 +73,10 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
         userId: 1,
         phoneNumber: disc.phoneNumber,
         pickup: {
-          courseId: 4,
-          preferences: pickupPreferences,
+          courseId: courses.find(
+            (course) => course.orgCode === disc.course.orgCode
+          )?.id,
+          preference: pickupPreferences,
           // day: pickupDays,
           // time: pickupTimes,
         },
@@ -124,6 +134,7 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
           red={true}
           className="red-button-popup"
           onClick={handleSurrenderDisc}
+          disabled={loadingCourses}
         />
         <Button
           text={loading ? "Loading..." : "Sorry, I want my disc back"}

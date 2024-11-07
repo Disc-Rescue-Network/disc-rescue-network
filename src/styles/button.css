@@ -21,15 +21,19 @@ button {
   border: 2px solid var(--border-primary-red);
 }
 
-.red:hover,
-.blue:hover {
+.red:hover {
   background-color: var(--border-primary-blue) !important;
-  border: 2px solid var(--primary-sea-blue);
+  border: 2px solid var(--primary-sea-blue) !important;
+}
+
+.blue:hover {
+  background-color: var(--primary-burnt-orange) !important;
+  border: 2px solid var(--border-primary-red);
 }
 
 .blue {
   background-color: var(--primary-sea-blue) !important;
-  border: 2px solid var(--border-primary-blue);
+  border: 2px solid var(--border-primary-blue) !important;
 }
 
 .no-border {
