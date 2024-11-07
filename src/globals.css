@@ -121,6 +121,17 @@ a {
   padding: 0px;
 }
 
+.white-text {
+  color: var(--primary-white);
+}
+
+h4 {
+  font-size: 2rem;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  padding: 0;
+}
+
 .disabled {
   pointer-events: none;
   cursor: not-allowed;

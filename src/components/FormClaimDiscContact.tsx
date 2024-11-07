@@ -1,140 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import "../styles/claimDiscComponents.css";
-
-// interface FormReportLostColorProps {
-//   contactMethod: "phone" | "email";
-//   pickupDays: string[];
-//   pickupTimes: string[];
-//   onContactChange: (contact: string) => void;
-//   onPickupDaysChange: (days: string[]) => void;
-//   onPickupTimesChange: (times: string[]) => void;
-// }
-
-// const FormClaimDiscContact = (props: FormReportLostColorProps) => {
-//   const {
-//     contactMethod,
-//     pickupDays,
-//     pickupTimes,
-//     onContactChange,
-//     onPickupDaysChange,
-//     onPickupTimesChange,
-//   } = props;
-//   const placeholder =
-//     contactMethod === "email"
-//       ? "Email Address"
-//       : "Phone Number Written on The Disc";
-//   const [contactValue, setContactValue] = useState("");
-
-//   useEffect(() => {
-//     setContactValue("");
-//   }, [contactMethod]);
-
-//   const formatPhoneNumber = (value: string) => {
-//     if (!value) return value;
-//     const phoneNumber = value.replace(/[^\d]/g, "");
-//     const phoneNumberLength = phoneNumber.length;
-//     if (phoneNumberLength < 4) return phoneNumber;
-//     if (phoneNumberLength < 7) {
-//       return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
-//     }
-//     return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(
-//       3,
-//       6
-//     )}-${phoneNumber.slice(6, 10)}`;
-//   };
-
-//   const handleContactChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     let formattedContact = event.target.value;
-//     if (contactMethod === "phone") {
-//       formattedContact = formatPhoneNumber(formattedContact);
-//     }
-//     setContactValue(formattedContact);
-//     onContactChange(formattedContact);
-//   };
-
-//   const togglePickupDay = (day: string) => {
-//     const updatedDays = pickupDays.includes(day)
-//       ? pickupDays.filter((d) => d !== day)
-//       : [...pickupDays, day];
-//     onPickupDaysChange(updatedDays);
-//   };
-
-//   const togglePickupTime = (time: string) => {
-//     const updatedTimes = pickupTimes.includes(time)
-//       ? pickupTimes.filter((t) => t !== time)
-//       : [...pickupTimes, time];
-//     onPickupTimesChange(updatedTimes);
-//   };
-//   return (
-//     <>
-//       <div className="select-box-claim">
-//         <div className="col-10 claim-disc-form" style={{ padding: "0" }}>
-//           <input
-//             placeholder={placeholder}
-//             type={contactMethod === "email" ? "email" : "text"}
-//             value={contactValue}
-//             onChange={handleContactChange}
-//           />
-//         </div>
-//       </div>
-
-//       <div className="pickup-preferences">
-//         <h4>Pickup Preferences</h4>
-
-//         <div className="preference-select">
-//           <h5>Days: {pickupDays.join(", ")}</h5>
-//           <label>
-//             <input
-//               type="checkbox"
-//               checked={pickupDays.includes("weekday")}
-//               onChange={() => togglePickupDay("weekday")}
-//             />
-//             Weekday
-//           </label>
-//           <label>
-//             <input
-//               type="checkbox"
-//               checked={pickupDays.includes("weekend")}
-//               onChange={() => togglePickupDay("weekend")}
-//             />
-//             Weekend
-//           </label>
-//         </div>
-
-//         <div className="preference-select">
-//           <h5>Times: {pickupTimes.join(", ")}</h5>
-//           <label>
-//             <input
-//               type="checkbox"
-//               checked={pickupTimes.includes("morning")}
-//               onChange={() => togglePickupTime("morning")}
-//             />
-//             Morning
-//           </label>
-//           <label>
-//             <input
-//               type="checkbox"
-//               checked={pickupTimes.includes("afternoon")}
-//               onChange={() => togglePickupTime("afternoon")}
-//             />
-//             Afternoon
-//           </label>
-//           <label>
-//             <input
-//               type="checkbox"
-//               checked={pickupTimes.includes("night")}
-//               onChange={() => togglePickupTime("night")}
-//             />
-//             Night
-//           </label>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default FormClaimDiscContact;
-
 import React, { useState, useEffect } from "react";
 import {
   TextField,
@@ -144,6 +7,8 @@ import {
   Box,
   Typography,
 } from "@mui/material";
+import "../styles/rescueFlowForms.css";
+import "../styles/claimDiscComponents.css";
 import AddIcon from "@mui/icons-material/Add";
 
 interface FormReportLostColorProps {
@@ -231,41 +96,74 @@ const FormClaimDiscContact: React.FC<FormReportLostColorProps> = ({
         </div>
       </div>
 
-      <Typography variant="h6">Pickup Preferences</Typography>
+      {/* <div className="mt-5 mb-3 select-box-forms report-lost-class">
+        <div className="col-4-forms pe-0 arrow one report-class-col-4">
+          <select
+            className="form-select-rescue-flow report-lost-form-select"
+            onChange={handleStateChange}
+            value={selectedState}
+          >
+            <option value="">STATE</option>
+            {uniqueStates.map((state, index) => (
+              <option key={index} value={state}>
+                {state}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="col-8-forms pe-0 arrow report-class-col-8">
+          <select
+            className="form-select-rescue-flow report-lost-form-select"
+            value={selectedCourse}
+            onChange={handleCourseChange}
+          >
+            <option value="">SELECT A COURSE</option>
+            {filteredCourses.map((course, index) => (
+              <option key={index} value={course.courseName}>
+                {course.courseName}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div> */}
+
+      <h4 className="header-claim-disc white-text">Pickup Preferences</h4>
 
       {preferences.map((pref, index) => (
-        <Box key={index} sx={{ display: "flex", gap: 2 }}>
-          <Select
-            value={pref.day}
-            onChange={(e) =>
-              handlePreferenceChange(index, "day", e.target.value as string)
-            }
-            displayEmpty
-            fullWidth
-          >
-            <MenuItem value="" disabled>
-              Select Day
-            </MenuItem>
-            <MenuItem value="Weekday">Weekday</MenuItem>
-            <MenuItem value="Weekend">Weekend</MenuItem>
-          </Select>
+        <div className="select-box-report">
+          <div className="col-6 pe-0 arrow one" key={index}>
+            <select
+              value={pref.day}
+              onChange={(e) =>
+                handlePreferenceChange(index, "day", e.target.value as string)
+              }
+              className="form-select-claim"
+            >
+              <option value="" disabled>
+                Select Day
+              </option>
+              <option value="Weekday">Weekday</option>
+              <option value="Weekend">Weekend</option>
+            </select>
+          </div>
 
-          <Select
-            value={pref.time}
-            onChange={(e) =>
-              handlePreferenceChange(index, "time", e.target.value as string)
-            }
-            displayEmpty
-            fullWidth
-          >
-            <MenuItem value="" disabled>
-              Select Time
-            </MenuItem>
-            <MenuItem value="Morning">Morning (7am-12pm)</MenuItem>
-            <MenuItem value="Afternoon">Afternoon (12pm-5pm)</MenuItem>
-            <MenuItem value="Evening">Evening (5pm-9pm)</MenuItem>
-          </Select>
-        </Box>
+          <div className="col-6 pe-0 arrow one">
+            <select
+              value={pref.time}
+              onChange={(e) =>
+                handlePreferenceChange(index, "time", e.target.value as string)
+              }
+              className="form-select-claim"
+            >
+              <option value="" disabled>
+                Select Time
+              </option>
+              <option value="Morning">Morning (7am-12pm)</option>
+              <option value="Afternoon">Afternoon (12pm-5pm)</option>
+              <option value="Evening">Evening (5pm-9pm)</option>
+            </select>
+          </div>
+        </div>
       ))}
 
       <Button

@@ -8,8 +8,6 @@ import Card from "./Card";
 interface PopupVerifyProps {
   closePopupVerify: () => void;
   pickupName: string;
-  // pickupDays: string[];
-  // pickupTimes: string[];
   pickupPreferences: string[];
   disc: Disc;
   contactMethod: "phone" | "email";
@@ -23,8 +21,6 @@ interface PopupSurrenderProps {
 
 export function PopupVerify({
   closePopupVerify,
-  // pickupDays,
-  // pickupTimes,
   pickupPreferences,
   pickupName,
   disc,
@@ -54,8 +50,6 @@ export function PopupVerify({
   const handleClaimDiscSuccess = () => {
     navigate(`/claimDiscSuccess/${disc.id}`, {
       state: {
-        // pickupDays,
-        // pickupTimes,
         pickupPreferences,
         pickupName,
         disc,

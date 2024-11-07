@@ -39,8 +39,6 @@ interface PopupReportProps {
   disc: Disc;
   pickupName: string;
   pickupPreferences: string[];
-  // pickupDays: string[];
-  // pickupTimes: string[];
 }
 
 const PopUpSurrender: React.FC<PopupReportProps> = ({
@@ -52,8 +50,6 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
   disc,
   pickupName,
   pickupPreferences,
-  // pickupTimes,
-  // pickupDays,
 }) => {
   const [loading, setLoading] = React.useState(false);
   const { courses, fetchCourses, loading: loadingCourses } = useCourses();
@@ -67,18 +63,22 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
   const handleSurrenderDisc = async () => {
     setLoading(true);
     try {
+      const courseId = courses.find(
+        (course) => course.orgCode === disc.course.orgCode
+      )?.id;
+
+      if (!courseId) {
+        throw new Error("Course not found");
+      }
+
       const jsonBody = JSON.stringify({
         comments: `${pickupName} has surrendered this disc`,
         itemId: disc.id,
         userId: 1,
         phoneNumber: disc.phoneNumber,
         pickup: {
-          courseId: courses.find(
-            (course) => course.orgCode === disc.course.orgCode
-          )?.id,
+          courseId: courseId,
           preference: pickupPreferences,
-          // day: pickupDays,
-          // time: pickupTimes,
         },
         surrendered: true,
       });
