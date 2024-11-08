@@ -23,6 +23,27 @@ const convertToLocalTime = (httpTimestamp: string) => {
   return dateUTC.setZone(DateTime.local().zoneName).toFormat("yyyy-MM-dd");
 };
 
+const CACHE_KEY = "inventoryCache";
+const CACHE_TIMESTAMP_KEY = "inventoryCacheTimestamp";
+const CACHE_DURATION = 60 * 60 * 1000; // 1 hour in milliseconds
+
+const getCachedInventory = () => {
+  const cachedData = localStorage.getItem(CACHE_KEY);
+  const cachedTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
+  if (cachedData && cachedTimestamp) {
+    const now = Date.now();
+    if (now - parseInt(cachedTimestamp, 10) < CACHE_DURATION) {
+      return JSON.parse(cachedData);
+    }
+  }
+  return null;
+};
+
+const setCachedInventory = (data: Disc[]) => {
+  localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+  localStorage.setItem(CACHE_TIMESTAMP_KEY, Date.now().toString());
+};
+
 export const useInventory = (): InventoryHook => {
   const [inventory, setInventory] = useState<Disc[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -30,6 +51,13 @@ export const useInventory = (): InventoryHook => {
   const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
 
   const fetchInventory = async (course?: string) => {
+    const cachedInventory = getCachedInventory();
+    if (cachedInventory) {
+      setInventory(cachedInventory);
+      setLoading(false);
+      return;
+    }
+
     try {
       const params = course ? { course } : {};
       let allItems: Disc[] = [];
@@ -79,6 +107,7 @@ export const useInventory = (): InventoryHook => {
       });
 
       setInventory(allItems);
+      setCachedInventory(allItems);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching inventory:", error);

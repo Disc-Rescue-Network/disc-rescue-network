@@ -5,6 +5,7 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import "./globals.css";
 import LoadingScreen from "./views/LoadingSceen";
+import { useInventory } from "./hooks/useInventory";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -25,6 +26,15 @@ const Index: React.FC = () => {
       setLoading(false);
     }, 1500);
   }, []);
+
+  const { inventory, fetchInventory } = useInventory();
+
+  React.useEffect(() => {
+    if (inventory.length === 0) {
+      console.log("Fetching inventory");
+      fetchInventory();
+    }
+  }, [inventory]);
 
   return (
     <React.StrictMode>
