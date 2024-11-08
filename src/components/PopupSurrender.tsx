@@ -44,6 +44,7 @@ interface PopupReportProps {
   disc: Disc;
   pickupName: string;
   pickupPreferences: string[];
+  tofAccepted?: boolean;
 }
 
 const PopUpSurrender: React.FC<PopupReportProps> = ({
@@ -55,6 +56,7 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
   disc,
   pickupName,
   pickupPreferences,
+  tofAccepted,
 }) => {
   const [loading, setLoading] = React.useState(false);
   const { courses, fetchCourses, loading: loadingCourses } = useCourses();

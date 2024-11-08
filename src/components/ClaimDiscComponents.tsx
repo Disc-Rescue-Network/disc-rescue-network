@@ -3,13 +3,14 @@ import Button from "./Button";
 import NameAndInitialForm from "./NameAndInitialForm";
 import FormClaimDiscContact from "./FormClaimDiscContact";
 import "../styles/claimDiscComponents.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/popupClaimDisc.css";
 import { PopupVerify } from "./PopupClaimDisc";
 import { Disc } from "../App";
 import PopUpSurrender, { Pickup } from "./PopupSurrender";
 import { useNavigate } from "react-router-dom";
 import { VerifyOTP } from "./VerifyOTP";
+import TermsOfFlow from "./TermsOfFlow";
 
 interface HeaderReportLostProps {
   className?: string;
@@ -23,6 +24,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const [pickupName, setPickupName] = useState("");
   const [pickupPreferences, setPickupPreferences] = useState<string[]>([]);
   const [isSurrender, setIsSurrender] = useState(false);
+  const [phoneNumberMatches, setPhoneNumberMatches] = useState(false);
 
   const [contactValue, setContactValue] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -30,9 +32,37 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const [showPopupSurrender, setShowPopupSurrender] = useState(false);
   const navigate = useNavigate();
   const [showOTP, setShowOTP] = useState(false);
+  const [showTOF, setShowTOF] = useState(false);
+  const [TOFAccepted, setTOFAccepted] = useState(false);
   const [pickupInfo, setPickupInfo] = useState<Pickup | null>(null);
 
+  useEffect(() => {
+    if (contactMethod !== "phone") {
+      setPhoneNumberMatches(false);
+      return;
+    }
+
+    if (!contactValue || !disc.phoneNumber) {
+      setPhoneNumberMatches(false);
+      return;
+    }
+
+    const formattedContactValue = `+1${contactValue.replace(/\D/g, "")}`;
+
+    if (formattedContactValue === disc.phoneNumber) {
+      setPhoneNumberMatches(true);
+      setTOFAccepted(true);
+    } else {
+      setPhoneNumberMatches(false);
+    }
+  }, [contactMethod, contactValue, disc.phoneNumber]);
+
   const handleScheduleButtonClick = () => {
+    if (!phoneNumberMatches) {
+      setShowTOF(true);
+      return;
+    }
+
     if (pickupPreferences && pickupName) {
       setShowPopup(true);
       setIsSurrender(false);
@@ -46,8 +76,13 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   };
 
   const openPopup = () => {
-    setShowPopupSurrender(true);
     setIsSurrender(true);
+    if (!phoneNumberMatches) {
+      setShowTOF(true);
+      return;
+    }
+
+    setShowPopupSurrender(true);
   };
 
   const closePopupSurrender = () => {
@@ -98,6 +133,18 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
         contactValue,
       },
     });
+  };
+
+  const handleAcceptTOF = () => {
+    setShowTOF(false);
+    setTOFAccepted(true);
+    console.log("TOF accepted");
+    console.log("isSurrender", isSurrender);
+    if (isSurrender) {
+      setShowPopupSurrender(true);
+    } else {
+      setShowPopup(true);
+    }
   };
 
   return (
@@ -161,6 +208,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           pickupName={pickupName}
           pickupPreferences={pickupPreferences}
           disc={disc}
+          tofAccepted={TOFAccepted}
         />
       )}
 
@@ -172,6 +220,14 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           onSurrenderClose={() => otpVerifiedSurrender()}
           isSurrender={isSurrender}
           pickupInfo={pickupInfo}
+          tofAccepted={TOFAccepted}
+        />
+      )}
+
+      {showTOF && (
+        <TermsOfFlow
+          onClose={() => setShowTOF(false)}
+          handleAcceptTOF={handleAcceptTOF}
         />
       )}
     </div>

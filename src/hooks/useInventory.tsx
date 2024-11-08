@@ -18,6 +18,11 @@ const convertToEST = (httpTimestamp: string) => {
   return dateUTC.toFormat("yyyy-MM-dd");
 };
 
+const convertToLocalTime = (httpTimestamp: string) => {
+  const dateUTC = DateTime.fromHTTP(httpTimestamp, { zone: "utc" });
+  return dateUTC.setZone(DateTime.local().zoneName).toFormat("yyyy-MM-dd");
+};
+
 export const useInventory = (): InventoryHook => {
   const [inventory, setInventory] = useState<Disc[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -53,8 +58,26 @@ export const useInventory = (): InventoryHook => {
           disc.status !== DiscStateString.Sold &&
           disc.status !== DiscStateString.SoldOffline &&
           disc.status !== DiscStateString.ForSale &&
-          disc.status !== DiscStateString.Surrendered
+          disc.status !== DiscStateString.Surrendered &&
+          disc.course.name !== "DRN Admins"
       );
+
+      allItems = allItems.map((disc) => ({
+        ...disc,
+        dateFound: convertToLocalTime(disc.dateFound),
+        dateClaimed: convertToLocalTime(disc.dateClaimed || ""),
+        dateSold: convertToLocalTime(disc.dateSold || ""),
+        dateTexted: convertToLocalTime(disc.dateTexted || ""),
+        dateOfReminderText: convertToLocalTime(disc.dateOfReminderText || ""),
+        createdAt: convertToLocalTime(disc.createdAt),
+        updatedAt: convertToLocalTime(disc.updatedAt),
+      }));
+
+      allItems = allItems.sort((a, b) => {
+        //sort by ID DESC
+        return b.id - a.id;
+      });
+
       setInventory(allItems);
       setLoading(false);
     } catch (error) {
