@@ -101,7 +101,11 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   };
 
   const handleSurrenderSuccess = () => {
-    navigate("/surrenderDiscSuccess");
+    navigate("/surrenderDiscSuccess", {
+      state: {
+        disc,
+      },
+    });
   };
 
   const verifyPCM = (pickupInfo: Pickup) => {
