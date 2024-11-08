@@ -20,20 +20,13 @@ function Home() {
     }
   }, [inventory]);
 
-  console.log(inventory);
-  //Filter by status
-  const filteredDiscs = inventory.filter(
-    (disc) => disc.status === DiscStateString.Unclaimed
-  );
-  console.log(filteredDiscs);
-
   return (
     <div className="container-home">
       <FullLogoHeader />
       <HomePageButtons />
       <div className="disc-container">
         <Subheader text="RECENTLY TURNED IN DISCS" />
-        <Discs arrayOfDiscs={filteredDiscs} />
+        <Discs arrayOfDiscs={inventory} />
       </div>
     </div>
   );

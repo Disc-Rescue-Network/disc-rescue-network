@@ -70,11 +70,13 @@ export function PopupVerify({
         throw new Error("Course not found");
       }
 
+      const formattedContactValue = `+1${contactValue.replace(/\D/g, "")}`;
+
       const jsonBody = JSON.stringify({
         comments: `${pickupName} wants to claim this disc`,
         itemId: disc.id,
         userId: 1,
-        phoneNumber: disc.phoneNumber,
+        phoneNumber: formattedContactValue,
         pickup: {
           courseId: courseId,
           preference: pickupPreferences,

@@ -19,6 +19,7 @@ interface VerifyOTPProps {
   onClaimClose: () => void;
   isSurrender: boolean;
   pickupInfo?: Pickup | null;
+  tofAccepted?: boolean;
 }
 
 export function VerifyOTP({
@@ -28,6 +29,7 @@ export function VerifyOTP({
   onClaimClose,
   isSurrender,
   pickupInfo,
+  tofAccepted,
 }: VerifyOTPProps) {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -93,7 +95,7 @@ export function VerifyOTP({
         body: JSON.stringify({
           vid: pickupInfo?.vid,
           otp: otpValue,
-          tofAccepted: true,
+          tofAccepted: tofAccepted,
         }),
       });
       if (!response.ok) {
