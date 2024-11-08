@@ -7,6 +7,7 @@ import RequestCourseComponents from "../components/RequestCourseComponents";
 import "../styles/requestCourseComponents.css";
 import RescueFlowDiscsArray from "../components/RescueFlowDiscsArray";
 import Card from "../components/Card";
+import Button from "../components/Button";
 
 export default function ClaimDiscSuccess() {
   const location = useLocation();
@@ -22,6 +23,14 @@ export default function ClaimDiscSuccess() {
       navigate(-1);
     }
   };
+
+  const handleFacebookShare = () => {
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+      "https://www.facebook.com/profile.php?id=61555743963826"
+    )}`;
+    window.open(facebookUrl, "_blank");
+  };
+
   return (
     <div className="container-store">
       <i
@@ -41,7 +50,10 @@ export default function ClaimDiscSuccess() {
         You have successfully claimed your disc and you've been opted in to
         receiving messages.
       </h2>
-      <div className="verify-info claim-disc claim-border-bottom no-flex-direction no-color grey-background white-border drop-shadow extra-padding">
+      <div
+        className="verify-info claim-disc claim-border-bottom no-flex-direction no-color grey-background white-border drop-shadow extra-padding"
+        style={{ maxHeight: "600px" }}
+      >
         <div className="box-content-disc-success d-flex flex-column">
           <div className="verify-row-claim-success">
             <label>Pickup Preferences:</label>
@@ -81,6 +93,12 @@ export default function ClaimDiscSuccess() {
           )}
         </div>
       </div>
+      <Button
+        text={"Share to facebook"}
+        red={true}
+        className="red-button-surrender"
+        onClick={handleFacebookShare}
+      />
     </div>
   );
 }
