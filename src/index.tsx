@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./globals.css";
 import LoadingScreen from "./views/LoadingSceen";
 import { useInventory } from "./hooks/useInventory";
+import { useCourses } from "./hooks/useCourses";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -35,6 +36,14 @@ const Index: React.FC = () => {
       fetchInventory();
     }
   }, [inventory]);
+
+  const { courses, fetchCourses, loading: loadingCourses } = useCourses();
+
+  useEffect(() => {
+    if (courses.length === 0) {
+      fetchCourses();
+    }
+  }, []);
 
   return (
     <React.StrictMode>
