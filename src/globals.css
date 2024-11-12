@@ -126,6 +126,7 @@ a {
   align-items: center; /* Vertically center */
   justify-content: center; /* Center logo horizontally */
   position: relative; /* To position the arrow within the container */
+  margin-top: 1.25em;
 }
 
 .logo-and-arrow .arrow-left-icon {
