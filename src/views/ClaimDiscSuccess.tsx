@@ -44,7 +44,7 @@ export default function ClaimDiscSuccess() {
     };
   }, []);
 
-  const bottomPadding = isMobile ? "110px" : "10px";
+  const bottomPadding = isMobile ? "120px" : "10px";
 
   return (
     <div
