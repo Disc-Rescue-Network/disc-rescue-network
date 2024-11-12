@@ -214,6 +214,7 @@ h4 {
   top: 0px;
   left: 0px;
   font-family: "Bebas Neue", sans-serif;
+  z-index: 3;
 }
 
 @media screen and (max-width: 500px) {
