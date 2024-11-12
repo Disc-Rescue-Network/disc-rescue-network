@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LogoRescueFlow2 from "../components/LogoRescueFlow2";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import RequestCourseComponents from "../components/RequestCourseComponents";
 import "../styles/requestCourseComponents.css";
@@ -13,6 +13,7 @@ export default function ClaimDiscSuccess() {
   const location = useLocation();
   const { pickupPreferences, pickupName, disc, contactMethod, contactValue } =
     location.state || {};
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 500);
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
 
@@ -31,44 +32,73 @@ export default function ClaimDiscSuccess() {
     window.open(facebookUrl, "_blank");
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 500);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const bottomPadding = isMobile ? "120px" : "10px";
+
   return (
-    <div className="container-store">
-      <i
-        className="arrow-left-icon"
-        style={{ top: "30px" }}
-        onClick={handleBack}
-      >
-        <FontAwesomeIcon icon={faArrowLeft} />
-      </i>
-      <LogoRescueFlow2 />
-      <RequestCourseComponents
-        baseText={"Nailed"}
-        lightText={"IT!"}
-        className="claim-disc-success"
-      />
-      <h2 className="success-message">
+    <div
+      className="container-store"
+      style={{ padding: "10px", paddingBottom: bottomPadding }}
+    >
+      <div className="logo-and-arrow">
+        <i
+          className="arrow-left-icon"
+          style={{ fontSize: "1.5rem" }}
+          onClick={handleBack}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </i>
+        <LogoRescueFlow2 />
+      </div>
+
+      <div className={`request-course-components claim-disc-success`}>
+        <h2 style={{ textAlign: "center" }}>
+          Nailed
+          <span className="fw-light"> IT!</span>
+        </h2>
+      </div>
+      <h2 className="success-message" style={{ textAlign: "center" }}>
         You have successfully claimed your disc and you've been opted in to
         receiving messages.
       </h2>
       <div
         className="verify-info claim-disc claim-border-bottom no-flex-direction no-color grey-background white-border drop-shadow extra-padding"
-        style={{ maxHeight: "600px" }}
+        style={{ maxHeight: "400px", padding: "0px !important" }}
       >
         <div className="box-content-disc-success d-flex flex-column">
-          <div className="verify-row-claim-success">
-            <label>Pickup Preferences:</label>
+          <div
+            className="verify-row-claim-success"
+            style={{ marginBottom: "20px", fontSize: "1rem" }}
+          >
+            <label>Pickup Preferences: </label>
             <span id="verifyPickupPreferences" className="lato">
-              {" "}
               {pickupPreferences.join(", ") || "No Preference"}
             </span>
           </div>
-          <div className="verify-row-claim-success">
-            <label id="pickupLocationLabel">Pickup Location:</label>
+          <div
+            className="verify-row-claim-success"
+            style={{ marginBottom: "20px", fontSize: "1rem" }}
+          >
+            <label id="pickupLocationLabel">Pickup Location: </label>
             <span id="verifyPickupLocation" className="lato">
               {disc?.course.name} - {disc?.course.city}, {disc?.course.state}
             </span>
           </div>
-          <div className="verify-row-claim-success">
+          <div
+            className="verify-row-claim-success"
+            style={{ marginBottom: "20px", fontSize: "1rem" }}
+          >
             <label id="communicationMethodLabel">
               {contactMethod === "phone"
                 ? "Phone Number For Release:"
@@ -84,8 +114,9 @@ export default function ClaimDiscSuccess() {
           id="discInfoVerify"
           style={{
             color: "var(--primary-black) !important",
-            width: "65%",
+            width: "100%",
             maxWidth: "400px",
+            margin: "0 auto",
           }}
         >
           {disc && (

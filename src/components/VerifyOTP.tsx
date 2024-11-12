@@ -119,20 +119,8 @@ export function VerifyOTP({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>
-        <h2
-          className="header-popup-claim-disc"
-          style={{
-            fontSize: "3rem",
-            marginTop: "10px",
-            marginBottom: "2px",
-            textTransform: "uppercase",
-          }}
-        >
-          Verify Your PCM
-        </h2>
-      </DialogTitle>
+    <Dialog open={open} onClose={onClose} maxWidth="sm">
+      <DialogTitle>Verify Your PCM</DialogTitle>
       <DialogContent>
         <Box display="flex" justifyContent="center" my={2}>
           {otp.map((digit, index) => (

@@ -179,13 +179,14 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
         border={true}
         className="button-claim-disc-form"
         onClick={handleScheduleButtonClick}
-        disabled={!pickupPreferences || !pickupName}
+        disabled={!pickupPreferences || !pickupName || !contactValue}
       />
       <Button
         text={"Surrender Disc"}
         red={false}
         border={true}
         className="button-claim-disc-form"
+        disabled={!pickupName || !contactValue}
         onClick={openPopup}
       />
       {showPopup && (

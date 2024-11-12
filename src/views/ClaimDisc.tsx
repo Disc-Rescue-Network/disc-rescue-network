@@ -77,14 +77,14 @@ export default function ClaimDisc() {
           className="header-popup-claimDisc"
         />
       )}
-      <i
-        className="arrow-left-icon"
-        style={{ top: "70px" }}
-        onClick={handleBack}
-      >
-        <FontAwesomeIcon icon={faArrowLeft} />
-      </i>
-      <div style={{ marginTop: "20px" }}>
+      <div className="logo-and-arrow">
+        <i
+          className="arrow-left-icon"
+          style={{ fontSize: "1.5rem" }}
+          onClick={handleBack}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </i>
         <LogoRescueFlow2 />
       </div>
 
