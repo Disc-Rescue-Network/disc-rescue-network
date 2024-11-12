@@ -44,7 +44,7 @@ export default function ClaimDiscSuccess() {
     };
   }, []);
 
-  const bottomPadding = isMobile ? "120px" : "10px";
+  const bottomPadding = isMobile ? "120px" : "150px";
 
   return (
     <div
@@ -101,8 +101,8 @@ export default function ClaimDiscSuccess() {
           >
             <label id="communicationMethodLabel">
               {contactMethod === "phone"
-                ? "Phone Number For Release:"
-                : "Email For Release:"}
+                ? "Phone Number For Release: "
+                : "Email For Release: "}
             </label>
             <span id="verifyContactInfoForRelease" className="lato">
               {contactValue}
