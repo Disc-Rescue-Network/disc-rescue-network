@@ -26,14 +26,14 @@ export default function Settings() {
   return (
     <div className="container-request-course">
       <div className="main-section-request">
-        <i
-          className="arrow-left-icon-request-course"
-          style={{ top: "70px" }}
-          onClick={handleBack}
-        >
-          <FontAwesomeIcon icon={faArrowLeft} />
-        </i>
-        <div className="logo-request-course">
+        <div className="logo-and-arrow">
+          <i
+            className="arrow-left-icon"
+            style={{ fontSize: "1.5rem" }}
+            onClick={handleBack}
+          >
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </i>
           <LogoRescueFlow2 />
         </div>
         <RequestCourseComponets

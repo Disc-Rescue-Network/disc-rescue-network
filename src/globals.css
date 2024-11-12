@@ -121,6 +121,23 @@ a {
   padding: 0px;
 }
 
+.logo-and-arrow {
+  display: flex;
+  align-items: center; /* Vertically center */
+  justify-content: center; /* Center logo horizontally */
+  position: relative; /* To position the arrow within the container */
+}
+
+.logo-and-arrow .arrow-left-icon {
+  position: absolute;
+  left: 10px; /* Adjust this to control distance from the screen's edge */
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust for perfect vertical alignment */
+}
+
 .white-text {
   color: var(--primary-white);
 }

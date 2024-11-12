@@ -38,14 +38,16 @@ export default function () {
 
   return (
     <div className="container-store">
-      <i
-        className="arrow-left-icon"
-        style={{ top: "30px" }}
-        onClick={handleBack}
-      >
-        <FontAwesomeIcon icon={faArrowLeft} />
-      </i>
-      <LogoRescueFlow2 />
+      <div className="logo-and-arrow">
+        <i
+          className="arrow-left-icon"
+          style={{ fontSize: "1.5rem" }}
+          onClick={handleBack}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </i>
+        <LogoRescueFlow2 />
+      </div>
       {/* <SelectCourse
         baseText={"Choose Your"}
         lightText={"Course"}

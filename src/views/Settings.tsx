@@ -72,10 +72,16 @@ export default function Settings() {
 
   return (
     <div className="container-store">
-      <i className="arrow-left-icon" onClick={handleBack}>
-        <FontAwesomeIcon icon={faArrowLeft} />
-      </i>
-      <LogoRescueFlow2 />
+      <div className="logo-and-arrow">
+        <i
+          className="arrow-left-icon"
+          style={{ fontSize: "1.5rem" }}
+          onClick={handleBack}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </i>
+        <LogoRescueFlow2 />
+      </div>
       <h4
         className="subheader-store"
         style={{ width: "100%", maxWidth: "unset" }}
