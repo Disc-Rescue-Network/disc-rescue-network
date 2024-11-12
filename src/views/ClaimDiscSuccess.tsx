@@ -45,6 +45,7 @@ export default function ClaimDiscSuccess() {
   }, []);
 
   const bottomPadding = isMobile ? "120px" : "150px";
+  const PCM = contactMethod === "phone" ? "Text" : "Email";
 
   return (
     <div
@@ -69,8 +70,10 @@ export default function ClaimDiscSuccess() {
         </h2>
       </div>
       <h2 className="success-message" style={{ textAlign: "center" }}>
-        You have successfully claimed your disc and you've been opted in to
-        receiving messages.
+        Your claim has been submitted to {disc?.course.name}. You will receive a{" "}
+        {PCM}
+        with detailed pickup information and further instructions once pickup
+        has been confirmed by {disc?.course.name}.
       </h2>
       <div
         className="verify-info claim-disc claim-border-bottom no-flex-direction no-color grey-background white-border drop-shadow extra-padding"
