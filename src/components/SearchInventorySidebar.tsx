@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "../styles/searchInventorySidebar.css";
-import axios from "axios";
-import { API_BASE_URL, Disc } from "../App";
+import { Disc } from "../App";
 import { useLocation } from "react-router-dom";
 import React from "react";
 import { useInventory } from "../hooks/useInventory";

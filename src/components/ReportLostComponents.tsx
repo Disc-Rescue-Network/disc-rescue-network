@@ -1,6 +1,4 @@
-import { Form, useNavigate } from "react-router-dom";
 import "../styles/reportLostComponents.css";
-import FormReportLost from "./NameAndInitialForm";
 import FormReportLost2 from "./FormReportLost2";
 import FormReportLost3 from "./FormReportLost3";
 import CoursePickerForm from "./CoursePickerForm";

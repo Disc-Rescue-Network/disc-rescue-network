@@ -2,7 +2,6 @@ import "../styles/rescueFlowPopup.css";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import { Disc } from "../App";
-import { useState } from "react";
 import RescueFlowDiscsArray from "./RescueFlowDiscsArray";
 import Card from "./Card";
 

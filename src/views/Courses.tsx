@@ -7,7 +7,6 @@ import RequestCourseComponets from "../components/RequestCourseComponents";
 import CoursePickerForm from "../components/CoursePickerForm";
 import Button from "../components/Button";
 import "../styles/coursesSelected.css";
-import SelectCourse from "../components/SelectCourse";
 
 export default function () {
   const [state, setState] = useState("");

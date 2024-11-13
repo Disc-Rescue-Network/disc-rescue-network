@@ -5,7 +5,6 @@ import "../styles/rescueFlowStep.css";
 import CoursePickerForm from "./CoursePickerForm";
 import Button from "./Button";
 import { SearchParams } from "../views/RescueFlow";
-import { Disc } from "../App";
 
 interface RescueFlowStep1Props {
   step: number;

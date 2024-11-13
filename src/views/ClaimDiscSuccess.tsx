@@ -3,9 +3,7 @@ import LogoRescueFlow2 from "../components/LogoRescueFlow2";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import RequestCourseComponents from "../components/RequestCourseComponents";
 import "../styles/requestCourseComponents.css";
-import RescueFlowDiscsArray from "../components/RescueFlowDiscsArray";
 import Card from "../components/Card";
 import Button from "../components/Button";
 

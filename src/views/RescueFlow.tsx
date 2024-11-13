@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import BetaBanner from "../components/BetaBanner";
 import RescueFlowStep1 from "../components/RescueFlowStep1";
 import RescueFlowStep2 from "../components/RescueFlowStep2";
 import RescueFlowStep3 from "../components/RescueFlowStep3";
@@ -11,10 +10,8 @@ import Arrow from "../assets/arrow-down.png";
 import { useNavigate } from "react-router-dom";
 import RescueFLowFailure from "../components/RescueFlowFailure";
 import RescueFlowPopup from "../components/RescueFlowPopup";
-import axios from "axios";
 import { useInventory } from "../hooks/useInventory";
 import { Disc } from "../App";
-import Fuse from "fuse.js";
 
 export interface SearchParams {
   course?: string;

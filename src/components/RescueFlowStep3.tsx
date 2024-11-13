@@ -2,7 +2,7 @@ import Button from "./Button";
 import LogoRescueFlow from "./LogoRescueFlow";
 import FormStep3 from "./FormStep3";
 import HeaderRescueFlow from "./RescueFlowComponets";
-import React, { useState } from "react";
+import { useState } from "react";
 import RescueFlowPopupStep3 from "./RescueFlowPopupStep3";
 import { SearchParams } from "../views/RescueFlow";
 

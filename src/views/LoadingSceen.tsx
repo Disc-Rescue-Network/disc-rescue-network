@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
 import "../styles/loadingScreen.css";
-import { useNavigate } from "react-router";
 
 export default function LoadingPage() {
   return (

@@ -1,9 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import LogoRescueFlow2 from "../components/LogoRescueFlow2";
-import RequestCourseComponents from "../components/RequestCourseComponents";
-import FormRequestCourse from "../components/FormRequestCourse";
-import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import RequestCourseComponets from "../components/RequestCourseComponents";

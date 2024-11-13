@@ -3,8 +3,6 @@ import React, { useEffect } from "react";
 import "../styles/popupComponent.css";
 import Button from "./Button";
 import "../styles/reportLostPopup.css";
-import { API_BASE_URL, Disc } from "../App";
-import { useCourses } from "../hooks/useCourses";
 
 export interface Pickup {
   vid: number;

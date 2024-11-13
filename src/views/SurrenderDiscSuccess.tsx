@@ -5,7 +5,6 @@ import { useState } from "react";
 import RequestCourseComponents from "../components/RequestCourseComponents";
 import "../styles/requestCourseComponents.css";
 import Button from "../components/Button";
-import { Disc } from "../App";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function SurrenderDiscSuccess() {

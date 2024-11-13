@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "../styles/courseSection.css";
-import axios from "axios";
-import { API_BASE_URL, Disc, DiscStateString } from "../App";
+import { Disc, DiscStateString } from "../App";
 import CourseSectionDiscs from "./CourseSectionDiscs";
 import { useInventory } from "../hooks/useInventory";
 import React from "react";
