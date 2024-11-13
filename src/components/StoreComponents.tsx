@@ -21,14 +21,15 @@ const StoreComponents: React.FC<StoreComponents> = ({
   return (
     <div className="components-store">
       <h2 className="header-store">{baseText}</h2>
-      <h4 className="subheader-store">
-        {contentText} <br /> <br />
+      <h4 className="subheader-store">{contentText}</h4>
+      <h4 className="subheader-store" style={{ marginBottom: "20px" }}>
         <span className="subheader-small">
           {before20PercentOff}
           <u>20% off</u>
           {after20PercentOff}
         </span>
       </h4>
+
       {/* <div className="buttons-store">
         <FormStore inputName={"PHONE NUMBER OR EMAIL FOR NOTIFICATION"} />
         <Button

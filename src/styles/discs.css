@@ -41,6 +41,8 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   padding: 5px;
+  column-gap: 20px; /* Adjust horizontal gap */
+  row-gap: 20px; /* Adjust vertical gap */
 }
 
 .card-container-claim-single-disc {
@@ -49,5 +51,4 @@
   align-items: center;
   justify-content: center;
   padding: 5px;
-
 }

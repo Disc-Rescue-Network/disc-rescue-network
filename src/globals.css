@@ -164,15 +164,18 @@ a {
 
 .claim-disc-cell {
   padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
   font-size: 1rem;
   border-bottom: 1px solid #ddd; /* Adds grid lines between rows */
   border-right: 1px solid #ddd; /* Adds grid lines between columns */
+  background-color: #f4f4f4; /* Light gray background */
+  font-weight: 400;
 }
 
 .claim-disc-cell.label {
-  font-weight: bold;
-  background-color: #f4f4f4; /* Light gray background for labels */
-  color: #333;
+  font-weight: 400;
+  /* color: #333; */
 }
 
 .claim-disc-cell:last-child {

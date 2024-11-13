@@ -1,96 +1,94 @@
 .components-store {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    margin: auto;
-
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin: auto;
+  max-width: 1300px;
 }
 
 .header-store {
-    margin-bottom: 5rem;
-    margin: 0;
-    color: white;
-    font-size: 6rem;
-    margin-top: 1rem;
-    font-family: "Thiccboi", sans-serif;
-    text-transform: uppercase;
-    
+  margin-bottom: 5rem;
+  margin: 0;
+  color: white;
+  font-size: 6rem;
+  margin-top: 1rem;
+  font-family: "Thiccboi", sans-serif;
+  text-transform: uppercase;
 }
 
-@media screen and (max-width: 500px ) {
-    .header-store {
-        font-size: 3rem;
-    }
+@media screen and (max-width: 500px) {
+  .header-store {
+    font-size: 3rem;
+  }
 }
 
 .subheader-store {
-    margin-top: 1rem;
-    font-size: 3rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    color: white;
-    max-width: 80%;
-    line-height: 4rem;
+  margin-top: 1rem;
+  font-size: 3rem;
+  /* margin-bottom: 1.5rem; */
+  text-align: center;
+  color: white;
+  max-width: 80%;
+  line-height: 4rem;
 }
 
-@media screen and (max-width: 500px ) {
-    .subheader-store {
-        font-size: 1.5rem;
-        line-height: 1.6rem;
-        max-width: 100%;
-        letter-spacing: 0.01rem;
-    }
+@media screen and (max-width: 500px) {
+  .subheader-store {
+    font-size: 1.5rem;
+    line-height: 1.6rem;
+    max-width: 100%;
+    letter-spacing: 0.01rem;
+  }
 }
 
 .select-box-store {
-    max-width: 600px;
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    margin-bottom: .5rem;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  margin-bottom: 0.5rem;
 }
 
 .select-box-store input {
-    font-size: 1rem;
+  font-size: 1rem;
 }
-
 
 .buttons-store {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    margin-bottom: 0;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: 0;
+  width: 100%;
 }
 @media screen and (max-width: 500px) {
-    .buttons-store {
-        width: 90%;
-    }
+  .buttons-store {
+    width: 90%;
+  }
 }
 .button-red-store {
-    max-width: 600px;
-    height: 50px;
-    color: white;
-    border: 2px solid transparent; 
-    transition: border-color 0.3s ease; 
-    font-family: "Akira Expanded", sans-serif;
-    padding: 0;
-    font-size: 0.8rem !important;
-    letter-spacing: 0px;
-    
-    &:hover {
-          border-color: white; 
-        }
+  max-width: 600px;
+  height: 50px;
+  color: white;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+  font-family: "Akira Expanded", sans-serif;
+  padding: 0;
+  font-size: 0.8rem !important;
+  letter-spacing: 0px;
+
+  &:hover {
+    border-color: white;
+  }
 }
 
 @media screen and (max-width: 500px) {
-    .button-red-store {
-        font-size: 0.6rem !important;
-        letter-spacing: 0px;
-    }
+  .button-red-store {
+    font-size: 0.6rem !important;
+    letter-spacing: 0px;
+  }
 }
