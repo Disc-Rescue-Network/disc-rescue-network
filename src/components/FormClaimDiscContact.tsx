@@ -3,6 +3,7 @@ import { Button, Typography } from "@mui/material";
 import "../styles/rescueFlowForms.css";
 import "../styles/claimDiscComponents.css";
 import AddIcon from "@mui/icons-material/Add";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface FormReportLostColorProps {
   contactMethod: "phone" | "email";
@@ -76,6 +77,14 @@ const FormClaimDiscContact: React.FC<FormReportLostColorProps> = ({
     onPickupPreferencesChange(formattedPreferences);
   };
 
+  const handleRemovePreference = (preference: string) => {
+    const updatedPreferences = preferences.filter(
+      (pref) => `${pref.day} ${pref.time}` !== preference
+    );
+    setPreferences(updatedPreferences);
+    updatePickupPreferences(updatedPreferences);
+  };
+
   return (
     <>
       <div className="select-box-claim" style={{ marginBottom: "20px" }}>
@@ -91,44 +100,68 @@ const FormClaimDiscContact: React.FC<FormReportLostColorProps> = ({
 
       <h4 className="header-claim-disc white-text">Pickup Preferences</h4>
 
-      {preferences.map((pref, index) => (
-        <div className="select-box-report">
-          <div className="col-6 pe-0 arrow one" key={index}>
-            <select
-              value={pref.day}
-              onChange={(e) =>
-                handlePreferenceChange(index, "day", e.target.value as string)
-              }
-              className="form-select-claim"
-              style={{ marginTop: "5px" }}
-            >
-              <option value="" disabled>
-                Select Day
-              </option>
-              <option value="Weekday">Weekday</option>
-              <option value="Weekend">Weekend</option>
-            </select>
-          </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignContent: "center",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        {preferences.map((pref, index) => (
+          <div className="select-box-report" key={index}>
+            <div className="col-6 arrow one" style={{ marginTop: "5px" }}>
+              <select
+                value={pref.day}
+                onChange={(e) =>
+                  handlePreferenceChange(index, "day", e.target.value)
+                }
+                className="form-select-claim"
+                style={{ borderRadius: "0px" }}
+              >
+                <option value="" disabled>
+                  Select Day
+                </option>
+                <option value="Weekday">Weekday</option>
+                <option value="Weekend">Weekend</option>
+              </select>
+            </div>
 
-          <div className="col-6 pe-0 arrow one">
-            <select
-              value={pref.time}
-              onChange={(e) =>
-                handlePreferenceChange(index, "time", e.target.value as string)
-              }
-              className="form-select-claim"
-              style={{ marginTop: "5px" }}
-            >
-              <option value="" disabled>
-                Select Time
-              </option>
-              <option value="Morning">Morning (7am-12pm)</option>
-              <option value="Afternoon">Afternoon (12pm-5pm)</option>
-              <option value="Evening">Evening (5pm-9pm)</option>
-            </select>
+            <div className="col-6 pe-0 arrow one" style={{ marginTop: "5px" }}>
+              <select
+                value={pref.time}
+                onChange={(e) =>
+                  handlePreferenceChange(index, "time", e.target.value)
+                }
+                className="form-select-claim"
+                style={{ borderRadius: "0px" }}
+              >
+                <option value="" disabled>
+                  Select Time
+                </option>
+                <option value="Morning">Morning (7am-12pm)</option>
+                <option value="Afternoon">Afternoon (12pm-5pm)</option>
+                <option value="Evening">Evening (5pm-9pm)</option>
+              </select>
+            </div>
+
+            {/* Remove Button (X) */}
+            <CloseIcon
+              onClick={() => handleRemovePreference(`${pref.day} ${pref.time}`)}
+              style={{
+                margin: "auto",
+                color: "var(--error-red)",
+                fontWeight: "bold",
+                cursor: "pointer",
+                background: "none",
+                border: "none",
+              }}
+            />
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
 
       <Button
         startIcon={<AddIcon />}
@@ -152,27 +185,34 @@ const FormClaimDiscContact: React.FC<FormReportLostColorProps> = ({
         Add Pickup Option
       </Button>
 
-      {pickupPreferences.length > 0 && (
-        <Typography
-          variant="body1"
-          sx={{
-            my: 2,
-            color: "var(--primary-white)",
-            fontFamily: "Bebas Neue",
-            fontWeight: "bold",
-            letterSpacing: "1px",
-            fontSize: "1.2rem",
-            wordWrap: "normal",
-            wordBreak: "normal",
-            maxWidth: "600px",
-          }}
-        >
-          <span style={{ color: "var(--primary-green)" }}>
-            Selected Preferences:
-          </span>{" "}
-          {pickupPreferences.join(", ")}
-        </Typography>
-      )}
+      <div>
+        {pickupPreferences.length > 0 && (
+          <Typography
+            variant="body1"
+            sx={{
+              my: 2,
+              color: "var(--primary-white)",
+              fontFamily: "Bebas Neue",
+              fontWeight: "bold",
+              letterSpacing: "1px",
+              fontSize: "1.2rem",
+              wordWrap: "normal",
+              wordBreak: "normal",
+              maxWidth: "600px",
+            }}
+          >
+            <span style={{ color: "var(--primary-green)" }}>
+              Selected Preferences:
+            </span>
+            {pickupPreferences.map((preference, index) => (
+              <span key={index} style={{ marginLeft: "10px" }}>
+                {preference}
+                {index < pickupPreferences.length - 1 ? "," : ""}
+              </span>
+            ))}
+          </Typography>
+        )}
+      </div>
     </>
   );
 };

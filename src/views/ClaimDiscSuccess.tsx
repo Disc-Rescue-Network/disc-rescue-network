@@ -4,8 +4,8 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/requestCourseComponents.css";
-import Card from "../components/Card";
 import Button from "../components/Button";
+import { Disc } from "../App";
 
 export default function ClaimDiscSuccess() {
   const location = useLocation();
@@ -14,6 +14,7 @@ export default function ClaimDiscSuccess() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 500);
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
+  const claimedDisc = disc as Disc;
 
   const handleBack = () => {
     if (step > 1) {
@@ -45,6 +46,10 @@ export default function ClaimDiscSuccess() {
   const bottomPadding = isMobile ? "120px" : "150px";
   const PCM = contactMethod === "phone" ? "Text" : "Email";
 
+  if (!claimedDisc) {
+    return <div>Error: Disc not found</div>;
+  }
+
   return (
     <div
       className="container-store"
@@ -63,14 +68,17 @@ export default function ClaimDiscSuccess() {
 
       <div className={`request-course-components claim-disc-success`}>
         <h2 style={{ textAlign: "center" }}>
-          Nailed
-          <span className="fw-light"> IT!</span>
+          Claim
+          <span className="fw-light"> Submitted!</span>
         </h2>
       </div>
       <div
         style={{
           display: "flex",
           justifyContent: "center",
+          margin: "auto",
+          alignContent: "center",
+          alignItems: "center",
           maxWidth: "1368px",
         }}
       >
@@ -80,60 +88,38 @@ export default function ClaimDiscSuccess() {
           pickup has been confirmed by {disc?.course.name}.
         </h2>
       </div>
-      <div
-        className="verify-info claim-disc claim-border-bottom no-flex-direction no-color grey-background white-border drop-shadow extra-padding"
-        style={{ maxHeight: "400px", padding: "0px !important" }}
-      >
-        <div className="box-content-disc-success d-flex flex-column">
-          <div
-            className="verify-row-claim-success"
-            style={{ marginBottom: "20px", fontSize: "1rem" }}
-          >
-            <label>Pickup Preferences: </label>
-            <span id="verifyPickupPreferences" className="lato">
-              {pickupPreferences.join(", ") || "No Preference"}
-            </span>
-          </div>
-          <div
-            className="verify-row-claim-success"
-            style={{ marginBottom: "20px", fontSize: "1rem" }}
-          >
-            <label id="pickupLocationLabel">Pickup Location: </label>
-            <span id="verifyPickupLocation" className="lato">
-              {disc?.course.name} - {disc?.course.city}, {disc?.course.state}
-            </span>
-          </div>
-          <div
-            className="verify-row-claim-success"
-            style={{ marginBottom: "20px", fontSize: "1rem" }}
-          >
-            <label id="communicationMethodLabel">
-              {contactMethod === "phone"
-                ? "Phone Number For Release: "
-                : "Email For Release: "}
-            </label>
-            <span id="verifyContactInfoForRelease" className="lato">
-              {contactValue}
-            </span>
+      {/* Table-like grid layout */}
+      <div className="claim-disc-table">
+        {/* Table rows */}
+        <div className="claim-disc-row">
+          <div className="claim-disc-cell label">Pickup Preferences:</div>
+          <div className="claim-disc-cell">
+            {pickupPreferences?.join(", ") || "No Preference"}
           </div>
         </div>
-        <div
-          className="verify-row"
-          id="discInfoVerify"
-          style={{
-            color: "var(--primary-black) !important",
-            width: "100%",
-            maxWidth: "400px",
-            margin: "0 auto",
-          }}
-        >
-          {disc && (
-            <Card disc={disc} showButton={false} className="center-important" />
-          )}
+        <div className="claim-disc-row">
+          <div className="claim-disc-cell label">Pickup Location:</div>
+          <div className="claim-disc-cell">
+            {claimedDisc?.course.name} - {claimedDisc?.course.city},{" "}
+            {claimedDisc?.course.state}
+          </div>
+        </div>
+        <div className="claim-disc-row">
+          <div className="claim-disc-cell label">{PCM} Details:</div>
+          <div className="claim-disc-cell">{contactValue}</div>
+        </div>
+        <div className="claim-disc-row">
+          <div className="claim-disc-cell label">Disc Details:</div>
+          <div className="claim-disc-cell">
+            {claimedDisc?.disc.brand.name}
+            {claimedDisc?.disc.name} ({claimedDisc?.color} -{" "}
+            {claimedDisc?.disc.plasticType} plastic)
+          </div>
         </div>
       </div>
+
       <Button
-        text={"Share to facebook"}
+        text={"Share to Facebook"}
         red={true}
         className="red-button-surrender"
         onClick={handleFacebookShare}

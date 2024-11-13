@@ -17,6 +17,9 @@ const RescueFlowPopup: React.FC<Props> = ({ onClosePopup, arrayOfDiscs }) => {
     navigate(`/claimDisc/${discID}`);
   };
 
+  const notMineText =
+    arrayOfDiscs.length === 1 ? "This is not mine" : "None of these are mine";
+
   return (
     <div className="popup">
       <div className="popup-content" style={{ width: "90%" }}>
@@ -49,7 +52,7 @@ const RescueFlowPopup: React.FC<Props> = ({ onClosePopup, arrayOfDiscs }) => {
           />
         )}
         <Button
-          text={"I do not see my disc"}
+          text={notMineText}
           red={false}
           className={"blue-button-popup"}
           onClick={onClosePopup}
