@@ -139,6 +139,10 @@ a {
   transform: translateY(-50%); /* Adjust for perfect vertical alignment */
 }
 
+.special-label {
+  z-index: -1 !important;
+}
+
 .claim-disc-table {
   display: grid;
   grid-template-columns: 1fr 2fr; /* First column for labels, second for details */

@@ -63,21 +63,36 @@ export default function RescueFlow() {
       return Object.entries(params).every(([key, value]) => {
         console.log("Checking", key, value);
 
-        // Assert that key is a keyof Disc to satisfy TypeScript's type checking
-        const discKey = key as keyof Disc;
-        // Ensure both values are treated as strings, trim them, and convert to lower case before comparison
-        const paramValue = String(value).trim().toLowerCase();
-        const discValue = String(disc[discKey]).trim().toLowerCase();
-        if (
-          params.name === "Jon " &&
-          params.brand === "Innova" &&
-          discValue === paramValue
-        ) {
-          console.log("Param value", paramValue);
-          console.log("Disc value", discValue);
-          console.log("Match?", discValue === paramValue);
+        // Determine the path for accessing the field (whether it's a direct or nested field)
+        let discValue: string | null;
+
+        // Handle nested brand field
+        if (key === "brand" && disc.disc?.brand) {
+          console.log("Checking brand", disc.disc.brand.name);
+          discValue = disc.disc.brand.name; // Access nested brand name
+        } else if (key === "color") {
+          discValue = disc.color;
+        } else if (key === "category") {
+          discValue = disc.category;
+        } else if (key === "plasticType") {
+          discValue = disc.disc?.plasticType;
+        } else if (key === "course") {
+          discValue = disc.course?.name;
+        } else if (key === "phoneNumber") {
+          discValue = disc.phoneNumber;
+        } else {
+          // For other keys, access directly from Disc object
+          discValue = String(disc[key as keyof Disc])
+            .trim()
+            .toLowerCase();
         }
-        return discValue === paramValue;
+
+        // Ensure both values are treated as strings, trimmed, and converted to lower case before comparison
+        const paramValue = String(value).trim().toLowerCase();
+        if (discValue) {
+          return discValue.toLowerCase() === paramValue;
+        }
+        return false;
       });
     };
 
@@ -99,7 +114,13 @@ export default function RescueFlow() {
 
     // Ensure every valid combination includes 'name' or 'phone number', with 'course', 'color', and 'brand' being supplementary
     const validCombinations = combinations.filter(
-      (combo) => combo.includes("name") || combo.includes("phone number")
+      (combo) =>
+        combo.includes("name") ||
+        combo.includes("phoneNumber") ||
+        (combo.includes("color") && combo.includes("brand")) ||
+        (combo.includes("color") && combo.includes("course")) ||
+        (combo.includes("course") && combo.includes("brand")) ||
+        (combo.includes("course") && combo.includes("color"))
     );
 
     // Helper function to generate combinations of the keys
@@ -158,63 +179,15 @@ export default function RescueFlow() {
       console.log("1-6 matches found", matches);
       setMatchedDiscs(matches);
       setIsPopupOpen(true);
+    } else if (matches.length > 6 && step === 5) {
+      console.log("More than 6 matches found, but we are at the last step");
+      setMatchedDiscs(matches);
+      setIsPopupOpen(true);
     } else {
       console.log("More than 6 matches found, moving to next step");
       setStep(step + 1);
     }
   };
-
-  // const checkInventory = (searchParams: SearchParams): Disc[] => {
-  //   console.log("searchParams", searchParams);
-  //   console.log("inventory", inventory);
-
-  //   const options = {
-  //     keys: [
-  //       { name: "course", weight: 0.2 },
-  //       { name: "name", weight: 0.4 },
-  //       { name: "phoneNumber", weight: 0.2 },
-  //       { name: "color", weight: 0.1 },
-  //       { name: "brand", weight: 0.1 },
-  //     ],
-  //     threshold: 0.4, // Adjust the threshold as needed
-  //   };
-
-  //   const fuse = new Fuse(inventory, options);
-
-  //   const query: Record<string, string>[] = [];
-  //   if (searchParams.course) {
-  //     query.push({ course: searchParams.course });
-  //   }
-  //   if (searchParams.name) {
-  //     query.push({ name: searchParams.name });
-  //   }
-  //   if (searchParams.phoneNumber) {
-  //     query.push({ phoneNumber: searchParams.phoneNumber });
-  //   }
-
-  //   if (query.length === 0) {
-  //     return inventory; // Return all if no query provided
-  //   }
-
-  //   const result = fuse.search({ $and: query });
-
-  //   return result.map(({ item }) => item);
-  // };
-
-  // const checkInventory = (searchParams: SearchParams): Disc[] => {
-  //   console.log("searchParams", searchParams);
-  //   console.log("inventory", inventory);
-  //   return inventory.filter((disc) => {
-  //     return (
-  //       (!searchParams.color || disc.color === searchParams.color) &&
-  //       (!searchParams.brand || disc.brand === searchParams.brand) &&
-  //       (!searchParams.name || disc.name === searchParams.name) &&
-  //       (!searchParams.phoneNumber ||
-  //         disc.phoneNumber === searchParams.phoneNumber) &&
-  //       (!searchParams.course || disc.course === searchParams.course)
-  //     );
-  //   });
-  // };
 
   const closePopup = () => {
     setIsPopupOpen(false);
