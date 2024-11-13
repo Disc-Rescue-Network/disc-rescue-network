@@ -1,6 +1,5 @@
 import "../styles/discs.css";
 import Card from "./Card";
-import imageLogo from "../assets/DRN_WebLogo_HDPI.png";
 import { Disc } from "../App";
 import SkeletonCard from "./SkeletonCard";
 

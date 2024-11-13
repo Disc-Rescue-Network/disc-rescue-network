@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 const RescueFLowFailure = () => {
   const navigate = useNavigate();
 
-  const ReportLostDisc = () => {
-    navigate("/reportLostDisc");
+  const reportLostDisc = () => {
+    window.location.href = "https://discrescuenetwork.com/report-lost-disc";
   };
 
   const SearchAll = () => {
@@ -35,7 +35,7 @@ const RescueFLowFailure = () => {
           text={"Report My Disc Lost and Help The Wizard"}
           red={true}
           className="button-red-rescue-failure"
-          onClick={ReportLostDisc}
+          onClick={reportLostDisc}
         />
         <Button
           text={"Fine, I'll do it Myself"}

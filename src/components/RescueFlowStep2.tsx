@@ -47,7 +47,7 @@ const RescueFlowStep2 = (props: RescueFlowProps) => {
         />
       </div>
       <FormStep
-        inputName={"PHONE NUMBER WRITTEN ON THE DISC"}
+        phoneNumber={"PHONE NUMBER WRITTEN ON THE DISC"}
         setPhoneNumber={setPhoneNumber}
       />
       <div className="buttons-rescue-step2">
@@ -57,7 +57,11 @@ const RescueFlowStep2 = (props: RescueFlowProps) => {
           className="button-red-rescue-step2"
           onClick={() => {
             console.log("Phone Number", phoneNumber);
-            const newParams = { ...searchParams, phoneNumber };
+            const phoneNumberWithPlus = `+${phoneNumber}`;
+            const newParams = {
+              ...searchParams,
+              phoneNumber: phoneNumberWithPlus,
+            };
             console.log("New Params", newParams);
             setSearchParams(newParams);
             handleNextStep(newParams);

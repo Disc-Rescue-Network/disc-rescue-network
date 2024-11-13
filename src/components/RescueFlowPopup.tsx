@@ -2,7 +2,6 @@ import "../styles/rescueFlowPopup.css";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import { Disc } from "../App";
-import { useState } from "react";
 import RescueFlowDiscsArray from "./RescueFlowDiscsArray";
 import Card from "./Card";
 
@@ -17,6 +16,9 @@ const RescueFlowPopup: React.FC<Props> = ({ onClosePopup, arrayOfDiscs }) => {
   const handleClaimDisc = (discID: string) => {
     navigate(`/claimDisc/${discID}`);
   };
+
+  const notMineText =
+    arrayOfDiscs.length === 1 ? "This is not mine" : "None of these are mine";
 
   return (
     <div className="popup">
@@ -50,7 +52,7 @@ const RescueFlowPopup: React.FC<Props> = ({ onClosePopup, arrayOfDiscs }) => {
           />
         )}
         <Button
-          text={"I do not see my disc"}
+          text={notMineText}
           red={false}
           className={"blue-button-popup"}
           onClick={onClosePopup}

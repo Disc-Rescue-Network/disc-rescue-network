@@ -1,13 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LogoRescueFlow2 from "../components/LogoRescueFlow2";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import ReportLostComponents from "../components/ReportLostComponents";
 import { useState, useEffect } from "react";
 import PopUpReport from "../components/ReportLostPopup";
 import { useNavigate, useParams } from "react-router-dom";
 import ClaimDiscComponents from "../components/ClaimDiscComponents";
-import { API_BASE_URL, Disc } from "../App";
-import axios from "axios";
 import { useInventory } from "../hooks/useInventory";
 import React from "react";
 

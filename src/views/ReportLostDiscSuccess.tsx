@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RequestCourseComponents from "../components/RequestCourseComponents";
 import "../styles/requestCourseComponents.css";
-import Button from "../components/Button";
 
 export default function ReportLostDiscSuccess() {
   const [step, setStep] = useState(1);

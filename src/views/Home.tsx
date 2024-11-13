@@ -4,10 +4,6 @@ import FullLogoHeader from "../components/HeaderComponents";
 import HomePageButtons from "../components/HomePageButtons";
 import Subheader from "../components/Subheader";
 import Discs from "../components/Discs";
-import Footer from "../components/Footer";
-import { useEffect, useState } from "react";
-import { Disc, DiscStateString } from "../App";
-import axios from "axios";
 import { useInventory } from "../hooks/useInventory";
 
 function Home() {

@@ -1,7 +1,5 @@
 import "../styles/storeComponents.css";
-import Button from "./Button";
 import CheckOptInStatusForm from "./CheckOptInStatusForm";
-import FormStore from "./FormStore";
 
 interface StoreComponents {
   baseText: string;

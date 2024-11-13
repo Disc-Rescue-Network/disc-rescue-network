@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import "../styles/popupClaimDisc.css";
 import Button from "./Button";
 import { API_BASE_URL, Course, Disc } from "../App";
-import { useNavigate } from "react-router-dom";
 import Card from "./Card";
 import React from "react";
 import { useCourses } from "../hooks/useCourses";

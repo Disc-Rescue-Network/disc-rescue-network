@@ -139,6 +139,50 @@ a {
   transform: translateY(-50%); /* Adjust for perfect vertical alignment */
 }
 
+.special-label {
+  z-index: -1 !important;
+}
+
+.claim-disc-table {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* First column for labels, second for details */
+  gap: 1px;
+  border: 1px solid #ddd; /* Table border */
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: fit-content;
+}
+
+.claim-disc-row {
+  display: contents; /* Makes each row behave like a table row */
+}
+
+.claim-disc-cell {
+  padding: 10px;
+  font-size: 1rem;
+  border-bottom: 1px solid #ddd; /* Adds grid lines between rows */
+  border-right: 1px solid #ddd; /* Adds grid lines between columns */
+}
+
+.claim-disc-cell.label {
+  font-weight: bold;
+  background-color: #f4f4f4; /* Light gray background for labels */
+  color: #333;
+}
+
+.claim-disc-cell:last-child {
+  border-right: none; /* Removes border from last column */
+}
+
+.claim-disc-row:last-child .claim-disc-cell {
+  border-bottom: none; /* Removes border from the last row */
+}
+
 .white-text {
   color: var(--primary-white);
 }

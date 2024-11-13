@@ -1,4 +1,3 @@
-import imageLogo from "../assets/DRN_WebLogo_HDPI.png";
 import Button from "./Button";
 import "../styles/rescueFlowPopupStep.css";
 

@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import CourseSection from "../components/CourseSection";
 import SearchInventorySidebar from "../components/SearchInventorySidebar";
 import { Disc } from "../App";
-import LogoRescueFlow3 from "../components/LogoRescueFlow3";
 import LogoRescueFlow2 from "../components/LogoRescueFlow2";
 
 interface FilterCriteria {

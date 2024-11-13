@@ -4,18 +4,7 @@ import LogoRescueFlow2 from "../components/LogoRescueFlow2";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import {
-  Box,
-  Button,
-  TextField,
-  Typography,
-  Alert,
-  CircularProgress,
-  withStyles,
-} from "@mui/material";
 import { API_BASE_URL } from "../App";
-import { relative } from "path";
-import { WhiteBorderTextField } from "../components/WhiteBorderTextField";
 import CheckOptInStatusForm from "../components/CheckOptInStatusForm";
 
 export default function Settings() {

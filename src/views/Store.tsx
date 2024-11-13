@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import Footer from "../components/Footer";
 import LogoRescueFlow2 from "../components/LogoRescueFlow2";
 import StoreComponents from "../components/StoreComponents";
 import { useNavigate } from "react-router-dom";
