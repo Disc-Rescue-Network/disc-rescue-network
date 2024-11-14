@@ -15,6 +15,10 @@ interface PopupVerifyProps {
   contactMethod: "phone" | "email";
   contactValue: string;
   onSuccess: (pickup: Pickup) => void;
+  setShowInfoMessage: (value: boolean) => void;
+  setInfoMessage: (value: string) => void;
+  setShowErrorMessage: (value: boolean) => void;
+  setErrorMessage: (value: string) => void;
 }
 
 interface PopupSurrenderProps {
@@ -30,6 +34,10 @@ export function PopupVerify({
   contactMethod,
   contactValue,
   onSuccess,
+  setErrorMessage,
+  setShowErrorMessage,
+  setShowInfoMessage,
+  setInfoMessage,
 }: PopupVerifyProps) {
   const [contactInfo, setContactInfo] = useState("");
 
@@ -74,7 +82,6 @@ export function PopupVerify({
       const jsonBody = JSON.stringify({
         comments: `${pickupName} wants to claim this disc`,
         itemId: disc.id,
-        userId: 1,
         phoneNumber: formattedContactValue,
         pickup: {
           courseId: courseId,
@@ -95,18 +102,23 @@ export function PopupVerify({
       if (!response.ok) {
         console.log(response);
         console.log(response.statusText);
-        console.log(await response.json());
-        throw new Error("Network response was not ok");
+        const responseJson = await response.json();
+        console.log(responseJson);
+        throw new Error(responseJson.message);
       }
 
       // get OTP
       const data = await response.json();
       const pickupInfo = data.data as Pickup;
       console.log(pickupInfo);
+      setShowInfoMessage(true);
+      setInfoMessage("Claim request submitted successfully!");
       onSuccess(pickupInfo);
       onClose();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to surrender disc:", error);
+      setShowErrorMessage(true);
+      setErrorMessage("Failed to surrender disc: " + error.message);
     } finally {
       setLoading(false);
     }

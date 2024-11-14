@@ -22,8 +22,6 @@ const Card = (props: CardProps) => {
     navigate(`/claimDisc/${disc.id}`);
   };
 
-  console.log(disc);
-
   return (
     <div className={cardClassName}>
       <div className="disc-info">
@@ -35,15 +33,20 @@ const Card = (props: CardProps) => {
             <div className="course-wrapper">{disc.course.name}</div>
           </div>
         </div>
-        <img
-          src={disc.topImage || noImageFound}
-          loading="lazy"
-          alt="disc"
-          className="image"
-          onError={(e) => {
-            e.currentTarget.src = noImageFound;
-          }}
-        />
+        <div className="image-wrapper">
+          <img
+            src={disc.topImage || noImageFound}
+            loading="lazy"
+            alt="disc"
+            className="image"
+            onError={(e) => {
+              e.currentTarget.src = noImageFound;
+            }}
+          />
+          {disc.claims.length > 0 && (
+            <div className="ribbon">Pending Claims</div>
+          )}
+        </div>
         <div className="w-layout-grid grid grid-disc">
           <div className="course-list">
             <ul>

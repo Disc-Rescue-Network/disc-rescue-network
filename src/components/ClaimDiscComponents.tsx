@@ -7,10 +7,12 @@ import { useEffect, useState } from "react";
 import "../styles/popupClaimDisc.css";
 import { PopupVerify } from "./PopupClaimDisc";
 import { Disc } from "../App";
-import PopUpSurrender, { Pickup } from "./PopupSurrender";
+import PopUpSurrender, { Claim, Pickup } from "./PopupSurrender";
 import { useNavigate } from "react-router-dom";
 import { VerifyOTP } from "./VerifyOTP";
 import TermsOfFlow from "./TermsOfFlow";
+import { Alert, Snackbar } from "@mui/material";
+import ClaimToSurrenderPopUp from "./ClaimToSurrenderPopup";
 
 interface HeaderReportLostProps {
   className?: string;
@@ -20,6 +22,7 @@ interface HeaderReportLostProps {
 
 const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const { className, contactMethod, disc } = props;
+  const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
   const [pickupName, setPickupName] = useState("");
   const [pickupPreferences, setPickupPreferences] = useState<string[]>([]);
@@ -30,11 +33,26 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [showPopupSurrender, setShowPopupSurrender] = useState(false);
-  const navigate = useNavigate();
+  const [showClaimToSurrenderPopup, setShowClaimToSurrenderPopup] =
+    useState(false);
   const [showOTP, setShowOTP] = useState(false);
   const [showTOF, setShowTOF] = useState(false);
   const [TOFAccepted, setTOFAccepted] = useState(false);
   const [pickupInfo, setPickupInfo] = useState<Pickup | null>(null);
+  const [originalClaim, setOriginalClaim] = useState<Claim | null>(null);
+
+  const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const [showInfoMessage, setShowInfoMessage] = useState<boolean>(false);
+  const [infoMessage, setInfoMessage] = useState("");
+
+  useEffect(() => {
+    console.log("rendering with disc", disc);
+  }, [disc]);
 
   useEffect(() => {
     if (contactMethod !== "phone") {
@@ -63,12 +81,26 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
       return;
     }
 
-    if (pickupPreferences && pickupName) {
+    if (pickupPreferences.length > 0 && pickupName) {
       setShowPopup(true);
       setIsSurrender(false);
     } else {
-      alert("Please choose your preferred pickup days/times.");
+      setShowErrorMessage(true);
+      setErrorMessage("Please fill out all fields");
     }
+  };
+
+  const comparePhoneNumbers = (unformattedPhoneNumber: string, disc: Disc) => {
+    const formattedContactValue = `+1${unformattedPhoneNumber.replace(
+      /\D/g,
+      ""
+    )}`;
+
+    if (formattedContactValue === disc.phoneNumber) {
+      return true;
+    }
+
+    return false;
   };
 
   const closePopup = () => {
@@ -77,6 +109,26 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
 
   const openPopup = () => {
     setIsSurrender(true);
+
+    if (disc.claims.length > 0) {
+      // check claims list for entered phone number / email. if there is a match, log to console
+      const claim = disc.claims.find(
+        (claim) =>
+          claim.email === contactValue ||
+          comparePhoneNumbers(contactValue, disc)
+      );
+      if (claim) {
+        console.log("User already claimed this disc");
+        setOriginalClaim(claim);
+        setShowClaimToSurrenderPopup(true);
+        setShowErrorMessage(true);
+        setErrorMessage(
+          "You have already claimed this disc, are you sure you want to surrender it?"
+        );
+        return;
+      }
+    }
+
     if (!phoneNumberMatches) {
       setShowTOF(true);
       return;
@@ -198,6 +250,10 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           contactMethod={contactMethod}
           contactValue={contactValue}
           onSuccess={verifyPCM}
+          setShowErrorMessage={setShowErrorMessage}
+          setErrorMessage={setErrorMessage}
+          setInfoMessage={setInfoMessage}
+          setShowInfoMessage={setShowInfoMessage}
         />
       )}
 
@@ -214,6 +270,35 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           pickupPreferences={pickupPreferences}
           disc={disc}
           tofAccepted={TOFAccepted}
+          setShowErrorMessage={setShowErrorMessage}
+          setErrorMessage={setErrorMessage}
+          setSuccessMessage={setSuccessMessage}
+          setShowSuccessMessage={setShowSuccessMessage}
+          setShowInfoMessage={setShowInfoMessage}
+          setInfoMessage={setInfoMessage}
+        />
+      )}
+
+      {showClaimToSurrenderPopup && (
+        <ClaimToSurrenderPopUp
+          className="popup-surrender-disc"
+          title={"You are about to Surrender Your Disc"}
+          content={
+            "Hi There! Looks like you already claimed this disc. Please be sure you wish to change this to a surrender! Surrendering your disc is just like a donation. This disc can be sold by the course to raise funds for things like new tee pads, new baskets or general maintenance."
+          }
+          onClose={closePopupSurrender}
+          onSuccess={verifyPCM}
+          pickupName={pickupName}
+          pickupPreferences={pickupPreferences}
+          disc={disc}
+          tofAccepted={TOFAccepted}
+          originalClaim={originalClaim}
+          setShowErrorMessage={setShowErrorMessage}
+          setErrorMessage={setErrorMessage}
+          setSuccessMessage={setSuccessMessage}
+          setShowSuccessMessage={setShowSuccessMessage}
+          setShowInfoMessage={setShowInfoMessage}
+          setInfoMessage={setInfoMessage}
         />
       )}
 
@@ -226,6 +311,11 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           isSurrender={isSurrender}
           pickupInfo={pickupInfo}
           tofAccepted={TOFAccepted}
+          originalClaim={originalClaim}
+          setShowErrorMessage={setShowErrorMessage}
+          setErrorMessage={setErrorMessage}
+          setSuccessMessage={setSuccessMessage}
+          setShowSuccessMessage={setShowSuccessMessage}
         />
       )}
 
@@ -235,6 +325,51 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           handleAcceptTOF={handleAcceptTOF}
         />
       )}
+
+      <Snackbar
+        open={showSuccessMessage}
+        autoHideDuration={6000}
+        onClose={() => setShowSuccessMessage(false)}
+      >
+        <Alert
+          onClose={() => setShowSuccessMessage(false)}
+          severity="success"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {successMessage}
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={showErrorMessage}
+        autoHideDuration={6000}
+        onClose={() => setShowErrorMessage(false)}
+      >
+        <Alert
+          onClose={() => setShowErrorMessage(false)}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {errorMessage}
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={showInfoMessage}
+        autoHideDuration={6000}
+        onClose={() => setShowInfoMessage(false)}
+      >
+        <Alert
+          onClose={() => setShowInfoMessage(false)}
+          severity="info"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {infoMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

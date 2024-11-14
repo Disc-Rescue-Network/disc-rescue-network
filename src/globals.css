@@ -146,8 +146,8 @@ a {
 .claim-disc-table {
   display: grid;
   grid-template-columns: 1fr 2fr; /* First column for labels, second for details */
-  gap: 1px;
-  border: 1px solid #ddd; /* Table border */
+  /* gap: 1px; */
+  border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
   max-width: 1300px;
@@ -167,15 +167,16 @@ a {
   padding-left: 20px;
   padding-right: 20px;
   font-size: 1rem;
-  border-bottom: 1px solid #ddd; /* Adds grid lines between rows */
-  border-right: 1px solid #ddd; /* Adds grid lines between columns */
   background-color: #f4f4f4; /* Light gray background */
   font-weight: 400;
 }
 
 .claim-disc-cell.label {
   font-weight: 400;
-  /* color: #333; */
+}
+
+.claim-disc-cell.content {
+  color: #333;
 }
 
 .claim-disc-cell:last-child {

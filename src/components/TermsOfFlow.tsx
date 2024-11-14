@@ -1,37 +1,8 @@
 // PopUpSurrender.tsx
-import React, { useEffect } from "react";
+import React from "react";
 import "../styles/popupComponent.css";
 import Button from "./Button";
 import "../styles/reportLostPopup.css";
-
-export interface Pickup {
-  vid: number;
-  claim: Claim;
-}
-
-export interface Claim {
-  tofAccepted: boolean;
-  verified: boolean;
-  id: number;
-  comments: string;
-  itemId: number;
-  userId: number;
-  phoneNumber: string;
-  pickup: PickupInfo;
-  surrendered: boolean;
-  updatedAt: string;
-  createdAt: string;
-}
-
-export interface PickupInfo {
-  id: number;
-  courseId: number;
-  day: string[];
-  time: string[];
-  claimId: number;
-  updatedAt: string;
-  createdAt: string;
-}
 
 interface TermsOfFlowProps {
   onClose: () => void;
