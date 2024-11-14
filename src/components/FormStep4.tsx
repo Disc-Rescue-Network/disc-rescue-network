@@ -16,13 +16,13 @@ const FormStep4 = (props: FormStep4Props) => {
     setBrand(e.target.value);
   };
   const handleBrandInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("e.target.value", e.target.value);
+    //console.log("e.target.value", e.target.value);
     setBrand(e.target.value);
   };
 
   useEffect(() => {
     if (inventory.length === 0) {
-      console.log("Fetching inventory");
+      //console.log("Fetching inventory");
       fetchInventory();
     }
   }, [inventory]);
@@ -34,7 +34,7 @@ const FormStep4 = (props: FormStep4Props) => {
         .filter((brand) => brand && brand.trim() !== "")
     )
   ).sort((a, b) => a!.localeCompare(b!));
-  console.log("brands", brands);
+  //console.log("brands", brands);
 
   return (
     <div className="input-dropdown-wrapper mt-1">

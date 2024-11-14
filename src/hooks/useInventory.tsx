@@ -12,9 +12,9 @@ interface InventoryHook {
 }
 
 const convertToEST = (httpTimestamp: string) => {
-  console.log("Converting timestamp:", httpTimestamp);
+  //console.log("Converting timestamp:", httpTimestamp);
   const dateUTC = DateTime.fromHTTP(httpTimestamp, { zone: "utc" });
-  console.log("Converted to UTC:", dateUTC);
+  //console.log("Converted to UTC:", dateUTC);
   return dateUTC.toFormat("yyyy-MM-dd");
 };
 
@@ -88,9 +88,9 @@ export const useInventory = (): InventoryHook => {
         currentPage += 1; // Increment page number for the next request
       }
 
-      console.log("Full Inventory response:", allItems);
+      //console.log("Full Inventory response:", allItems);
       const discsWithClaims = allItems.filter((disc) => disc.claims.length > 0);
-      console.log("Discs with claims:", discsWithClaims);
+      //console.log("Discs with claims:", discsWithClaims);
 
       //filter out discs that are claimed, sold, or for sale
       allItems = allItems.filter(

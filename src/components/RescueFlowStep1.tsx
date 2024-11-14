@@ -22,8 +22,8 @@ const RescueFlowStep1: React.FC<RescueFlowStep1Props> = ({
 }) => {
   const [state, setState] = useState("");
   const [course, setCourse] = useState("");
-  // console.log("State", state);
-  // console.log("Course", course);
+  // //console.log("State", state);
+  // //console.log("Course", course);
 
   return (
     <>
@@ -48,9 +48,9 @@ const RescueFlowStep1: React.FC<RescueFlowStep1Props> = ({
           red={true}
           className="button-red-rescue-5"
           onClick={() => {
-            console.log("Course", course);
+            //console.log("Course", course);
             const newParams = { ...searchParams, course };
-            console.log("New Params", newParams);
+            //console.log("New Params", newParams);
             setSearchParams(newParams);
             handleNextStep(newParams);
           }}
@@ -61,7 +61,7 @@ const RescueFlowStep1: React.FC<RescueFlowStep1Props> = ({
           border={true}
           className="second-button-rescue-3 white-border"
           onClick={() => {
-            console.log("Skipping, no course");
+            //console.log("Skipping, no course");
             const newParams = { ...searchParams, course: "" };
             handleNextStep(newParams);
           }}

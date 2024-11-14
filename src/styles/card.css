@@ -280,7 +280,8 @@ button {
   background-color: var(--primary-green);
   color: white;
   padding: 5px 10px;
-  font-size: 12px;
+  font-size: 10px;
+  letter-spacing: 2px;
   font-weight: bold;
   /* transform: rotate(45deg); */
   z-index: 1;

@@ -138,10 +138,10 @@ const CoursePickerForm = (props: CoursePickerProps) => {
       setState(stateAbbreviation);
     }
 
-    console.log(selectedCourse);
+    //console.log(selectedCourse);
   };
 
-  console.log("selected state", selectedState);
+  //console.log("selected state", selectedState);
 
   const filteredCourses =
     selectedState === "All" || selectedState === "STATE" || selectedState === ""

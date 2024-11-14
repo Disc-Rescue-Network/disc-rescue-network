@@ -20,10 +20,10 @@ export default function Button(props: ButtonProps) {
 
   React.useEffect(() => {
     if (icon !== "" && icon !== undefined) {
-      console.log("icon is set");
+      //console.log("icon is set");
       setShowIcon(true);
     } else {
-      console.log("icon is not set");
+      //console.log("icon is not set");
       setShowIcon(false);
     }
   }, [icon]);

@@ -51,7 +51,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const [infoMessage, setInfoMessage] = useState("");
 
   useEffect(() => {
-    console.log("rendering with disc", disc);
+    //console.log("rendering with disc", disc);
   }, [disc]);
 
   useEffect(() => {
@@ -118,7 +118,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           comparePhoneNumbers(contactValue, disc)
       );
       if (claim) {
-        console.log("User already claimed this disc");
+        //console.log("User already claimed this disc");
         setOriginalClaim(claim);
         setShowClaimToSurrenderPopup(true);
         setShowErrorMessage(true);
@@ -194,8 +194,8 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const handleAcceptTOF = () => {
     setShowTOF(false);
     setTOFAccepted(true);
-    console.log("TOF accepted");
-    console.log("isSurrender", isSurrender);
+    //console.log("TOF accepted");
+    //console.log("isSurrender", isSurrender);
     if (isSurrender) {
       setShowPopupSurrender(true);
     } else {

@@ -104,7 +104,7 @@ function App() {
 
   React.useEffect(() => {
     if (inventory.length === 0) {
-      console.log("Fetching inventory");
+      //console.log("Fetching inventory");
       fetchInventory();
     }
   }, [inventory]);

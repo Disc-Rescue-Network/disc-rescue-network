@@ -31,10 +31,10 @@ export default function RescueFlow() {
 
   useEffect(() => {
     if (inventory.length === 0) {
-      console.log("Fetching inventory");
+      //console.log("Fetching inventory");
       fetchInventory();
     }
-    console.log("Inventory", inventory);
+    //console.log("Inventory", inventory);
   }, []);
 
   const navigate = useNavigate();
@@ -50,7 +50,7 @@ export default function RescueFlow() {
   };
 
   const updateSearchParams = (newParams: SearchParams) => {
-    console.log("Updating search params", newParams);
+    //console.log("Updating search params", newParams);
     setSearchParams((prevParams) => ({ ...prevParams, ...newParams }));
   };
 
@@ -61,14 +61,14 @@ export default function RescueFlow() {
       params: Partial<typeof searchParams>
     ) => {
       return Object.entries(params).every(([key, value]) => {
-        console.log("Checking", key, value);
+        //console.log("Checking", key, value);
 
         // Determine the path for accessing the field (whether it's a direct or nested field)
         let discValue: string | null;
 
         // Handle nested brand field
         if (key === "brand" && disc.disc?.brand) {
-          console.log("Checking brand", disc.disc.brand.name);
+          //console.log("Checking brand", disc.disc.brand.name);
           discValue = disc.disc.brand.name; // Access nested brand name
         } else if (key === "color") {
           discValue = disc.color;
@@ -147,13 +147,13 @@ export default function RescueFlow() {
       const paramsToCheck = Object.fromEntries(
         combo.map((key) => [key, filteredSearchParams[key]])
       );
-      console.log("Checking params", paramsToCheck);
+      //console.log("Checking params", paramsToCheck);
       const matchingDiscs = inventory.filter((disc) =>
         matchesSearchParams(disc, paramsToCheck)
       );
-      console.log("Matching discs in combos array", matchingDiscs);
+      //console.log("Matching discs in combos array", matchingDiscs);
       matchingDiscs.forEach((disc) => allMatchingDiscs.add(disc));
-      console.log("All matching discs in combos array", allMatchingDiscs);
+      //console.log("All matching discs in combos array", allMatchingDiscs);
     }
 
     // Convert the Set back to an array to return
@@ -161,30 +161,30 @@ export default function RescueFlow() {
   }
 
   const handleNextStep = async (newSearchParams: SearchParams) => {
-    console.log("Handle next step");
-    console.log("New Params", newSearchParams);
+    //console.log("Handle next step");
+    //console.log("New Params", newSearchParams);
     const matches = checkInventory(newSearchParams, inventory).filter(
       (disc) => !rejectedDiscs.includes(disc)
     );
 
-    console.log("Matches", matches);
+    //console.log("Matches", matches);
 
     if (matches.length === 0) {
-      console.log("No matches found");
+      //console.log("No matches found");
       setStep(step + 1); // should we skip to the end???
       return;
     }
 
     if (matches.length <= 6) {
-      console.log("1-6 matches found", matches);
+      //console.log("1-6 matches found", matches);
       setMatchedDiscs(matches);
       setIsPopupOpen(true);
     } else if (matches.length > 6 && step === 5) {
-      console.log("More than 6 matches found, but we are at the last step");
+      //console.log("More than 6 matches found, but we are at the last step");
       setMatchedDiscs(matches);
       setIsPopupOpen(true);
     } else {
-      console.log("More than 6 matches found, moving to next step");
+      //console.log("More than 6 matches found, moving to next step");
       setStep(step + 1);
     }
   };

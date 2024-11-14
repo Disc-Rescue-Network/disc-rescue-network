@@ -79,7 +79,7 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
   };
 
   const location = useLocation();
-  console.log(location.pathname);
+  //console.log(location.pathname);
 
   let footerClass = needCutOut ? "footer footer-before" : "footer";
 
@@ -87,7 +87,7 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
     footerClass += " secondary-footer";
   }
 
-  console.log(footerClass);
+  //console.log(footerClass);
 
   return (
     <>
