@@ -156,7 +156,7 @@ button {
 @media screen and (max-width: 500px) {
   .image {
     width: 135px;
-    height: 125px;
+    height: fit-content;
   }
 }
 
