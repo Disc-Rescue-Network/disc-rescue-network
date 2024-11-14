@@ -34,21 +34,21 @@ export default function CourseSection({
 
   React.useEffect(() => {
     if (inventory.length === 0) {
-      console.log("Fetching inventory");
+      //console.log("Fetching inventory");
       fetchInventory();
     }
   }, [inventory]);
 
   useEffect(() => {
-    console.log("Inventory", inventory);
+    //console.log("Inventory", inventory);
     applyFilters();
   }, [inventory, filters, currentSort, selectedCourseId]);
 
   const applyFilters = () => {
     const filteredDiscs = inventory.filter((disc) => {
-      console.log("Applying filters");
-      console.log("selectedCourseId", selectedCourseId);
-      console.log("filters", filters);
+      //console.log("Applying filters");
+      //console.log("selectedCourseId", selectedCourseId);
+      //console.log("filters", filters);
 
       const brand = disc.disc.brand || "";
       const color = disc.color || "";
@@ -78,7 +78,7 @@ export default function CourseSection({
       }
     });
 
-    console.log("Sorted discs", sortedDiscs);
+    //console.log("Sorted discs", sortedDiscs);
 
     setFilteredDiscs(sortedDiscs);
     setDisplayedDiscs(sortedDiscs.slice(0, 6));

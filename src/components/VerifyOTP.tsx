@@ -120,13 +120,13 @@ export function VerifyOTP({
         }),
       });
       if (!response.ok) {
-        console.log(response);
-        console.log(response.statusText);
-        console.log(await response.json());
+        //console.log(response);
+        //console.log(response.statusText);
+        //console.log(await response.json());
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      console.log("Verify OTP response:", data);
+      //console.log("Verify OTP response:", data);
       if (isSurrender) {
         onSurrenderClose();
       } else {
@@ -141,7 +141,7 @@ export function VerifyOTP({
 
   const handleResendCode = () => {
     // Logic to resend the code
-    console.log("Resend code");
+    //console.log("Resend code");
 
     let claimId = -1;
 

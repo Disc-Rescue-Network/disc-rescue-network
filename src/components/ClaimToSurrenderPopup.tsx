@@ -75,17 +75,17 @@ const ClaimToSurrenderPopUp: React.FC<ClaimToSurrenderPopUpProps> = ({
       );
 
       if (!response.ok) {
-        console.log(response);
-        console.log(response.statusText);
+        //console.log(response);
+        //console.log(response.statusText);
         const responseJson = await response.json();
-        console.log(responseJson);
+        //console.log(responseJson);
         throw new Error("Failed to surrender disc: " + responseJson.message);
       }
 
       // get OTP
       const data = await response.json();
       const pickupInfo = data.data as Pickup;
-      console.log(pickupInfo);
+      //console.log(pickupInfo);
       setShowInfoMessage(true);
       setInfoMessage(
         "Surrender request submitted successfully - please verify your PCM"

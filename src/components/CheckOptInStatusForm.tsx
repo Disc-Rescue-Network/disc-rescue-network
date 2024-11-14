@@ -23,16 +23,16 @@ export default function CheckOptInStatusForm() {
   const navigate = useNavigate();
 
   const handleCheckOptInStatus = async () => {
-    console.log("Checking opt-in status for phone number:", phoneNumber);
+    //console.log("Checking opt-in status for phone number:", phoneNumber);
     setLoading(true);
     setError(null);
     try {
       const response = await fetch(
         `${API_BASE_URL}/sms/phone-opt-in?phoneNumber=${phoneNumber}`
       );
-      console.log("Opt-in status response:", response);
+      //console.log("Opt-in status response:", response);
       const data = await response.json();
-      console.log("Opt-in status data:", data);
+      //console.log("Opt-in status data:", data);
       if (!data.data.items[0] || data.data.items.length > 1) {
         setError("Multiple phone numbers found. Please be more specific.");
         return;
@@ -41,7 +41,7 @@ export default function CheckOptInStatusForm() {
       setOptInStatus(data.data.items[0]?.smsConsent === 1 ? true : false);
     } catch (err) {
       setError("Error fetching opt-in status. Please try again.");
-      console.log("Error fetching opt-in status:", err);
+      //console.log("Error fetching opt-in status:", err);
     } finally {
       setLoading(false);
     }

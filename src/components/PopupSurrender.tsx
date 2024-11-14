@@ -100,7 +100,7 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
         },
         surrendered: true,
       });
-      console.log(jsonBody);
+      //console.log(jsonBody);
 
       const response = await fetch(`${API_BASE_URL}/inventory/claim`, {
         method: "POST",
@@ -111,17 +111,17 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
       });
 
       if (!response.ok) {
-        console.log(response);
-        console.log(response.statusText);
+        //console.log(response);
+        //console.log(response.statusText);
         const responseJson = await response.json();
-        console.log(responseJson);
+        //console.log(responseJson);
         throw new Error("Failed to surrender disc: " + responseJson.message);
       }
 
       // get OTP
       const data = await response.json();
       const pickupInfo = data.data as Pickup;
-      console.log(pickupInfo);
+      //console.log(pickupInfo);
       setShowInfoMessage(true);
       setInfoMessage(
         "Surrender request submitted successfully - please verify your PCM"

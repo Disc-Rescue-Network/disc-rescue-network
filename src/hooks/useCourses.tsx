@@ -52,7 +52,7 @@ export const useCourses = (): useCoursesHook => {
         `${API_BASE_URL}/course`,
         {}
       );
-      console.log("Courses response: ", response.data.data);
+      //console.log("Courses response: ", response.data.data);
       const fetchedCourses: Course[] = response.data.data; // Assuming the array contains all course objects
       setCourses(fetchedCourses);
       setCachedCourses(fetchedCourses);

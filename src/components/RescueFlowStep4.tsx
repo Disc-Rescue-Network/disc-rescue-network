@@ -50,9 +50,9 @@ const RescueFlowStep4 = (props: RescueFlowProps) => {
           red={true}
           className="button-red-rescue-3"
           onClick={() => {
-            console.log("brand", brand);
+            //console.log("brand", brand);
             const newParams = { ...searchParams, brand };
-            console.log("New Params", newParams);
+            //console.log("New Params", newParams);
             setSearchParams(newParams);
             handleNextStep(newParams);
           }}
@@ -63,9 +63,9 @@ const RescueFlowStep4 = (props: RescueFlowProps) => {
           border={true}
           className="second-button-rescue-3 white-border"
           onClick={() => {
-            console.log("skipping to next step");
+            //console.log("skipping to next step");
             const newParams = { ...searchParams, brand: "" };
-            console.log("New Params", newParams);
+            //console.log("New Params", newParams);
             setSearchParams(newParams);
             setStep(step + 1);
           }}

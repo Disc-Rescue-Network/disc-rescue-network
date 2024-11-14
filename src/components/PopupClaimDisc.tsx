@@ -89,7 +89,7 @@ export function PopupVerify({
         },
         surrendered: false,
       });
-      console.log(jsonBody);
+      //console.log(jsonBody);
 
       const response = await fetch(`${API_BASE_URL}/inventory/claim`, {
         method: "POST",
@@ -100,17 +100,17 @@ export function PopupVerify({
       });
 
       if (!response.ok) {
-        console.log(response);
-        console.log(response.statusText);
+        //console.log(response);
+        //console.log(response.statusText);
         const responseJson = await response.json();
-        console.log(responseJson);
+        //console.log(responseJson);
         throw new Error(responseJson.message);
       }
 
       // get OTP
       const data = await response.json();
       const pickupInfo = data.data as Pickup;
-      console.log(pickupInfo);
+      //console.log(pickupInfo);
       setShowInfoMessage(true);
       setInfoMessage("Claim request submitted successfully!");
       onSuccess(pickupInfo);

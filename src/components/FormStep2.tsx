@@ -13,7 +13,7 @@ const FormStep: React.FC<FormStepProps> = (props) => {
   const { phoneNumber, setPhoneNumber } = props;
 
   const handleSetPhoneNumber = (value: string) => {
-    console.log("Phone number", value);
+    //console.log("Phone number", value);
     setPhoneNumber(value);
   };
 
