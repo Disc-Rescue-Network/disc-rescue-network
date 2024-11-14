@@ -93,24 +93,24 @@ export default function ClaimDiscSuccess() {
         {/* Table rows */}
         <div className="claim-disc-row">
           <div className="claim-disc-cell label">Pickup Preferences:</div>
-          <div className="claim-disc-cell">
+          <div className="claim-disc-cell content">
             {pickupPreferences?.join(", ") || "No Preference"}
           </div>
         </div>
         <div className="claim-disc-row">
           <div className="claim-disc-cell label">Pickup Location:</div>
-          <div className="claim-disc-cell">
+          <div className="claim-disc-cell content">
             {claimedDisc?.course.name} - {claimedDisc?.course.city},{" "}
             {claimedDisc?.course.state}
           </div>
         </div>
         <div className="claim-disc-row">
           <div className="claim-disc-cell label">{PCM} Details:</div>
-          <div className="claim-disc-cell">{contactValue}</div>
+          <div className="claim-disc-cell content">{contactValue}</div>
         </div>
         <div className="claim-disc-row">
           <div className="claim-disc-cell label">Disc Details:</div>
-          <div className="claim-disc-cell">
+          <div className="claim-disc-cell content">
             {claimedDisc?.disc.brand.name}
             {claimedDisc?.disc.name} ({claimedDisc?.color} -{" "}
             {claimedDisc?.disc.plasticType} plastic)

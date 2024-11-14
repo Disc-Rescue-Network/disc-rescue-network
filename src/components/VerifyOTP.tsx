@@ -19,6 +19,10 @@ interface VerifyOTPProps {
   isSurrender: boolean;
   pickupInfo?: Pickup | null;
   tofAccepted?: boolean;
+  setShowSuccessMessage: (value: boolean) => void;
+  setShowErrorMessage: (value: boolean) => void;
+  setErrorMessage: (value: string) => void;
+  setSuccessMessage: (value: string) => void;
 }
 
 export function VerifyOTP({
@@ -29,14 +33,30 @@ export function VerifyOTP({
   isSurrender,
   pickupInfo,
   tofAccepted,
+  setShowSuccessMessage,
+  setShowErrorMessage,
+  setErrorMessage,
+  setSuccessMessage,
 }: VerifyOTPProps) {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useState(false);
+  const [resendTimer, setResendTimer] = useState(45);
 
   useEffect(() => {
     if (open) {
       inputRefs.current[0]?.focus();
+      setResendTimer(45);
+      const timer = setInterval(() => {
+        setResendTimer((prev) => {
+          if (prev === 1) {
+            clearInterval(timer);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      return () => clearInterval(timer);
     }
   }, [open]);
 
@@ -117,6 +137,30 @@ export function VerifyOTP({
     }
   };
 
+  const handleResendCode = () => {
+    // Logic to resend the code
+    console.log("Resend code");
+
+    try {
+      // Call API to resend OTP
+      fetch(
+        `${API_BASE_URL}/inventory/pcm/resend-otp?claimId=${pickupInfo?.claim.id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    } catch (error: any) {
+      console.error("Failed to resend code:", error);
+      setShowErrorMessage(true);
+      setErrorMessage("Failed to resend code: " + error.message);
+    }
+
+    setResendTimer(45);
+  };
+
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm">
       <DialogTitle>Verify Your PCM</DialogTitle>
@@ -140,6 +184,15 @@ export function VerifyOTP({
               sx={{ width: "3rem", mx: 0.5 }}
             />
           ))}
+        </Box>
+        <Box display="flex" justifyContent="center" my={2}>
+          <Button
+            onClick={handleResendCode}
+            color="primary"
+            disabled={resendTimer > 0}
+          >
+            {resendTimer > 0 ? `Resend Code in ${resendTimer}s` : "Resend Code"}
+          </Button>
         </Box>
       </DialogContent>
       <DialogActions>

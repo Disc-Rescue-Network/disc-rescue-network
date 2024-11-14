@@ -5,37 +5,9 @@ import Button from "./Button";
 import "../styles/reportLostPopup.css";
 import { API_BASE_URL, Disc } from "../App";
 import { useCourses } from "../hooks/useCourses";
+import { Claim, Pickup } from "./PopupSurrender";
 
-export interface Pickup {
-  vid: number;
-  claim: Claim;
-}
-
-export interface Claim {
-  tofAccepted: boolean;
-  verified: boolean;
-  id: number;
-  comments: string;
-  itemId: number;
-  phoneNumber: string;
-  email: string;
-  pickup: PickupInfo;
-  surrendered: boolean;
-  updatedAt: string;
-  createdAt: string;
-}
-
-export interface PickupInfo {
-  id: number;
-  courseId: number;
-  day: string[];
-  time: string[];
-  claimId: number;
-  updatedAt: string;
-  createdAt: string;
-}
-
-interface PopupReportProps {
+interface ClaimToSurrenderPopUpProps {
   title: string;
   content: string;
   onClose: () => void;
@@ -45,13 +17,14 @@ interface PopupReportProps {
   pickupName: string;
   pickupPreferences: string[];
   tofAccepted?: boolean;
+  originalClaim: Claim | null;
   setShowSuccessMessage: (value: boolean) => void;
   setShowErrorMessage: (value: boolean) => void;
   setErrorMessage: (value: string) => void;
   setSuccessMessage: (value: string) => void;
 }
 
-const PopUpSurrender: React.FC<PopupReportProps> = ({
+const ClaimToSurrenderPopUp: React.FC<ClaimToSurrenderPopUpProps> = ({
   title,
   content,
   onClose,
@@ -61,6 +34,7 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
   pickupName,
   pickupPreferences,
   tofAccepted,
+  originalClaim,
   setShowSuccessMessage,
   setShowErrorMessage,
   setErrorMessage,
@@ -75,7 +49,7 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
     }
   }, []);
 
-  const handleSurrenderDisc = async () => {
+  const handleClaimToSurrenderDisc = async () => {
     setLoading(true);
     try {
       const courseId = courses.find(
@@ -86,25 +60,15 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
         throw new Error("Course not found");
       }
 
-      const jsonBody = JSON.stringify({
-        comments: `${pickupName} has surrendered this disc`,
-        itemId: disc.id,
-        phoneNumber: disc.phoneNumber,
-        pickup: {
-          courseId: courseId,
-          preference: pickupPreferences,
-        },
-        surrendered: true,
-      });
-      console.log(jsonBody);
-
-      const response = await fetch(`${API_BASE_URL}/inventory/claim`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: jsonBody,
-      });
+      const response = await fetch(
+        `${API_BASE_URL}/inventory/claim/${originalClaim?.id}/surrender`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         console.log(response);
@@ -131,6 +95,10 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
     }
   };
 
+  if (!originalClaim) {
+    return <div>Error: Original claim not found</div>;
+  }
+
   return (
     <div
       className={`popup ${className}`}
@@ -152,11 +120,11 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
           }
           red={true}
           className="red-button-popup"
-          onClick={handleSurrenderDisc}
+          onClick={handleClaimToSurrenderDisc}
           disabled={loadingCourses}
         />
         <Button
-          text={loading ? "Loading..." : "Sorry, I want my disc back"}
+          text={loading ? "Loading..." : "Sorry, I Changed My Mind"}
           red={false}
           className="blue-button-popup"
           onClick={onClose}
@@ -166,4 +134,4 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
   );
 };
 
-export default PopUpSurrender;
+export default ClaimToSurrenderPopUp;
