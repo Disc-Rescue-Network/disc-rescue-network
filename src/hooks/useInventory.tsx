@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo, useCallback } from "react";
 import axios from "axios";
 import { API_BASE_URL, Disc, DiscStateString } from "../App";
 import { DateTime } from "luxon";
@@ -12,9 +12,7 @@ interface InventoryHook {
 }
 
 const convertToEST = (httpTimestamp: string) => {
-  //console.log("Converting timestamp:", httpTimestamp);
   const dateUTC = DateTime.fromHTTP(httpTimestamp, { zone: "utc" });
-  //console.log("Converted to UTC:", dateUTC);
   return dateUTC.toFormat("yyyy-MM-dd");
 };
 
@@ -23,76 +21,35 @@ const convertToLocalTime = (httpTimestamp: string) => {
   return dateUTC.setZone(DateTime.local().zoneName).toFormat("yyyy-MM-dd");
 };
 
-const CACHE_KEY = "inventoryCache";
-const CACHE_TIMESTAMP_KEY = "inventoryCacheTimestamp";
-const CACHE_DURATION = 60 * 5000; // 5 min in milliseconds
-const CACHE_REFRESH_INTERVAL = 60 * 1000; // 1 min in milliseconds
-
-const getCachedInventory = () => {
-  const cachedData = localStorage.getItem(CACHE_KEY);
-  const cachedTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
-  if (cachedData && cachedTimestamp) {
-    const now = Date.now();
-    if (now - parseInt(cachedTimestamp, 10) < CACHE_DURATION) {
-      return JSON.parse(cachedData);
-    }
-  }
-  return null;
-};
-
-const isCacheStale = () => {
-  const cachedTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
-  if (cachedTimestamp) {
-    const now = Date.now();
-    return now - parseInt(cachedTimestamp, 10) > CACHE_REFRESH_INTERVAL;
-  }
-  return true;
-};
-
-const setCachedInventory = (data: Disc[]) => {
-  localStorage.setItem(CACHE_KEY, JSON.stringify(data));
-  localStorage.setItem(CACHE_TIMESTAMP_KEY, Date.now().toString());
-};
-
 export const useInventory = (): InventoryHook => {
   const [inventory, setInventory] = useState<Disc[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
 
-  const fetchInventory = async (course?: string) => {
-    const cachedInventory = getCachedInventory();
-    if (cachedInventory && !isCacheStale()) {
-      setInventory(cachedInventory);
-      setLoading(false);
-      return;
-    }
-
+  const fetchInventory = useCallback(async (course?: string) => {
     try {
       const params = course ? { course } : {};
       let allItems: Disc[] = [];
       let currentPage = 1;
       let hasNextPage = true;
+      let pageSize = 10000;
 
-      while (hasNextPage) {
-        const response = await axios.get(
-          `${API_BASE_URL}/inventory?pageSize=100&page=${currentPage}`,
-          { params }
-        );
+      const testResponse = await axios.get(
+        `${API_BASE_URL}/inventory?pageSize=1&page=1`,
+        { params }
+      );
 
-        const discResponse = response.data.data.items;
-        allItems = [...allItems, ...discResponse]; // Add items from current page to the total list
+      const totalItems = testResponse.data.data.totalItems;
 
-        // Check if there is a next page
-        hasNextPage = response.data.data.hasNextPage;
-        currentPage += 1; // Increment page number for the next request
-      }
+      const response = await axios.get(
+        `${API_BASE_URL}/inventory?pageSize=${totalItems}`,
+        { params }
+      );
 
-      //console.log("Full Inventory response:", allItems);
-      const discsWithClaims = allItems.filter((disc) => disc.claims.length > 0);
-      //console.log("Discs with claims:", discsWithClaims);
+      const discResponse = response.data.data.items;
+      allItems = discResponse;
 
-      //filter out discs that are claimed, sold, or for sale
       allItems = allItems.filter(
         (disc) =>
           disc.status !== DiscStateString.Claimed &&
@@ -114,13 +71,9 @@ export const useInventory = (): InventoryHook => {
         updatedAt: convertToLocalTime(disc.updatedAt),
       }));
 
-      allItems = allItems.sort((a, b) => {
-        //sort by ID DESC
-        return b.id - a.id;
-      });
+      allItems = allItems.sort((a, b) => b.id - a.id);
 
       setInventory(allItems);
-      setCachedInventory(allItems);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching inventory:", error);
@@ -132,10 +85,12 @@ export const useInventory = (): InventoryHook => {
       setShowErrorMessage(true);
       setLoading(false);
     }
-  };
+  }, []);
+
+  const memoizedInventory = useMemo(() => inventory, [inventory]);
 
   return {
-    inventory,
+    inventory: memoizedInventory,
     errorMessage,
     showErrorMessage,
     fetchInventory,
