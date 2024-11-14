@@ -129,11 +129,27 @@ a {
   margin-top: 1.25em;
 }
 
+@media screen and (max-width: 500px) {
+  .logo-and-arrow {
+    margin-top: 50px;
+  }
+}
+
 .logo-and-arrow .arrow-left-icon {
   position: absolute;
   left: 10px; /* Adjust this to control distance from the screen's edge */
   font-size: 1.5rem;
   color: white;
+  cursor: pointer;
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust for perfect vertical alignment */
+}
+
+.logo-and-arrow .arrow-left-icon-blue {
+  position: absolute;
+  left: 10px; /* Adjust this to control distance from the screen's edge */
+  font-size: 1.5rem;
+  color: var(--primary-sea-blue);
   cursor: pointer;
   top: 50%; /* Center vertically */
   transform: translateY(-50%); /* Adjust for perfect vertical alignment */

@@ -90,7 +90,7 @@ export default function SearchInventory() {
     >
       <div className="logo-and-arrow">
         <i
-          className="arrow-left-icon"
+          className="arrow-left-icon-blue"
           style={{ fontSize: "1.5rem" }}
           onClick={handleBack}
         >
