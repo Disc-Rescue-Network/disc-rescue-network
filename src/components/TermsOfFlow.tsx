@@ -21,7 +21,7 @@ const TermsOfFlow: React.FC<TermsOfFlowProps> = (props: TermsOfFlowProps) => {
           <div className="line"></div>
           <div className="line"></div>
         </span>
-        <h2 className="header-surrender-disc">Terms of Flow (TOF)</h2>
+        <h2 className="header-surrender-disc">Terms of Service (TOS)</h2>
         <p className="content-report-popup">
           <ol>
             <li>
