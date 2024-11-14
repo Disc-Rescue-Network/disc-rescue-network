@@ -252,7 +252,7 @@ export default function RescueFlow() {
           arrayOfDiscs={matchedDiscs}
         />
       )}
-      {step === 1 && (
+      {/* {step === 1 && (
         <div className="wizardbox">
           <img src={Arrow} alt="arrow" />
           <p>
@@ -260,7 +260,7 @@ export default function RescueFlow() {
             information manually on our search page
           </p>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

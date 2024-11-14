@@ -4,14 +4,23 @@ import Card from "./Card";
 
 interface RescueFlowDiscsArrayProps {
   arrayOfDiscs: Disc[];
+  whiteBorder?: boolean;
 }
 
-const RescueFlowDiscsArray = ({ arrayOfDiscs }: RescueFlowDiscsArrayProps) => {
+const RescueFlowDiscsArray = ({
+  arrayOfDiscs,
+  whiteBorder,
+}: RescueFlowDiscsArrayProps) => {
   return (
     <div className="discs-claim">
       <div className="card-container-claim-discs">
         {arrayOfDiscs.map((disc: Disc) => (
-          <Card key={disc.id} disc={disc} showButton={true} />
+          <Card
+            key={disc.id}
+            disc={disc}
+            showButton={true}
+            showButtonBorder={true}
+          />
         ))}
       </div>
     </div>

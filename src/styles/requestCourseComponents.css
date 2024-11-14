@@ -44,7 +44,7 @@
 }
 
 .request-course-components .overtext-secondary {
-  color: #005daa;
+  /* color: #005daa; */
   text-shadow: 0px 2px 3px #ffffff4f;
   font-family: "Bebas Neue", sans-serif;
   font-weight: 100;
