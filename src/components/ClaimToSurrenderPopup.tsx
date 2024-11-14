@@ -22,6 +22,8 @@ interface ClaimToSurrenderPopUpProps {
   setShowErrorMessage: (value: boolean) => void;
   setErrorMessage: (value: string) => void;
   setSuccessMessage: (value: string) => void;
+  setShowInfoMessage: (value: boolean) => void;
+  setInfoMessage: (value: string) => void;
 }
 
 const ClaimToSurrenderPopUp: React.FC<ClaimToSurrenderPopUpProps> = ({
@@ -39,6 +41,8 @@ const ClaimToSurrenderPopUp: React.FC<ClaimToSurrenderPopUpProps> = ({
   setShowErrorMessage,
   setErrorMessage,
   setSuccessMessage,
+  setShowInfoMessage,
+  setInfoMessage,
 }) => {
   const [loading, setLoading] = React.useState(false);
   const { courses, fetchCourses, loading: loadingCourses } = useCourses();
@@ -82,8 +86,10 @@ const ClaimToSurrenderPopUp: React.FC<ClaimToSurrenderPopUpProps> = ({
       const data = await response.json();
       const pickupInfo = data.data as Pickup;
       console.log(pickupInfo);
-      setShowSuccessMessage(true);
-      setSuccessMessage("Surrender request submitted successfully!");
+      setShowInfoMessage(true);
+      setInfoMessage(
+        "Surrender request submitted successfully - please verify your PCM"
+      );
       onSuccess(pickupInfo);
       onClose();
     } catch (error: any) {

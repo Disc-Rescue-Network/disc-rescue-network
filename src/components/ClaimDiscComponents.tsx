@@ -47,6 +47,9 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const [showInfoMessage, setShowInfoMessage] = useState<boolean>(false);
+  const [infoMessage, setInfoMessage] = useState("");
+
   useEffect(() => {
     console.log("rendering with disc", disc);
   }, [disc]);
@@ -249,8 +252,8 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           onSuccess={verifyPCM}
           setShowErrorMessage={setShowErrorMessage}
           setErrorMessage={setErrorMessage}
-          setSuccessMessage={setSuccessMessage}
-          setShowSuccessMessage={setShowSuccessMessage}
+          setInfoMessage={setInfoMessage}
+          setShowInfoMessage={setShowInfoMessage}
         />
       )}
 
@@ -271,6 +274,8 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           setErrorMessage={setErrorMessage}
           setSuccessMessage={setSuccessMessage}
           setShowSuccessMessage={setShowSuccessMessage}
+          setShowInfoMessage={setShowInfoMessage}
+          setInfoMessage={setInfoMessage}
         />
       )}
 
@@ -292,6 +297,8 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           setErrorMessage={setErrorMessage}
           setSuccessMessage={setSuccessMessage}
           setShowSuccessMessage={setShowSuccessMessage}
+          setShowInfoMessage={setShowInfoMessage}
+          setInfoMessage={setInfoMessage}
         />
       )}
 
@@ -304,6 +311,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           isSurrender={isSurrender}
           pickupInfo={pickupInfo}
           tofAccepted={TOFAccepted}
+          originalClaim={originalClaim}
           setShowErrorMessage={setShowErrorMessage}
           setErrorMessage={setErrorMessage}
           setSuccessMessage={setSuccessMessage}
@@ -345,6 +353,21 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           sx={{ width: "100%" }}
         >
           {errorMessage}
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={showInfoMessage}
+        autoHideDuration={6000}
+        onClose={() => setShowInfoMessage(false)}
+      >
+        <Alert
+          onClose={() => setShowInfoMessage(false)}
+          severity="info"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {infoMessage}
         </Alert>
       </Snackbar>
     </div>

@@ -15,10 +15,10 @@ interface PopupVerifyProps {
   contactMethod: "phone" | "email";
   contactValue: string;
   onSuccess: (pickup: Pickup) => void;
-  setShowSuccessMessage: (value: boolean) => void;
+  setShowInfoMessage: (value: boolean) => void;
+  setInfoMessage: (value: string) => void;
   setShowErrorMessage: (value: boolean) => void;
   setErrorMessage: (value: string) => void;
-  setSuccessMessage: (value: string) => void;
 }
 
 interface PopupSurrenderProps {
@@ -36,8 +36,8 @@ export function PopupVerify({
   onSuccess,
   setErrorMessage,
   setShowErrorMessage,
-  setShowSuccessMessage,
-  setSuccessMessage,
+  setShowInfoMessage,
+  setInfoMessage,
 }: PopupVerifyProps) {
   const [contactInfo, setContactInfo] = useState("");
 
@@ -111,8 +111,8 @@ export function PopupVerify({
       const data = await response.json();
       const pickupInfo = data.data as Pickup;
       console.log(pickupInfo);
-      setShowSuccessMessage(true);
-      setSuccessMessage("Claim request submitted successfully!");
+      setShowInfoMessage(true);
+      setInfoMessage("Claim request submitted successfully!");
       onSuccess(pickupInfo);
       onClose();
     } catch (error: any) {

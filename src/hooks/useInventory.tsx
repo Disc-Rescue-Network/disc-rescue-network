@@ -25,7 +25,8 @@ const convertToLocalTime = (httpTimestamp: string) => {
 
 const CACHE_KEY = "inventoryCache";
 const CACHE_TIMESTAMP_KEY = "inventoryCacheTimestamp";
-const CACHE_DURATION = 60 * 60 * 1000; // 1 hour in milliseconds
+const CACHE_DURATION = 60 * 5000; // 5 min in milliseconds
+const CACHE_REFRESH_INTERVAL = 60 * 1000; // 1 min in milliseconds
 
 const getCachedInventory = () => {
   const cachedData = localStorage.getItem(CACHE_KEY);
@@ -37,6 +38,15 @@ const getCachedInventory = () => {
     }
   }
   return null;
+};
+
+const isCacheStale = () => {
+  const cachedTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
+  if (cachedTimestamp) {
+    const now = Date.now();
+    return now - parseInt(cachedTimestamp, 10) > CACHE_REFRESH_INTERVAL;
+  }
+  return true;
 };
 
 const setCachedInventory = (data: Disc[]) => {
@@ -52,7 +62,7 @@ export const useInventory = (): InventoryHook => {
 
   const fetchInventory = async (course?: string) => {
     const cachedInventory = getCachedInventory();
-    if (cachedInventory) {
+    if (cachedInventory && !isCacheStale()) {
       setInventory(cachedInventory);
       setLoading(false);
       return;
@@ -79,6 +89,9 @@ export const useInventory = (): InventoryHook => {
       }
 
       console.log("Full Inventory response:", allItems);
+      const discsWithClaims = allItems.filter((disc) => disc.claims.length > 0);
+      console.log("Discs with claims:", discsWithClaims);
+
       //filter out discs that are claimed, sold, or for sale
       allItems = allItems.filter(
         (disc) =>

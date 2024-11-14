@@ -9,7 +9,7 @@ import {
   Box,
 } from "@mui/material";
 import { API_BASE_URL } from "../App";
-import { Pickup } from "./PopupSurrender";
+import { Claim, Pickup } from "./PopupSurrender";
 
 interface VerifyOTPProps {
   open: boolean;
@@ -19,6 +19,7 @@ interface VerifyOTPProps {
   isSurrender: boolean;
   pickupInfo?: Pickup | null;
   tofAccepted?: boolean;
+  originalClaim: Claim | null;
   setShowSuccessMessage: (value: boolean) => void;
   setShowErrorMessage: (value: boolean) => void;
   setErrorMessage: (value: string) => void;
@@ -33,6 +34,7 @@ export function VerifyOTP({
   isSurrender,
   pickupInfo,
   tofAccepted,
+  originalClaim,
   setShowSuccessMessage,
   setShowErrorMessage,
   setErrorMessage,
@@ -141,17 +143,22 @@ export function VerifyOTP({
     // Logic to resend the code
     console.log("Resend code");
 
+    let claimId = -1;
+
+    if (originalClaim != null) {
+      claimId = originalClaim.id;
+    } else {
+      claimId = pickupInfo?.claim.id!;
+    }
+
     try {
       // Call API to resend OTP
-      fetch(
-        `${API_BASE_URL}/inventory/pcm/resend-otp?claimId=${pickupInfo?.claim.id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      fetch(`${API_BASE_URL}/inventory/pcm/resend-otp?claimId=${claimId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
     } catch (error: any) {
       console.error("Failed to resend code:", error);
       setShowErrorMessage(true);
