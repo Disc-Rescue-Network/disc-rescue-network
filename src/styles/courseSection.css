@@ -90,7 +90,7 @@
 }
 
 .course-section {
-  padding-bottom: 150px;
+  padding-bottom: 75px;
   margin-bottom: 10px;
   height: calc(100dvh - 430px);
   overflow: hidden;
@@ -129,7 +129,7 @@
 @media screen and (max-width: 500px) {
   .course-section {
     height: calc(100dvh - 375px);
-    padding: 0px;
+    /* padding: 0px; */
   }
 
   .course-section .row {
