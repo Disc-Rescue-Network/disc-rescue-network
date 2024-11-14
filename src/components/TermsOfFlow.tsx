@@ -23,12 +23,34 @@ const TermsOfFlow: React.FC<TermsOfFlowProps> = (props: TermsOfFlowProps) => {
         </span>
         <h2 className="header-surrender-disc">Terms of Flow (TOF)</h2>
         <p className="content-report-popup">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur.
+          <ol>
+            <li>
+              <strong>Ownership Verification:</strong> By claiming a disc, you
+              attest that you are the rightful owner. Claiming a disc that does
+              not belong to you is strictly prohibited and constitutes theft.
+            </li>
+            <li>
+              <strong>Waiver of Responsibility:</strong> Disc Rescue Network
+              does not assume responsibility for verifying ownership beyond
+              information provided by the claimant. Users are responsible for
+              ensuring that claims are accurate and made in good faith.
+            </li>
+            <li>
+              <strong>Liability for Wrongful Claims:</strong> Any individual
+              claiming a disc they do not own may be held accountable by the
+              disc golf course or rightful owner. Wrongful claims may result in
+              prosecution, as this action is treated as theft.
+            </li>
+            <li>
+              <strong>Course Enforcement:</strong> Disc golf courses reserve the
+              right to prosecute individuals who make wrongful claims on discs.
+            </li>
+            <li>
+              <strong>Acknowledgment of Terms:</strong> By using the Disc Rescue
+              Network service, you agree to these terms and acknowledge the
+              consequences of falsely claiming a disc.
+            </li>
+          </ol>
         </p>
       </div>
       <div className="buttons-rescue-popup">
