@@ -44,7 +44,7 @@ const Card = (props: CardProps) => {
             }}
           />
           {disc.claims.length > 0 && (
-            <div className="ribbon">Pending Claims</div>
+            <div className="ribbon">Pending Claim</div>
           )}
         </div>
         <div className="w-layout-grid grid grid-disc">
