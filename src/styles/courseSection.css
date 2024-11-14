@@ -1,14 +1,3 @@
-.course-section {
-  padding-bottom: 150px;
-  margin-bottom: 10px;
-  height: calc(100dvh - 430px);
-  overflow: hidden;
-  overflow-y: auto;
-  max-width: 1024px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .row-search {
   display: flex;
   overflow-x: scroll;
@@ -101,9 +90,7 @@
 }
 
 .course-section {
-  /* padding: 0 10px; */
-  padding: 10px 14px;
-  padding-bottom: 40px;
+  padding-bottom: 150px;
   margin-bottom: 10px;
   height: calc(100dvh - 430px);
   overflow: hidden;
