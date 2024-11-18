@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import axios from "axios";
 import { API_BASE_URL, Disc, DiscStateString } from "../App";
 import { DateTime } from "luxon";
@@ -11,48 +11,15 @@ interface InventoryHook {
   loading: boolean;
 }
 
-const convertToEST = (httpTimestamp: string) => {
-  //console.log("Converting timestamp:", httpTimestamp);
-  const dateUTC = DateTime.fromHTTP(httpTimestamp, { zone: "utc" });
-  //console.log("Converted to UTC:", dateUTC);
-  return dateUTC.toFormat("yyyy-MM-dd");
-};
+// const convertToEST = (httpTimestamp: string) => {
+//   const dateUTC = DateTime.fromHTTP(httpTimestamp, { zone: "utc" });
+//   return dateUTC.toFormat("yyyy-MM-dd");
+// };
 
-const convertToLocalTime = (httpTimestamp: string) => {
-  const dateUTC = DateTime.fromHTTP(httpTimestamp, { zone: "utc" });
-  return dateUTC.setZone(DateTime.local().zoneName).toFormat("yyyy-MM-dd");
-};
-
-const CACHE_KEY = "inventoryCache";
-const CACHE_TIMESTAMP_KEY = "inventoryCacheTimestamp";
-const CACHE_DURATION = 60 * 5000; // 5 min in milliseconds
-const CACHE_REFRESH_INTERVAL = 60 * 1000; // 1 min in milliseconds
-
-const getCachedInventory = () => {
-  const cachedData = localStorage.getItem(CACHE_KEY);
-  const cachedTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
-  if (cachedData && cachedTimestamp) {
-    const now = Date.now();
-    if (now - parseInt(cachedTimestamp, 10) < CACHE_DURATION) {
-      return JSON.parse(cachedData);
-    }
-  }
-  return null;
-};
-
-const isCacheStale = () => {
-  const cachedTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
-  if (cachedTimestamp) {
-    const now = Date.now();
-    return now - parseInt(cachedTimestamp, 10) > CACHE_REFRESH_INTERVAL;
-  }
-  return true;
-};
-
-const setCachedInventory = (data: Disc[]) => {
-  localStorage.setItem(CACHE_KEY, JSON.stringify(data));
-  localStorage.setItem(CACHE_TIMESTAMP_KEY, Date.now().toString());
-};
+// const convertToLocalTime = (httpTimestamp: string) => {
+//   const dateUTC = DateTime.fromHTTP(httpTimestamp, { zone: "utc" });
+//   return dateUTC.setZone(DateTime.local().zoneName).toFormat("yyyy-MM-dd");
+// };
 
 export const useInventory = (): InventoryHook => {
   const [inventory, setInventory] = useState<Disc[]>([]);
@@ -60,67 +27,56 @@ export const useInventory = (): InventoryHook => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
 
-  const fetchInventory = async (course?: string) => {
-    const cachedInventory = getCachedInventory();
-    if (cachedInventory && !isCacheStale()) {
-      setInventory(cachedInventory);
-      setLoading(false);
-      return;
-    }
-
+  const fetchInventory = useCallback(async (course?: string) => {
     try {
-      const params = course ? { course } : {};
       let allItems: Disc[] = [];
       let currentPage = 1;
       let hasNextPage = true;
+      let pageSize = 100;
 
       while (hasNextPage) {
-        const response = await axios.get(
-          `${API_BASE_URL}/inventory?pageSize=100&page=${currentPage}`,
-          { params }
-        );
+        const params = course
+          ? { course, pageSize, page: currentPage, nonVerified: true }
+          : { pageSize, page: currentPage, nonVerified: true };
+
+        const response = await axios.get(`${API_BASE_URL}/inventory`, {
+          params,
+        });
 
         const discResponse = response.data.data.items;
-        allItems = [...allItems, ...discResponse]; // Add items from current page to the total list
-
-        // Check if there is a next page
+        allItems = allItems.concat(discResponse);
+        currentPage += 1;
         hasNextPage = response.data.data.hasNextPage;
-        currentPage += 1; // Increment page number for the next request
       }
 
-      //console.log("Full Inventory response:", allItems);
-      const discsWithClaims = allItems.filter((disc) => disc.claims.length > 0);
-      //console.log("Discs with claims:", discsWithClaims);
+      // Ensure every disc is unique
+      const uniqueItems = Array.from(
+        new Map(allItems.map((disc) => [disc.id, disc])).values()
+      );
 
-      //filter out discs that are claimed, sold, or for sale
-      allItems = allItems.filter(
+      allItems = uniqueItems.filter(
         (disc) =>
           disc.status !== DiscStateString.Claimed &&
           disc.status !== DiscStateString.Sold &&
           disc.status !== DiscStateString.SoldOffline &&
           disc.status !== DiscStateString.ForSale &&
-          disc.status !== DiscStateString.Surrendered &&
-          disc.course.name !== "DRN Admins"
+          disc.status !== DiscStateString.Surrendered
       );
 
-      allItems = allItems.map((disc) => ({
-        ...disc,
-        dateFound: convertToLocalTime(disc.dateFound),
-        dateClaimed: convertToLocalTime(disc.dateClaimed || ""),
-        dateSold: convertToLocalTime(disc.dateSold || ""),
-        dateTexted: convertToLocalTime(disc.dateTexted || ""),
-        dateOfReminderText: convertToLocalTime(disc.dateOfReminderText || ""),
-        createdAt: convertToLocalTime(disc.createdAt),
-        updatedAt: convertToLocalTime(disc.updatedAt),
-      }));
+      // allItems = allItems.map((disc) => ({
+      //   ...disc,
+      //   dateFound: convertToLocalTime(disc.dateFound),
+      //   dateClaimed: convertToLocalTime(disc.dateClaimed || ""),
+      //   dateSold: convertToLocalTime(disc.dateSold || ""),
+      //   dateTexted: convertToLocalTime(disc.dateTexted || ""),
+      //   dateOfReminderText: convertToLocalTime(disc.dateOfReminderText || ""),
+      //   createdAt: convertToLocalTime(disc.createdAt),
+      //   updatedAt: convertToLocalTime(disc.updatedAt),
+      // }));
 
-      allItems = allItems.sort((a, b) => {
-        //sort by ID DESC
-        return b.id - a.id;
-      });
+      allItems = allItems.sort((a, b) => b.id - a.id);
 
       setInventory(allItems);
-      setCachedInventory(allItems);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching inventory:", error);
@@ -132,10 +88,20 @@ export const useInventory = (): InventoryHook => {
       setShowErrorMessage(true);
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      fetchInventory();
+    }, 60000); // Fetch inventory every 60 seconds
+
+    return () => clearInterval(intervalId); // Cleanup interval on component unmount
+  }, [fetchInventory]);
+
+  const memoizedInventory = useMemo(() => inventory, [inventory]);
 
   return {
-    inventory,
+    inventory: memoizedInventory,
     errorMessage,
     showErrorMessage,
     fetchInventory,

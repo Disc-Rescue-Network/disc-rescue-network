@@ -9,10 +9,11 @@ interface CardProps {
   disc: Disc;
   className?: string;
   showButton: boolean;
+  showButtonBorder?: boolean;
 }
 
 const Card = (props: CardProps) => {
-  const { disc, className, showButton } = props;
+  const { disc, className, showButton, showButtonBorder } = props;
   const cardClassName = className
     ? `card-container ${className}`
     : "card-container";
@@ -70,7 +71,8 @@ const Card = (props: CardProps) => {
                 <Button
                   text={"Claim Disc"}
                   red={false}
-                  className="padding-1 btn-2 padding"
+                  className="padding-1 padding"
+                  border={showButtonBorder}
                   onClick={handleClaimDiscClick}
                 />
               )}

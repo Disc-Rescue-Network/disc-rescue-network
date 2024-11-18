@@ -33,7 +33,10 @@ const RescueFlowPopup: React.FC<Props> = ({ onClosePopup, arrayOfDiscs }) => {
               </div>
             )}
             {arrayOfDiscs.length !== 1 && (
-              <RescueFlowDiscsArray arrayOfDiscs={arrayOfDiscs} />
+              <RescueFlowDiscsArray
+                arrayOfDiscs={arrayOfDiscs}
+                whiteBorder={true}
+              />
             )}
           </div>
         </div>

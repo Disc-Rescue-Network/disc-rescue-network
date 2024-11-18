@@ -110,15 +110,20 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const openPopup = () => {
     setIsSurrender(true);
 
+    console.log("disc", disc);
+
     if (disc.claims.length > 0) {
+      console.log("checking claims for match");
       // check claims list for entered phone number / email. if there is a match, log to console
       const claim = disc.claims.find(
         (claim) =>
           claim.email === contactValue ||
           comparePhoneNumbers(contactValue, disc)
       );
+      console.log("contactValue", contactValue);
+      console.log("claim", claim);
       if (claim) {
-        //console.log("User already claimed this disc");
+        console.log("User already claimed this disc");
         setOriginalClaim(claim);
         setShowClaimToSurrenderPopup(true);
         setShowErrorMessage(true);
@@ -270,6 +275,8 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           pickupPreferences={pickupPreferences}
           disc={disc}
           tofAccepted={TOFAccepted}
+          contactMethod={contactMethod}
+          contactValue={contactValue}
           setShowErrorMessage={setShowErrorMessage}
           setErrorMessage={setErrorMessage}
           setSuccessMessage={setSuccessMessage}

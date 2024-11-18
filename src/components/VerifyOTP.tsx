@@ -17,8 +17,8 @@ interface VerifyOTPProps {
   onSurrenderClose: () => void;
   onClaimClose: () => void;
   isSurrender: boolean;
-  pickupInfo?: Pickup | null;
-  tofAccepted?: boolean;
+  pickupInfo: Pickup | null;
+  tofAccepted: boolean;
   originalClaim: Claim | null;
   setShowSuccessMessage: (value: boolean) => void;
   setShowErrorMessage: (value: boolean) => void;
@@ -108,25 +108,45 @@ export function VerifyOTP({
     try {
       // Call API to verify OTP
       setLoading(true);
+      const vid = pickupInfo?.vid!;
+      if (!vid) {
+        throw new Error("VID not found");
+      }
+
+      if (!otpValue) {
+        throw new Error("OTP is required");
+      }
+
+      if (!tofAccepted) {
+        throw new Error("Terms of Use must be accepted");
+      }
+
+      const jsonBody = JSON.stringify({
+        vid: vid,
+        otp: otpValue,
+        tofAccepted: tofAccepted,
+      });
+
+      console.log(jsonBody);
       const response = await fetch(`${API_BASE_URL}/inventory/pcm/verify`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          vid: pickupInfo?.vid,
-          otp: otpValue,
-          tofAccepted: tofAccepted,
-        }),
+        body: jsonBody,
       });
-      if (!response.ok) {
+
+      const responseJson = await response.json();
+      console.log(responseJson);
+
+      const { success, data } = responseJson;
+
+      if (!success) {
         //console.log(response);
         //console.log(response.statusText);
         //console.log(await response.json());
         throw new Error("Network response was not ok");
       }
-      const data = await response.json();
-      //console.log("Verify OTP response:", data);
       if (isSurrender) {
         onSurrenderClose();
       } else {

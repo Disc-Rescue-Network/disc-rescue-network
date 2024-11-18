@@ -153,7 +153,7 @@ const CoursePickerForm = (props: CoursePickerProps) => {
 
   return (
     <div className="mt-5 mb-3 select-box-forms report-lost-class">
-      <div className="col-4-forms pe-0 arrow one report-class-col-4">
+      <div className="col-2-forms pe-0 arrow one report-class-col-4">
         <select
           className="form-select-rescue-flow report-lost-form-select"
           onChange={handleStateChange}
@@ -167,7 +167,7 @@ const CoursePickerForm = (props: CoursePickerProps) => {
           ))}
         </select>
       </div>
-      <div className="col-8-forms pe-0 arrow report-class-col-8">
+      <div className="col-10-forms pe-0 arrow report-class-col-8">
         <select
           className="form-select-rescue-flow report-lost-form-select"
           value={selectedCourse}
