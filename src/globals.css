@@ -106,6 +106,29 @@ a {
   color: var(--primary-green);
 }
 
+.lottie-container {
+  width: 100%; /* Default full width */
+  max-width: 200px; /* Control the maximum width */
+  margin: 0 auto; /* Ensure it centers vertically if needed */
+}
+
+@media (min-width: 768px) {
+  .lottie-container {
+    max-width: 250px; /* Increase the width for tablets and up */
+  }
+}
+
+@media (min-width: 1024px) {
+  .lottie-container {
+    max-width: 300px; /* Increase the width for desktops */
+  }
+}
+
+.upper-lottie {
+  position: relative;
+  width: 100%;
+}
+
 .app {
   display: flex;
   flex-direction: column;

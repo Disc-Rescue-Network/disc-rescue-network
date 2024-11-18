@@ -12,6 +12,7 @@ import RescueFLowFailure from "../components/RescueFlowFailure";
 import RescueFlowPopup from "../components/RescueFlowPopup";
 import { useInventory } from "../hooks/useInventory";
 import { Disc } from "../App";
+import RescueFlowFailure from "../components/RescueFlowFailure";
 
 export interface SearchParams {
   course?: string;
@@ -245,7 +246,7 @@ export default function RescueFlow() {
           setSearchParams={updateSearchParams}
         />
       )}
-      {step === 6 && <RescueFLowFailure />}
+      {step === 6 && <RescueFlowFailure />}
       {isPopupOpen && (
         <RescueFlowPopup
           onClosePopup={closePopup}
