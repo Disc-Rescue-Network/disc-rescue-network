@@ -42,8 +42,8 @@ const RescueFlowFailure = () => {
       </div>
 
       <HeaderRescueFlow
-        baseText={"0% Rescue Flow"}
-        lightText={"Wizard"}
+        baseText={"Doink!"}
+        lightText={""}
         baseNumber={""}
         lightNumber={""}
         whereText={"So Maybe It's Not"}

@@ -108,19 +108,25 @@ a {
 
 .lottie-container {
   width: 100%; /* Default full width */
+  width: 200px;
   max-width: 200px; /* Control the maximum width */
   margin: 0 auto; /* Ensure it centers vertically if needed */
+  padding-left: 67px; /* Adjust the padding to center the animation */
 }
 
 @media (min-width: 768px) {
   .lottie-container {
     max-width: 250px; /* Increase the width for tablets and up */
+    width: 250px;
+    padding-left: 83px; /* Adjust the padding to center the animation */
   }
 }
 
 @media (min-width: 1024px) {
   .lottie-container {
     max-width: 300px; /* Increase the width for desktops */
+    width: 300px;
+    padding-left: 100px; /* Adjust the padding to center the animation */
   }
 }
 
