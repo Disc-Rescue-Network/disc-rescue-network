@@ -13,12 +13,13 @@ export interface Pickup {
 
 export interface Claim {
   tofAccepted: boolean;
+  pcmVerified: boolean;
   verified: boolean;
   id: number;
   comments: string;
   itemId: number;
-  phoneNumber: string;
-  email: string;
+  phoneNumber?: string;
+  email?: string;
   pickup: PickupInfo;
   surrendered: boolean;
   updatedAt: string;
@@ -45,6 +46,8 @@ interface PopupReportProps {
   pickupName: string;
   pickupPreferences: string[];
   tofAccepted?: boolean;
+  contactMethod: "phone" | "email";
+  contactValue: string;
   setShowSuccessMessage: (value: boolean) => void;
   setShowErrorMessage: (value: boolean) => void;
   setErrorMessage: (value: string) => void;
@@ -63,6 +66,8 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
   pickupName,
   pickupPreferences,
   tofAccepted,
+  contactMethod,
+  contactValue,
   setShowSuccessMessage,
   setShowErrorMessage,
   setErrorMessage,
@@ -90,17 +95,33 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
         throw new Error("Course not found");
       }
 
-      const jsonBody = JSON.stringify({
-        comments: `${pickupName} has surrendered this disc`,
-        itemId: disc.id,
-        phoneNumber: disc.phoneNumber,
-        pickup: {
-          courseId: courseId,
-          preference: pickupPreferences,
-        },
-        surrendered: true,
-      });
-      //console.log(jsonBody);
+      const formattedPhoneNumber = `+1${contactValue.replace(/\D/g, "")}`;
+
+      let jsonBody;
+      if (contactMethod === "phone") {
+        jsonBody = JSON.stringify({
+          comments: `${pickupName} wants to claim this disc`,
+          itemId: disc.id,
+          phoneNumber: formattedPhoneNumber,
+          pickup: {
+            courseId: courseId,
+            preference: pickupPreferences,
+          },
+          surrendered: true,
+        });
+      } else {
+        jsonBody = JSON.stringify({
+          comments: `${pickupName} wants to claim this disc`,
+          itemId: disc.id,
+          email: contactValue,
+          pickup: {
+            courseId: courseId,
+            preference: pickupPreferences,
+          },
+          surrendered: true,
+        });
+      }
+      console.log(jsonBody);
 
       const response = await fetch(`${API_BASE_URL}/inventory/claim`, {
         method: "POST",
@@ -110,18 +131,20 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
         body: jsonBody,
       });
 
-      if (!response.ok) {
+      const responseJson = await response.json();
+      console.log(responseJson);
+      const { data, success } = responseJson;
+
+      if (!success) {
         //console.log(response);
         //console.log(response.statusText);
-        const responseJson = await response.json();
         //console.log(responseJson);
-        throw new Error("Failed to surrender disc: " + responseJson.message);
+        throw new Error(responseJson.message);
       }
 
       // get OTP
-      const data = await response.json();
-      const pickupInfo = data.data as Pickup;
-      //console.log(pickupInfo);
+      const pickupInfo = data as Pickup;
+      console.log(pickupInfo);
       setShowInfoMessage(true);
       setInfoMessage(
         "Surrender request submitted successfully - please verify your PCM"

@@ -77,19 +77,33 @@ export function PopupVerify({
         throw new Error("Course not found");
       }
 
-      const formattedContactValue = `+1${contactValue.replace(/\D/g, "")}`;
+      const formattedPhoneNumber = `+1${contactValue.replace(/\D/g, "")}`;
 
-      const jsonBody = JSON.stringify({
-        comments: `${pickupName} wants to claim this disc`,
-        itemId: disc.id,
-        phoneNumber: formattedContactValue,
-        pickup: {
-          courseId: courseId,
-          preference: pickupPreferences,
-        },
-        surrendered: false,
-      });
-      //console.log(jsonBody);
+      let jsonBody;
+      if (contactMethod === "phone") {
+        jsonBody = JSON.stringify({
+          comments: `${pickupName} wants to claim this disc`,
+          itemId: disc.id,
+          phoneNumber: formattedPhoneNumber,
+          pickup: {
+            courseId: courseId,
+            preference: pickupPreferences,
+          },
+          surrendered: false,
+        });
+      } else {
+        jsonBody = JSON.stringify({
+          comments: `${pickupName} wants to claim this disc`,
+          itemId: disc.id,
+          email: contactValue,
+          pickup: {
+            courseId: courseId,
+            preference: pickupPreferences,
+          },
+          surrendered: false,
+        });
+      }
+      console.log(jsonBody);
 
       const response = await fetch(`${API_BASE_URL}/inventory/claim`, {
         method: "POST",
@@ -99,18 +113,20 @@ export function PopupVerify({
         body: jsonBody,
       });
 
-      if (!response.ok) {
+      const responseJson = await response.json();
+      console.log(responseJson);
+      const { data, success } = responseJson;
+
+      if (!success) {
         //console.log(response);
         //console.log(response.statusText);
-        const responseJson = await response.json();
         //console.log(responseJson);
         throw new Error(responseJson.message);
       }
 
       // get OTP
-      const data = await response.json();
-      const pickupInfo = data.data as Pickup;
-      //console.log(pickupInfo);
+      const pickupInfo = data as Pickup;
+      console.log(pickupInfo);
       setShowInfoMessage(true);
       setInfoMessage("Claim request submitted successfully!");
       onSuccess(pickupInfo);
