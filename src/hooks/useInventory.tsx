@@ -43,7 +43,7 @@ export const useInventory = (): InventoryHook => {
       const totalItems = testResponse.data.data.totalItems;
 
       const response = await axios.get(
-        `${API_BASE_URL}/inventory?pageSize=${totalItems}`,
+        `${API_BASE_URL}/inventory?pageSize=${totalItems}?nonVerified=true`,
         { params }
       );
 
