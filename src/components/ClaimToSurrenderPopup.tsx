@@ -74,16 +74,17 @@ const ClaimToSurrenderPopUp: React.FC<ClaimToSurrenderPopUpProps> = ({
         }
       );
 
-      if (!response.ok) {
+      const responseJson = await response.json();
+      const { success, data } = responseJson;
+
+      if (!success) {
         //console.log(response);
         //console.log(response.statusText);
-        const responseJson = await response.json();
         //console.log(responseJson);
         throw new Error("Failed to surrender disc: " + responseJson.message);
       }
 
       // get OTP
-      const data = await response.json();
       const pickupInfo = data.data as Pickup;
       //console.log(pickupInfo);
       setShowInfoMessage(true);

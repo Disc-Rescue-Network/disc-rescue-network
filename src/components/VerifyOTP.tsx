@@ -121,11 +121,22 @@ export function VerifyOTP({
         throw new Error("Terms of Use must be accepted");
       }
 
-      const jsonBody = JSON.stringify({
-        vid: vid,
-        otp: otpValue,
-        tofAccepted: tofAccepted,
-      });
+      let jsonBody;
+
+      if (pickupInfo.claim.surrendered) {
+        jsonBody = JSON.stringify({
+          vid: vid,
+          otp: otpValue,
+          tofAccepted: tofAccepted,
+          surrenderRequested: true,
+        });
+      } else {
+        jsonBody = JSON.stringify({
+          vid: vid,
+          otp: otpValue,
+          tofAccepted: tofAccepted,
+        });
+      }
 
       console.log(jsonBody);
       const response = await fetch(`${API_BASE_URL}/inventory/pcm/verify`, {
@@ -159,11 +170,12 @@ export function VerifyOTP({
     }
   };
 
-  const handleResendCode = () => {
+  const handleResendCode = async () => {
     // Logic to resend the code
     //console.log("Resend code");
 
     let claimId = -1;
+    setLoading(true);
 
     if (originalClaim != null) {
       claimId = originalClaim.id;
@@ -173,19 +185,31 @@ export function VerifyOTP({
 
     try {
       // Call API to resend OTP
-      fetch(`${API_BASE_URL}/inventory/pcm/resend-otp?claimId=${claimId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `${API_BASE_URL}/inventory/pcm/resend-otp?claimId=${claimId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log(response);
+      const responseJson = await response.json();
+      console.log(responseJson);
+      const { success, data } = responseJson;
+      if (!success) {
+        throw new Error("Network response was not ok");
+      }
     } catch (error: any) {
       console.error("Failed to resend code:", error);
       setShowErrorMessage(true);
       setErrorMessage("Failed to resend code: " + error.message);
+    } finally {
+      setLoading(false);
+      setResendTimer(45);
     }
-
-    setResendTimer(45);
   };
 
   return (
