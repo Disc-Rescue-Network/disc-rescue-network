@@ -147,6 +147,10 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
     setShowPopupSurrender(false);
   };
 
+  const closeClaimToSurrenderPopup = () => {
+    setShowClaimToSurrenderPopup(false);
+  };
+
   const handleFirstNameChange = (value: string) => {
     setFirstName(value);
     setPickupName(`${value} ${lastName}`);
@@ -166,8 +170,9 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   };
 
   const verifyPCM = (pickupInfo: Pickup) => {
-    setShowOTP(true);
+    console.log("pickupInfo", pickupInfo);
     setPickupInfo(pickupInfo);
+    setShowOTP(true);
   };
 
   if (!disc) {
@@ -293,7 +298,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           content={
             "Hi There! Looks like you already claimed this disc. Please be sure you wish to change this to a surrender! Surrendering your disc is just like a donation. This disc can be sold by the course to raise funds for things like new tee pads, new baskets or general maintenance."
           }
-          onClose={closePopupSurrender}
+          onClose={closeClaimToSurrenderPopup}
           onSuccess={verifyPCM}
           pickupName={pickupName}
           pickupPreferences={pickupPreferences}

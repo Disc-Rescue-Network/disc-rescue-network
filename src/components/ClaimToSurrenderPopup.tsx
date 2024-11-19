@@ -75,7 +75,9 @@ const ClaimToSurrenderPopUp: React.FC<ClaimToSurrenderPopUpProps> = ({
       );
 
       const responseJson = await response.json();
+      console.log(responseJson);
       const { success, data } = responseJson;
+      console.log(data);
 
       if (!success) {
         //console.log(response);
@@ -85,8 +87,8 @@ const ClaimToSurrenderPopUp: React.FC<ClaimToSurrenderPopUpProps> = ({
       }
 
       // get OTP
-      const pickupInfo = data.data as Pickup;
-      //console.log(pickupInfo);
+      const pickupInfo = data as Pickup;
+      console.log(pickupInfo);
       setShowInfoMessage(true);
       setInfoMessage(
         "Surrender request submitted successfully - please verify your PCM"

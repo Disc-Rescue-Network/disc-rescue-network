@@ -46,10 +46,11 @@ export function VerifyOTP({
   const [resendTimer, setResendTimer] = useState(45);
 
   useEffect(() => {
+    let timer: NodeJS.Timeout;
     if (open) {
       inputRefs.current[0]?.focus();
       setResendTimer(45);
-      const timer = setInterval(() => {
+      timer = setInterval(() => {
         setResendTimer((prev) => {
           if (prev === 1) {
             clearInterval(timer);
@@ -58,8 +59,8 @@ export function VerifyOTP({
           return prev - 1;
         });
       }, 1000);
-      return () => clearInterval(timer);
     }
+    return () => clearInterval(timer);
   }, [open]);
 
   const handleChange = (index: number, value: string) => {
@@ -108,6 +109,7 @@ export function VerifyOTP({
     try {
       // Call API to verify OTP
       setLoading(true);
+      console.log("pickupInfo in verify otp", pickupInfo);
       const vid = pickupInfo?.vid!;
       if (!vid) {
         throw new Error("VID not found");
@@ -121,9 +123,11 @@ export function VerifyOTP({
         throw new Error("Terms of Use must be accepted");
       }
 
+      console.log("is surrender", isSurrender);
+
       let jsonBody;
 
-      if (pickupInfo.claim.surrendered) {
+      if (isSurrender) {
         jsonBody = JSON.stringify({
           vid: vid,
           otp: otpValue,
@@ -209,6 +213,15 @@ export function VerifyOTP({
     } finally {
       setLoading(false);
       setResendTimer(45);
+      const timer = setInterval(() => {
+        setResendTimer((prev) => {
+          if (prev === 1) {
+            clearInterval(timer);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
     }
   };
 

@@ -24,6 +24,7 @@ export interface Claim {
   surrendered: boolean;
   updatedAt: string;
   createdAt: string;
+  item?: Disc;
 }
 
 export interface PickupInfo {
