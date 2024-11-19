@@ -19,7 +19,7 @@ interface VerifyOTPProps {
   isSurrender: boolean;
   pickupInfo: Pickup | null;
   tofAccepted: boolean;
-  originalClaim: Claim | null;
+  //originalClaim: Claim | null;
   setShowSuccessMessage: (value: boolean) => void;
   setShowErrorMessage: (value: boolean) => void;
   setErrorMessage: (value: string) => void;
@@ -34,7 +34,7 @@ export function VerifyOTP({
   isSurrender,
   pickupInfo,
   tofAccepted,
-  originalClaim,
+  //originalClaim,
   setShowSuccessMessage,
   setShowErrorMessage,
   setErrorMessage,
@@ -178,14 +178,8 @@ export function VerifyOTP({
     // Logic to resend the code
     //console.log("Resend code");
 
-    let claimId = -1;
+    let claimId = pickupInfo?.claim.id!;
     setLoading(true);
-
-    if (originalClaim != null) {
-      claimId = originalClaim.id;
-    } else {
-      claimId = pickupInfo?.claim.id!;
-    }
 
     try {
       // Call API to resend OTP
