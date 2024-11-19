@@ -111,9 +111,8 @@ export default function ClaimDiscSuccess() {
         <div className="claim-disc-row">
           <div className="claim-disc-cell label">Disc Details:</div>
           <div className="claim-disc-cell content">
-            {claimedDisc?.disc.brand.name}
-            {claimedDisc?.disc.name} ({claimedDisc?.color} -{" "}
-            {claimedDisc?.disc.plasticType} plastic)
+            {claimedDisc?.disc.brand.name} {claimedDisc?.disc.name} (
+            {claimedDisc?.color} - {claimedDisc?.disc.plasticType} plastic)
           </div>
         </div>
       </div>

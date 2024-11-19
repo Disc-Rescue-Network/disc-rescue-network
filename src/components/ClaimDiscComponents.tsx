@@ -33,13 +33,13 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [showPopupSurrender, setShowPopupSurrender] = useState(false);
-  const [showClaimToSurrenderPopup, setShowClaimToSurrenderPopup] =
-    useState(false);
+  // const [showClaimToSurrenderPopup, setShowClaimToSurrenderPopup] =
+  //   useState(false);
   const [showOTP, setShowOTP] = useState(false);
   const [showTOF, setShowTOF] = useState(false);
   const [TOFAccepted, setTOFAccepted] = useState(false);
   const [pickupInfo, setPickupInfo] = useState<Pickup | null>(null);
-  const [originalClaim, setOriginalClaim] = useState<Claim | null>(null);
+  // const [originalClaim, setOriginalClaim] = useState<Claim | null>(null);
 
   const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -124,11 +124,11 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
       console.log("claim", claim);
       if (claim) {
         console.log("User already claimed this disc");
-        setOriginalClaim(claim);
-        setShowClaimToSurrenderPopup(true);
+        // setOriginalClaim(claim);
+        // setShowClaimToSurrenderPopup(true);
         setShowErrorMessage(true);
         setErrorMessage(
-          "You have already claimed this disc, are you sure you want to surrender it?"
+          "You have already claimed this disc. Please contact the course for help."
         );
         return;
       }
@@ -146,6 +146,10 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
     // Reset the form
     setShowPopupSurrender(false);
   };
+
+  // const closeClaimToSurrenderPopup = () => {
+  //   setShowClaimToSurrenderPopup(false);
+  // };
 
   const handleFirstNameChange = (value: string) => {
     setFirstName(value);
@@ -166,8 +170,9 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   };
 
   const verifyPCM = (pickupInfo: Pickup) => {
-    setShowOTP(true);
+    console.log("pickupInfo", pickupInfo);
     setPickupInfo(pickupInfo);
+    setShowOTP(true);
   };
 
   if (!disc) {
@@ -286,14 +291,14 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
         />
       )}
 
-      {showClaimToSurrenderPopup && (
+      {/* {showClaimToSurrenderPopup && (
         <ClaimToSurrenderPopUp
           className="popup-surrender-disc"
           title={"You are about to Surrender Your Disc"}
           content={
             "Hi There! Looks like you already claimed this disc. Please be sure you wish to change this to a surrender! Surrendering your disc is just like a donation. This disc can be sold by the course to raise funds for things like new tee pads, new baskets or general maintenance."
           }
-          onClose={closePopupSurrender}
+          onClose={closeClaimToSurrenderPopup}
           onSuccess={verifyPCM}
           pickupName={pickupName}
           pickupPreferences={pickupPreferences}
@@ -307,7 +312,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           setShowInfoMessage={setShowInfoMessage}
           setInfoMessage={setInfoMessage}
         />
-      )}
+      )} */}
 
       {showOTP && (
         <VerifyOTP
@@ -318,7 +323,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           isSurrender={isSurrender}
           pickupInfo={pickupInfo}
           tofAccepted={TOFAccepted}
-          originalClaim={originalClaim}
+          //originalClaim={originalClaim}
           setShowErrorMessage={setShowErrorMessage}
           setErrorMessage={setErrorMessage}
           setSuccessMessage={setSuccessMessage}
