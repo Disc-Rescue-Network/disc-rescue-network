@@ -37,8 +37,8 @@ export const useInventory = (): InventoryHook => {
       while (hasNextPage) {
         //nonverified = true?
         const params = course
-          ? { course, pageSize, page: currentPage }
-          : { pageSize, page: currentPage };
+          ? { course, pageSize, page: currentPage, nonVerified: true }
+          : { pageSize, page: currentPage, nonVerified: true };
 
         const response = await axios.get(`${API_BASE_URL}/inventory`, {
           params,
