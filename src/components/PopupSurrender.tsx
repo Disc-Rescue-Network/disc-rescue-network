@@ -25,6 +25,8 @@ export interface Claim {
   updatedAt: string;
   createdAt: string;
   item?: Disc;
+  firstName: string | null;
+  lastName: string | null;
 }
 
 export interface PickupInfo {
@@ -45,6 +47,8 @@ interface PopupReportProps {
   className?: string;
   disc: Disc;
   pickupName: string;
+  firstName: string;
+  lastName: string;
   pickupPreferences: string[];
   tofAccepted?: boolean;
   contactMethod: "phone" | "email";
@@ -65,6 +69,8 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
   className,
   disc,
   pickupName,
+  firstName,
+  lastName,
   pickupPreferences,
   tofAccepted,
   contactMethod,
@@ -104,6 +110,8 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
           comments: `${pickupName} wants to claim this disc`,
           itemId: disc.id,
           phoneNumber: formattedPhoneNumber,
+          firstName: firstName,
+          lastName: lastName,
           pickup: {
             courseId: courseId,
             preference: pickupPreferences,
@@ -115,6 +123,8 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
           comments: `${pickupName} wants to claim this disc`,
           itemId: disc.id,
           email: contactValue,
+          firstName: firstName,
+          lastName: lastName,
           pickup: {
             courseId: courseId,
             preference: pickupPreferences,

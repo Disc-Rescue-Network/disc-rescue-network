@@ -10,6 +10,8 @@ import { Pickup } from "./PopupSurrender";
 interface PopupVerifyProps {
   onClose: () => void;
   pickupName: string;
+  firstName: string;
+  lastName: string;
   pickupPreferences: string[];
   disc: Disc;
   contactMethod: "phone" | "email";
@@ -30,6 +32,8 @@ export function PopupVerify({
   onClose,
   pickupPreferences,
   pickupName,
+  firstName,
+  lastName,
   disc,
   contactMethod,
   contactValue,
@@ -85,6 +89,8 @@ export function PopupVerify({
           comments: `${pickupName} wants to claim this disc`,
           itemId: disc.id,
           phoneNumber: formattedPhoneNumber,
+          firstName: firstName,
+          lastName: lastName,
           pickup: {
             courseId: courseId,
             preference: pickupPreferences,
@@ -96,6 +102,8 @@ export function PopupVerify({
           comments: `${pickupName} wants to claim this disc`,
           itemId: disc.id,
           email: contactValue,
+          firstName: firstName,
+          lastName: lastName,
           pickup: {
             courseId: courseId,
             preference: pickupPreferences,
