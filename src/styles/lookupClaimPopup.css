@@ -1,0 +1,188 @@
+.button-red-popup-lookup-claim {
+    margin-top: 10px;
+    margin-left: 10px;
+    max-width: 600px;
+    width: 70%;
+    height: 50px;
+    color: white;
+    border: 2px solid transparent;
+    font-family: "Akira Expanded", sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0px;
+    padding: 0;
+    margin: auto;
+}
+
+.button-blue-popup-lookup-claim {
+    margin-top: 10px;
+    margin-left: 10px;
+    max-width: 600px;
+    width: 65%;
+    height: 50px;
+    color: white;
+    border: 2px solid transparent;
+    font-family: "Akira Expanded", sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0px;
+    padding: 0;
+    margin: auto;
+}
+
+.verify-row-claim-lookup {
+    width: 80%;
+    max-width: 600px;
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.input-lookup {
+    border: none;
+    background-image: none;
+    appearance: none;
+    position: relative;
+    color: var(--primary-sea-blue);
+    font-family: "Bebas Neue";
+    font-weight: 400 !important;
+    max-width: 600px;
+    width: 85%;
+    height: 55px !important;
+    padding-left: 5px;
+    border-radius: 0;
+    font-size: 15px;
+}
+
+.input-lookup::placeholder {
+    color: var(--primary-sea-blue);
+    font-size: 15px;
+}
+
+@media screen and (max-width: 500px) {
+    .button-red-popup-lookup-claim {
+        width: 90%;
+    }
+    .button-blue-popup-lookup-claim {
+        width: 85%;
+    }
+    .verify-row-claim-lookup {
+        width: 100%;
+    }
+    .input-lookup {
+        width: 90%;
+    }
+}
+
+.button-red-popup-lookup-claim:hover {
+    background-color: var(--primary-sea-blue) !important;
+    border: 2px solid var(--border-primary-blue) !important;
+    transition: 0.3s ease;
+}
+
+.button-blue-popup-lookup-claim:hover {
+    background-color: var(--primary-burnt-orange) !important;
+    border: 2px solid var(--border-primary-red) !important;
+    transition: 0.3s ease;
+}
+
+.switch-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.switch-container span {
+    padding-top: 5px;
+}
+
+.format-number-lookup-claim .react-tel-input .form-control {
+    height: 55px;   
+}
+
+.format-number-lookup-claim  {
+    margin-bottom: 0;
+    max-width: 600px; 
+    width: 85%; 
+    margin: auto;
+    justify-content: start; 
+}
+
+
+
+@media screen and (max-width: 500px) {
+    .format-number-lookup-claim {
+        width: 100%;
+    }
+}
+
+.format-number-lookup-claim .col-lg-8 {
+    width: 100%;
+}
+
+.format-number-lookup-claim .col-md-10 {
+    width: 100%;
+}
+
+.format-number-lookup-claim .col-12-step {
+    width: 100%;
+}
+
+/* Switch */
+
+.switch {
+ --secondary-container: #0f1653;
+ --primary: var(--border-primary-blue);
+ font-size: 17px;
+ position: relative;
+ display: inline-block;
+ width: 3.7em;
+ height: 1.8em;
+}
+
+.switch input {
+ display: none;
+ opacity: 0;
+ width: 0;
+ height: 0;
+}
+
+.slider {
+ position: absolute;
+ cursor: pointer;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background-color: #620f0f;
+ transition: .2s;
+ border-radius: 30px;
+}
+
+.slider:before {
+ position: absolute;
+ content: "";
+ height: 1.4em;
+ width: 1.4em;
+ border-radius: 20px;
+ left: 0.2em;
+ bottom: 0.2em;
+ background-color: var(--primary-burnt-orange);
+ transition: .4s;
+}
+
+input:checked + .slider::before {
+ background-color: var(--primary);
+}
+
+input:checked + .slider {
+ background-color: var(--secondary-container);
+}
+
+input:focus + .slider {
+ box-shadow: 0 0 1px var(--secondary-container);
+}
+
+input:checked + .slider:before {
+ transform: translateX(1.9em);
+}

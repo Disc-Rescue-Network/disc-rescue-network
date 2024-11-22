@@ -7,10 +7,11 @@ import "react-phone-input-2/lib/material.css";
 interface FormStepProps {
   phoneNumber: string;
   setPhoneNumber: (value: string) => void;
+  className?: string;
 }
 
 const FormStep: React.FC<FormStepProps> = (props) => {
-  const { phoneNumber, setPhoneNumber } = props;
+  const { phoneNumber, setPhoneNumber, className } = props;
 
   const handleSetPhoneNumber = (value: string) => {
     //console.log("Phone number", value);
@@ -18,8 +19,8 @@ const FormStep: React.FC<FormStepProps> = (props) => {
   };
 
   return (
-    <div className="select-box-step">
-      <div className="col-12-step col-md-10 col-lg-8" style={{ padding: "0" }}>
+    <div className={`select-box-step ${className || ""}`}>
+      <div className="col-12-step col-md-10 col-lg-8" style={{padding: "0"}}>
         <PhoneInput
           country={"us"}
           value={phoneNumber}
@@ -32,7 +33,7 @@ const FormStep: React.FC<FormStepProps> = (props) => {
             minWidth: "100%",
             borderRadius: "0px",
           }}
-          buttonStyle={{ borderRadius: "0px" }}
+          buttonStyle={{borderRadius: "0px"}}
         />
       </div>
     </div>

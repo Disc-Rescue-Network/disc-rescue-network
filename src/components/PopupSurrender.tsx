@@ -12,6 +12,8 @@ export interface Pickup {
 }
 
 export interface Claim {
+  lastName: any;
+  firstName: any;
   tofAccepted: boolean;
   pcmVerified: boolean;
   verified: boolean;
