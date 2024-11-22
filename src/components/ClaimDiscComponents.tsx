@@ -256,6 +256,8 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           onClose={closePopup}
           pickupPreferences={pickupPreferences}
           pickupName={pickupName}
+          firstName={firstName}
+          lastName={lastName}
           disc={disc}
           contactMethod={contactMethod}
           contactValue={contactValue}
@@ -277,6 +279,8 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           onClose={closePopupSurrender}
           onSuccess={verifyPCM}
           pickupName={pickupName}
+          firstName={firstName}
+          lastName={lastName}
           pickupPreferences={pickupPreferences}
           disc={disc}
           tofAccepted={TOFAccepted}
