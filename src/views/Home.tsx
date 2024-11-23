@@ -21,7 +21,7 @@ function Home() {
       <HomePageButtons />
       <div className="disc-container">
         <Subheader text="RECENTLY TURNED IN DISCS" />
-        <Discs arrayOfDiscs={inventory} isLoading={loading} />
+        <Discs discs={inventory} isLoading={loading} />
       </div>
     </div>
   );

@@ -5,19 +5,21 @@
   gap: 16px; /* Space between cards */
   overflow-x: auto; /* Enable horizontal scrolling */
   scroll-snap-type: x mandatory; /* Optional: Snap to cards on scroll */
+  padding: 16px 0;
 }
 
 .card-list::-webkit-scrollbar {
-  height: 8px; /* Horizontal scrollbar height */
+  height: 15px; /* Horizontal scrollbar height */
+  width: 15px; /* Vertical scrollbar width */
+  background-color: var(--primary-white);
+}
+.card-list::-webkit-scrollbar-track {
+  background: var(--primary-sea-blue);
 }
 
 .card-list::-webkit-scrollbar-thumb {
-  background-color: var(--primary-blue); /* Scrollbar color */
-  border-radius: 4px; /* Rounded scrollbar */
-}
-
-.card-list::-webkit-scrollbar-track {
-  background: #f0f0f0; /* Scrollbar track color */
+  background: red;
+  border-radius: 1px;
 }
 
 /* Card styling */
@@ -54,10 +56,12 @@
 
 .scroll-button.left {
   left: 8px;
+  background-color: var(--primary-sea-blue);
 }
 
 .scroll-button.right {
   right: 8px;
+  background-color: var(--primary-sea-blue);
 }
 
 /* Image Wrapper */

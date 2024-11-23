@@ -4,6 +4,7 @@
   overflow-y: hidden;
   white-space: nowrap;
 }
+/* 
 
 .card-container-discs {
   display: flex;
@@ -35,7 +36,7 @@
 .card-container-discs::-webkit-scrollbar-thumb {
   background: red;
   border-radius: 1px;
-}
+} */
 
 .card-container-claim-discs {
   display: grid;
