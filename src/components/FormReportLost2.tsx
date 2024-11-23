@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useInventory } from "../hooks/useInventory";
 import { Disc } from "../App";
+import { useInventoryContext } from "../hooks/useInventory";
 
 interface FormReportLostColorProps {
   color: string;
@@ -16,12 +16,12 @@ const FormReportLost2 = (props: FormReportLostColorProps) => {
   const placeholder = contactMethod === "email" ? "Email Address" : number;
   const [contactValue, setContactValue] = useState("");
 
-  const { inventory, fetchInventory, loading } = useInventory();
+  const { inventory, loading } = useInventoryContext();
   const [colors, setColors] = useState<string[]>([]);
 
-  useEffect(() => {
-    fetchInventory();
-  }, []);
+  // useEffect(() => {
+  //   fetchInventory();
+  // }, []);
 
   useEffect(() => {
     //console.log('Inventory:', inventory);

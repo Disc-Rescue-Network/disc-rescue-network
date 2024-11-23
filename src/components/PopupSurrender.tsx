@@ -85,11 +85,11 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
   const [loading, setLoading] = React.useState(false);
   const { courses, fetchCourses, loading: loadingCourses } = useCourses();
 
-  useEffect(() => {
-    if (courses.length === 0) {
-      fetchCourses();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (courses.length === 0) {
+  //     fetchCourses();
+  //   }
+  // }, []);
 
   const handleSurrenderDisc = async () => {
     setLoading(true);

@@ -1,13 +1,7 @@
-import axios from "axios";
 import "../styles/rescueFlowForms.css";
 import { useEffect, useState } from "react";
-
-interface Course {
-  courseName: string;
-  city: string;
-  state: string;
-  orgCode?: string;
-}
+import { useCourses } from "../hooks/useCourses";
+import { Course } from "../App";
 
 interface CoursePickerProps {
   setCourse: (course: string) => void;
@@ -71,48 +65,43 @@ const CoursePickerForm = (props: CoursePickerProps) => {
   const [selectedState, setSelectedState] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
   const [uniqueStates, setUniqueStates] = useState<string[]>([]);
-  const [allCourses, setAllCourses] = useState<Course[]>([]);
+  const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
 
   const { setState, setCourse } = props;
 
+  const { courses, fetchCourses, loading: loadingCourses } = useCourses();
+
   useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const response = await axios.get<Course[]>(
-          "https://api.discrescuenetwork.com/coursesData"
-        );
-        const validCourses = response.data.filter(
-          (course: Course) => course.city && course.state && course.courseName
-        );
-
-        setAllCourses(validCourses);
-
-        const states = Array.from(
-          new Set(
-            validCourses.map(
-              (course: Course) =>
-                stateAbbreviations[course.state] || course.state
-            )
-          )
-        );
-        setUniqueStates(["All", ...states]);
-      } catch (error) {
-        console.error("Erro ao buscar os cursos:", error);
-      }
-    };
-
-    fetchCourses();
-  }, []);
+    if (!loadingCourses) {
+      console.log("courses", courses);
+      const filtered = courses.filter(
+        (course) => course.activeForLostAndFound === 1
+      );
+      console.log("filteredCourses", filtered);
+      setFilteredCourses(filtered);
+      const uniqueStates = Array.from(
+        new Set(
+          filteredCourses.map((course) => {
+            // Debugging step to log each state
+            console.log("Mapping state:", course.state);
+            return stateAbbreviations[course.state] || course.state;
+          })
+        )
+      ).sort();
+      console.log("uniqueStates", uniqueStates);
+      setUniqueStates(uniqueStates);
+    }
+  }, [loadingCourses]);
 
   const handleStateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedState = event.target.value;
     setSelectedState(selectedState);
     setState(selectedState);
     const course =
-      allCourses.find(
+      courses.find(
         (course) =>
           (stateAbbreviations[course.state] || course.state) === selectedState
-      )?.courseName || "";
+      )?.name || "";
     setSelectedCourse(course);
     setCourse(course);
   };
@@ -128,8 +117,8 @@ const CoursePickerForm = (props: CoursePickerProps) => {
       return;
     }
 
-    const correspondingState = allCourses.find(
-      (course) => course.courseName === selectedCourse
+    const correspondingState = courses.find(
+      (course) => course.name === selectedCourse
     )?.state;
     if (correspondingState) {
       const stateAbbreviation =
@@ -143,13 +132,13 @@ const CoursePickerForm = (props: CoursePickerProps) => {
 
   //console.log("selected state", selectedState);
 
-  const filteredCourses =
-    selectedState === "All" || selectedState === "STATE" || selectedState === ""
-      ? allCourses
-      : allCourses.filter(
-          (course) =>
-            (stateAbbreviations[course.state] || course.state) === selectedState
-        );
+  // const filteredCourses =
+  //   selectedState === "All" || selectedState === "STATE" || selectedState === ""
+  //     ? courses
+  //     : courses.filter(
+  //         (course) =>
+  //           (stateAbbreviations[course.state] || course.state) === selectedState
+  //       );
 
   return (
     <div className="mt-5 mb-3 select-box-forms report-lost-class">
@@ -175,8 +164,8 @@ const CoursePickerForm = (props: CoursePickerProps) => {
         >
           <option value="">SELECT A COURSE</option>
           {filteredCourses.map((course, index) => (
-            <option key={index} value={course.courseName}>
-              {course.courseName}
+            <option key={index} value={course.name}>
+              {course.name}
             </option>
           ))}
         </select>

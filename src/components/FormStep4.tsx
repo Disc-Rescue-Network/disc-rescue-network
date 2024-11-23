@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useInventory } from "../hooks/useInventory";
+import { useInventoryContext } from "../hooks/useInventory";
 import "../styles/formStep4.css";
 
 interface FormStep4Props {
@@ -10,7 +10,7 @@ interface FormStep4Props {
 
 const FormStep4 = (props: FormStep4Props) => {
   const { inputBrand, brand, setBrand } = props;
-  const { inventory, fetchInventory } = useInventory();
+  const { inventory, loading } = useInventoryContext();
 
   const handleBrandChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setBrand(e.target.value);
@@ -19,13 +19,6 @@ const FormStep4 = (props: FormStep4Props) => {
     //console.log("e.target.value", e.target.value);
     setBrand(e.target.value);
   };
-
-  useEffect(() => {
-    if (inventory.length === 0) {
-      //console.log("Fetching inventory");
-      fetchInventory();
-    }
-  }, [inventory]);
 
   const brands = Array.from(
     new Set(

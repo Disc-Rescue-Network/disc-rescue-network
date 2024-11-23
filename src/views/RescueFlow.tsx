@@ -10,7 +10,7 @@ import Arrow from "../assets/arrow-down.png";
 import { useNavigate } from "react-router-dom";
 import RescueFLowFailure from "../components/RescueFlowFailure";
 import RescueFlowPopup from "../components/RescueFlowPopup";
-import { useInventory } from "../hooks/useInventory";
+import { useInventoryContext } from "../hooks/useInventory";
 import { Disc } from "../App";
 import RescueFlowFailure from "../components/RescueFlowFailure";
 
@@ -28,15 +28,15 @@ export default function RescueFlow() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [matchedDiscs, setMatchedDiscs] = useState<Disc[]>([]);
   const [rejectedDiscs, setRejectedDiscs] = useState<Disc[]>([]);
-  const { inventory, fetchInventory } = useInventory();
+  const { inventory, loading } = useInventoryContext();
 
-  useEffect(() => {
-    if (inventory.length === 0) {
-      //console.log("Fetching inventory");
-      fetchInventory();
-    }
-    //console.log("Inventory", inventory);
-  }, []);
+  // useEffect(() => {
+  //   if (inventory.length === 0) {
+  //     //console.log("Fetching inventory");
+  //     fetchInventory();
+  //   }
+  //   //console.log("Inventory", inventory);
+  // }, []);
 
   const navigate = useNavigate();
 

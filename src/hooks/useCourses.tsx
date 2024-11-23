@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_BASE_URL, Course } from "../App";
 
@@ -36,7 +36,7 @@ const setCachedCourses = (data: Course[]) => {
 
 export const useCourses = (): useCoursesHook => {
   const [courses, setCourses] = useState<Course[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchCourses = async () => {
     const cachedCourses = getCachedCourses();
@@ -62,6 +62,12 @@ export const useCourses = (): useCoursesHook => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (courses.length === 0) {
+      fetchCourses();
+    }
+  }, []);
 
   return {
     courses,

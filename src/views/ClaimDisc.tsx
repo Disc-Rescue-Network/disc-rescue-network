@@ -5,8 +5,8 @@ import { useState, useEffect } from "react";
 import PopUpReport from "../components/ReportLostPopup";
 import { useNavigate, useParams } from "react-router-dom";
 import ClaimDiscComponents from "../components/ClaimDiscComponents";
-import { useInventory } from "../hooks/useInventory";
 import React from "react";
+import { useInventoryContext } from "../hooks/useInventory";
 
 export default function ClaimDisc() {
   const { id } = useParams<{ id?: string }>();
@@ -15,14 +15,7 @@ export default function ClaimDisc() {
     "phone"
   );
   const [step, setStep] = useState(1);
-  const { inventory, loading, fetchInventory } = useInventory();
-
-  React.useEffect(() => {
-    if (inventory.length === 0) {
-      //console.log("Fetching inventory");
-      fetchInventory();
-    }
-  }, [inventory]);
+  const { inventory, loading } = useInventoryContext();
 
   const navigate = useNavigate();
 

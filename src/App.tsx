@@ -14,7 +14,6 @@ import ClaimDisc from "./views/ClaimDisc";
 import ClaimDiscSuccess from "./views/ClaimDiscSuccess";
 import SurrenderDiscSuccess from "./views/SurrenderDiscSuccess";
 import ReportLostDiscSuccess from "./views/ReportLostDiscSuccess";
-import { useInventory } from "./hooks/useInventory";
 import BetaBanner from "./components/BetaBanner";
 import { Claim } from "./components/PopupSurrender";
 
@@ -27,7 +26,7 @@ export interface Course {
   shortCode: string;
   createdAt: Date;
   updatedAt: Date;
-  activeForLostAndFound: boolean;
+  activeForLostAndFound: number; // Changed from boolean to number
   shortLink: string;
   link: string;
   udiscLeagueURL: string | null;
@@ -100,15 +99,6 @@ export const API_BASE_URL = "https://apis.discrescuenetwork.com"; //production U
 //export const API_BASE_URL = "http://localhost:8080"; // local testing
 
 function App() {
-  const { inventory, fetchInventory } = useInventory();
-
-  React.useEffect(() => {
-    if (inventory.length === 0) {
-      //console.log("Fetching inventory");
-      fetchInventory();
-    }
-  }, [inventory]);
-
   return (
     <div className="app">
       <BetaBanner
