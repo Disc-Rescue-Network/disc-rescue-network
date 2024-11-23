@@ -148,7 +148,18 @@ export const InventoryProvider: React.FC<{ children: React.ReactNode }> = ({
         hasNextPage = nextPage;
       }
 
-      setInventory(allItems);
+      const filteredInventory = allItems.filter(
+        (disc) =>
+          ![
+            "CLAIMED",
+            "SOLD",
+            "SOLD_OFFLINE",
+            "FOR_SALE",
+            "SURRENDERED",
+          ].includes(disc.status)
+      );
+
+      setInventory(filteredInventory);
     } catch (error) {
       console.error("Error fetching inventory:", error);
       setErrorMessage(

@@ -99,36 +99,69 @@ export enum DiscStateString {
 export const API_BASE_URL = "https://apis.discrescuenetwork.com"; //production URL
 //export const API_BASE_URL = "http://localhost:8080"; // local testing
 
+function useBackgroundColor() {
+  const [pathname, setPathname] = React.useState(window.location.pathname);
+  const [className, setClassName] = React.useState("");
+
+  React.useEffect(() => {
+    const handleLocationChange = () => {
+      setPathname(window.location.pathname);
+    };
+
+    // Handle popstate and initial pathname set
+    window.addEventListener("popstate", handleLocationChange);
+
+    return () => {
+      window.removeEventListener("popstate", handleLocationChange);
+    };
+  }, []);
+
+  React.useEffect(() => {
+    // Set className based on pathname
+    if (["/", "/searchAll", "/searchInventory"].includes(pathname)) {
+      setClassName("app");
+    } else {
+      // setClassName("app-blue");
+      setClassName("app");
+    }
+  }, [pathname]);
+
+  return className;
+}
+
 function App() {
+  const className = useBackgroundColor();
+
   return (
-    <div className="app">
+    <div className={`${className} app-layout`}>
       <BetaBanner
         Text={
           "This app is currently in development. Please email support@discrescuenetwork.com for help."
         }
       />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/rescueflow" element={<RescueFlow />} />
-        <Route path="/store" element={<Store />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/requestCourse" element={<RequestCourse />} />
-        <Route path="/reportLostDisc" element={<ReportLostDisc />} />
-        <Route path="/searchInventory" element={<SearchInventory />} />
-        <Route path="/courses" element={<Courses />} />
-        <Route path="/claimDisc/:id" element={<ClaimDisc />} />
-        <Route path="/claimDiscSuccess/:id" element={<ClaimDiscSuccess />} />
-        <Route
-          path="/surrenderDiscSuccess"
-          element={<SurrenderDiscSuccess />}
-        />
-        <Route
-          path="/reportLostDiscSuccess"
-          element={<ReportLostDiscSuccess />}
-        />
-        <Route path="/support-ticket" element={<SupportTicket />} />
-      </Routes>
-
+      <main className="app-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/rescueflow" element={<RescueFlow />} />
+          <Route path="/store" element={<Store />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/requestCourse" element={<RequestCourse />} />
+          <Route path="/reportLostDisc" element={<ReportLostDisc />} />
+          <Route path="/searchInventory" element={<SearchInventory />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/claimDisc/:id" element={<ClaimDisc />} />
+          <Route path="/claimDiscSuccess/:id" element={<ClaimDiscSuccess />} />
+          <Route
+            path="/surrenderDiscSuccess"
+            element={<SurrenderDiscSuccess />}
+          />
+          <Route
+            path="/reportLostDiscSuccess"
+            element={<ReportLostDiscSuccess />}
+          />
+          <Route path="/support-ticket" element={<SupportTicket />} />
+        </Routes>
+      </main>
       <Footer />
     </div>
   );

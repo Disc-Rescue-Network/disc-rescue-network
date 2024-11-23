@@ -110,13 +110,6 @@ export default function CourseSection({
 
   return (
     <div className="course-section">
-      {loading && (
-        <div className="card-container-discs">
-          {Array.from({ length: 3 }).map((_, index) => (
-            <SkeletonCard key={index} />
-          ))}
-        </div>
-      )}
       <CourseSectionDiscs arrayOfDiscs={displayedDiscs} />
       {showLoadMore && (
         <div className="load-more">

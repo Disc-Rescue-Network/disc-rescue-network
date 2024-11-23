@@ -1,12 +1,12 @@
-import {useCallback, useState, useEffect} from "react";
+import { useCallback, useState, useEffect } from "react";
 import Button from "./Button";
 import "../styles/lookupClaimPopup.css";
 import FormStep from "./FormStep2";
-import {useInventory} from "../hooks/useInventory";
 import React from "react";
-import {Disc} from "../App";
-import {PickupInfo} from "./PopupSurrender";
-import {Alert, Snackbar} from "@mui/material";
+import { Disc } from "../App";
+import { PickupInfo } from "./PopupSurrender";
+import { Alert, Snackbar } from "@mui/material";
+import { useInventoryContext } from "../hooks/useInventory";
 
 export interface Claim {
   tofAccepted: boolean;
@@ -36,7 +36,7 @@ interface Props {
   }) => void;
 }
 
-const LookupClaimPopup: React.FC<Props> = ({onClose, onSubmit}) => {
+const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
@@ -55,18 +55,7 @@ const LookupClaimPopup: React.FC<Props> = ({onClose, onSubmit}) => {
   const [claimId, setClaimId] = useState("");
   const [searchResults, setSearchResults] = useState<Claim | null>(null);
 
-  const {inventory, fetchInventory} = useInventory();
-
-  useEffect(() => {
-    console.log("Current inventory:", inventory);
-  }, [inventory]);
-
-  useEffect(() => {
-    if (inventory.length === 0) {
-      console.log("Fetching inventory because it's empty");
-      fetchInventory();
-    }
-  }, [inventory, fetchInventory]);
+  const { inventory, loading } = useInventoryContext();
 
   const handleSubmit = useCallback(() => {
     setShowSuccessMessage(false);
@@ -103,12 +92,14 @@ const LookupClaimPopup: React.FC<Props> = ({onClose, onSubmit}) => {
             ? claim.email?.toLowerCase() === contactValue.toLowerCase()
             : claim.phoneNumber === contactValue;
 
-        console.log("Checking claim:", {
-          claim,
-          firstNameMatch,
-          lastNameMatch,
-          contactMatch,
-        });
+        if (claim.id === 216) {
+          console.log("Checking claim 216:", {
+            claim,
+            firstNameMatch,
+            lastNameMatch,
+            contactMatch,
+          });
+        }
 
         return firstNameMatch && lastNameMatch && contactMatch;
       });
@@ -245,7 +236,7 @@ const LookupClaimPopup: React.FC<Props> = ({onClose, onSubmit}) => {
               onClose={() => setShowSuccessMessage(false)}
               severity="success"
               variant="filled"
-              sx={{width: "100%"}}
+              sx={{ width: "100%" }}
             >
               {successMessage}
             </Alert>
@@ -261,7 +252,7 @@ const LookupClaimPopup: React.FC<Props> = ({onClose, onSubmit}) => {
               onClose={() => setShowErrorMessage(false)}
               severity="error"
               variant="filled"
-              sx={{width: "100%"}}
+              sx={{ width: "100%" }}
             >
               {errorMessage}
             </Alert>
@@ -277,7 +268,7 @@ const LookupClaimPopup: React.FC<Props> = ({onClose, onSubmit}) => {
               onClose={() => setShowInfoMessage(false)}
               severity="info"
               variant="filled"
-              sx={{width: "100%"}}
+              sx={{ width: "100%" }}
             >
               {infoMessage}
             </Alert>

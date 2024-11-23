@@ -16,7 +16,7 @@ function Home() {
   }
 
   return (
-    <div className="container-home">
+    <div className="inner-app-container">
       <FullLogoHeader />
       <HomePageButtons />
       <div className="disc-container">

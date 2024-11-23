@@ -7,6 +7,8 @@ import CourseSection from "../components/CourseSection";
 import SearchInventorySidebar from "../components/SearchInventorySidebar";
 import { Disc } from "../App";
 import LogoRescueFlow2 from "../components/LogoRescueFlow2";
+import { useInventoryContext } from "../hooks/useInventory";
+import SkeletonCard from "../components/SkeletonCard";
 
 interface FilterCriteria {
   brands: string[];
@@ -29,6 +31,7 @@ export default function SearchInventory() {
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
   const [displayedDiscs, setDisplayedDiscs] = useState<Disc[]>([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
+  const { inventory, loading } = useInventoryContext();
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -66,7 +69,7 @@ export default function SearchInventory() {
 
   const handleFilter = (newFilters: FilterCriteria) => {
     setFilters(newFilters);
-    setIsSidebarOpen(true);
+    // setIsSidebarOpen(true);
   };
 
   const handleReset = () => {
@@ -82,12 +85,10 @@ export default function SearchInventory() {
     setCurrentSort(newSort);
   };
 
+  const skeletonLength = isMobile ? 2 : 3;
+
   return (
-    <div
-      className={`container-search-inventory ${
-        isSidebarOpen ? "open-body" : ""
-      }`}
-    >
+    <div className={`inner-app-container ${isSidebarOpen ? "open-body" : ""}`}>
       <div className="logo-and-arrow">
         <i
           className="arrow-left-icon-blue"
@@ -113,14 +114,22 @@ export default function SearchInventory() {
           Filters{" "}
         </span>
       </div>
-      <CourseSection
-        filters={filters}
-        setFilters={setFilters}
-        currentSort={currentSort}
-        handleSortToggle={handleSortToggle}
-        selectedCourseId={selectedCourseId}
-        displayedDiscsCards={displayedDiscs}
-      />
+      {loading || inventory.length === 0 ? (
+        <div className="card-container-discs">
+          {Array.from({ length: skeletonLength }).map((_, index) => (
+            <SkeletonCard key={index} />
+          ))}
+        </div>
+      ) : (
+        <CourseSection
+          filters={filters}
+          setFilters={setFilters}
+          currentSort={currentSort}
+          handleSortToggle={handleSortToggle}
+          selectedCourseId={selectedCourseId}
+          displayedDiscsCards={displayedDiscs}
+        />
+      )}
       <SearchInventorySidebar
         isOpen={isSidebarOpen}
         onFilter={handleFilter}
