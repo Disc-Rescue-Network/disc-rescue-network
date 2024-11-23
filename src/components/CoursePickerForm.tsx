@@ -1,13 +1,7 @@
 import "../styles/rescueFlowForms.css";
 import { useEffect, useState } from "react";
 import { useCourses } from "../hooks/useCourses";
-
-interface Course {
-  courseName: string;
-  city: string;
-  state: string;
-  orgCode?: string;
-}
+import { Course } from "../App";
 
 interface CoursePickerProps {
   setCourse: (course: string) => void;
@@ -71,6 +65,7 @@ const CoursePickerForm = (props: CoursePickerProps) => {
   const [selectedState, setSelectedState] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
   const [uniqueStates, setUniqueStates] = useState<string[]>([]);
+  const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
 
   const { setState, setCourse } = props;
 
@@ -79,15 +74,18 @@ const CoursePickerForm = (props: CoursePickerProps) => {
   useEffect(() => {
     if (!loadingCourses) {
       console.log("courses", courses);
-      const filteredCourses = courses.filter(
+      const filtered = courses.filter(
         (course) => course.activeForLostAndFound === 1
       );
-      console.log("filteredCourses", filteredCourses);
+      console.log("filteredCourses", filtered);
+      setFilteredCourses(filtered);
       const uniqueStates = Array.from(
         new Set(
-          filteredCourses.map(
-            (course) => stateAbbreviations[course.state] || course.state
-          )
+          filteredCourses.map((course) => {
+            // Debugging step to log each state
+            console.log("Mapping state:", course.state);
+            return stateAbbreviations[course.state] || course.state;
+          })
         )
       ).sort();
       console.log("uniqueStates", uniqueStates);
@@ -134,13 +132,13 @@ const CoursePickerForm = (props: CoursePickerProps) => {
 
   //console.log("selected state", selectedState);
 
-  const filteredCourses =
-    selectedState === "All" || selectedState === "STATE" || selectedState === ""
-      ? courses
-      : courses.filter(
-          (course) =>
-            (stateAbbreviations[course.state] || course.state) === selectedState
-        );
+  // const filteredCourses =
+  //   selectedState === "All" || selectedState === "STATE" || selectedState === ""
+  //     ? courses
+  //     : courses.filter(
+  //         (course) =>
+  //           (stateAbbreviations[course.state] || course.state) === selectedState
+  //       );
 
   return (
     <div className="mt-5 mb-3 select-box-forms report-lost-class">
