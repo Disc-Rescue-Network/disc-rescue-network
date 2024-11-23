@@ -16,6 +16,7 @@ import SurrenderDiscSuccess from "./views/SurrenderDiscSuccess";
 import ReportLostDiscSuccess from "./views/ReportLostDiscSuccess";
 import BetaBanner from "./components/BetaBanner";
 import { Claim } from "./components/PopupSurrender";
+import SupportTicket from "./views/SupportTicket";
 
 export interface Course {
   id: number;
@@ -125,6 +126,7 @@ function App() {
           path="/reportLostDiscSuccess"
           element={<ReportLostDiscSuccess />}
         />
+        <Route path="/support-ticket" element={<SupportTicket />} />
       </Routes>
 
       <Footer />
