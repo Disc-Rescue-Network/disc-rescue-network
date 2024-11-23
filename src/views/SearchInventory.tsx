@@ -131,7 +131,7 @@ export default function SearchInventory() {
       </div>
       <div className="filter-button">
         <span className="filter-btn" onClick={toggleSidebar}>
-          Filters{" "}
+          Filters
         </span>
       </div>
       {loading || inventory.length === 0 ? (

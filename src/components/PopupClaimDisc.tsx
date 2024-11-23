@@ -165,7 +165,6 @@ export function PopupVerify({
           id="discInfoVerify"
           style={{
             color: "var(--primary-black) !important",
-            width: "100%",
           }}
         >
           <div

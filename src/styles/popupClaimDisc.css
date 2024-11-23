@@ -69,7 +69,10 @@ p {
   background-color: var(--primary-sea-blue);
   position: relative;
   margin: 10px auto;
-  padding: 10px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
   border: 2px solid var(--primary-sea-blue);
   border-radius: 0px;
   border: 3px solid var(--secondary-safety-sky-blue);
