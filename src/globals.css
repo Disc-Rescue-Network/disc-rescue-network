@@ -391,12 +391,12 @@ h4 {
   background-color: var(--primary-sea-blue);
   /* padding: 2rem;
   padding-top: 3rem; */
-  padding: 0;
+  padding: 1rem;
   margin: 0px;
   width: auto;
   min-width: 100%;
   height: auto;
-  min-height: 100%;
+  min-height: 100dvh;
 }
 
 .container-light-blue {

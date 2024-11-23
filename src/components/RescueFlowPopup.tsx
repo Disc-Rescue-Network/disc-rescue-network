@@ -1,9 +1,9 @@
-import "../styles/rescueFlowPopup.css";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import { Disc } from "../App";
 import RescueFlowDiscsArray from "./RescueFlowDiscsArray";
 import Card from "./Card";
+import "../styles/rescueFlowPopup.css";
 
 interface Props {
   onClosePopup: () => void;
@@ -28,7 +28,7 @@ const RescueFlowPopup: React.FC<Props> = ({ onClosePopup, arrayOfDiscs }) => {
             {arrayOfDiscs.length === 1 && (
               <div className="discs-claim">
                 <div className="card-container-claim-single-disc">
-                  <Card disc={arrayOfDiscs[0]} showButton={false} />
+                  <Card disc={arrayOfDiscs[0]} showButton={true} />
                 </div>
               </div>
             )}
