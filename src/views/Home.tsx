@@ -1,20 +1,19 @@
-import * as React from "react";
 import "../globals.css";
 import FullLogoHeader from "../components/HeaderComponents";
 import HomePageButtons from "../components/HomePageButtons";
 import Subheader from "../components/Subheader";
 import Discs from "../components/Discs";
-import { useInventory } from "../hooks/useInventory";
+import { useInventoryContext } from "../hooks/useInventory";
+import { useCourses } from "../hooks/useCourses";
+import LoadingScreen from "./LoadingSceen";
 
 function Home() {
-  const { inventory, fetchInventory } = useInventory();
+  const { inventory, loading } = useInventoryContext();
+  const { courses, loading: loadingCourses } = useCourses();
 
-  React.useEffect(() => {
-    if (inventory.length === 0) {
-      //console.log("Fetching inventory");
-      fetchInventory();
-    }
-  }, [inventory]);
+  if (loading || loadingCourses) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="container-home">
@@ -22,7 +21,7 @@ function Home() {
       <HomePageButtons />
       <div className="disc-container">
         <Subheader text="RECENTLY TURNED IN DISCS" />
-        <Discs arrayOfDiscs={inventory} />
+        <Discs arrayOfDiscs={inventory} isLoading={loading} />
       </div>
     </div>
   );

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import "../styles/courseSection.css";
 import { Disc, DiscStateString } from "../App";
 import CourseSectionDiscs from "./CourseSectionDiscs";
-import { useInventory } from "../hooks/useInventory";
 import React from "react";
 import SkeletonCard from "./SkeletonCard";
+import { useInventoryContext } from "../hooks/useInventory";
 
 interface FilterCriteria {
   brands: string[];
@@ -30,14 +30,14 @@ export default function CourseSection({
   const [displayedDiscs, setDisplayedDiscs] = useState<Disc[]>([]);
   const [showLoadMore, setShowLoadMore] = useState(true);
 
-  const { inventory, fetchInventory, loading } = useInventory();
+  const { inventory, loading } = useInventoryContext();
 
-  React.useEffect(() => {
-    if (inventory.length === 0) {
-      //console.log("Fetching inventory");
-      fetchInventory();
-    }
-  }, [inventory]);
+  // React.useEffect(() => {
+  //   if (inventory.length === 0) {
+  //     //console.log("Fetching inventory");
+  //     fetchInventory();
+  //   }
+  // }, [inventory]);
 
   useEffect(() => {
     //console.log("Inventory", inventory);

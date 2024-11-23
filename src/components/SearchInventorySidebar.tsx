@@ -3,7 +3,7 @@ import "../styles/searchInventorySidebar.css";
 import { Disc } from "../App";
 import { useLocation } from "react-router-dom";
 import React from "react";
-import { useInventory } from "../hooks/useInventory";
+import { useInventoryContext } from "../hooks/useInventory";
 
 interface SearchInventorySidebarProps {
   isOpen: boolean;
@@ -63,14 +63,7 @@ export default function SearchInventorySidebar({
     discNames: [],
   });
 
-  const { inventory, fetchInventory, loading } = useInventory();
-
-  React.useEffect(() => {
-    if (inventory.length === 0) {
-      //console.log("Fetching inventory");
-      fetchInventory(courseId!);
-    }
-  }, [inventory]);
+  const { inventory, loading } = useInventoryContext();
 
   const filterDiscs = (
     discs: Disc[],

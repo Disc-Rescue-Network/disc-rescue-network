@@ -47,11 +47,11 @@ const ClaimToSurrenderPopUp: React.FC<ClaimToSurrenderPopUpProps> = ({
   const [loading, setLoading] = React.useState(false);
   const { courses, fetchCourses, loading: loadingCourses } = useCourses();
 
-  useEffect(() => {
-    if (courses.length === 0) {
-      fetchCourses();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (courses.length === 0) {
+  //     fetchCourses();
+  //   }
+  // }, []);
 
   const handleClaimToSurrenderDisc = async () => {
     setLoading(true);

@@ -1,3 +1,4 @@
+import React from "react";
 import "../styles/discs.css";
 import Card from "./Card";
 import { Disc } from "../App";
@@ -5,18 +6,18 @@ import SkeletonCard from "./SkeletonCard";
 
 interface DiscsProps {
   arrayOfDiscs: Disc[];
+  isLoading: boolean;
 }
 
-const Discs = ({ arrayOfDiscs }: DiscsProps) => {
+const Discs = ({ arrayOfDiscs, isLoading }: DiscsProps) => {
   return (
     <div className="discs">
       <div className="card-container-discs">
-        {arrayOfDiscs.length > 0
+        {!isLoading
           ? arrayOfDiscs.map((disc) => (
               <Card key={disc.id} disc={disc} showButton={true} />
             ))
-          : // Render skeleton cards when there are no discs
-            Array.from({ length: 5 }).map((_, index) => (
+          : Array.from({ length: 5 }).map((_, index) => (
               <SkeletonCard key={index} />
             ))}
       </div>

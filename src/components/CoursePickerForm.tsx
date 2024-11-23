@@ -1,6 +1,6 @@
-import axios from "axios";
 import "../styles/rescueFlowForms.css";
 import { useEffect, useState } from "react";
+import { useCourses } from "../hooks/useCourses";
 
 interface Course {
   courseName: string;
@@ -71,48 +71,39 @@ const CoursePickerForm = (props: CoursePickerProps) => {
   const [selectedState, setSelectedState] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
   const [uniqueStates, setUniqueStates] = useState<string[]>([]);
-  const [allCourses, setAllCourses] = useState<Course[]>([]);
 
   const { setState, setCourse } = props;
 
+  const { courses, fetchCourses, loading: loadingCourses } = useCourses();
+
   useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const response = await axios.get<Course[]>(
-          "https://api.discrescuenetwork.com/coursesData"
-        );
-        const validCourses = response.data.filter(
-          (course: Course) => course.city && course.state && course.courseName
-        );
-
-        setAllCourses(validCourses);
-
-        const states = Array.from(
-          new Set(
-            validCourses.map(
-              (course: Course) =>
-                stateAbbreviations[course.state] || course.state
-            )
+    if (!loadingCourses) {
+      console.log("courses", courses);
+      const filteredCourses = courses.filter(
+        (course) => course.activeForLostAndFound === 1
+      );
+      console.log("filteredCourses", filteredCourses);
+      const uniqueStates = Array.from(
+        new Set(
+          filteredCourses.map(
+            (course) => stateAbbreviations[course.state] || course.state
           )
-        );
-        setUniqueStates(["All", ...states]);
-      } catch (error) {
-        console.error("Erro ao buscar os cursos:", error);
-      }
-    };
-
-    fetchCourses();
-  }, []);
+        )
+      ).sort();
+      console.log("uniqueStates", uniqueStates);
+      setUniqueStates(uniqueStates);
+    }
+  }, [loadingCourses]);
 
   const handleStateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedState = event.target.value;
     setSelectedState(selectedState);
     setState(selectedState);
     const course =
-      allCourses.find(
+      courses.find(
         (course) =>
           (stateAbbreviations[course.state] || course.state) === selectedState
-      )?.courseName || "";
+      )?.name || "";
     setSelectedCourse(course);
     setCourse(course);
   };
@@ -128,8 +119,8 @@ const CoursePickerForm = (props: CoursePickerProps) => {
       return;
     }
 
-    const correspondingState = allCourses.find(
-      (course) => course.courseName === selectedCourse
+    const correspondingState = courses.find(
+      (course) => course.name === selectedCourse
     )?.state;
     if (correspondingState) {
       const stateAbbreviation =
@@ -145,8 +136,8 @@ const CoursePickerForm = (props: CoursePickerProps) => {
 
   const filteredCourses =
     selectedState === "All" || selectedState === "STATE" || selectedState === ""
-      ? allCourses
-      : allCourses.filter(
+      ? courses
+      : courses.filter(
           (course) =>
             (stateAbbreviations[course.state] || course.state) === selectedState
         );
@@ -175,8 +166,8 @@ const CoursePickerForm = (props: CoursePickerProps) => {
         >
           <option value="">SELECT A COURSE</option>
           {filteredCourses.map((course, index) => (
-            <option key={index} value={course.courseName}>
-              {course.courseName}
+            <option key={index} value={course.name}>
+              {course.name}
             </option>
           ))}
         </select>
