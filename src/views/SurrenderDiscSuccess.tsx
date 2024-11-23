@@ -29,7 +29,7 @@ export default function SurrenderDiscSuccess() {
   };
 
   return (
-    <div className="container-store">
+    <div className="container-light-blue">
       <div className="logo-and-arrow">
         <i
           className="arrow-left-icon"

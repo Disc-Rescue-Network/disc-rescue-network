@@ -52,7 +52,7 @@ export default function ClaimDiscSuccess() {
 
   return (
     <div
-      className="container-store"
+      className="container-light-blue"
       style={{ padding: "10px", paddingBottom: bottomPadding }}
     >
       <div className="logo-and-arrow">

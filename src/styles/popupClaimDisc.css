@@ -60,7 +60,7 @@ p {
   display: flex;
   flex-direction: column;
   text-align: center;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 90%;
   height: auto;
@@ -68,8 +68,8 @@ p {
   max-height: 700px;
   background-color: var(--primary-sea-blue);
   position: relative;
-  margin: 20px auto;
-  padding: 20px;
+  margin: 10px auto;
+  padding: 10px;
   border: 2px solid var(--primary-sea-blue);
   border-radius: 0px;
   border: 3px solid var(--secondary-safety-sky-blue);
@@ -78,17 +78,18 @@ p {
 
 /* Scrollbar styles */
 .popup-content::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 .popup-content::-webkit-scrollbar-track {
   background: var(--primary-sea-blue);
   margin-top: 1px;
+  border-radius: 0px;
 }
 
 .popup-content::-webkit-scrollbar-thumb {
   background-color: var(--primary-burnt-orange);
-  border-radius: 10px;
+  border-radius: 0px;
   border: 3px solid var(----border-primary-red);
 }
 

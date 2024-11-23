@@ -1,3 +1,15 @@
+.unset-min-height {
+  min-height: unset !important;
+}
+
+.unset-min-height .course-list {
+  min-height: unset !important;
+}
+
+.unset-min-height .disc-info {
+  min-height: unset !important;
+}
+
 /* Container for the horizontal scrolling */
 .card-list {
   display: flex;
@@ -186,6 +198,7 @@
 @media screen and (max-width: 500px) {
   .card-container {
     max-width: 50%; /* Ensure it fits smaller screens */
+    margin: auto;
   }
 
   .image-wrapper {

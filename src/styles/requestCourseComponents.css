@@ -245,6 +245,17 @@
   margin-bottom: 1rem;
 }
 
+@media screen and (max-width: 500px) {
+  .success-message {
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+
+  .claim-disc-success h2 {
+    font-size: 2rem !important;
+  }
+}
+
 /* surrender disc success */
 
 .red-button-surrender {

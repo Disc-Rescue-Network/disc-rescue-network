@@ -181,7 +181,7 @@ export function PopupVerify({
               <Card
                 disc={disc}
                 showButton={false}
-                className="center-important"
+                className="unset-min-height"
               />
             )}
           </div>
