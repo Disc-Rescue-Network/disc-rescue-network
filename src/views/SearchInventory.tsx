@@ -7,6 +7,8 @@ import CourseSection from "../components/CourseSection";
 import SearchInventorySidebar from "../components/SearchInventorySidebar";
 import { Disc } from "../App";
 import LogoRescueFlow2 from "../components/LogoRescueFlow2";
+import { useInventoryContext } from "../hooks/useInventory";
+import SkeletonCard from "../components/SkeletonCard";
 
 interface FilterCriteria {
   brands: string[];
@@ -29,6 +31,7 @@ export default function SearchInventory() {
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
   const [displayedDiscs, setDisplayedDiscs] = useState<Disc[]>([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
+  const { inventory, loading } = useInventoryContext();
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -66,7 +69,7 @@ export default function SearchInventory() {
 
   const handleFilter = (newFilters: FilterCriteria) => {
     setFilters(newFilters);
-    setIsSidebarOpen(true);
+    // setIsSidebarOpen(true);
   };
 
   const handleReset = () => {
@@ -82,12 +85,30 @@ export default function SearchInventory() {
     setCurrentSort(newSort);
   };
 
+  const [skeletonLength, setSkeletonLength] = useState(6); // Default skeleton count
+
+  useEffect(() => {
+    const calculateSkeletonLength = () => {
+      const cardWidth = 300; // Width of a single card in pixels
+      const cardHeight = 200; // Height of a single card in pixels
+      const viewportWidth = window.innerWidth; // Current viewport width
+      const viewportHeight = window.innerHeight; // Current viewport height
+
+      const visibleColumns = Math.floor(viewportWidth / cardWidth);
+      const visibleRows = Math.floor(viewportHeight / cardHeight);
+      const visibleCards = visibleColumns * visibleRows; // Total cards visible
+
+      setSkeletonLength(Math.max(visibleCards, 6)); // At least 6 skeletons
+    };
+
+    calculateSkeletonLength();
+    window.addEventListener("resize", calculateSkeletonLength); // Recalculate on resize
+
+    return () => window.removeEventListener("resize", calculateSkeletonLength);
+  }, []);
+
   return (
-    <div
-      className={`container-search-inventory ${
-        isSidebarOpen ? "open-body" : ""
-      }`}
-    >
+    <div className={`inner-app-container ${isSidebarOpen ? "open-body" : ""}`}>
       <div className="logo-and-arrow">
         <i
           className="arrow-left-icon-blue"
@@ -110,17 +131,25 @@ export default function SearchInventory() {
       </div>
       <div className="filter-button">
         <span className="filter-btn" onClick={toggleSidebar}>
-          Filters{" "}
+          Filters
         </span>
       </div>
-      <CourseSection
-        filters={filters}
-        setFilters={setFilters}
-        currentSort={currentSort}
-        handleSortToggle={handleSortToggle}
-        selectedCourseId={selectedCourseId}
-        displayedDiscsCards={displayedDiscs}
-      />
+      {loading || inventory.length === 0 ? (
+        <div className="skeleton-cards">
+          {Array.from({ length: skeletonLength }).map((_, index) => (
+            <SkeletonCard key={index} />
+          ))}
+        </div>
+      ) : (
+        <CourseSection
+          filters={filters}
+          setFilters={setFilters}
+          currentSort={currentSort}
+          handleSortToggle={handleSortToggle}
+          selectedCourseId={selectedCourseId}
+          displayedDiscsCards={displayedDiscs}
+        />
+      )}
       <SearchInventorySidebar
         isOpen={isSidebarOpen}
         onFilter={handleFilter}

@@ -64,7 +64,7 @@
 
 @media screen and (max-width: 500px) {
   .where-request {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -243,6 +243,17 @@
   color: var(--primary-white);
   margin: 0;
   margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 500px) {
+  .success-message {
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+
+  .claim-disc-success h2 {
+    font-size: 2rem !important;
+  }
 }
 
 /* surrender disc success */

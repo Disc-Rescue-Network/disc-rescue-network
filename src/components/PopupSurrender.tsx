@@ -4,7 +4,7 @@ import "../styles/popupComponent.css";
 import Button from "./Button";
 import "../styles/reportLostPopup.css";
 import { API_BASE_URL, Disc } from "../App";
-import { useCourses } from "../hooks/useCourses";
+import { useCoursesContext } from "../hooks/useCourses";
 
 export interface Pickup {
   vid: number;
@@ -83,13 +83,7 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
   setInfoMessage,
 }) => {
   const [loading, setLoading] = React.useState(false);
-  const { courses, fetchCourses, loading: loadingCourses } = useCourses();
-
-  // useEffect(() => {
-  //   if (courses.length === 0) {
-  //     fetchCourses();
-  //   }
-  // }, []);
+  const { courses, loading: loadingCourses } = useCoursesContext();
 
   const handleSurrenderDisc = async () => {
     setLoading(true);

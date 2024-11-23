@@ -54,7 +54,7 @@ export default function ClaimDisc() {
   }
 
   return (
-    <div className="container-report-lost-disc">
+    <div className="container-light-blue">
       {showPopup && (
         <PopUpReport
           title={"WHAT IS YOUR PREFERRED METHOD OF COMMUNICATION?"}

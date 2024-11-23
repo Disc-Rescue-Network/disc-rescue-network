@@ -1,0 +1,229 @@
+.unset-min-height {
+  min-height: unset !important;
+}
+
+.unset-min-height .course-list {
+  min-height: unset !important;
+}
+
+.unset-min-height .disc-info {
+  min-height: unset !important;
+}
+
+/* Container for the horizontal scrolling */
+.card-list {
+  display: flex;
+  flex-wrap: nowrap; /* Prevent cards from wrapping */
+  gap: 16px; /* Space between cards */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  scroll-snap-type: x mandatory; /* Optional: Snap to cards on scroll */
+  padding: 16px 0;
+}
+
+.card-list::-webkit-scrollbar {
+  height: 15px; /* Horizontal scrollbar height */
+  width: 15px; /* Vertical scrollbar width */
+  background-color: var(--primary-white);
+}
+.card-list::-webkit-scrollbar-track {
+  background: var(--primary-sea-blue);
+}
+
+.card-list::-webkit-scrollbar-thumb {
+  background: red;
+  border-radius: 1px;
+}
+
+/* Card styling */
+.card-container {
+  flex: 0 0 auto; /* Prevent shrinking or growing */
+  scroll-snap-align: center; /* Optional: Align card center on scroll */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: white;
+  min-width: 145px;
+}
+
+.card-container:hover {
+  transform: translateY(-4px); /* Lift effect on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.scroll-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--primary-blue);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.scroll-button.left {
+  left: 8px;
+  background-color: var(--primary-sea-blue);
+}
+
+.scroll-button.right {
+  right: 8px;
+  background-color: var(--primary-sea-blue);
+}
+
+/* Image Wrapper */
+.image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 160px;
+  background-color: #005daa;
+  position: relative;
+  overflow: hidden; /* Ensures images don't overflow */
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image fills the wrapper while maintaining aspect ratio */
+}
+
+/* Ribbon */
+.ribbon {
+  position: absolute;
+  bottom: 0%;
+  right: 0%;
+  background-color: var(--primary-green);
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+}
+
+/* Disc Info Section */
+.disc-info {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  min-height: 145px;
+}
+
+/* Location Section */
+.div-block-2 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 8px;
+  background-color: var(--primary-burnt-orange);
+  padding: 4px 8px;
+  margin: 0px;
+}
+
+.circle-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+
+  border-radius: 50%;
+  margin: 0;
+  padding: 0;
+}
+
+.circle-overlay img {
+  width: 24px;
+  height: 24px;
+}
+
+.text-block-2 {
+  margin-left: 8px;
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: var(--primary-white);
+}
+
+/* Grid Layout for Disc Details */
+.grid-disc {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 8px;
+  margin-top: 12px;
+}
+
+/* Course List */
+.course-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  min-height: 100px;
+}
+
+.course-list li {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.course-list li i {
+  margin-right: 8px;
+  color: var(--primary-blue);
+}
+
+/* Button Container */
+.card-button-container {
+  display: flex;
+  height: 100%;
+  justify-content: flex-end;
+  align-items: flex-end;
+  text-align: center;
+}
+
+.card-button-container .padding-1 {
+  width: 100%;
+  max-width: 200px;
+  padding: 8px 12px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 500px) {
+  .card-container {
+    max-width: 50%; /* Ensure it fits smaller screens */
+    margin: auto;
+  }
+
+  .image-wrapper {
+    height: 140px; /* Adjust image height for smaller screens */
+  }
+
+  .text-block-2 {
+    font-size: 12px;
+  }
+
+  .course-list li {
+    font-size: 12px;
+  }
+
+  .card-button-container .padding-1 {
+    max-width: 180px;
+  }
+
+  .circle-overlay {
+    width: 16px;
+    height: 16px;
+  }
+
+  .circle-overlay img {
+    width: 16px;
+    height: 16px;
+  }
+}

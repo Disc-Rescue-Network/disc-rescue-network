@@ -11,12 +11,7 @@ const CourseSectionDiscs = ({ arrayOfDiscs }: CourseDiscsProps) => {
   return (
     <div className="row-search">
       {arrayOfDiscs.map((disc) => (
-        <Card
-          className="card-course-section"
-          key={disc.id}
-          disc={disc}
-          showButton={true}
-        />
+        <Card key={disc.id} disc={disc} showButton={true} />
       ))}
     </div>
   );

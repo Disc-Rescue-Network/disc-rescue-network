@@ -40,7 +40,7 @@
 
 .fab-menu-container {
   position: fixed;
-  bottom: -10%;
+  bottom: -5%;
   left: 50%;
   transform: translateX(-50%);
   width: 225px;
@@ -56,6 +56,27 @@
 }
 
 .fab-menu-container.active {
+  display: flex;
+}
+
+.fab-menu-container-mobile {
+  position: fixed;
+  bottom: -8%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 225px;
+  height: 225px;
+  border-radius: 50%;
+  opacity: 0.65;
+  background-color: var(--primary-burnt-orange);
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 13;
+}
+
+.fab-menu-container-mobile.active {
   display: flex;
 }
 

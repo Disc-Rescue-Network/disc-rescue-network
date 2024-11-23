@@ -40,11 +40,11 @@
   letter-spacing: 1px;
 }
 
-.container-search-inventory {
+.inner-app-container {
   transition: margin-right 0.5s;
 }
 
-.container-search-inventory.open-body {
+.inner-app-containe.open-body {
   margin-right: 300px;
   transition: ease 0.5s;
 }
@@ -456,6 +456,34 @@
   .filter-footer .filter-reset {
     font-size: 0.55rem;
   }
+}
+
+.skeleton-labels {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.skeleton-label {
+  background-color: #e0e0e0; /* Light gray for skeleton effect */
+  height: 20px; /* Height of the skeleton label */
+  margin-bottom: 10px; /* Space between skeleton labels */
+  border-radius: 4px; /* Rounded corners */
+  animation: shimmer 1.5s infinite ease-in-out;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}
+
+.skeleton-label {
+  background: linear-gradient(to right, #e0e0e0 8%, #f0f0f0 18%, #e0e0e0 33%);
+  background-size: 400% 100%;
 }
 
 /* Create a custom checkbox */

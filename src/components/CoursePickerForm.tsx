@@ -1,6 +1,6 @@
 import "../styles/rescueFlowForms.css";
 import { useEffect, useState } from "react";
-import { useCourses } from "../hooks/useCourses";
+import { useCoursesContext } from "../hooks/useCourses";
 import { Course } from "../App";
 
 interface CoursePickerProps {
@@ -64,34 +64,38 @@ const stateAbbreviations: { [key: string]: string } = {
 const CoursePickerForm = (props: CoursePickerProps) => {
   const [selectedState, setSelectedState] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
-  const [uniqueStates, setUniqueStates] = useState<string[]>([]);
-  const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
 
   const { setState, setCourse } = props;
-
-  const { courses, fetchCourses, loading: loadingCourses } = useCourses();
+  const { courses, loading: loadingCourses } = useCoursesContext();
+  const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
+  const [uniqueStates, setUniqueStates] = useState<string[]>([]);
 
   useEffect(() => {
-    if (!loadingCourses) {
+    if (!loadingCourses && courses.length > 0) {
       console.log("courses", courses);
+
+      // Filter courses for active ones
       const filtered = courses.filter(
         (course) => course.activeForLostAndFound === 1
       );
       console.log("filteredCourses", filtered);
       setFilteredCourses(filtered);
+
+      // Generate unique state abbreviations
       const uniqueStates = Array.from(
         new Set(
-          filteredCourses.map((course) => {
+          filtered.map((course) => {
             // Debugging step to log each state
             console.log("Mapping state:", course.state);
             return stateAbbreviations[course.state] || course.state;
           })
         )
       ).sort();
+
       console.log("uniqueStates", uniqueStates);
       setUniqueStates(uniqueStates);
     }
-  }, [loadingCourses]);
+  }, [loadingCourses, courses]); // Add 'courses' as a dependency
 
   const handleStateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedState = event.target.value;

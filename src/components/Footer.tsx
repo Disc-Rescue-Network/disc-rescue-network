@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/footer.css";
 import "../globals.css";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -15,6 +15,20 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = (props: FooterProps) => {
   const { needCutOut } = props;
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 500);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 500);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const navigate = useNavigate();
   const toggleFabMenu = () => {
     const overlay = document.getElementById("overlay");
@@ -91,7 +105,12 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
 
   return (
     <>
-      <div className="fab-menu-container" id="fabMenuContainer">
+      <div
+        className={
+          isMobile ? "fab-menu-container-mobile" : "fab-menu-container"
+        }
+        id="fabMenuContainer"
+      >
         <div className="fab-menu" id="fabMenu">
           <div className="fab-menu-item">
             <p

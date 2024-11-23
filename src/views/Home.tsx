@@ -4,24 +4,24 @@ import HomePageButtons from "../components/HomePageButtons";
 import Subheader from "../components/Subheader";
 import Discs from "../components/Discs";
 import { useInventoryContext } from "../hooks/useInventory";
-import { useCourses } from "../hooks/useCourses";
 import LoadingScreen from "./LoadingSceen";
+import { useCoursesContext } from "../hooks/useCourses";
 
 function Home() {
   const { inventory, loading } = useInventoryContext();
-  const { courses, loading: loadingCourses } = useCourses();
+  const { courses, loading: loadingCourses } = useCoursesContext();
 
   if (loading || loadingCourses) {
     return <LoadingScreen />;
   }
 
   return (
-    <div className="container-home">
+    <div className="inner-app-container">
       <FullLogoHeader />
       <HomePageButtons />
       <div className="disc-container">
         <Subheader text="RECENTLY TURNED IN DISCS" />
-        <Discs arrayOfDiscs={inventory} isLoading={loading} />
+        <Discs discs={inventory} isLoading={loading} />
       </div>
     </div>
   );
