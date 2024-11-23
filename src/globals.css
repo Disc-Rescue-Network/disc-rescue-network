@@ -130,6 +130,27 @@ a {
   }
 }
 
+.lottie-container-2 {
+  width: 100%; /* Default full width */
+  width: 200px;
+  max-width: 200px; /* Control the maximum width */
+  margin: auto; /* Ensure it centers vertically if needed */
+}
+
+@media (min-width: 768px) {
+  .lottie-container-2 {
+    max-width: 250px; /* Increase the width for tablets and up */
+    width: 250px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lottie-container-2 {
+    max-width: 300px; /* Increase the width for desktops */
+    width: 300px;
+  }
+}
+
 .upper-lottie {
   position: relative;
   width: 100%;

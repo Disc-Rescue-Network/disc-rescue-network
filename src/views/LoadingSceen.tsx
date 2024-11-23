@@ -28,7 +28,7 @@ export default function LoadingPage() {
       </div> */}
       <div className="upper-lottie">
         {/* Lottie Animation */}
-        <div ref={lottieContainerRef} className="lottie-container" />
+        <div ref={lottieContainerRef} className="lottie-container-2" />
       </div>
     </div>
   );
