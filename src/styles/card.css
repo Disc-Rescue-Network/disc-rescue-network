@@ -16,8 +16,19 @@ button {
 button {
   font-family: "Bebas Neue", sans-serif;
 }
-
 .card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--primary-blue);
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* .card-container {
   flex-shrink: 0;
   flex-wrap: wrap;
   justify-content: start;
@@ -25,7 +36,7 @@ button {
   display: flex;
   position: relative;
   margin-bottom: 20px;
-}
+} */
 
 .disc-info {
   display: flex;
@@ -140,23 +151,35 @@ button {
   font-size: 15px;
 }
 
+.image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 140px; /* Uniform height for all cards */
+  max-width: 160px;
+  background-color: #005daa;
+  border-radius: 0;
+  margin: auto; /* Center the wrapper */
+  position: relative;
+  overflow: hidden; /* Ensure images don't overflow */
+  /* z-index: -1; */
+}
+
 .image {
   width: 100%;
-  height: 140px;
-  max-width: 160px;
-  object-fit: fill;
-  /* object-fit: contain; */
-  /* border: 5px solid var(--primary-blue); */
-  border-radius: 0;
-  margin-top: auto;
-  margin-bottom: auto;
-  background-color: #005daa;
+  height: 100%;
+  object-fit: cover; /* Ensures the image fills the wrapper while maintaining aspect ratio */
 }
 
 @media screen and (max-width: 500px) {
-  .image {
+  .image-wrapper {
     width: 135px;
-    height: fit-content;
+    height: 135px; /* Maintain uniform aspect ratio for smaller screens */
+  }
+
+  .card-container {
+    padding: 12px;
   }
 }
 
@@ -254,23 +277,6 @@ button {
   margin-right: 10px;
   padding-left: 0;
   font-size: 15px;
-}
-
-.image-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 140px;
-  max-width: 160px;
-  object-fit: fill;
-  /* object-fit: contain; */
-  /* border: 5px solid var(--primary-blue); */
-  border-radius: 0;
-  margin-top: auto;
-  margin-bottom: auto;
-  background-color: #005daa;
-  position: relative;
 }
 
 .ribbon {

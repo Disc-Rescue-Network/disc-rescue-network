@@ -4,7 +4,7 @@ import "../styles/popupComponent.css";
 import Button from "./Button";
 import "../styles/reportLostPopup.css";
 import { API_BASE_URL, Disc } from "../App";
-import { useCourses } from "../hooks/useCourses";
+import { useCoursesContext } from "../hooks/useCourses";
 import { Claim, Pickup } from "./PopupSurrender";
 
 interface ClaimToSurrenderPopUpProps {
@@ -45,13 +45,7 @@ const ClaimToSurrenderPopUp: React.FC<ClaimToSurrenderPopUpProps> = ({
   setInfoMessage,
 }) => {
   const [loading, setLoading] = React.useState(false);
-  const { courses, fetchCourses, loading: loadingCourses } = useCourses();
-
-  // useEffect(() => {
-  //   if (courses.length === 0) {
-  //     fetchCourses();
-  //   }
-  // }, []);
+  const { courses, loading: loadingCourses } = useCoursesContext();
 
   const handleClaimToSurrenderDisc = async () => {
     setLoading(true);

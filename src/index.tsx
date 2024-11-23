@@ -5,8 +5,8 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import "./globals.css";
 import LoadingScreen from "./views/LoadingSceen";
-import { useCourses } from "./hooks/useCourses";
-import { InventoryProvider, useInventoryContext } from "./hooks/useInventory";
+import { CoursesProvider } from "./hooks/useCourses";
+import { InventoryProvider } from "./hooks/useInventory";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -17,7 +17,9 @@ const Index: React.FC = () => {
     <React.StrictMode>
       <BrowserRouter>
         <InventoryProvider>
-          <App />
+          <CoursesProvider>
+            <App />
+          </CoursesProvider>
         </InventoryProvider>
       </BrowserRouter>
     </React.StrictMode>

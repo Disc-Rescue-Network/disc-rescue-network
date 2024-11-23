@@ -4,7 +4,7 @@ import Button from "./Button";
 import { API_BASE_URL, Course, Disc } from "../App";
 import Card from "./Card";
 import React from "react";
-import { useCourses } from "../hooks/useCourses";
+import { useCoursesContext } from "../hooks/useCourses";
 import { Pickup } from "./PopupSurrender";
 
 interface PopupVerifyProps {
@@ -62,13 +62,7 @@ export function PopupVerify({
   }, [contactMethod]);
 
   const [loading, setLoading] = React.useState(false);
-  const { courses, fetchCourses, loading: loadingCourses } = useCourses();
-
-  // useEffect(() => {
-  //   if (courses.length === 0) {
-  //     fetchCourses();
-  //   }
-  // }, []);
+  const { courses, loading: loadingCourses } = useCoursesContext();
 
   const handleClaimDisc = async () => {
     setLoading(true);

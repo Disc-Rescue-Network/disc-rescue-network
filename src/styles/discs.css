@@ -1,8 +1,8 @@
 .discs {
-  width: 80%;
+  max-width: 95%;
   overflow-x: auto;
   overflow-y: hidden;
-  /* white-space: nowrap; */
+  white-space: nowrap;
 }
 
 .card-container-discs {

@@ -4,12 +4,12 @@ import HomePageButtons from "../components/HomePageButtons";
 import Subheader from "../components/Subheader";
 import Discs from "../components/Discs";
 import { useInventoryContext } from "../hooks/useInventory";
-import { useCourses } from "../hooks/useCourses";
 import LoadingScreen from "./LoadingSceen";
+import { useCoursesContext } from "../hooks/useCourses";
 
 function Home() {
   const { inventory, loading } = useInventoryContext();
-  const { courses, loading: loadingCourses } = useCourses();
+  const { courses, loading: loadingCourses } = useCoursesContext();
 
   if (loading || loadingCourses) {
     return <LoadingScreen />;

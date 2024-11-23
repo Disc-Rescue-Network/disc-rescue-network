@@ -197,7 +197,7 @@ export default function RescueFlow() {
   };
 
   return (
-    <div className="container-rescue">
+    <div className="container-blue">
       <i className="arrow-left-icon" onClick={handleBack}>
         <FontAwesomeIcon icon={faArrowLeft} />
       </i>

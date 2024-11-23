@@ -60,7 +60,7 @@ export default function Settings() {
     : "var(--primary-red)";
 
   return (
-    <div className="container-store">
+    <div className="container-light-blue">
       <div className="logo-and-arrow">
         <i
           className="arrow-left-icon"
@@ -73,7 +73,12 @@ export default function Settings() {
       </div>
       <h4
         className="subheader-store"
-        style={{ width: "100%", maxWidth: "unset" }}
+        style={{
+          width: "100%",
+          maxWidth: "unset",
+          marginTop: "2rem",
+          marginBottom: "1rem",
+        }}
       >
         Check Opt In Status
       </h4>
