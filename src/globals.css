@@ -156,6 +156,14 @@ a {
   width: 100%;
 }
 
+.skeleton-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
 /* App Layout */
 .app-layout {
   display: flex;

@@ -85,7 +85,27 @@ export default function SearchInventory() {
     setCurrentSort(newSort);
   };
 
-  const skeletonLength = isMobile ? 2 : 3;
+  const [skeletonLength, setSkeletonLength] = useState(6); // Default skeleton count
+
+  useEffect(() => {
+    const calculateSkeletonLength = () => {
+      const cardWidth = 300; // Width of a single card in pixels
+      const cardHeight = 200; // Height of a single card in pixels
+      const viewportWidth = window.innerWidth; // Current viewport width
+      const viewportHeight = window.innerHeight; // Current viewport height
+
+      const visibleColumns = Math.floor(viewportWidth / cardWidth);
+      const visibleRows = Math.floor(viewportHeight / cardHeight);
+      const visibleCards = visibleColumns * visibleRows; // Total cards visible
+
+      setSkeletonLength(Math.max(visibleCards, 6)); // At least 6 skeletons
+    };
+
+    calculateSkeletonLength();
+    window.addEventListener("resize", calculateSkeletonLength); // Recalculate on resize
+
+    return () => window.removeEventListener("resize", calculateSkeletonLength);
+  }, []);
 
   return (
     <div className={`inner-app-container ${isSidebarOpen ? "open-body" : ""}`}>
@@ -115,7 +135,7 @@ export default function SearchInventory() {
         </span>
       </div>
       {loading || inventory.length === 0 ? (
-        <div className="card-container-discs">
+        <div className="skeleton-cards">
           {Array.from({ length: skeletonLength }).map((_, index) => (
             <SkeletonCard key={index} />
           ))}
