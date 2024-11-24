@@ -1,5 +1,5 @@
-import {useEffect, useState} from "react";
-import {useLocation, useNavigate} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import LogoRescueFlow2 from "../components/LogoRescueFlow2";
 import RequestCourseComponets from "../components/RequestCourseComponents";
 import CoursePickerForm from "../components/CoursePickerForm";
@@ -8,6 +8,8 @@ import "../styles/supportTicket.css";
 import Box from "@mui/material/Box";
 import { WhiteBorderTextField } from "../components/WhiteBorderTextField";
 import LookupClaimPopup from "../components/LookupClaimPopup";
+import { Alert, Snackbar } from "@mui/material";
+import { API_BASE_URL } from "../App";
 
 export default function SupportTicket() {
   const [state, setState] = useState("");
@@ -15,13 +17,22 @@ export default function SupportTicket() {
   const [claimId, setClaimId] = useState("");
   const [showLookupPopup, setShowLookupPopup] = useState(false);
 
+  const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const [showInfoMessage, setShowInfoMessage] = useState<boolean>(false);
+  const [infoMessage, setInfoMessage] = useState("");
+
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleLookupClick = () => {
     setShowLookupPopup(true);
   };
-  
+
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const claimIdParam = searchParams.get("claimId");
@@ -31,21 +42,46 @@ export default function SupportTicket() {
     }
   }, [location.search]);
 
-  const handleSearch = () => {
-    if (course && claimId) {
-      const orgCode = course;
+  const handleSubmit = async () => {
+    if (state === "" || course === "" || claimId === "") {
+      setShowErrorMessage(true);
+      setErrorMessage(
+        "Please select a state, course, & enter a Claim ID before proceeding."
+      );
+      return;
+    }
 
-      console.log("Preparing to send to API:", {orgCode, claimId});
+    const response = await fetch(
+      `${API_BASE_URL}/inventory/claim/${claimId}/ticket`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-      const encodedCourse = encodeURIComponent(course);
-      navigate(`/searchInventory?course=${encodedCourse}&claimId=${claimId}`);
+    const responeJson = await response.json();
+    console.log(responeJson);
+
+    const { success, data } = responeJson;
+
+    if (success) {
+      setShowSuccessMessage(true);
+      setSuccessMessage("Ticket submitted successfully.");
     } else {
-      alert("Please select a course and enter a Claim ID.");
+      setShowErrorMessage(true);
+      setErrorMessage("Failed to submit ticket.");
     }
   };
 
+  const handlePopulateClaimId = (claimId: string) => {
+    setClaimId(claimId);
+    setShowLookupPopup(false);
+  };
+
   return (
-    <div className="container-store">
+    <div className="container-light-blue">
       <div className="logo-and-arrow">
         <LogoRescueFlow2 />
       </div>
@@ -79,7 +115,7 @@ export default function SupportTicket() {
           fullWidth
           value={claimId}
           onChange={(e) => setClaimId(e.target.value)}
-          style={{width: "100%", borderRadius: "0px"}}
+          style={{ width: "100%", borderRadius: "0px" }}
           className="input-claim-id"
         />
         <Button
@@ -87,12 +123,6 @@ export default function SupportTicket() {
           red={true}
           className="button-red-courses-support-ticket"
           onClick={() => {
-            if (!state && !course && !claimId) {
-              alert(
-                "Please select a state, course, or enter a Claim ID before proceeding."
-              );
-              return;
-            }
             handleLookupClick();
           }}
         />
@@ -102,19 +132,60 @@ export default function SupportTicket() {
         text="Submit Ticket"
         red={true}
         className="button-submit-ticket"
-        onClick={() =>
-          alert("Submit Ticket functionality not implemented yet!")
-        }
+        onClick={handleSubmit}
       />
 
       {showLookupPopup && (
         <LookupClaimPopup
           onClose={() => setShowLookupPopup(false)}
-          onSubmit={async (data) => {
-            setShowLookupPopup(false);
-          }}
+          onSubmit={handlePopulateClaimId}
         />
       )}
+
+      <Snackbar
+        open={showSuccessMessage}
+        autoHideDuration={6000}
+        onClose={() => setShowSuccessMessage(false)}
+      >
+        <Alert
+          onClose={() => setShowSuccessMessage(false)}
+          severity="success"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {successMessage}
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={showErrorMessage}
+        autoHideDuration={6000}
+        onClose={() => setShowErrorMessage(false)}
+      >
+        <Alert
+          onClose={() => setShowErrorMessage(false)}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {errorMessage}
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={showInfoMessage}
+        autoHideDuration={6000}
+        onClose={() => setShowInfoMessage(false)}
+      >
+        <Alert
+          onClose={() => setShowInfoMessage(false)}
+          severity="info"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {infoMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

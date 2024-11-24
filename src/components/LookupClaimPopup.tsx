@@ -28,12 +28,7 @@ export interface Claim {
 
 interface Props {
   onClose: () => void;
-  onSubmit: (data: {
-    firstName: string;
-    lastName: string;
-    contactMethod: "phone" | "email";
-    contactValue: string;
-  }) => void;
+  onSubmit: (claimId: string) => void;
 }
 
 const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
@@ -79,27 +74,20 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
     let foundClaim: Claim | null = null;
 
     for (const item of inventory) {
-      console.log("Checking item:", item);
-      console.log("Item claims:", item.claims);
+      // console.log("Checking item:", item);
+      // console.log("Item claims:", item.claims);
 
       const matchingClaim = item.claims?.find((claim) => {
         const firstNameMatch =
           claim.firstName?.toLowerCase() === firstName.toLowerCase();
         const lastNameMatch =
           claim.lastName?.toLowerCase() === lastName.toLowerCase();
+        console.log("contactMethod:", contactMethod);
+        console.log("contactValue:", contactValue);
         const contactMatch =
           contactMethod === "email"
             ? claim.email?.toLowerCase() === contactValue.toLowerCase()
-            : claim.phoneNumber === contactValue;
-
-        if (claim.id === 216) {
-          console.log("Checking claim 216:", {
-            claim,
-            firstNameMatch,
-            lastNameMatch,
-            contactMatch,
-          });
-        }
+            : claim.phoneNumber === "+" + contactValue;
 
         return firstNameMatch && lastNameMatch && contactMatch;
       });
@@ -119,12 +107,7 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
       setSuccessMessage(`Claim found for ${firstName} ${lastName}`);
       setShowSuccessMessage(true);
 
-      onSubmit({
-        firstName,
-        lastName,
-        contactMethod,
-        contactValue,
-      });
+      onSubmit(foundClaim.id.toString());
     } else {
       console.log("No matching claim found");
       setSearchResults(null);
@@ -133,7 +116,7 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
       setErrorMessage("No claim found, check your information and try again");
       setShowErrorMessage(true);
     }
-  }, [firstName, lastName, contactMethod, contactValue, inventory, onSubmit]);
+  }, [firstName, lastName, contactMethod, contactValue, inventory]);
 
   const handleSwitchToggle = () => {
     setContactMethod((prev) => (prev === "phone" ? "email" : "phone"));
