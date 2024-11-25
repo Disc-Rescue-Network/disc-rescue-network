@@ -2,7 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  padding-bottom: 0.5rem;
 }
 
 .logo {
@@ -19,6 +20,7 @@
     transition: 0.5s ease;
   }
   .logo-container {
-    padding-top: 0rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
   }
 }

@@ -199,6 +199,7 @@
   .card-container {
     max-width: 50%; /* Ensure it fits smaller screens */
     margin: auto;
+    min-width: unset;
   }
 
   .image-wrapper {

@@ -28,6 +28,11 @@
   .btn-container-components {
     width: 100%;
   }
+
+  .button-home {
+    font-size: 1.6rem;
+    min-height: 65px;
+  }
 }
 
 .box {
