@@ -86,9 +86,6 @@
   background-color: #005daa;
   position: relative;
   overflow: hidden; /* Ensures images don't overflow */
-  border-left: 3px solid var(--primary-burnt-orange);
-  border-right: 3px solid var(--primary-burnt-orange);
-  border-bottom: 3px solid var(--primary-burnt-orange);
 }
 
 .image {
