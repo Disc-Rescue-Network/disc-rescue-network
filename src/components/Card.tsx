@@ -150,7 +150,7 @@ const Card = (props: CardProps) => {
           {disc.disc.plasticType && (
             <li>
               <i className="bx bx-category"></i>
-              <span>({disc.disc.plasticType} Plastic)</span>
+              <span>{disc.disc.plasticType} Plastic</span>
             </li>
           )}
         </ul>

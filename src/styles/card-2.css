@@ -86,6 +86,7 @@
   background-color: #005daa;
   position: relative;
   overflow: hidden; /* Ensures images don't overflow */
+  border: 3px solid var(--primary-sea-blue);
 }
 
 .image {
@@ -197,7 +198,7 @@
 /* Responsive Design */
 @media screen and (max-width: 500px) {
   .card-container {
-    max-width: 50%; /* Ensure it fits smaller screens */
+    max-width: 130px; /* Ensure it fits smaller screens */
     margin: auto;
     min-width: unset;
   }
