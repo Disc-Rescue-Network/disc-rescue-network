@@ -16,6 +16,12 @@ button {
   padding: 13px 25px;
 }
 
+@media screen and (max-width: 500px) {
+  .btn {
+    padding: 10px 20px;
+  }
+}
+
 .red {
   background-color: var(--primary-burnt-orange) !important;
   border: 2px solid var(--border-primary-red);
