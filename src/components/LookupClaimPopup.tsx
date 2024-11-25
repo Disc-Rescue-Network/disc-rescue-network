@@ -5,7 +5,14 @@ import FormStep from "./FormStep2";
 import React from "react";
 import { Disc } from "../App";
 import { PickupInfo } from "./PopupSurrender";
-import { Alert, Snackbar } from "@mui/material";
+import {
+  Alert,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Snackbar,
+} from "@mui/material";
 import { useInventoryContext } from "../hooks/useInventory";
 
 export interface Claim {
@@ -48,7 +55,8 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
   );
   const [contactValue, setContactValue] = useState("");
   const [claimId, setClaimId] = useState("");
-  const [searchResults, setSearchResults] = useState<Claim | null>(null);
+  const [selectedClaimId, setSelectedClaimId] = useState<string | null>(null);
+  const [searchResults, setSearchResults] = useState<Claim[]>([]);
 
   const { inventory, loading } = useInventoryContext();
 
@@ -71,19 +79,17 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
       return;
     }
 
-    let foundClaim: Claim | null = null;
+    let foundClaims: Claim[] = [];
 
     for (const item of inventory) {
-      // console.log("Checking item:", item);
-      // console.log("Item claims:", item.claims);
-
-      const matchingClaim = item.claims?.find((claim) => {
+      if (item.id === 112) {
+        console.log("item:", item);
+      }
+      const matchingClaims = item.claims?.filter((claim) => {
         const firstNameMatch =
           claim.firstName?.toLowerCase() === firstName.toLowerCase();
         const lastNameMatch =
           claim.lastName?.toLowerCase() === lastName.toLowerCase();
-        console.log("contactMethod:", contactMethod);
-        console.log("contactValue:", contactValue);
         const contactMatch =
           contactMethod === "email"
             ? claim.email?.toLowerCase() === contactValue.toLowerCase()
@@ -92,31 +98,38 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
         return firstNameMatch && lastNameMatch && contactMatch;
       });
 
-      if (matchingClaim) {
-        console.log("Found matching claim:", matchingClaim);
-        foundClaim = matchingClaim;
-        break;
+      if (matchingClaims && matchingClaims.length > 0) {
+        foundClaims = [...foundClaims, ...matchingClaims];
       }
     }
 
-    if (foundClaim) {
-      console.log("Setting found claim:", foundClaim);
-      setSearchResults(foundClaim);
-      setClaimId(foundClaim.id.toString());
+    if (foundClaims.length > 0) {
+      console.log("Setting found claims:", foundClaims);
+      setSearchResults(foundClaims);
 
-      setSuccessMessage(`Claim found for ${firstName} ${lastName}`);
+      if (foundClaims.length === 1) {
+        setSelectedClaimId(foundClaims[0].id.toString());
+        onSubmit(foundClaims[0].id.toString());
+      }
+
+      setSuccessMessage(
+        `Found ${foundClaims.length} claim(s) for ${firstName} ${lastName}`
+      );
       setShowSuccessMessage(true);
-
-      onSubmit(foundClaim.id.toString());
     } else {
-      console.log("No matching claim found");
-      setSearchResults(null);
-      setClaimId("");
+      console.log("No matching claims found");
+      setSearchResults([]);
+      setSelectedClaimId(null);
 
-      setErrorMessage("No claim found, check your information and try again");
+      setErrorMessage("No claims found, check your information and try again");
       setShowErrorMessage(true);
     }
-  }, [firstName, lastName, contactMethod, contactValue, inventory]);
+  }, [firstName, lastName, contactMethod, contactValue, inventory, onSubmit]);
+
+  const handleClaimSelection = (claimId: string) => {
+    setSelectedClaimId(claimId);
+    onSubmit(claimId);
+  };
 
   const handleSwitchToggle = () => {
     setContactMethod((prev) => (prev === "phone" ? "email" : "phone"));
@@ -200,6 +213,81 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
             className="button-red-popup-lookup-claim"
             onClick={handleSubmit}
           />
+
+          {searchResults.length > 1 && (
+            <div
+              className="multiple-claims"
+              style={{ marginTop: "20px", width: "100%" }}
+            >
+              <h3
+                style={{
+                  fontFamily: "inherit",
+                  textTransform: "uppercase",
+                  textAlign: "center",
+                  marginBottom: "15px",
+                }}
+              >
+                Multiple claims found. Please select one:
+              </h3>
+              <List
+                sx={{
+                  width: "100%",
+                  bgcolor: "transparent",
+                  "& .MuiListItemButton-root": {
+                    borderRadius: "4px",
+                    mb: 1,
+                    bgcolor: "rgba(255, 255, 255, 0.1)",
+                    "&:hover": {
+                      bgcolor: "rgba(255, 255, 255, 0.15)",
+                    },
+                    "&.Mui-selected": {
+                      bgcolor: "rgba(255, 255, 255, 0.2)",
+                      "&:hover": {
+                        bgcolor: "rgba(255, 255, 255, 0.25)",
+                      },
+                    },
+                  },
+                  "& .MuiListItemText-primary": {
+                    color: "white",
+                    fontFamily: "inherit",
+                    fontSize: "1rem",
+                  },
+                  "& .MuiListItemText-secondary": {
+                    color: "rgba(255, 255, 255, 0.7)",
+                    fontFamily: "inherit",
+                  },
+                }}
+              >
+                {searchResults.map((claim) => {
+                  const disc = inventory.find(
+                    (item) => item.id === claim.itemId
+                  );
+                  if (!disc) {
+                    return null;
+                  }
+                  return (
+                    <ListItem key={claim.id} disablePadding>
+                      <ListItemButton
+                        onClick={() =>
+                          handleClaimSelection(claim.id.toString())
+                        }
+                        selected={selectedClaimId === claim.id.toString()}
+                        sx={{
+                          border: "1px solid rgba(255, 255, 255, 0.1)",
+                          transition: "all 0.2s ease",
+                        }}
+                      >
+                        <ListItemText
+                          primary={`Claim ID: ${claim.id}`}
+                          secondary={`Disc: ${disc.color} ${disc.disc.brand.name} ${disc.disc.name} (${disc.disc.plasticType} Plastic)`}
+                        />
+                      </ListItemButton>
+                    </ListItem>
+                  );
+                })}
+              </List>
+            </div>
+          )}
 
           <Button
             text="Cancel"
