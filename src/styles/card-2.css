@@ -148,6 +148,9 @@
   letter-spacing: 1px;
   font-weight: bold;
   color: var(--primary-white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Grid Layout for Disc Details */
