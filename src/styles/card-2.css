@@ -200,7 +200,7 @@
 /* Responsive Design */
 @media screen and (max-width: 500px) {
   .card-container {
-    max-width: 130px; /* Ensure it fits smaller screens */
+    max-width: 135px; /* Ensure it fits smaller screens */
     margin: auto;
     min-width: unset;
   }
@@ -229,5 +229,9 @@
   .circle-overlay img {
     width: 16px;
     height: 16px;
+  }
+  .card-container:hover {
+    transform: unset;
+    box-shadow: unset;
   }
 }

@@ -7,7 +7,7 @@
   flex-wrap: wrap;
   justify-content: center;
   margin: 0 auto;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .card-course-section {
@@ -20,6 +20,9 @@
 @media screen and (max-width: 900px) {
   .card-course-section {
     width: 50%;
+  }
+  .row-search {
+    gap: 1rem;
   }
 }
 
@@ -137,5 +140,8 @@
 
   .course-section .row {
     margin: 0 -3px;
+  }
+  .row-search {
+    gap: 0.5rem;
   }
 }
