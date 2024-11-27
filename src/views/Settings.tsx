@@ -6,6 +6,7 @@ import { useState } from "react";
 import axios from "axios";
 import { API_BASE_URL } from "../App";
 import CheckOptInStatusForm from "../components/CheckOptInStatusForm";
+import "../styles/storeComponents.css"
 
 export default function Settings() {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -72,12 +73,12 @@ export default function Settings() {
         <LogoRescueFlow2 />
       </div>
       <h4
-        className="subheader-store"
+        className="subheader-store settings"
         style={{
           width: "100%",
           maxWidth: "unset",
           marginTop: "2rem",
-          marginBottom: "1rem",
+          marginBottom: "2rem",
         }}
       >
         Check Opt In Status

@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ClaimDiscComponents from "../components/ClaimDiscComponents";
 import React from "react";
 import { useInventoryContext } from "../hooks/useInventory";
+import LoadingScreen from "./LoadingSceen";
 
 export default function ClaimDisc() {
   const { id } = useParams<{ id?: string }>();
@@ -50,7 +51,11 @@ export default function ClaimDisc() {
   }
 
   if (disc === undefined) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <LoadingScreen />
+      </div>
+    );
   }
 
   return (
