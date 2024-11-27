@@ -113,3 +113,16 @@
     font-size: 0.9rem;
   }
 }
+
+.format-phone-number-step {
+  max-width: 500px;
+  width: 100%;
+  margin: auto !important;
+  margin-bottom: 2rem !important;
+}
+
+@media screen and (max-width: 500px) {
+  .format-phone-number-step {
+    width: 85%;
+  }
+}

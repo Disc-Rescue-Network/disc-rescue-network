@@ -87,8 +87,8 @@ const FormClaimDiscContact: React.FC<FormReportLostColorProps> = ({
 
   return (
     <>
-      <div className="select-box-claim" style={{ marginBottom: "20px" }}>
-        <div className="col-10 claim-disc-form" style={{ padding: "0" }}>
+      <div className="select-box-claim" style={{marginBottom: "20px"}}>
+        <div className="col-10 claim-disc-form" style={{padding: "0"}}>
           <input
             placeholder={placeholder}
             type={contactMethod === "email" ? "email" : "text"}
@@ -112,14 +112,14 @@ const FormClaimDiscContact: React.FC<FormReportLostColorProps> = ({
       >
         {preferences.map((pref, index) => (
           <div className="select-box-report" key={index}>
-            <div className="col-6 arrow one" style={{ marginTop: "5px" }}>
+            <div className="col-6 arrow one" style={{marginTop: "5px"}}>
               <select
                 value={pref.day}
                 onChange={(e) =>
                   handlePreferenceChange(index, "day", e.target.value)
                 }
                 className="form-select-claim"
-                style={{ borderRadius: "0px" }}
+                style={{borderRadius: "0px"}}
               >
                 <option value="" disabled>
                   Select Day
@@ -129,14 +129,14 @@ const FormClaimDiscContact: React.FC<FormReportLostColorProps> = ({
               </select>
             </div>
 
-            <div className="col-6 pe-0 arrow one" style={{ marginTop: "5px" }}>
+            <div className="col-6 pe-0 arrow one" style={{marginTop: "5px"}}>
               <select
                 value={pref.time}
                 onChange={(e) =>
                   handlePreferenceChange(index, "time", e.target.value)
                 }
                 className="form-select-claim"
-                style={{ borderRadius: "0px" }}
+                style={{borderRadius: "0px"}}
               >
                 <option value="" disabled>
                   Select Time
@@ -201,11 +201,11 @@ const FormClaimDiscContact: React.FC<FormReportLostColorProps> = ({
               maxWidth: "600px",
             }}
           >
-            <span style={{ color: "var(--primary-green)" }}>
+            <span style={{color: "var(--primary-green)"}}>
               Selected Preferences:
             </span>
             {pickupPreferences.map((preference, index) => (
-              <span key={index} style={{ marginLeft: "10px" }}>
+              <span key={index} style={{marginLeft: "10px"}}>
                 {preference}
                 {index < pickupPreferences.length - 1 ? "," : ""}
               </span>

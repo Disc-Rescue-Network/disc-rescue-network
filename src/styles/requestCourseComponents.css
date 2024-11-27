@@ -43,6 +43,15 @@
   }
 }
 
+@media screen and (max-width: 1124px) and (min-width: 501px) {
+  .request-course-components h2 {
+    font-size: 4rem;
+  }
+  .request-course-components h4 {
+    width: 95%;
+  }
+}
+
 .request-course-components .overtext-secondary {
   /* color: #005daa; */
   text-shadow: 0px 2px 3px #ffffff4f;

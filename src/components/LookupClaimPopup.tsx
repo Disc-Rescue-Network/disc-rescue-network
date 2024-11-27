@@ -153,7 +153,7 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
 
         <div className="verify-info">
           <div>
-            <h2>Lookup Claim ID</h2>
+            <h2 style={{textTransform: "uppercase"}}>Lookup Claim ID</h2>
             <p>Please enter your information to find your claim ID</p>
           </div>
 
@@ -217,7 +217,7 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
           {searchResults.length > 1 && (
             <div
               className="multiple-claims"
-              style={{ marginTop: "20px", width: "100%" }}
+              style={{marginTop: "20px", width: "100%"}}
             >
               <h3
                 style={{
@@ -307,7 +307,7 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
               onClose={() => setShowSuccessMessage(false)}
               severity="success"
               variant="filled"
-              sx={{ width: "100%" }}
+              sx={{width: "100%"}}
             >
               {successMessage}
             </Alert>
@@ -323,7 +323,7 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
               onClose={() => setShowErrorMessage(false)}
               severity="error"
               variant="filled"
-              sx={{ width: "100%" }}
+              sx={{width: "100%"}}
             >
               {errorMessage}
             </Alert>
@@ -339,7 +339,7 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
               onClose={() => setShowInfoMessage(false)}
               severity="info"
               variant="filled"
-              sx={{ width: "100%" }}
+              sx={{width: "100%"}}
             >
               {infoMessage}
             </Alert>
