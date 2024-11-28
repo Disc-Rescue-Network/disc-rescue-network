@@ -135,7 +135,7 @@
 
 @media screen and (max-width: 500px) {
   .course-section {
-    height: calc(100dvh - 375px);
+    height: calc(100dvh - 325px);
     /* padding: 0px; */
   }
 
