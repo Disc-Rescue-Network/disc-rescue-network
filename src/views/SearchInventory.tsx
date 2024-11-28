@@ -108,7 +108,10 @@ export default function SearchInventory() {
   }, []);
 
   return (
-    <div className={`inner-app-container ${isSidebarOpen ? "open-body" : ""}`}>
+    <div
+      className={`inner-app-container ${isSidebarOpen ? "open-body" : ""}`}
+      style={{ paddingBottom: isMobile ? "unset" : "80px" }}
+    >
       <div className="logo-and-arrow">
         <i
           className="arrow-left-icon-blue"

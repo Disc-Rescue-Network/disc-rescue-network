@@ -12,6 +12,8 @@ import {
 } from "@mui/material";
 import { API_BASE_URL } from "../App";
 import { WhiteBorderTextField } from "../components/WhiteBorderTextField";
+import PhoneInput from "react-phone-input-2";
+import "../styles/checkOptInStatusForm.css";
 
 export default function CheckOptInStatusForm() {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -75,33 +77,43 @@ export default function CheckOptInStatusForm() {
         maxWidth: "600px",
       }}
     >
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent={"center"}
-        sx={{ mt: 2, margin: "auto", width: "100%", maxWidth: "600px", gap: 2 }}
-      >
-        <WhiteBorderTextField
-          label="Phone Number"
-          variant="outlined"
-          fullWidth
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          style={{ width: "100%", borderRadius: "0px" }}
-        />
+      <div 
+      className="form-phone-number"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        margin: "auto"
+      }}>
+        <div>
+          <PhoneInput
+            country={"us"}
+            value={phoneNumber}
+            onChange={setPhoneNumber}
+            inputProps={{
+              required: true,
+              autoFocus: true,
+            }}
+            inputStyle={{
+              width: "100%",
+              borderRadius: "0px",
+              height: "55px"
+            }}
+            buttonStyle={{borderRadius: "0px"}}
+          />
+        </div>
         <button
           onClick={handleCheckOptInStatus}
           disabled={loading || !phoneNumber}
           className="button-red-courses btn red"
-          style={{ width: "100%", margin: "0px" }}
+          style={{width: "100%", margin: "0px"}}
         >
           {loading ? <CircularProgress size={24} /> : "Check Opt In Status"}
         </button>
-      </Box>
+      </div>
 
       {error && (
-        <Alert severity="error" sx={{ mb: 2 }}>
+        <Alert severity="error" sx={{mb: 2}}>
           {error}
         </Alert>
       )}
@@ -111,9 +123,9 @@ export default function CheckOptInStatusForm() {
           display="flex"
           flexDirection="column"
           alignItems="center"
-          sx={{ mt: 4 }}
+          sx={{mt: 4}}
         >
-          <Box sx={{ display: "flex", flexDirection: "row", gap: 4 }}>
+          <Box sx={{display: "flex", flexDirection: "row", gap: 4}}>
             {/* <Typography
               sx={{
                 fontFamily: "Bebas Neue",
@@ -135,9 +147,8 @@ export default function CheckOptInStatusForm() {
                   color: "var(--primary-white)",
                 }}
               >
-                <span style={{ color: optInColor }}>Congrats!</span> You're
-                opted into the Rescue Network and will receive all
-                notifications.
+                <span style={{color: optInColor}}>Congrats!</span> You're opted
+                into the Rescue Network and will receive all notifications.
               </Typography>
             ) : (
               <Typography
@@ -149,7 +160,7 @@ export default function CheckOptInStatusForm() {
                   color: "var(--primary-white)",
                 }}
               >
-                <span style={{ color: optInColor }}>Ooops!</span> Looks like you
+                <span style={{color: optInColor}}>Ooops!</span> Looks like you
                 haven't opted into the Rescue Network. Please click below to opt
                 in and you will receive all future notifications.
               </Typography>
@@ -169,15 +180,13 @@ export default function CheckOptInStatusForm() {
               <button
                 onClick={() => handleOptInOut(false)}
                 className={`button-blue-courses btn blue`}
-                style={{ width: "100%", margin: "0px" }}
+                style={{width: "100%", margin: "0px"}}
               >
                 {loading ? <CircularProgress size={24} /> : "Opt Out"}
               </button>
             </Box>
           ) : (
-            <Box
-              sx={{ display: "flex", flexDirection: "column", mt: 4, gap: 4 }}
-            >
+            <Box sx={{display: "flex", flexDirection: "column", mt: 4, gap: 4}}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -200,7 +209,7 @@ export default function CheckOptInStatusForm() {
                 className={`button-blue-courses btn blue ${
                   !isConsentChecked ? "disabled" : ""
                 }`}
-                style={{ width: "100%", margin: "0px" }}
+                style={{width: "100%", margin: "0px"}}
               >
                 {loading ? <CircularProgress size={24} /> : "Opt In"}
               </button>

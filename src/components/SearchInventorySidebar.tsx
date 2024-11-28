@@ -175,6 +175,23 @@ export default function SearchInventorySidebar({
     );
   };
 
+  const [tooltipIndex, setTooltipIndex] = useState<number | null>(null);
+
+  const showTooltip = (index: number) => {
+    setTooltipIndex(tooltipIndex === index ? null : index);
+  };
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div className={`asidebar ${isOpen ? "open-sidebar" : ""}`}>
       <div className="sidebar-header">
@@ -188,7 +205,7 @@ export default function SearchInventorySidebar({
           </button>
           <div className="sort-toggle">
             <label className="switch-label">Desc</label>
-            <label className="switch">
+            <label className="switch inventory">
               <input
                 type="checkbox"
                 id="sortToggle"
@@ -229,27 +246,52 @@ export default function SearchInventorySidebar({
                 ) : (
                   <ul id="brandList">
                     {filterOptions.brands.map((brand, index) => (
-                      <li key={index}>
-                        <label className="filter-checkbox">
-                          <input
-                            type="checkbox"
-                            name="filter_brand"
-                            value={brand.value}
-                            checked={selectedFilters.brands.includes(
-                              brand.value
-                            )}
-                            onChange={() =>
-                              handleFilterChange("brand", brand.value)
-                            }
-                          />
-                          <span className="checkmark"></span>
-                          <span className="filter-text">
-                            {brand.value}
-                            <span className="checkcount">({brand.count})</span>
-                          </span>
-                        </label>
-                      </li>
-                    ))}
+                        <li key={index}>
+                          <label className="filter-checkbox">
+                            <input
+                              type="checkbox"
+                              name="filter_brand"
+                              value={brand.value}
+                              checked={selectedFilters.brands.includes(brand.value)}
+                            />
+                            <span
+                              className="checkmark"
+                              onClick={() =>
+                                handleFilterChange("brand", brand.value)
+                              }
+                            ></span>
+                            <span className="filter-text">
+                              {isMobile ? (
+                                brand.value.length > 15 ? (
+                                  <>
+                                    {brand.value.slice(0, 15)}...
+                                    <span
+                                      className="info-icon"
+                                      onClick={() => showTooltip(index)}
+                                      onTouchStart={() => showTooltip(index)}
+                                    >
+                                      ℹ️
+                                    </span>
+                                    {tooltipIndex === index && (
+                                      <span className="tooltip">
+                                        {brand.value}
+                                      </span>
+                                    )}
+                                  </>
+                                ) : (
+                                  brand.value || "(empty)"
+                                )
+                              ) : (
+                                brand.value || "(empty)"
+                              )}
+                              <span className="checkcount">
+                                ({brand.count || "0"})
+                              </span>
+                            </span>
+                          </label>
+                        </li>
+                      )
+                    )}
                   </ul>
                 )}
               </div>
@@ -291,14 +333,40 @@ export default function SearchInventorySidebar({
                             checked={selectedFilters.colors.includes(
                               color.value
                             )}
-                            onChange={() =>
+                          />
+                          <span
+                            className="checkmark"
+                            onClick={() =>
                               handleFilterChange("color", color.value)
                             }
-                          />
-                          <span className="checkmark"></span>
+                          ></span>
                           <span className="filter-text">
-                            {color.value}
-                            <span className="checkcount">({color.count})</span>
+                            {isMobile ? (
+                              color.value.length > 15 ? (
+                                <>
+                                  {color.value.slice(0, 15)}...
+                                  <span
+                                    className="info-icon"
+                                    onClick={() => showTooltip(index)}
+                                    onTouchStart={() => showTooltip(index)}
+                                  >
+                                    ℹ️
+                                  </span>
+                                  {tooltipIndex === index && (
+                                    <span className="tooltip">
+                                      {color.value}
+                                    </span>
+                                  )}
+                                </>
+                              ) : (
+                                color.value || "(empty)"
+                              )
+                            ) : (
+                              color.value || "(empty)"
+                            )}
+                            <span className="checkcount">
+                              ({color.count || "0"})
+                            </span>
                           </span>
                         </label>
                       </li>
@@ -344,15 +412,39 @@ export default function SearchInventorySidebar({
                             checked={selectedFilters.discNames.includes(
                               discName.value
                             )}
-                            onChange={() =>
+                          />
+                          <span
+                            className="checkmark"
+                            onClick={() =>
                               handleFilterChange("discName", discName.value)
                             }
-                          />
-                          <span className="checkmark"></span>
+                          ></span>
                           <span className="filter-text">
-                            {discName.value}
+                            {isMobile ? (
+                              discName.value.length > 15 ? (
+                                <>
+                                  {discName.value.slice(0, 15)}...
+                                  <span
+                                    className="info-icon"
+                                    onClick={() => showTooltip(index)}
+                                    onTouchStart={() => showTooltip(index)}
+                                  >
+                                    ℹ️
+                                  </span>
+                                  {tooltipIndex === index && (
+                                    <span className="tooltip">
+                                      {discName.value}
+                                    </span>
+                                  )}
+                                </>
+                              ) : (
+                                discName.value || "(empty)"
+                              )
+                            ) : (
+                              discName.value || "(empty)"
+                            )}
                             <span className="checkcount">
-                              ({discName.count})
+                              ({discName.count || "0"})
                             </span>
                           </span>
                         </label>

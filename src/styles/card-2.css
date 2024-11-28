@@ -118,8 +118,7 @@
 .div-block-2 {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  margin-bottom: 8px;
+  justify-content: center;
   background-color: var(--primary-burnt-orange);
   padding: 4px 8px;
   margin: 0px;
@@ -143,7 +142,7 @@
 }
 
 .text-block-2 {
-  margin-left: 8px;
+  margin-left: 6px;
   font-size: 14px;
   letter-spacing: 1px;
   font-weight: bold;
@@ -151,6 +150,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-top: 2.5px;
 }
 
 /* Grid Layout for Disc Details */

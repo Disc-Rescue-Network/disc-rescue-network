@@ -103,7 +103,7 @@ export default function SupportTicket() {
         sx={{
           mt: 2,
           margin: "auto",
-          width: "100%",
+          width: "80%",
           maxWidth: "600px",
           gap: 2,
           mb: 4,
