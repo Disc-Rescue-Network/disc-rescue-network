@@ -36,7 +36,7 @@ export const InventoryProvider: React.FC<{ children: React.ReactNode }> = ({
 
       while (hasNextPage) {
         const params = {
-          course,
+          orgCode: course,
           pageSize,
           page: currentPage,
           nonVerified: true,
@@ -76,7 +76,8 @@ export const InventoryProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   useEffect(() => {
-    fetchInventory(); // Fetch inventory on mount
+    // fetchInventory(); // Fetch inventory on mount
+    fetchInventory("org_6108516784ae");
   }, [fetchInventory]);
 
   return (
