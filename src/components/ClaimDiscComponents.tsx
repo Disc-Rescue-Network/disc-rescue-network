@@ -76,6 +76,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   }, [contactMethod, contactValue, disc.phoneNumber]);
 
   const handleScheduleButtonClick = () => {
+    setIsSurrender(false);
     if (!phoneNumberMatches) {
       setShowTOF(true);
       return;
@@ -83,7 +84,6 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
 
     if (pickupPreferences.length > 0 && pickupName) {
       setShowPopup(true);
-      setIsSurrender(false);
     } else {
       setShowErrorMessage(true);
       setErrorMessage("Please fill out all fields");
