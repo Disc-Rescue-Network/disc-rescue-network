@@ -40,7 +40,8 @@
   scroll-snap-align: center; /* Optional: Align card center on scroll */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   background-color: white;
-  min-width: 145px;
+  min-width: 165px;
+  max-width: 165px;
 }
 
 .card-container:hover {
@@ -200,9 +201,9 @@
 /* Responsive Design */
 @media screen and (max-width: 500px) {
   .card-container {
-    max-width: 135px; /* Ensure it fits smaller screens */
+    min-width: 165px;
+    max-width: 165px;
     margin: auto;
-    min-width: unset;
   }
 
   .image-wrapper {
