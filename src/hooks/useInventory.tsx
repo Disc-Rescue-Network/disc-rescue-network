@@ -36,7 +36,7 @@ export const InventoryProvider: React.FC<{ children: React.ReactNode }> = ({
 
       while (hasNextPage) {
         const params = {
-          course,
+          orgCode: course,
           pageSize,
           page: currentPage,
           nonVerified: true,
