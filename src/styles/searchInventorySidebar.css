@@ -41,11 +41,11 @@
 }
 
 .inner-app-container {
-  transition: margin-right 0.5s;
+  transition: margin-left 0.5s;
 }
 
-.inner-app-containe.open-body {
-  margin-right: 300px;
+.inner-app-container.open-body {
+  margin-left: -300px;
   transition: ease 0.5s;
 }
 
