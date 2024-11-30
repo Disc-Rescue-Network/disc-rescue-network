@@ -101,6 +101,11 @@ body {
   /* max-width: 1300px; */
 }
 
+a span {
+  color: var(--primary-sea-blue);
+  text-decoration: underline;
+}
+
 a {
   text-decoration: underline;
   color: var(--primary-green);
