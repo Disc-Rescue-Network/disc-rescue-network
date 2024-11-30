@@ -49,12 +49,12 @@ export default function SurrenderDiscSuccess() {
         You have successfully surrendered your disc to the course. The
         volunteers thank you for your help!
       </h4>
-      <Button
+      {/* <Button
         text={"Share to facebook"}
         red={true}
         className="red-button-surrender"
         onClick={handleFacebookShare}
-      />
+      /> */}
     </div>
   );
 }
