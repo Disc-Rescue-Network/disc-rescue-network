@@ -117,12 +117,12 @@ export default function ClaimDiscSuccess() {
         </div>
       </div>
 
-      <Button
+      {/* <Button
         text={"Share to Facebook"}
         red={true}
         className="red-button-surrender"
         onClick={handleFacebookShare}
-      />
+      /> */}
     </div>
   );
 }

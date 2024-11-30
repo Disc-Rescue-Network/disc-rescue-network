@@ -195,7 +195,7 @@ export function PopupVerify({
               </span>
             </div>
             <div className="verify-row-claim">
-              <label id="pickupLocationLabel">Pickup Location:</label>
+              <label id="pickupLocationLabel">Pickup Location: </label>
               <span id="verifyPickupLocation" className="fw-light">
                 {disc?.course.name} - {disc?.course.city}, {disc?.course.state}
               </span>
