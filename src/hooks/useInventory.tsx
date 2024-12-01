@@ -76,8 +76,8 @@ export const InventoryProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   useEffect(() => {
-    // fetchInventory(); // Fetch inventory on mount
-    fetchInventory();
+    fetchInventory(); // Fetch inventory on mount
+    //fetchInventory("org_6108516784ae");
   }, [fetchInventory]);
 
   return (

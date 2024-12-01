@@ -444,7 +444,7 @@ h4 {
   align-items: center;
   justify-content: space-evenly;
   padding: 10px;
-  margin-bottom: 60px;
+  /* margin-bottom: 60px; */
 }
 
 .arrow-left-icon {
