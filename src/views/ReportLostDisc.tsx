@@ -5,12 +5,15 @@ import ReportLostComponents from "../components/ReportLostComponents";
 import { useState, useEffect } from "react";
 import PopUpReport from "../components/ReportLostPopup";
 import { useNavigate } from "react-router-dom";
+import { useTitle } from "../hooks/useTitle";
 
 export default function ReportLostDisc() {
   const [showPopup, setShowPopup] = useState(true);
   const [contactMethod, setContactMethod] = useState<"phone" | "email">(
     "phone"
   );
+
+  useTitle("Report Lost Disc");
 
   useEffect(() => {
     setShowPopup(true);

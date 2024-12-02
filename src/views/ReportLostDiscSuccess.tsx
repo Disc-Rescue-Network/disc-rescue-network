@@ -5,10 +5,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RequestCourseComponents from "../components/RequestCourseComponents";
 import "../styles/requestCourseComponents.css";
+import { useTitle } from "../hooks/useTitle";
 
 export default function ReportLostDiscSuccess() {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
+  useTitle("Report Lost Disc Success");
 
   const handleBack = () => {
     if (step > 1) {

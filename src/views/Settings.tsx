@@ -6,7 +6,8 @@ import { useState } from "react";
 import axios from "axios";
 import { API_BASE_URL } from "../App";
 import CheckOptInStatusForm from "../components/CheckOptInStatusForm";
-import "../styles/storeComponents.css"
+import "../styles/storeComponents.css";
+import { useTitle } from "../hooks/useTitle";
 
 export default function Settings() {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -14,6 +15,7 @@ export default function Settings() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  useTitle("Settings");
 
   const handleBack = () => {
     navigate("/");

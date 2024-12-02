@@ -10,6 +10,7 @@ import { WhiteBorderTextField } from "../components/WhiteBorderTextField";
 import LookupClaimPopup from "../components/LookupClaimPopup";
 import { Alert, Snackbar } from "@mui/material";
 import { API_BASE_URL } from "../App";
+import { useTitle } from "../hooks/useTitle";
 
 export default function SupportTicket() {
   const [state, setState] = useState("");
@@ -28,6 +29,7 @@ export default function SupportTicket() {
 
   const navigate = useNavigate();
   const location = useLocation();
+  useTitle("Support Ticket");
 
   const handleLookupClick = () => {
     setShowLookupPopup(true);

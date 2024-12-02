@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/requestCourseComponents.css";
 import Button from "../components/Button";
 import { Disc } from "../App";
+import { useTitle } from "../hooks/useTitle";
 
 export default function ClaimDiscSuccess() {
   const location = useLocation();
@@ -15,6 +16,8 @@ export default function ClaimDiscSuccess() {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
   const claimedDisc = disc as Disc;
+
+  useTitle("Claim Success");
 
   const handleBack = () => {
     if (step > 1) {

@@ -17,6 +17,7 @@ import ReportLostDiscSuccess from "./views/ReportLostDiscSuccess";
 import BetaBanner from "./components/BetaBanner";
 import { Claim } from "./components/PopupSurrender";
 import SupportTicket from "./views/SupportTicket";
+import { useTitle } from "./hooks/useTitle";
 
 export interface Course {
   id: number;
@@ -129,8 +130,18 @@ function useBackgroundColor() {
   return className;
 }
 
+const routeTitles: Record<string, string> = {
+  "/": "Choose Your Path - Disc Rescue Network",
+  "/rescueflow": "Rescue Flow Step 1 - Disc Rescue Network",
+  "/searchInventory": "Search All Rescue Beacons - Disc Rescue Network",
+  // Add other routes as needed
+};
+
 function App() {
   const className = useBackgroundColor();
+  const location = window.location.pathname;
+
+  useTitle("Home");
 
   return (
     <div className={`${className} app-layout`}>
