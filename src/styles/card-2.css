@@ -83,7 +83,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 160px;
+  height: 165px;
   background-color: #005daa;
   position: relative;
   overflow: hidden; /* Ensures images don't overflow */
@@ -207,7 +207,7 @@
   }
 
   .image-wrapper {
-    height: 140px; /* Adjust image height for smaller screens */
+    height: 165px; /* Adjust image height for smaller screens */
   }
 
   .text-block-2 {
