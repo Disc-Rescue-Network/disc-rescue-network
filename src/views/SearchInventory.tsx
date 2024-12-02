@@ -9,6 +9,7 @@ import { Disc } from "../App";
 import LogoRescueFlow2 from "../components/LogoRescueFlow2";
 import { useInventoryContext } from "../hooks/useInventory";
 import SkeletonCard from "../components/SkeletonCard";
+import { useTitle } from "../hooks/useTitle";
 
 interface FilterCriteria {
   brands: string[];
@@ -32,6 +33,7 @@ export default function SearchInventory() {
   const [displayedDiscs, setDisplayedDiscs] = useState<Disc[]>([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
   const { inventory, loading } = useInventoryContext();
+  useTitle(`Search ${courseName ? `@ ${courseName}` : "Inventory"}`);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);

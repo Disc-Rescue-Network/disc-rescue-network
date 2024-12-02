@@ -4,9 +4,11 @@ import LogoRescueFlow2 from "../components/LogoRescueFlow2";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import RequestCourseComponets from "../components/RequestCourseComponents";
+import { useTitle } from "../hooks/useTitle";
 
 export default function Settings() {
   const [step, setStep] = useState(1);
+  useTitle("Request Course");
 
   const navigate = useNavigate();
 

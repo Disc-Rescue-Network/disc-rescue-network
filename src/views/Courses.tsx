@@ -7,10 +7,13 @@ import RequestCourseComponets from "../components/RequestCourseComponents";
 import CoursePickerForm from "../components/CoursePickerForm";
 import Button from "../components/Button";
 import "../styles/coursesSelected.css";
+import { useTitle } from "../hooks/useTitle";
 
 export default function () {
   const [state, setState] = useState("");
   const [course, setCourse] = useState("");
+
+  useTitle("Select a Course");
 
   const [step, setStep] = useState(1);
 

@@ -6,12 +6,14 @@ import RequestCourseComponents from "../components/RequestCourseComponents";
 import "../styles/requestCourseComponents.css";
 import Button from "../components/Button";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useTitle } from "../hooks/useTitle";
 
 export default function SurrenderDiscSuccess() {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
   const location = useLocation();
   const { disc } = location.state || {};
+  useTitle("Surrender Disc Success");
 
   const handleBack = () => {
     if (step > 1) {

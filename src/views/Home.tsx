@@ -6,10 +6,13 @@ import Discs from "../components/Discs";
 import { useInventoryContext } from "../hooks/useInventory";
 import LoadingScreen from "./LoadingSceen";
 import { useCoursesContext } from "../hooks/useCourses";
+import { useTitle } from "../hooks/useTitle";
 
 function Home() {
   const { inventory, loading } = useInventoryContext();
   const { courses, loading: loadingCourses } = useCoursesContext();
+
+  useTitle("Home");
 
   if (loading || loadingCourses) {
     return <LoadingScreen />;

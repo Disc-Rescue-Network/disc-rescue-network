@@ -4,11 +4,12 @@ import LogoRescueFlow2 from "../components/LogoRescueFlow2";
 import StoreComponents from "../components/StoreComponents";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useTitle } from "../hooks/useTitle";
 
 export default function Store() {
   const [step, setStep] = useState(1);
-
   const navigate = useNavigate();
+  useTitle("Store");
 
   const handleBack = () => {
     if (step > 1) {

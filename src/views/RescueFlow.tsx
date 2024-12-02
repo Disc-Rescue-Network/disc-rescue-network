@@ -13,6 +13,7 @@ import RescueFlowPopup from "../components/RescueFlowPopup";
 import { useInventoryContext } from "../hooks/useInventory";
 import { Disc } from "../App";
 import RescueFlowFailure from "../components/RescueFlowFailure";
+import { useTitle } from "../hooks/useTitle";
 
 export interface SearchParams {
   course?: string;
@@ -29,6 +30,8 @@ export default function RescueFlow() {
   const [matchedDiscs, setMatchedDiscs] = useState<Disc[]>([]);
   const [rejectedDiscs, setRejectedDiscs] = useState<Disc[]>([]);
   const { inventory, loading } = useInventoryContext();
+
+  useTitle(`Rescue Flow Step ${step}`);
 
   // useEffect(() => {
   //   if (inventory.length === 0) {

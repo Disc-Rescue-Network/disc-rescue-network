@@ -1,6 +1,6 @@
 import "../styles/card-2.css";
 import pinImage from "../assets/pin.png";
-import noImageFound from "../assets/newAssets/noimagefound_drn.png";
+import noImageFound from "../assets/newAssets/ImageNotFound.jpg";
 import Button from "./Button";
 import { Disc } from "../App";
 import { useNavigate } from "react-router-dom";

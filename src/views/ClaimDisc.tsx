@@ -8,6 +8,7 @@ import ClaimDiscComponents from "../components/ClaimDiscComponents";
 import React from "react";
 import { useInventoryContext } from "../hooks/useInventory";
 import LoadingScreen from "./LoadingSceen";
+import { useTitle } from "../hooks/useTitle";
 
 export default function ClaimDisc() {
   const { id } = useParams<{ id?: string }>();
@@ -17,6 +18,8 @@ export default function ClaimDisc() {
   );
   const [step, setStep] = useState(1);
   const { inventory, loading } = useInventoryContext();
+
+  useTitle("Claim Disc");
 
   const navigate = useNavigate();
 
