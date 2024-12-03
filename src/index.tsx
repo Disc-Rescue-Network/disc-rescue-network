@@ -7,6 +7,7 @@ import "./globals.css";
 import LoadingScreen from "./views/LoadingSceen";
 import { CoursesProvider } from "./hooks/useCourses";
 import { InventoryProvider } from "./hooks/useInventory";
+import { Analytics } from "@vercel/analytics/react";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -19,6 +20,7 @@ const Index: React.FC = () => {
         <InventoryProvider>
           <CoursesProvider>
             <App />
+            <Analytics />
           </CoursesProvider>
         </InventoryProvider>
       </BrowserRouter>
