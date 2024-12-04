@@ -62,7 +62,11 @@ export const InventoryProvider: React.FC<{ children: React.ReactNode }> = ({
           ].includes(disc.status)
       );
 
-      setInventory(filteredInventory);
+      const sortedInventory = filteredInventory.sort((a, b) => {
+        return b.id - a.id;
+      });
+
+      setInventory(sortedInventory);
     } catch (error) {
       console.error("Error fetching inventory:", error);
       setErrorMessage(
