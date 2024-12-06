@@ -716,6 +716,16 @@ input:checked + .slider:before {
     font-weight: 400;
     padding: 0px 0 0px 1px;
   }
+
+  .fab-menu {
+    width: 210px;
+    height: 210px;
+  }
+
+  .fab-menu-container-mobile {
+    width: 210px;
+    height: 210px;
+  }
 }
 
 /* Very small screens */
@@ -787,10 +797,20 @@ input:checked + .slider:before {
   }
 
   .course-list {
-    min-height: auto;
+    min-height: 90px;
   }
 
   .disc-info {
-    min-height: auto;
+    min-height: 90px;
+  }
+
+  .fab-menu {
+    width: 175px;
+    height: 175px;
+  }
+  
+  .fab-menu-container-mobile {
+    width: 175px;
+    height: 175px;
   }
 }
