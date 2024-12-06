@@ -797,11 +797,11 @@ input:checked + .slider:before {
   }
 
   .course-list {
-    min-height: auto;
+    min-height: 90px;
   }
 
   .disc-info {
-    min-height: auto;
+    min-height: 90px;
   }
 
   .fab-menu {
