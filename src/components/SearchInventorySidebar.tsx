@@ -45,10 +45,16 @@ const processFilterData = (
 
   const counts = getCounts(values);
   console.log("counts", counts);
-  return Object.entries(counts).map(([value, count]) => ({
-    value,
-    count,
-  }));
+  return Object.entries(counts)
+    .map(([value, count]) => ({value, count}))
+    .sort((a, b) => {
+      const nameSort = a.value.localeCompare(b.value);
+      if (a.value[0] !== b.value[0]) {
+        return nameSort; 
+      }
+
+      return b.count - a.count;
+    });
 };
 
 const renderSkeletonLabels = (count: number) => {
@@ -204,7 +210,7 @@ export default function SearchInventorySidebar({
             x
           </button>
           <div className="sort-toggle">
-            <label className="switch-label">Desc</label>
+            <label className="switch-label">Newest</label>
             <label className="switch inventory">
               <input
                 type="checkbox"
@@ -215,8 +221,9 @@ export default function SearchInventorySidebar({
               />
               <span className="slider round"></span>
             </label>
-            <label className="switch-label">Asc</label>
+            <label className="switch-label">Oldest</label>
           </div>
+          <div style={{color: "transparent", width: "0px"}}>x</div>
         </div>
         <div className="accordion" id="accordionExample">
           <div className="accordion-item">
