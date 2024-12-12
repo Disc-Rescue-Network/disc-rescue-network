@@ -51,6 +51,22 @@ export default function SearchInventory() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const sidebar = document.querySelector(".asidebar");
+      if (sidebar && !sidebar.contains(event.target as Node) && isSidebarOpen) {
+        onClose();
+      }
+    };
+
+    if (isSidebarOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }
+  }, [isSidebarOpen]);
+
   const handleBack = () => {
     if (step > 1) {
       setStep(step - 1);
@@ -83,7 +99,7 @@ export default function SearchInventory() {
   };
 
   const handleSortToggle = () => {
-    const newSort = currentSort === "asc" ? "desc" : "asc";
+    const newSort = currentSort === "newest" ? "oldest" : "newest";
     setCurrentSort(newSort);
   };
 

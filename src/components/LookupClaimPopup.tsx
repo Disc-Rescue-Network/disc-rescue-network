@@ -58,7 +58,7 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
   const [selectedClaimId, setSelectedClaimId] = useState<string | null>(null);
   const [searchResults, setSearchResults] = useState<Claim[]>([]);
 
-  const { inventory, loading } = useInventoryContext();
+  const { entireInventory, loading } = useInventoryContext();
 
   const handleSubmit = useCallback(() => {
     setShowSuccessMessage(false);
@@ -71,7 +71,7 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
       contactMethod,
       contactValue,
     });
-    console.log("Current inventory state:", inventory);
+    console.log("Current inventory state:", entireInventory);
 
     if (!firstName || !lastName || !contactValue) {
       setErrorMessage("Please fill in all fields.");
@@ -81,8 +81,8 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
 
     let foundClaims: Claim[] = [];
 
-    for (const item of inventory) {
-      if (item.id === 112) {
+    for (const item of entireInventory) {
+      if (item.id === 2674) {
         console.log("item:", item);
       }
       const matchingClaims = item.claims?.filter((claim) => {
@@ -124,7 +124,14 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
       setErrorMessage("No claims found, check your information and try again");
       setShowErrorMessage(true);
     }
-  }, [firstName, lastName, contactMethod, contactValue, inventory, onSubmit]);
+  }, [
+    firstName,
+    lastName,
+    contactMethod,
+    contactValue,
+    entireInventory,
+    onSubmit,
+  ]);
 
   const handleClaimSelection = (claimId: string) => {
     setSelectedClaimId(claimId);
@@ -153,7 +160,7 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
 
         <div className="verify-info">
           <div>
-            <h2 style={{textTransform: "uppercase"}}>Lookup Claim ID</h2>
+            <h2 style={{ textTransform: "uppercase" }}>Lookup Claim ID</h2>
             <p>Please enter your information to find your claim ID</p>
           </div>
 
@@ -217,7 +224,7 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
           {searchResults.length > 1 && (
             <div
               className="multiple-claims"
-              style={{marginTop: "20px", width: "100%"}}
+              style={{ marginTop: "20px", width: "100%" }}
             >
               <h3
                 style={{
@@ -259,7 +266,7 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
                 }}
               >
                 {searchResults.map((claim) => {
-                  const disc = inventory.find(
+                  const disc = entireInventory.find(
                     (item) => item.id === claim.itemId
                   );
                   if (!disc) {
@@ -307,7 +314,7 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
               onClose={() => setShowSuccessMessage(false)}
               severity="success"
               variant="filled"
-              sx={{width: "100%"}}
+              sx={{ width: "100%" }}
             >
               {successMessage}
             </Alert>
@@ -323,7 +330,7 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
               onClose={() => setShowErrorMessage(false)}
               severity="error"
               variant="filled"
-              sx={{width: "100%"}}
+              sx={{ width: "100%" }}
             >
               {errorMessage}
             </Alert>
@@ -339,7 +346,7 @@ const LookupClaimPopup: React.FC<Props> = ({ onClose, onSubmit }) => {
               onClose={() => setShowInfoMessage(false)}
               severity="info"
               variant="filled"
-              sx={{width: "100%"}}
+              sx={{ width: "100%" }}
             >
               {infoMessage}
             </Alert>
