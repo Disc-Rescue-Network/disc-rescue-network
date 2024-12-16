@@ -18,6 +18,7 @@ import BetaBanner from "./components/BetaBanner";
 import { Claim } from "./components/PopupSurrender";
 import SupportTicket from "./views/SupportTicket";
 import { useTitle } from "./hooks/useTitle";
+import CourseDetail from "./views/CourseDetail";
 
 export interface Course {
   id: number;
@@ -171,6 +172,7 @@ function App() {
             element={<ReportLostDiscSuccess />}
           />
           <Route path="/support-ticket" element={<SupportTicket />} />
+          <Route path="/coursesDetail/:id" element={<CourseDetail />} />
         </Routes>
       </main>
       <Footer />
