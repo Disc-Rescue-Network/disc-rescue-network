@@ -74,10 +74,21 @@ const CoursePickerForm = (props: CoursePickerProps) => {
     if (!loadingCourses && courses.length > 0) {
       console.log("courses", courses);
 
-      // Filter courses for active ones
-      const filtered = courses.filter(
-        (course) => course.activeForLostAndFound === 1
-      );
+      let filtered;
+
+      if (selectedState === "All" || selectedState === "") {
+        // Filter courses for active ones
+        filtered = courses.filter(
+          (course) => course.activeForLostAndFound === 1
+        );
+      } else {
+        // Filter courses for active ones
+        filtered = courses.filter(
+          (course) =>
+            (stateAbbreviations[course.state] || course.state) ===
+              selectedState && course.activeForLostAndFound === 1
+        );
+      }
       console.log("filteredCourses", filtered);
       setFilteredCourses(filtered);
 
@@ -95,7 +106,7 @@ const CoursePickerForm = (props: CoursePickerProps) => {
       console.log("uniqueStates", uniqueStates);
       setUniqueStates(uniqueStates);
     }
-  }, [loadingCourses, courses]); // Add 'courses' as a dependency
+  }, [loadingCourses, courses, selectedState]);
 
   const handleStateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedState = event.target.value;
