@@ -62,7 +62,7 @@ export const InventoryProvider: React.FC<{ children: React.ReactNode }> = ({
             "SOLD_OFFLINE",
             "FOR_SALE",
             "SURRENDERED",
-          ].includes(disc.status)
+          ].includes(disc.status) && disc.orgCode !== "org_a6ac1b298945b"
       );
 
       const sortedInventory = filteredInventory.sort((a, b) => {
@@ -111,7 +111,11 @@ export const InventoryProvider: React.FC<{ children: React.ReactNode }> = ({
       });
       // console.log("sortedEntireInventory", sortedEntireInventory);
 
-      setEntireInventory(sortedEntireInventory);
+      const filteredSortedEntireInventory = sortedEntireInventory.filter(
+        (disc) => disc.orgCode !== "org_a6ac1b298945b"
+      );
+
+      setEntireInventory(filteredSortedEntireInventory);
     } catch (error) {
       console.error("Error fetching entire inventory:", error);
       setErrorMessage(
