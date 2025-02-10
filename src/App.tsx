@@ -172,7 +172,7 @@ function App() {
             element={<ReportLostDiscSuccess />}
           />
           <Route path="/support-ticket" element={<SupportTicket />} />
-          <Route path="/coursesDetail/:id" element={<CourseDetail />} />
+          {/* <Route path="/coursesDetail/:id" element={<CourseDetail />} /> */}
         </Routes>
       </main>
       <Footer />
