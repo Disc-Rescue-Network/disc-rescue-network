@@ -70,23 +70,27 @@ const CoursePickerForm = (props: CoursePickerProps) => {
   const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
   const [uniqueStates, setUniqueStates] = useState<string[]>([]);
 
+  console.log("courses", courses);
   useEffect(() => {
     if (!loadingCourses && courses.length > 0) {
       console.log("courses", courses);
+      console.log("selectedState", selectedState);
 
       let filtered;
 
       if (selectedState === "All" || selectedState === "") {
+        console.log("selectedState is All or empty");
         // Filter courses for active ones
         filtered = courses.filter(
-          (course) => course.activeForLostAndFound === 1
+          (course) => course.activeForLostAndFound === true
         );
+        console.log("filtered", filtered);
       } else {
         // Filter courses for active ones
         filtered = courses.filter(
           (course) =>
             (stateAbbreviations[course.state] || course.state) ===
-              selectedState && course.activeForLostAndFound === 1
+              selectedState && course.activeForLostAndFound === true
         );
       }
       console.log("filteredCourses", filtered);
