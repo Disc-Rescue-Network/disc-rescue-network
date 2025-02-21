@@ -36,26 +36,29 @@ export default function CourseSection({
   }, [inventory, filters, currentSort, selectedCourseId]);
 
   const applyFilters = () => {
-    const filteredDiscs = inventory.filter((disc) => {
-      const brand = disc.disc.brand || "";
-      const color = disc.color || "";
-      const discName = disc.disc.name || "";
+    const filteredDiscs = inventory
+      .sort((a, b) => a.id - b.id)
+      .filter((disc) => {
+        const brand = disc.disc.brand || "";
+        const color = disc.color || "";
+        const discName = disc.disc.name || "";
 
-      const matchesBrand =
-        filters.brands.length === 0 || filters.brands.includes(brand.name);
-      const matchesColor =
-        filters.colors.length === 0 || filters.colors.includes(color);
-      const matchesDiscName =
-        filters.discNames.length === 0 || filters.discNames.includes(discName);
+        const matchesBrand =
+          filters.brands.length === 0 || filters.brands.includes(brand.name);
+        const matchesColor =
+          filters.colors.length === 0 || filters.colors.includes(color);
+        const matchesDiscName =
+          filters.discNames.length === 0 ||
+          filters.discNames.includes(discName);
 
-      return (
-        disc.status === DiscStateString.Unclaimed &&
-        matchesBrand &&
-        matchesColor &&
-        matchesDiscName &&
-        (!selectedCourseId || disc.course.name === selectedCourseId)
-      );
-    });
+        return (
+          disc.status === DiscStateString.Unclaimed &&
+          matchesBrand &&
+          matchesColor &&
+          matchesDiscName &&
+          (!selectedCourseId || disc.course.name === selectedCourseId)
+        );
+      });
 
     const sortedDiscs = filteredDiscs.sort((a, b) => {
       if (currentSort === "asc") {
@@ -95,7 +98,9 @@ export default function CourseSection({
 
   return (
     <div className="course-section">
-      <CourseSectionDiscs arrayOfDiscs={displayedDiscs} />
+      <CourseSectionDiscs
+        arrayOfDiscs={displayedDiscs.sort((a, b) => a.disc.id - b.disc.id)}
+      />
       {showLoadMore && (
         <div className="load-more">
           <button className="more-btn" onClick={loadMore}>

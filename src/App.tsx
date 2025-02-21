@@ -18,7 +18,6 @@ import BetaBanner from "./components/BetaBanner";
 import { Claim } from "./components/PopupSurrender";
 import SupportTicket from "./views/SupportTicket";
 import { useTitle } from "./hooks/useTitle";
-import CourseDetail from "./views/CourseDetail";
 
 export interface Course {
   id: number;
@@ -29,7 +28,7 @@ export interface Course {
   shortCode: string;
   createdAt: Date;
   updatedAt: Date;
-  activeForLostAndFound: number; // Changed from boolean to number
+  activeForLostAndFound: boolean;
   shortLink: string;
   link: string;
   udiscLeagueURL: string | null;
