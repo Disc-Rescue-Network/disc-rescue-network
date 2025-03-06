@@ -68,7 +68,6 @@ export interface Disc {
   dateFound: string;
   dateSold: string | null;
   dateTexted: string | null;
-  deleted: number; // Changed from boolean to match your format
   disc: DiscDetail; // Nested DiscDetail object
   name: string;
   phoneNumber: string | null;
@@ -81,6 +80,7 @@ export interface Disc {
   orgCode: string;
   createdAt: string;
   updatedAt: string;
+  deletedAt: string | null;
   claims: Claim[];
 }
 
