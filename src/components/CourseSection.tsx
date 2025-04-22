@@ -98,9 +98,7 @@ export default function CourseSection({
 
   return (
     <div className="course-section">
-      <CourseSectionDiscs
-        arrayOfDiscs={displayedDiscs.sort((a, b) => a.disc.id - b.disc.id)}
-      />
+      <CourseSectionDiscs arrayOfDiscs={displayedDiscs} />
       {showLoadMore && (
         <div className="load-more">
           <button className="more-btn" onClick={loadMore}>
