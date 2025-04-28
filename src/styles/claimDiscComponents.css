@@ -193,9 +193,14 @@
   max-width: 610px;
   width: 85%;
   margin-left: 10px;
-  margin-bottom: 1rem;
+  margin-bottom: 10px; /* Consistent margin for all buttons */
   transition: ease 0.3s;
   border-width: 0.5px;
+}
+
+/* Adjust the last button to have no margin at the bottom if needed */
+.button-claim-disc-form:last-of-type {
+  margin-bottom: 0;
 }
 
 .button-claim-disc-form:hover {
