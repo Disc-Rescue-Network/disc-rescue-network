@@ -33,13 +33,10 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [showPopupSurrender, setShowPopupSurrender] = useState(false);
-  // const [showClaimToSurrenderPopup, setShowClaimToSurrenderPopup] =
-  //   useState(false);
   const [showOTP, setShowOTP] = useState(false);
   const [showTOF, setShowTOF] = useState(false);
   const [TOFAccepted, setTOFAccepted] = useState(false);
   const [pickupInfo, setPickupInfo] = useState<Pickup | null>(null);
-  // const [originalClaim, setOriginalClaim] = useState<Claim | null>(null);
 
   const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -49,6 +46,9 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
 
   const [showInfoMessage, setShowInfoMessage] = useState<boolean>(false);
   const [infoMessage, setInfoMessage] = useState("");
+
+  const [showShippingInstructions, setShowShippingInstructions] =
+    useState(false);
 
   useEffect(() => {
     //console.log("rendering with disc", disc);
@@ -124,8 +124,6 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
       console.log("claim", claim);
       if (claim) {
         console.log("User already claimed this disc");
-        // setOriginalClaim(claim);
-        // setShowClaimToSurrenderPopup(true);
         setShowErrorMessage(true);
         setErrorMessage(
           "You have already claimed this disc. Please contact the course for help."
@@ -147,10 +145,6 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
     setShowPopupSurrender(false);
   };
 
-  // const closeClaimToSurrenderPopup = () => {
-  //   setShowClaimToSurrenderPopup(false);
-  // };
-
   const handleFirstNameChange = (value: string) => {
     setFirstName(value);
     setPickupName(`${value} ${lastName}`);
@@ -167,6 +161,14 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
         disc,
       },
     });
+  };
+
+  const handleShipDiscRequest = () => {
+    window.open(
+      "https://www.maplehilldiscgolf.com/product-page/return-lost-and-found-disc",
+      "_blank"
+    );
+    setShowShippingInstructions(false);
   };
 
   const verifyPCM = (pickupInfo: Pickup) => {
@@ -204,8 +206,6 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const handleAcceptTOF = () => {
     setShowTOF(false);
     setTOFAccepted(true);
-    //console.log("TOF accepted");
-    //console.log("isSurrender", isSurrender);
     if (isSurrender) {
       setShowPopupSurrender(true);
     } else {
@@ -243,14 +243,24 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
         onClick={handleScheduleButtonClick}
         disabled={!pickupPreferences || !pickupName || !contactValue}
       />
+      {disc.course.orgCode === "org_a6ac1b298945b" && (
+        <Button
+          text={"Ship My Disc"}
+          red={false}
+          border={true}
+          className="button-claim-disc-form shipping-button"
+          onClick={() => setShowShippingInstructions(true)}
+        />
+      )}
       <Button
         text={"Surrender Disc"}
         red={false}
         border={true}
-        className="button-claim-disc-form"
+        className="button-claim-disc-form surrender-button"
         disabled={!pickupName || !contactValue}
         onClick={openPopup}
       />
+
       {showPopup && (
         <PopupVerify
           onClose={closePopup}
@@ -295,29 +305,6 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
         />
       )}
 
-      {/* {showClaimToSurrenderPopup && (
-        <ClaimToSurrenderPopUp
-          className="popup-surrender-disc"
-          title={"You are about to Surrender Your Disc"}
-          content={
-            "Hi There! Looks like you already claimed this disc. Please be sure you wish to change this to a surrender! Surrendering your disc is just like a donation. This disc can be sold by the course to raise funds for things like new tee pads, new baskets or general maintenance."
-          }
-          onClose={closeClaimToSurrenderPopup}
-          onSuccess={verifyPCM}
-          pickupName={pickupName}
-          pickupPreferences={pickupPreferences}
-          disc={disc}
-          tofAccepted={TOFAccepted}
-          originalClaim={originalClaim}
-          setShowErrorMessage={setShowErrorMessage}
-          setErrorMessage={setErrorMessage}
-          setSuccessMessage={setSuccessMessage}
-          setShowSuccessMessage={setShowSuccessMessage}
-          setShowInfoMessage={setShowInfoMessage}
-          setInfoMessage={setInfoMessage}
-        />
-      )} */}
-
       {showOTP && (
         <VerifyOTP
           open={showOTP}
@@ -327,7 +314,6 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           isSurrender={isSurrender}
           pickupInfo={pickupInfo}
           tofAccepted={TOFAccepted}
-          //originalClaim={originalClaim}
           setShowErrorMessage={setShowErrorMessage}
           setErrorMessage={setErrorMessage}
           setSuccessMessage={setSuccessMessage}
@@ -340,6 +326,54 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           onClose={() => setShowTOF(false)}
           handleAcceptTOF={handleAcceptTOF}
         />
+      )}
+
+      {showShippingInstructions && (
+        <div className="popup">
+          <div className="popup-content popup-shipping">
+            <span
+              className="close"
+              id="close"
+              onClick={() => setShowShippingInstructions(false)}
+            >
+              <div className="line"></div>
+              <div className="line"></div>
+            </span>
+            <h2 className="header-popup-shipping">Shipping Instructions</h2>
+            <div className="shipping-instructions">
+              <p>Maple Hill handles shipping of discs independently.</p>
+              <p>
+                When you click "Proceed", you'll be redirected to Maple Hill's
+                website where you can:
+              </p>
+              <ol>
+                <li>Pay for shipping costs</li>
+                <li>
+                  Enter <strong>disc ID #{disc.id}</strong> in the notes section
+                </li>
+                <li>Include your phone number (if written on the disc)</li>
+              </ol>
+              <p>
+                This is all you need to do to request shipping - you don't need
+                to complete the claim process.
+              </p>
+            </div>
+            <div className="popup-buttons">
+              <Button
+                text="Cancel"
+                red={false}
+                onClick={() => setShowShippingInstructions(false)}
+                className="popup-cancel-button"
+              />
+              <Button
+                text="Proceed to Maple Hill Site"
+                red={true}
+                onClick={handleShipDiscRequest}
+                className="popup-confirm-button"
+              />
+            </div>
+          </div>
+        </div>
       )}
 
       <Snackbar

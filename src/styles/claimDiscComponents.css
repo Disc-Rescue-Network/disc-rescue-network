@@ -193,9 +193,14 @@
   max-width: 610px;
   width: 85%;
   margin-left: 10px;
-  margin-bottom: 1rem;
+  margin-bottom: 10px; /* Consistent margin for all buttons */
   transition: ease 0.3s;
   border-width: 0.5px;
+}
+
+/* Adjust the last button to have no margin at the bottom if needed */
+.button-claim-disc-form:last-of-type {
+  margin-bottom: 0;
 }
 
 .button-claim-disc-form:hover {
@@ -241,4 +246,76 @@
 
 .popup-surrender-disc .red-button-popup {
   padding: 0;
+}
+
+/* Updated button styles */
+
+/* Dark blue shipping button */
+.shipping-button {
+  background-color: var(--primary-dark-blue, #004080) !important;
+  border: 2px solid var(--primary-dark-blue, #004080) !important;
+  margin-bottom: 10px;
+}
+
+.shipping-button:hover {
+  background-color: var(--primary-burnt-orange) !important;
+  border: 2px solid var(--border-primary-red) !important;
+}
+
+/* Light blue surrender button with white border */
+.surrender-button {
+  background-color: var(--primary-light-blue, #78a9d1) !important;
+  border: 2px solid white !important;
+  margin-bottom: 10px;
+}
+
+.surrender-button:hover {
+  background-color: var(--primary-burnt-orange) !important;
+  border: 2px solid var(--border-primary-red) !important;
+}
+
+/* Existing shipping popup styles */
+.popup-shipping {
+  max-width: 500px;
+  padding: 20px;
+}
+
+.header-popup-shipping {
+  color: var(--primary-sea-blue);
+  font-size: 2rem;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.shipping-instructions {
+  margin: 15px 0;
+  text-align: left;
+}
+
+.shipping-instructions p {
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.shipping-instructions ol {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.shipping-instructions li {
+  margin: 8px 0;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.popup-cancel-button,
+.popup-confirm-button {
+  flex: 1;
+  max-width: unset;
 }
