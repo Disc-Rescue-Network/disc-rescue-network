@@ -7,12 +7,11 @@ import { useEffect, useState } from "react";
 import "../styles/popupClaimDisc.css";
 import { PopupVerify } from "./PopupClaimDisc";
 import { Disc } from "../App";
-import PopUpSurrender, { Claim, Pickup } from "./PopupSurrender";
+import PopUpSurrender, { Pickup } from "./PopupSurrender";
 import { useNavigate } from "react-router-dom";
 import { VerifyOTP } from "./VerifyOTP";
 import TermsOfFlow from "./TermsOfFlow";
 import { Alert, Snackbar } from "@mui/material";
-import ClaimToSurrenderPopUp from "./ClaimToSurrenderPopup";
 
 interface HeaderReportLostProps {
   className?: string;

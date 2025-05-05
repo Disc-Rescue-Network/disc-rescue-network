@@ -146,9 +146,9 @@ function App() {
   return (
     <div className={`${className} app-layout`}>
       <BetaBanner
-        Text={"This app is currently in Beta. Click "}
+        Text={"DRN is currently in Beta. Click "}
         LinkText={"here"}
-        SecondText={" to report any issues or provide feedback."}
+        SecondText={" to report any issues."}
       />
       <main className="app-content">
         <Routes>
