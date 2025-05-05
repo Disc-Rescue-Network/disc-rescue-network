@@ -363,24 +363,61 @@ h4 {
   background-color: var(--primary-burnt-orange);
   color: var(--primary-white);
   border: none;
-  padding: 6px;
   font-size: 1.2rem;
   font-weight: bold;
   letter-spacing: 1px;
   width: 100%;
-  height: auto;
   max-height: 50px;
-  /* overflow: hidden;
-  position: fixed; */
+  min-height: 30px;
   top: 0px;
   left: 0px;
   font-family: "Bebas Neue", sans-serif;
-  /* z-index: 3; */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.content-beta-banner {
+  padding-left: 1rem;
+  padding-right: 2rem;
+  width: 100%;
+  margin: 0px;
+}
+
+.close-banner {
+  background: none;
+  border: none;
+  color: var(--primary-white);
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.close-banner:hover {
+  opacity: 1;
 }
 
 @media screen and (max-width: 500px) {
   .beta-banner {
+    font-size: 0.8rem;
+    justify-content: start;
+    text-align: left;
+  }
+
+  .close-banner {
     font-size: 0.9rem;
+    right: 8px;
   }
 }
 
@@ -407,14 +444,16 @@ h4 {
 
 .container-light-blue {
   background-color: var(--secondary-safety-sky-blue);
-  /* padding: 2rem;
-  padding-top: 3rem; */
   padding: 1rem;
-  margin: 0px;
-  width: auto;
-  min-width: 100dvw;
+  margin: 0;
+  width: 100%;
+  min-width: 100vw;
+  min-height: 100vh;
   height: auto;
-  min-height: 100dvh;
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .disc-container {
@@ -638,12 +677,15 @@ h4 {
   flex-direction: column;
   max-width: 620px;
   width: 85%;
-  align-items: end;
+  align-items: flex-end;
   justify-content: center;
-  align-content: center;
   margin: 0 auto;
-  transform: translateY(145px);
-  font-size: 19px;
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  transform: none;
+  font-size: 16px;
+  z-index: 10;
 }
 
 .filters-option-claim span:hover {
@@ -652,10 +694,12 @@ h4 {
   cursor: pointer;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 768px) {
   .filters-option-claim {
-    transform: translateY(82px);
-    font-size: 16px;
+    top: 70px;
+    right: 15px;
+    font-size: 14px;
+    width: auto;
   }
 }
 

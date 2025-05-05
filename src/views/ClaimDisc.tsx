@@ -1,6 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LogoRescueFlow2 from "../components/LogoRescueFlow2";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faInfoCircle,
+  faChevronDown,
+  faChevronUp,
+  faPhone,
+  faEnvelope,
+  faPenToSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import PopUpReport from "../components/ReportLostPopup";
 import { useNavigate, useParams } from "react-router-dom";
@@ -18,6 +26,8 @@ export default function ClaimDisc() {
   );
   const [step, setStep] = useState(1);
   const { inventory, loading } = useInventoryContext();
+  const [showDiscInfo, setShowDiscInfo] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 768);
 
   useTitle("Claim Disc");
 
@@ -25,6 +35,17 @@ export default function ClaimDisc() {
 
   useEffect(() => {
     setShowPopup(true);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth >= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const handleSelect = (choice: "phone" | "email") => {
@@ -40,6 +61,14 @@ export default function ClaimDisc() {
     if (step === 1) {
       navigate("/");
     }
+  };
+
+  const toggleDiscInfo = () => {
+    setShowDiscInfo(!showDiscInfo);
+  };
+
+  const handleEditContactMethod = () => {
+    setShowPopup(true);
   };
 
   if (id === undefined) {
@@ -65,7 +94,7 @@ export default function ClaimDisc() {
     <div className="container-light-blue">
       {showPopup && (
         <PopUpReport
-          title={"WHAT IS YOUR PREFERRED METHOD OF COMMUNICATION?"}
+          title={"WHAT IS YOUR PREFERRED COMMUNICATION METHOD?"}
           redText={""}
           content={
             "If you wrote your phone number on your disc, we recommend using this as your preferred method."
@@ -84,11 +113,56 @@ export default function ClaimDisc() {
           <FontAwesomeIcon icon={faArrowLeft} />
         </i>
         <LogoRescueFlow2 />
+        <div className="contact-method-edit" onClick={handleEditContactMethod}>
+          <FontAwesomeIcon
+            icon={contactMethod === "phone" ? faPhone : faEnvelope}
+          />
+          <span>
+            <span className="using-text">Using </span>
+            {contactMethod === "phone" ? "Phone" : "Email"}
+          </span>
+          <FontAwesomeIcon icon={faPenToSquare} />
+        </div>
       </div>
 
-      <div className="filters-option-claim">
-        <span onClick={() => setShowPopup(true)}>Edit Contact Method</span>
+      <div className="disc-info-toggle" onClick={toggleDiscInfo}>
+        <FontAwesomeIcon icon={faInfoCircle} />
+        <span>Disc Details</span>
+        <FontAwesomeIcon icon={showDiscInfo ? faChevronUp : faChevronDown} />
       </div>
+
+      {showDiscInfo && (
+        <div className="disc-info-panel">
+          <div className="disc-info-content">
+            {disc.topImage && (
+              <div className="disc-image-container">
+                <img src={disc.topImage} alt="Disc" className="disc-image" />
+              </div>
+            )}
+            <div className="disc-details">
+              <div className="disc-detail-item">
+                <span className="disc-detail-label">ID:</span>
+                <span className="disc-detail-value">{disc.id}</span>
+              </div>
+              <div className="disc-detail-item">
+                <span className="disc-detail-label">Color:</span>
+                <span className="disc-detail-value">{disc.color}</span>
+              </div>
+              <div className="disc-detail-item">
+                <span className="disc-detail-label">Brand:</span>
+                <span className="disc-detail-value">
+                  {disc.disc.brand.name}
+                </span>
+              </div>
+              <div className="disc-detail-item">
+                <span className="disc-detail-label">Model:</span>
+                <span className="disc-detail-value">{disc.disc.name}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {contactMethod && (
         <ClaimDiscComponents contactMethod={contactMethod} disc={disc} />
       )}
