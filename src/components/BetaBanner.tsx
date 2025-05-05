@@ -36,13 +36,18 @@ export default function BetaBanner(props: BetaBanner) {
         </a>
         {SecondText}
       </div>
-      <button
+      {/* <button
         className="close-banner"
         onClick={hideBanner}
         aria-label="Close banner"
       >
         <FontAwesomeIcon icon={faTimes} />
-      </button>
+      </button> */}
+      <FontAwesomeIcon
+        icon={faTimes}
+        onClick={hideBanner}
+        className="close-banner"
+      />
     </div>
   );
 }

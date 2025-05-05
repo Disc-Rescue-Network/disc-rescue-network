@@ -117,7 +117,10 @@ export default function ClaimDisc() {
           <FontAwesomeIcon
             icon={contactMethod === "phone" ? faPhone : faEnvelope}
           />
-          <span>Using {contactMethod === "phone" ? "Phone" : "Email"}</span>
+          <span>
+            <span className="using-text">Using </span>
+            {contactMethod === "phone" ? "Phone" : "Email"}
+          </span>
           <FontAwesomeIcon icon={faPenToSquare} />
         </div>
       </div>

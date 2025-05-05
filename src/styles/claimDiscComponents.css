@@ -477,6 +477,22 @@
   color: var(--primary-burnt-orange);
 }
 
+.contact-method-edit .using-text {
+  display: inline;
+}
+
+@media screen and (max-width: 500px) {
+  .contact-method-edit {
+    padding: 0.4rem;
+    font-size: 0.8rem;
+    gap: 0.3rem;
+  }
+
+  .contact-method-edit .using-text {
+    display: none;
+  }
+}
+
 .report-lost-components {
   position: relative;
 }

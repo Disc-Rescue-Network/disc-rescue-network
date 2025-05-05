@@ -363,28 +363,30 @@ h4 {
   background-color: var(--primary-burnt-orange);
   color: var(--primary-white);
   border: none;
-  padding: 6px 40px 6px 12px; /* Added right padding to accommodate the absolute X button */
   font-size: 1.2rem;
   font-weight: bold;
   letter-spacing: 1px;
   width: 100%;
-  height: auto;
   max-height: 50px;
+  min-height: 30px;
   top: 0px;
   left: 0px;
   font-family: "Bebas Neue", sans-serif;
   position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
   text-align: center;
+  align-items: center;
+
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 .content-beta-banner {
-  text-align: center;
+  padding-left: 1rem;
+  padding-right: 2rem;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+  margin: 0px;
 }
 
 .close-banner {
@@ -408,8 +410,9 @@ h4 {
 
 @media screen and (max-width: 500px) {
   .beta-banner {
-    font-size: 0.9rem;
-    padding: 6px 30px 6px 8px;
+    font-size: 0.8rem;
+    justify-content: start;
+    text-align: left;
   }
 
   .close-banner {
