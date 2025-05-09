@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faFilter } from "@fortawesome/free-solid-svg-icons";
 import RequestCourseComponets from "../components/RequestCourseComponents";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -10,6 +10,7 @@ import LogoRescueFlow2 from "../components/LogoRescueFlow2";
 import { useInventoryContext } from "../hooks/useInventory";
 import SkeletonCard from "../components/SkeletonCard";
 import { useTitle } from "../hooks/useTitle";
+import Button from "../components/Button";
 
 interface FilterCriteria {
   brands: string[];
@@ -33,6 +34,7 @@ export default function SearchInventory() {
   const [displayedDiscs, setDisplayedDiscs] = useState<Disc[]>([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
   const { inventory, loading } = useInventoryContext();
+  const [shouldPeekSidebar, setShouldPeekSidebar] = useState(false);
   useTitle(`Search ${courseName ? `@ ${courseName}` : "Inventory"}`);
 
   useEffect(() => {
@@ -66,6 +68,29 @@ export default function SearchInventory() {
       };
     }
   }, [isSidebarOpen]);
+
+  // Add effect for peek animation on first load
+  useEffect(() => {
+    // Only show peek animation once when the component mounts for the first time
+    const hasShownPeek = sessionStorage.getItem('hasShownFilterPeek');
+    
+    if (!hasShownPeek) {
+      // Show sidebar peek animation after a short delay on first mount
+      const timer = setTimeout(() => {
+        setShouldPeekSidebar(true);
+        
+        // After peeking, hide it again and mark as shown
+        const hideTimer = setTimeout(() => {
+          setShouldPeekSidebar(false);
+          sessionStorage.setItem('hasShownFilterPeek', 'true');
+        }, 2000); // Match animation duration
+        
+        return () => clearTimeout(hideTimer);
+      }, 1000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   const handleBack = () => {
     if (step > 1) {
@@ -101,6 +126,20 @@ export default function SearchInventory() {
   const handleSortToggle = () => {
     const newSort = currentSort === "newest" ? "oldest" : "newest";
     setCurrentSort(newSort);
+  };
+
+  const handleRescueFlowRedirect = () => {
+    navigate("/rescueflow", {
+      state: {
+        initialStep: 2,
+        initialCourse: courseName,
+      },
+    });
+  };
+
+  const handleStartRescueFlow = () => {
+    // Navigate to the rescue flow wizard starting at step 1 (no course preselected)
+    navigate("/rescueflow");
   };
 
   const [skeletonLength, setSkeletonLength] = useState(6); // Default skeleton count
@@ -147,11 +186,32 @@ export default function SearchInventory() {
       <div>
         <p className="course-name-search">{courseName && `@ ${courseName}`}</p>
       </div>
+
+      {/* Conditional display of buttons based on course selection */}
+      <div className="wizard-redirect-button">
+        {courseName ? (
+          <Button
+            text="Click here to search"
+            red={true}
+            className="rescue-flow-redirect-btn margin-top-1"
+            onClick={handleRescueFlowRedirect}
+          />
+        ) : (
+          <Button
+            text="Enter Rescue Flow"
+            red={true}
+            className="rescue-flow-redirect-btn"
+            onClick={handleStartRescueFlow}
+          />
+        )}
+      </div>
+
       <div className="filter-button">
-        <span className="filter-btn" onClick={toggleSidebar}>
-          Filters
+        <span className="filter-btn prominent-filter" onClick={toggleSidebar}>
+          <FontAwesomeIcon icon={faFilter} /> Filters
         </span>
       </div>
+
       {loading || inventory.length === 0 ? (
         <div className="skeleton-cards">
           {Array.from({ length: skeletonLength }).map((_, index) => (
@@ -175,6 +235,7 @@ export default function SearchInventory() {
         onSortChange={setCurrentSort}
         currentSort={currentSort}
         onClose={onClose}
+        shouldPeek={shouldPeekSidebar}
       />
     </div>
   );

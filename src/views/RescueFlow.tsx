@@ -6,13 +6,11 @@ import RescueFlowStep2 from "../components/RescueFlowStep2";
 import RescueFlowStep3 from "../components/RescueFlowStep3";
 import RescueFlowStep4 from "../components/RescueFlowStep4";
 import RescueFlowStep5 from "../components/RescueFlowStep5";
-import Arrow from "../assets/arrow-down.png";
-import { useNavigate } from "react-router-dom";
-import RescueFLowFailure from "../components/RescueFlowFailure";
+import { useLocation, useNavigate } from "react-router-dom";
+import RescueFlowFailure from "../components/RescueFlowFailure";
 import RescueFlowPopup from "../components/RescueFlowPopup";
 import { useInventoryContext } from "../hooks/useInventory";
 import { Disc } from "../App";
-import RescueFlowFailure from "../components/RescueFlowFailure";
 import { useTitle } from "../hooks/useTitle";
 
 export interface SearchParams {
@@ -24,24 +22,30 @@ export interface SearchParams {
 }
 
 export default function RescueFlow() {
-  const [step, setStep] = useState(1);
-  const [searchParams, setSearchParams] = useState<SearchParams>({});
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { inventory, loading } = useInventoryContext();
+
+  // Get initial values from router state if available
+  const initialState = location.state || {};
+  const [step, setStep] = useState(initialState.initialStep || 1);
+  const [searchParams, setSearchParams] = useState<SearchParams>(() => {
+    // Initialize with course from router state if available
+    console.log("initialState", initialState);
+    console.log("initialState.initialCourse", initialState.initialCourse);
+    console.log("initialState.initialStep", initialState.initialStep);
+    console.log("initialState.searchParams", initialState.searchParams);
+    if (initialState.initialCourse) {
+      return { course: initialState.initialCourse };
+    }
+    return {};
+  });
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [matchedDiscs, setMatchedDiscs] = useState<Disc[]>([]);
   const [rejectedDiscs, setRejectedDiscs] = useState<Disc[]>([]);
-  const { inventory, loading } = useInventoryContext();
 
   useTitle(`Rescue Flow Step ${step}`);
-
-  // useEffect(() => {
-  //   if (inventory.length === 0) {
-  //     //console.log("Fetching inventory");
-  //     fetchInventory();
-  //   }
-  //   //console.log("Inventory", inventory);
-  // }, []);
-
-  const navigate = useNavigate();
 
   const handleBack = () => {
     if (step > 1) {
@@ -54,26 +58,19 @@ export default function RescueFlow() {
   };
 
   const updateSearchParams = (newParams: SearchParams) => {
-    //console.log("Updating search params", newParams);
     setSearchParams((prevParams) => ({ ...prevParams, ...newParams }));
   };
 
   function checkInventory(searchParams: SearchParams, inventory: Disc[]) {
-    // Helper function to check if a disc matches the search criteria
     const matchesSearchParams = (
       disc: Disc,
       params: Partial<typeof searchParams>
     ) => {
       return Object.entries(params).every(([key, value]) => {
-        //console.log("Checking", key, value);
-
-        // Determine the path for accessing the field (whether it's a direct or nested field)
         let discValue: string | null;
 
-        // Handle nested brand field
         if (key === "brand" && disc.disc?.brand) {
-          //console.log("Checking brand", disc.disc.brand.name);
-          discValue = disc.disc.brand.name; // Access nested brand name
+          discValue = disc.disc.brand.name;
         } else if (key === "color") {
           discValue = disc.color;
         } else if (key === "category") {
@@ -85,13 +82,11 @@ export default function RescueFlow() {
         } else if (key === "phoneNumber") {
           discValue = disc.phoneNumber;
         } else {
-          // For other keys, access directly from Disc object
           discValue = String(disc[key as keyof Disc])
             .trim()
             .toLowerCase();
         }
 
-        // Ensure both values are treated as strings, trimmed, and converted to lower case before comparison
         const paramValue = String(value).trim().toLowerCase();
         if (discValue) {
           return discValue.toLowerCase() === paramValue;
@@ -100,23 +95,19 @@ export default function RescueFlow() {
       });
     };
 
-    // Filter out null or empty search parameters
     const filteredSearchParams = Object.fromEntries(
       Object.entries(searchParams).filter(
         ([_, value]) => value != null && value !== ""
       )
     );
 
-    // Generate all combinations of the search parameters
     const keys = Object.keys(filteredSearchParams);
     const combinations = [];
     for (let i = keys.length; i > 0; i--) {
-      // Start from full combination to single keys
       const combos = combine(keys, i);
       combinations.push(...combos);
     }
 
-    // Ensure every valid combination includes 'name' or 'phone number', with 'course', 'color', and 'brand' being supplementary
     const validCombinations = combinations.filter(
       (combo) =>
         combo.includes("name") ||
@@ -127,7 +118,6 @@ export default function RescueFlow() {
         (combo.includes("course") && combo.includes("color"))
     );
 
-    // Helper function to generate combinations of the keys
     function combine(keys: string[], size: number): string[][] {
       const combinations: string[][] = [];
 
@@ -145,50 +135,37 @@ export default function RescueFlow() {
       return combinations;
     }
 
-    // Collect matches from all valid combinations
     const allMatchingDiscs = new Set<Disc>();
     for (const combo of validCombinations) {
       const paramsToCheck = Object.fromEntries(
         combo.map((key) => [key, filteredSearchParams[key]])
       );
-      //console.log("Checking params", paramsToCheck);
       const matchingDiscs = inventory.filter((disc) =>
         matchesSearchParams(disc, paramsToCheck)
       );
-      //console.log("Matching discs in combos array", matchingDiscs);
       matchingDiscs.forEach((disc) => allMatchingDiscs.add(disc));
-      //console.log("All matching discs in combos array", allMatchingDiscs);
     }
 
-    // Convert the Set back to an array to return
     return Array.from(allMatchingDiscs);
   }
 
   const handleNextStep = async (newSearchParams: SearchParams) => {
-    //console.log("Handle next step");
-    //console.log("New Params", newSearchParams);
     const matches = checkInventory(newSearchParams, inventory).filter(
       (disc) => !rejectedDiscs.includes(disc)
     );
 
-    //console.log("Matches", matches);
-
     if (matches.length === 0) {
-      //console.log("No matches found");
-      setStep(step + 1); // should we skip to the end???
+      setStep(step + 1);
       return;
     }
 
     if (matches.length <= 6) {
-      //console.log("1-6 matches found", matches);
       setMatchedDiscs(matches);
       setIsPopupOpen(true);
     } else if (matches.length > 6 && step === 5) {
-      //console.log("More than 6 matches found, but we are at the last step");
       setMatchedDiscs(matches);
       setIsPopupOpen(true);
     } else {
-      //console.log("More than 6 matches found, moving to next step");
       setStep(step + 1);
     }
   };
@@ -256,15 +233,6 @@ export default function RescueFlow() {
           arrayOfDiscs={matchedDiscs}
         />
       )}
-      {/* {step === 1 && (
-        <div className="wizardbox">
-          <img src={Arrow} alt="arrow" />
-          <p>
-            If you don’t want to use the wizard you can always just enter the
-            information manually on our search page
-          </p>
-        </div>
-      )} */}
     </div>
   );
 }

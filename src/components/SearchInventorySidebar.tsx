@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import "../styles/searchInventorySidebar.css";
+import "../styles/searchAnimations.css";
 import { Disc } from "../App";
 import { useLocation } from "react-router-dom";
 import React from "react";
 import { useInventoryContext } from "../hooks/useInventory";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
 
 interface SearchInventorySidebarProps {
   isOpen: boolean;
@@ -12,6 +15,7 @@ interface SearchInventorySidebarProps {
   onSortChange: (sort: string) => void;
   currentSort: string;
   onClose: () => void;
+  shouldPeek?: boolean;
 }
 
 interface FilterCriteria {
@@ -46,11 +50,11 @@ const processFilterData = (
   const counts = getCounts(values);
   console.log("counts", counts);
   return Object.entries(counts)
-    .map(([value, count]) => ({value, count}))
+    .map(([value, count]) => ({ value, count }))
     .sort((a, b) => {
       const nameSort = a.value.localeCompare(b.value);
       if (a.value[0] !== b.value[0]) {
-        return nameSort; 
+        return nameSort;
       }
 
       return b.count - a.count;
@@ -74,6 +78,7 @@ export default function SearchInventorySidebar({
   onSortChange,
   currentSort,
   onClose,
+  shouldPeek,
 }: SearchInventorySidebarProps) {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -199,9 +204,15 @@ export default function SearchInventorySidebar({
   }, []);
 
   return (
-    <div className={`asidebar ${isOpen ? "open-sidebar" : ""}`}>
+    <div
+      className={`asidebar ${isOpen ? "open-sidebar" : ""} ${
+        shouldPeek ? "peek-animation" : ""
+      }`}
+    >
       <div className="sidebar-header">
-        <h2>FILTER AND SORT</h2>
+        <h2>
+          <FontAwesomeIcon icon={faFilter} /> FILTER AND SORT
+        </h2>
       </div>
 
       <div className="filter-body">
@@ -223,7 +234,7 @@ export default function SearchInventorySidebar({
             </label>
             <label className="switch-label">Oldest</label>
           </div>
-          <div style={{color: "transparent", width: "0px"}}>x</div>
+          <div style={{ color: "transparent", width: "0px" }}>x</div>
         </div>
         <div className="accordion" id="accordionExample">
           <div className="accordion-item">
@@ -253,52 +264,53 @@ export default function SearchInventorySidebar({
                 ) : (
                   <ul id="brandList">
                     {filterOptions.brands.map((brand, index) => (
-                        <li key={index}>
-                          <label className="filter-checkbox">
-                            <input
-                              type="checkbox"
-                              name="filter_brand"
-                              value={brand.value}
-                              checked={selectedFilters.brands.includes(brand.value)}
-                            />
-                            <span
-                              className="checkmark"
-                              onClick={() =>
-                                handleFilterChange("brand", brand.value)
-                              }
-                            ></span>
-                            <span className="filter-text">
-                              {isMobile ? (
-                                brand.value.length > 15 ? (
-                                  <>
-                                    {brand.value.slice(0, 15)}...
-                                    <span
-                                      className="info-icon"
-                                      onClick={() => showTooltip(index)}
-                                      onTouchStart={() => showTooltip(index)}
-                                    >
-                                      ℹ️
+                      <li key={index}>
+                        <label className="filter-checkbox">
+                          <input
+                            type="checkbox"
+                            name="filter_brand"
+                            value={brand.value}
+                            checked={selectedFilters.brands.includes(
+                              brand.value
+                            )}
+                          />
+                          <span
+                            className="checkmark"
+                            onClick={() =>
+                              handleFilterChange("brand", brand.value)
+                            }
+                          ></span>
+                          <span className="filter-text">
+                            {isMobile ? (
+                              brand.value.length > 15 ? (
+                                <>
+                                  {brand.value.slice(0, 15)}...
+                                  <span
+                                    className="info-icon"
+                                    onClick={() => showTooltip(index)}
+                                    onTouchStart={() => showTooltip(index)}
+                                  >
+                                    ℹ️
+                                  </span>
+                                  {tooltipIndex === index && (
+                                    <span className="tooltip">
+                                      {brand.value}
                                     </span>
-                                    {tooltipIndex === index && (
-                                      <span className="tooltip">
-                                        {brand.value}
-                                      </span>
-                                    )}
-                                  </>
-                                ) : (
-                                  brand.value || "(empty)"
-                                )
+                                  )}
+                                </>
                               ) : (
                                 brand.value || "(empty)"
-                              )}
-                              <span className="checkcount">
-                                ({brand.count || "0"})
-                              </span>
+                              )
+                            ) : (
+                              brand.value || "(empty)"
+                            )}
+                            <span className="checkcount">
+                              ({brand.count || "0"})
                             </span>
-                          </label>
-                        </li>
-                      )
-                    )}
+                          </span>
+                        </label>
+                      </li>
+                    ))}
                   </ul>
                 )}
               </div>
