@@ -1,0 +1,101 @@
+/* searchAnimations.css - Animations for search components */
+
+/* Peek animation for sidebar */
+.asidebar.peek-animation {
+  animation: peekSidebar 2s ease-in-out;
+  width: 0;
+  visibility: visible;
+  z-index: 999;
+}
+
+@keyframes peekSidebar {
+  0% {
+    width: 0;
+    visibility: visible;
+  }
+  20% {
+    width: 300px;
+    visibility: visible;
+  }
+  70% {
+    width: 300px;
+    visibility: visible;
+  }
+  100% {
+    width: 0;
+    visibility: hidden;
+  }
+}
+
+/* Enhanced filter button styling */
+.filter-btn.prominent-filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #3498db;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  animation: pulseAnimation 2s ease-in-out 2s;
+}
+
+@keyframes pulseAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.filter-btn.prominent-filter:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.filter-btn.prominent-filter svg {
+  margin-right: 8px;
+  font-size: 1.1em;
+}
+
+/* Enhanced sidebar header styling */
+.sidebar-header {
+  padding: 15px;
+  background: linear-gradient(135deg, #3498db, #2c3e50);
+  color: white;
+  border-radius: 4px 4px 0 0;
+  text-align: center;
+}
+
+.sidebar-header h2 {
+  font-size: 1.3rem;
+  margin: 0;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-header h2 svg {
+  margin-right: 10px;
+}
+
+/* Button container spacing */
+.wizard-redirect-button {
+  margin: 15px 0;
+}
+
+.rescue-flow-redirect-btn {
+  min-width: 200px;
+}
