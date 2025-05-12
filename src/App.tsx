@@ -7,13 +7,11 @@ import RescueFlow from "./views/RescueFlow";
 import Store from "./views/Store";
 import Settings from "./views/Settings";
 import RequestCourse from "./views/RequestCourse";
-import ReportLostDisc from "./views/ReportLostDisc";
 import SearchInventory from "./views/SearchInventory";
 import Courses from "./views/Courses";
 import ClaimDisc from "./views/ClaimDisc";
 import ClaimDiscSuccess from "./views/ClaimDiscSuccess";
 import SurrenderDiscSuccess from "./views/SurrenderDiscSuccess";
-import ReportLostDiscSuccess from "./views/ReportLostDiscSuccess";
 import BetaBanner from "./components/BetaBanner";
 import { Claim } from "./components/PopupSurrender";
 import SupportTicket from "./views/SupportTicket";
@@ -157,7 +155,6 @@ function App() {
           <Route path="/store" element={<Store />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/requestCourse" element={<RequestCourse />} />
-          <Route path="/reportLostDisc" element={<ReportLostDisc />} />
           <Route path="/searchInventory" element={<SearchInventory />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/claimDisc/:id" element={<ClaimDisc />} />
@@ -165,10 +162,6 @@ function App() {
           <Route
             path="/surrenderDiscSuccess"
             element={<SurrenderDiscSuccess />}
-          />
-          <Route
-            path="/reportLostDiscSuccess"
-            element={<ReportLostDiscSuccess />}
           />
           <Route path="/support-ticket" element={<SupportTicket />} />
           {/* <Route path="/coursesDetail/:id" element={<CourseDetail />} /> */}

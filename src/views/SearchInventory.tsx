@@ -72,22 +72,22 @@ export default function SearchInventory() {
   // Add effect for peek animation on first load
   useEffect(() => {
     // Only show peek animation once when the component mounts for the first time
-    const hasShownPeek = sessionStorage.getItem('hasShownFilterPeek');
-    
+    const hasShownPeek = sessionStorage.getItem("hasShownFilterPeek");
+
     if (!hasShownPeek) {
       // Show sidebar peek animation after a short delay on first mount
       const timer = setTimeout(() => {
         setShouldPeekSidebar(true);
-        
+
         // After peeking, hide it again and mark as shown
         const hideTimer = setTimeout(() => {
           setShouldPeekSidebar(false);
-          sessionStorage.setItem('hasShownFilterPeek', 'true');
+          sessionStorage.setItem("hasShownFilterPeek", "true");
         }, 2000); // Match animation duration
-        
+
         return () => clearTimeout(hideTimer);
       }, 1000);
-      
+
       return () => clearTimeout(timer);
     }
   }, []);
@@ -198,18 +198,17 @@ export default function SearchInventory() {
           />
         ) : (
           <Button
-            text="Enter Rescue Flow"
+            text="Search for your disc"
             red={true}
             className="rescue-flow-redirect-btn"
             onClick={handleStartRescueFlow}
           />
         )}
-      </div>
-
-      <div className="filter-button">
-        <span className="filter-btn prominent-filter" onClick={toggleSidebar}>
-          <FontAwesomeIcon icon={faFilter} /> Filters
-        </span>
+        <div className="filter-button">
+          <span className="filter-btn prominent-filter" onClick={toggleSidebar}>
+            <FontAwesomeIcon icon={faFilter} /> Filters
+          </span>
+        </div>
       </div>
 
       {loading || inventory.length === 0 ? (

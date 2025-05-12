@@ -27,21 +27,21 @@
   }
 }
 
-/* Enhanced filter button styling */
+/* Enhanced filter and sortbutton styling */
 .filter-btn.prominent-filter {
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #3498db;
   color: white;
-  padding: 10px 16px;
+  padding: 10px 24px;
   border-radius: 20px;
   font-weight: bold;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   transition: all 0.3s ease;
   cursor: pointer;
   margin-top: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   animation: pulseAnimation 2s ease-in-out 2s;
 }
 
@@ -74,7 +74,7 @@
   padding: 15px;
   background: linear-gradient(135deg, #3498db, #2c3e50);
   color: white;
-  border-radius: 4px 4px 0 0;
+  border-radius: 0px 0px 0 0;
   text-align: center;
 }
 
@@ -93,7 +93,12 @@
 
 /* Button container spacing */
 .wizard-redirect-button {
-  margin: 15px 0;
+  margin: 5px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }
 
 .rescue-flow-redirect-btn {

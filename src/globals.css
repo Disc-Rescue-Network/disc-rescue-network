@@ -802,7 +802,7 @@ h4 {
   border-width: 6px 4px 0 4px;
   border-color: var(--primary-sea-blue) transparent transparent transparent;
   top: 42%;
-  right: 0;
+  right: 8px;
   transform: translateY(-50%);
   cursor: pointer;
 }
