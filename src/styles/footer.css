@@ -135,7 +135,7 @@
   width: 125px;
 }
 
-.fab-menu-item:nth-child(2) {
+/* .fab-menu-item:nth-child(2) {
   top: -15%;
   left: 50%;
   transform: translate(-50%, 0);
@@ -163,7 +163,21 @@
   margin: auto;
   padding: 0px;
   text-align: left;
-  /* height: 125px; */
+  width: 125px;
+} */
+
+.fab-menu-item:nth-child(2) {
+  top: 30%;
+  right: -140px;
+  transform: translate(-50%, -50%);
+  color: var(--secondary-safety-sky-blue);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding: 0px;
+  text-align: left;
   width: 125px;
 }
 

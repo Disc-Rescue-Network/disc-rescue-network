@@ -112,7 +112,7 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
         id="fabMenuContainer"
       >
         <div className="fab-menu" id="fabMenu">
-          <div className="fab-menu-item">
+          {/* <div className="fab-menu-item">
             <p
               className="fab-menu-item-text-left"
               style={{ textDecoration: "none" }}
@@ -120,7 +120,7 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
               Report <br /> Lost Disc
             </p>
             <i className="bx bxs-analyse bx-sm" onClick={reportLostDisc}></i>
-          </div>
+          </div> */}
           <div className="fab-menu-item">
             <p
               className="fab-menu-item-text"
