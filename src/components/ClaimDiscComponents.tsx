@@ -211,37 +211,71 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
       setShowPopup(true);
     }
   };
-
   return (
     <div className={`report-lost-components ${className}`}>
-      <h2 className="header-claim-disc">
-        Let's Get Your
-        <span className="fw-light"> Disc</span>
-      </h2>
-      <h2 className="info-claim">
-        Just Enter Some
-        <span className="missingtext"> Info</span>.
-      </h2>
-      <NameAndInitialForm
-        onFirstNameChange={handleFirstNameChange}
-        onLastNameChange={handleLastNameChange}
-      />
-      <FormClaimDiscContact
-        contactMethod={contactMethod}
-        pickupPreferences={pickupPreferences}
-        onContactChange={(contact: string) => setContactValue(contact)}
-        onPickupPreferencesChange={(preferences: string[]) =>
-          setPickupPreferences(preferences)
-        }
-      />
-      <Button
-        text={"Schedule Your Disc Pickup"}
-        red={true}
-        border={true}
-        className="button-claim-disc-form"
-        onClick={handleScheduleButtonClick}
-        disabled={!pickupPreferences || !pickupName || !contactValue}
-      />
+      {disc.course.orgCode === "org_a6ac1b298945b" ? (
+        <div className="maple-hill-instructions">
+          <h2 className="header-claim-disc">
+            Maple Hill Disc Pickup Instructions
+          </h2>{" "}
+          <div className="pickup-instructions">
+            <p className="welcome-message">
+              Your disc is waiting for you at Maple Hill's Pro Shop!
+            </p>
+            <ul>
+              <li>Visit during normal Pro Shop business hours</li>
+              <li>
+                No scheduling needed - you can pick up anytime during open hours
+              </li>
+              <li>You don't need to submit a claim form</li>
+              <li>
+                Just give them your <strong>disc ID #{disc.id}</strong> and your
+                phone number (if written on the disc)
+              </li>
+            </ul>{" "}
+            <p>
+              If you can't visit in person, use the "Ship My Disc" button below.
+            </p>
+            <p className="important-note">
+              Alternatively, you can choose to surrender your disc as a donation
+              to the course.
+            </p>
+          </div>
+        </div>
+      ) : (
+        <>
+          <h2 className="header-claim-disc">
+            Let's Get Your
+            <span className="fw-light"> Disc</span>
+          </h2>
+          <h2 className="info-claim">
+            Just Enter Some
+            <span className="missingtext"> Info</span>.
+          </h2>
+          <NameAndInitialForm
+            onFirstNameChange={handleFirstNameChange}
+            onLastNameChange={handleLastNameChange}
+          />
+          <FormClaimDiscContact
+            contactMethod={contactMethod}
+            pickupPreferences={pickupPreferences}
+            onContactChange={(contact: string) => setContactValue(contact)}
+            onPickupPreferencesChange={(preferences: string[]) =>
+              setPickupPreferences(preferences)
+            }
+          />
+        </>
+      )}
+      {disc.course.orgCode !== "org_a6ac1b298945b" && (
+        <Button
+          text={"Schedule Your Disc Pickup"}
+          red={true}
+          border={true}
+          className="button-claim-disc-form"
+          onClick={handleScheduleButtonClick}
+          disabled={!pickupPreferences || !pickupName || !contactValue}
+        />
+      )}
       {disc.course.orgCode === "org_a6ac1b298945b" && (
         <Button
           text={"Ship My Disc"}
@@ -259,7 +293,6 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
         disabled={!pickupName || !contactValue}
         onClick={openPopup}
       />
-
       {showPopup && (
         <PopupVerify
           onClose={closePopup}
@@ -277,7 +310,6 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           setShowInfoMessage={setShowInfoMessage}
         />
       )}
-
       {showPopupSurrender && (
         <PopUpSurrender
           className="popup-surrender-disc"
@@ -303,7 +335,6 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           setInfoMessage={setInfoMessage}
         />
       )}
-
       {showOTP && (
         <VerifyOTP
           open={showOTP}
@@ -319,14 +350,12 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           setShowSuccessMessage={setShowSuccessMessage}
         />
       )}
-
       {showTOF && (
         <TermsOfFlow
           onClose={() => setShowTOF(false)}
           handleAcceptTOF={handleAcceptTOF}
         />
       )}
-
       {showShippingInstructions && (
         <div className="popup">
           <div className="popup-content popup-shipping">
@@ -374,7 +403,6 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           </div>
         </div>
       )}
-
       <Snackbar
         open={showSuccessMessage}
         autoHideDuration={6000}
@@ -389,7 +417,6 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           {successMessage}
         </Alert>
       </Snackbar>
-
       <Snackbar
         open={showErrorMessage}
         autoHideDuration={6000}
@@ -404,7 +431,6 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           {errorMessage}
         </Alert>
       </Snackbar>
-
       <Snackbar
         open={showInfoMessage}
         autoHideDuration={6000}
