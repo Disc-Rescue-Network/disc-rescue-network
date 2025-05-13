@@ -120,7 +120,7 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
         id="fabMenuContainer"
       >
         <div className="fab-menu" id="fabMenu">
-          <div className="fab-menu-item rescue-bot-item">
+          <div className="fab-menu-item">
             <p
               className="fab-menu-item-text-left"
               style={{ textDecoration: "none" }}

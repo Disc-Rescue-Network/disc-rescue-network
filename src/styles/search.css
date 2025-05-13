@@ -21,17 +21,22 @@
 }
 
 .clear-search-btn {
-  background-color: #f0f0f0;
+  background-color: #f5f5f5;
   border: 1px solid #ddd;
   border-radius: 15px;
   padding: 5px 12px;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.2s;
+  color: #444;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .clear-search-btn:hover {
-  background-color: #e0e0e0;
+  background-color: #e5e5e5;
+  color: #222;
+  border-color: #ccc;
 }
 
 /* Styles for search results count */
@@ -47,6 +52,63 @@
   text-align: center;
   padding: 30px 20px;
   color: #666;
+}
+
+/* Search input styles */
+.search-input-container {
+  display: flex;
+  justify-content: center;
+  margin: 15px auto;
+  max-width: 500px;
+  padding: 0 15px; /* Add padding to prevent form from touching screen edges on mobile */
+}
+
+.search-form {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.search-input {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s;
+  width: 100%; /* Ensure input uses available width */
+}
+
+.search-input:focus {
+  border-color: var(--primary-burnt-orange, #ef3f3f);
+  box-shadow: 0 2px 8px rgba(239, 63, 63, 0.15);
+}
+
+.search-button {
+  margin-left: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #777;
+  font-size: 1.1rem;
+  padding: 5px;
+  width: auto; /* Ensure button only takes up needed space */
+}
+
+.clear-input-button {
+  margin-left: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  font-size: 1.2rem;
+  padding: 5px;
+}
+
+.search-button:hover,
+.clear-input-button:hover {
+  color: var(--primary-burnt-orange, #ef3f3f);
 }
 
 .no-search-results h3 {

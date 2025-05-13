@@ -18,8 +18,8 @@ const RescueBotDialog: React.FC<RescueBotDialogProps> = ({
   // Sample search suggestions
   const suggestions = [
     "Blue Innova Destroyer",
-    "Discraft Buzzz at Henderson Park",
-    "Pink disc with my phone number",
+    "Discraft Buzz Maple Hill",
+    "Pink disc (999) 999-9999",
   ];
 
   const handleSearch = (e?: React.FormEvent) => {
@@ -120,7 +120,11 @@ const RescueBotDialog: React.FC<RescueBotDialogProps> = ({
               ref={inputRef}
               aria-label="Search input"
             />{" "}
-            <button type="submit" className="search-button" aria-label="Search">
+            <button
+              type="submit"
+              className="search-button-popup"
+              aria-label="Search"
+            >
               <i
                 className="bx bx-search"
                 style={{ marginRight: "4px", fontSize: "1.1rem" }}
