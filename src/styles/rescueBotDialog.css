@@ -1,0 +1,321 @@
+.rescue-bot-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Make sure it's above other elements */
+  padding: 16px;
+  animation: overlay-appear 0.2s ease-out;
+}
+
+.rescue-bot-dialog {
+  background-color: var(--primary-white, white);
+  border-radius: 15px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  animation: dialog-appear 0.3s ease-out;
+  position: relative;
+  transform-origin: center bottom;
+}
+
+.rescue-bot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  background-color: var(--primary-sea-blue, #005daa);
+  color: white;
+  border-radius: 15px 15px 0 0;
+}
+
+.rescue-bot-header h2 {
+  margin: 0;
+  color: var(--primary-white, white);
+  font-size: 1.5rem;
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 1px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--primary-white, white);
+  padding: 0;
+  margin: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.close-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.close-button:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.search-input-container {
+  position: relative;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.rescue-bot-input {
+  width: 100%;
+  padding: 14px 20px;
+  padding-right: 100px; /* Make room for the search button */
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) inset;
+  height: 52px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial,
+    sans-serif;
+  position: relative;
+  z-index: 1; /* Ensure input is below the button */
+}
+
+.rescue-bot-input:focus {
+  border-color: var(--secondary-safety-sky-blue, #3f88c8);
+  box-shadow: 0 0 0 3px rgba(63, 136, 200, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.05) inset;
+}
+
+.rescue-bot-input::placeholder {
+  color: #999;
+  opacity: 0.8;
+}
+
+/* Add a subtle blue glow when the input is focused */
+.rescue-bot-input:focus-visible {
+  outline: none;
+  border-color: var(--secondary-safety-sky-blue, #3f88c8);
+  box-shadow: 0 0 0 3px rgba(63, 136, 200, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.05) inset;
+}
+
+.search-button {
+  /* position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%); */
+  background-color: var(--primary-burnt-orange, #ef3f3f);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 9px 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 1px;
+  height: 38px;
+  min-width: 85px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  z-index: 5; /* Add z-index to ensure button stays above input */
+}
+
+.search-button i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-button:hover {
+  background-color: var(--secondary-red, #d31e47);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.search-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(239, 63, 63, 0.3);
+}
+
+.search-button:active {
+  transform: translateY(-50%) scale(0.97);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.search-suggestions {
+  padding: 0 20px 20px;
+}
+
+.search-suggestions p {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: var(--dark-primary, #353535);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+.search-suggestions ul {
+  list-style: none;
+  padding-left: 10px;
+  margin-bottom: 0;
+}
+
+.search-suggestions li {
+  margin-bottom: 12px;
+  color: var(--dark-primary, #353535);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  padding-left: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial,
+    sans-serif;
+  font-size: 0.95rem;
+  border-radius: 4px;
+  padding: 8px 8px 8px 25px;
+}
+
+.search-suggestions li:last-child {
+  margin-bottom: 0;
+}
+
+.search-suggestions li:before {
+  content: "•";
+  position: absolute;
+  left: 8px;
+  color: var(--primary-burnt-orange, #ef3f3f);
+  font-size: 1.2rem;
+  top: 6px;
+}
+
+.suggestion-text {
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+.search-suggestions li:hover,
+.search-suggestions li:focus {
+  color: var(--primary-sea-blue, #005daa);
+  background-color: rgba(63, 136, 200, 0.1);
+  outline: none;
+  transform: translateX(2px);
+}
+
+.search-suggestions li:hover::after,
+.search-suggestions li:focus::after {
+  content: "→";
+  position: absolute;
+  right: 10px;
+  color: var(--primary-sea-blue, #005daa);
+  opacity: 0.7;
+}
+
+.search-suggestions li:active {
+  transform: scale(0.98) translateX(2px);
+  background-color: rgba(63, 136, 200, 0.2);
+}
+
+/* Add a new animation for the overlay */
+@keyframes overlay-appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialog-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Make the buttons tappable on mobile */
+@media (max-width: 500px) {
+  .rescue-bot-dialog {
+    width: 95%;
+    max-height: 80vh;
+    border-radius: 12px;
+  }
+
+  .rescue-bot-header {
+    padding: 12px 16px;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .rescue-bot-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .close-button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    position: relative;
+    right: -8px;
+    top: -2px;
+  }
+
+  .search-input-container {
+    margin: 16px;
+  }
+
+  .rescue-bot-input {
+    padding: 12px 90px 12px 16px;
+    font-size: 0.95rem;
+    height: 50px;
+  }
+
+  .search-button {
+    padding: 8px 16px;
+    min-width: 80px;
+    font-size: 1rem;
+    height: 36px;
+    right: 7px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .search-suggestions {
+    padding: 0 16px 20px;
+  }
+
+  .search-suggestions li {
+    padding: 10px 8px 10px 25px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+  }
+
+  .search-suggestions li:before {
+    left: 8px;
+    top: 10px;
+  }
+}

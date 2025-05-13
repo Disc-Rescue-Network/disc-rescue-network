@@ -11,6 +11,7 @@ import { useInventoryContext } from "../hooks/useInventory";
 import SkeletonCard from "../components/SkeletonCard";
 import { useTitle } from "../hooks/useTitle";
 import Button from "../components/Button";
+import "../styles/search.css";
 
 interface FilterCriteria {
   brands: string[];
@@ -31,6 +32,7 @@ export default function SearchInventory() {
   const [currentSort, setCurrentSort] = useState<string>("desc");
   const [courseName, setCourseName] = useState<string | null>(null);
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string | null>(null);
   const [displayedDiscs, setDisplayedDiscs] = useState<Disc[]>([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
   const { inventory, loading } = useInventoryContext();
@@ -40,12 +42,15 @@ export default function SearchInventory() {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const course = params.get("course");
+    const query = params.get("query"); // Get the search query parameter
+
     setCourseName(course ? decodeURIComponent(course) : null);
     setSelectedCourseId(course);
+    setSearchQuery(query ? decodeURIComponent(query) : null);
   }, [location.search]);
-
   useEffect(() => {
     const handleResize = () => {
+      // This is still used for the sidebar functionality
       setIsMobile(window.innerWidth <= 500);
     };
 
@@ -163,7 +168,47 @@ export default function SearchInventory() {
 
     return () => window.removeEventListener("resize", calculateSkeletonLength);
   }, []);
+  // Function to perform fuzzy search based on user query
+  const performFuzzySearch = (discs: Disc[], query: string): Disc[] => {
+    if (!query) return discs;
 
+    const lowerQuery = query.toLowerCase().trim();
+    const queryWords = lowerQuery.split(/\s+/); // Split by any whitespace
+
+    return discs.filter((disc) => {
+      // Search in multiple fields
+      const discName = disc.disc?.name?.toLowerCase() || "";
+      const brandName = disc.disc?.brand?.name?.toLowerCase() || "";
+      const color = disc.color?.toLowerCase() || "";
+      const course = disc.course?.name?.toLowerCase() || "";
+      const comments = disc.comments?.toLowerCase() || "";
+      const phoneNumber = disc.phoneNumber || "";
+
+      // Combined search text from all fields
+      const combinedText = `${discName} ${brandName} ${color} ${course} ${comments} ${phoneNumber}`;
+
+      // Check if all query words appear in any of the disc's fields
+      return queryWords.every((word) => combinedText.includes(word));
+    });
+  };
+
+  useEffect(() => {
+    if (!loading && inventory.length > 0) {
+      let filtered = [...inventory];
+
+      // Apply course filter if selected
+      if (courseName) {
+        filtered = filtered.filter((disc) => disc.course.name === courseName);
+      }
+
+      // Apply search query if provided
+      if (searchQuery) {
+        filtered = performFuzzySearch(filtered, searchQuery);
+      }
+
+      setDisplayedDiscs(filtered);
+    }
+  }, [inventory, loading, courseName, searchQuery]);
   return (
     <div className={`inner-app-container ${isSidebarOpen ? "open-body" : ""}`}>
       <div className="logo-and-arrow">
@@ -184,9 +229,33 @@ export default function SearchInventory() {
         />
       </div>
       <div>
-        <p className="course-name-search">{courseName && `@ ${courseName}`}</p>
-      </div>
-
+        <p className="course-name-search">
+          {courseName && `@ ${courseName}`}
+          {searchQuery && (courseName ? " • " : "@ ") + `"${searchQuery}"`}
+        </p>
+      </div>{" "}
+      {/* Display search query info if present */}
+      {searchQuery && (
+        <div className="search-query-info">
+          <p>
+            Showing results for:{" "}
+            <span className="search-highlight">"{searchQuery}"</span>
+          </p>
+          <button
+            className="clear-search-btn"
+            onClick={() => {
+              navigate(
+                "/searchInventory" +
+                  (courseName
+                    ? `?course=${encodeURIComponent(courseName)}`
+                    : "")
+              );
+            }}
+          >
+            Clear Search
+          </button>
+        </div>
+      )}
       {/* Conditional display of buttons based on course selection */}
       <div className="wizard-redirect-button">
         {courseName ? (
@@ -210,22 +279,50 @@ export default function SearchInventory() {
           </span>
         </div>
       </div>
-
       {loading || inventory.length === 0 ? (
         <div className="skeleton-cards">
           {Array.from({ length: skeletonLength }).map((_, index) => (
             <SkeletonCard key={index} />
           ))}
         </div>
+      ) : searchQuery && displayedDiscs.length === 0 ? (
+        /* No results state */
+        <div className="no-search-results">
+          <h3>No discs found</h3>
+          <p>Try a different search term or check for spelling errors</p>
+          <button
+            className="try-again-btn"
+            onClick={() => {
+              navigate(
+                "/searchInventory" +
+                  (courseName
+                    ? `?course=${encodeURIComponent(courseName)}`
+                    : "")
+              );
+            }}
+          >
+            Clear Search
+          </button>
+        </div>
       ) : (
-        <CourseSection
-          filters={filters}
-          setFilters={setFilters}
-          currentSort={currentSort}
-          handleSortToggle={handleSortToggle}
-          selectedCourseId={selectedCourseId}
-          displayedDiscsCards={displayedDiscs}
-        />
+        <>
+          {/* Show the number of search results when a query is present */}
+          {searchQuery && (
+            <div className="search-results-count">
+              Found {displayedDiscs.length} disc
+              {displayedDiscs.length !== 1 ? "s" : ""}
+            </div>
+          )}
+
+          <CourseSection
+            filters={filters}
+            setFilters={setFilters}
+            currentSort={currentSort}
+            handleSortToggle={handleSortToggle}
+            selectedCourseId={selectedCourseId}
+            displayedDiscsCards={displayedDiscs}
+          />
+        </>
       )}
       <SearchInventorySidebar
         isOpen={isSidebarOpen}
