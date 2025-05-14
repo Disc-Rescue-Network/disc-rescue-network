@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../styles/footer.css";
+import "../styles/footer-additions.css";
 import "../globals.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import homeIcon from "../assets/home.png";
@@ -7,6 +8,7 @@ import courseIcon from "../assets/courses.png";
 import storeIcon from "../assets/store.png";
 import searchIcon from "../assets/search.png";
 import fabIcon from "../assets/app_center_btn_logo.png";
+import RescueBotDialog from "./RescueBotDialog";
 
 interface FooterProps {
   needCutOut?: boolean;
@@ -16,6 +18,7 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = (props: FooterProps) => {
   const { needCutOut } = props;
   const [isMobile, setIsMobile] = useState(window.innerWidth < 500);
+  const [isRescueBotDialogOpen, setIsRescueBotDialogOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -28,7 +31,6 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
   const navigate = useNavigate();
   const toggleFabMenu = () => {
     const overlay = document.getElementById("overlay");
@@ -59,11 +61,12 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
     }
   };
 
-  const reportLostDisc = () => {
-    window.location.href = "https://discrescuenetwork.com/report-lost-disc";
-    // navigate("/reportLostDisc");
-    toggleFabMenu();
-  };
+  // Keeping this function commented as it might be needed in the future
+  // const reportLostDisc = () => {
+  //   window.location.href = "https://discrescuenetwork.com/report-lost-disc";
+  //   // navigate("/reportLostDisc");
+  //   toggleFabMenu();
+  // };
 
   const requestCourse = () => {
     window.location.href = "https://discrescuenetwork.com/request-course";
@@ -92,6 +95,11 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
     navigate("/courses");
   };
 
+  const openRescueBotDialog = () => {
+    toggleFabMenu();
+    setIsRescueBotDialogOpen(true);
+  };
+
   const location = useLocation();
   //console.log(location.pathname);
 
@@ -117,10 +125,25 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
               className="fab-menu-item-text-left"
               style={{ textDecoration: "none" }}
             >
-              Report <br /> Lost Disc
+              Ask <br /> Rescue Bot
             </p>
-            <i className="bx bxs-analyse bx-sm" onClick={reportLostDisc}></i>
+            <i
+              className="bx bx-search-alt bx-sm"
+              onClick={openRescueBotDialog}
+            ></i>
           </div>
+          {/* <div className="fab-menu-item">
+            <p
+              className="fab-menu-item-text-left"
+              style={{ textDecoration: "none" }}
+            >
+              Ask <br /> Rescue Bot
+            </p>
+            <i
+              className="bx bx-search-alt bx-sm"
+              onClick={openRescueBotDialog}
+            ></i>
+          </div> */}
           <div className="fab-menu-item">
             <p
               className="fab-menu-item-text"
@@ -190,6 +213,10 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
           </span>
         </button>
       </div>
+      <RescueBotDialog
+        isOpen={isRescueBotDialogOpen}
+        onClose={() => setIsRescueBotDialogOpen(false)}
+      />
     </>
   );
 };

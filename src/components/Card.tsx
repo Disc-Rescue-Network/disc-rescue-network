@@ -4,6 +4,7 @@ import noImageFound from "../assets/newAssets/ImageNotFound.jpg";
 import Button from "./Button";
 import { Disc } from "../App";
 import { useNavigate } from "react-router-dom";
+import DOMPurify from "dompurify";
 
 interface CardProps {
   disc: Disc;
@@ -26,16 +27,20 @@ const Card = (props: CardProps) => {
   return (
     <div className={cardClassName}>
       <div className="div-block-2">
-        {/* <div className="circle-overlay"> */}
+        {/* <div className="circle-overlay"> */}{" "}
         <img src={pinImage} alt="Location Pin" className="circle-overlay" />
         {/* </div> */}
-        <div className="text-block-2">{disc.course.name}</div>
+        <div className="text-block-2">
+          {DOMPurify.sanitize(disc.course.name)}
+        </div>
       </div>
       <div className="image-wrapper">
         <img
           src={disc.topImage || noImageFound}
           loading="lazy"
-          alt={`${disc.disc.brand.name} ${disc.disc.name}`}
+          alt={`${DOMPurify.sanitize(
+            disc.disc.brand.name
+          )} ${DOMPurify.sanitize(disc.disc.name)}`}
           className="image"
           onError={(e) => {
             e.currentTarget.src = noImageFound;
@@ -46,30 +51,32 @@ const Card = (props: CardProps) => {
 
       <div className="disc-info">
         <ul className="course-list">
+          {" "}
           {disc.color && (
             <li>
               <i className="bx bx-palette" />
-              <span>{disc.color}</span>
+              <span>{DOMPurify.sanitize(disc.color)}</span>
             </li>
           )}
           {disc.name && (
             <li>
               <i className="bx bxs-user-detail" />
-              <span>{disc.name}</span>
+              <span>{DOMPurify.sanitize(disc.name)}</span>
             </li>
           )}
           {disc.disc.name && (
             <li>
               <i className="bx bx-purchase-tag" />
               <span>
-                {disc.disc.brand.name} {disc.disc.name}
+                {DOMPurify.sanitize(disc.disc.brand.name)}{" "}
+                {DOMPurify.sanitize(disc.disc.name)}
               </span>
             </li>
           )}
           {disc.disc.plasticType && (
             <li>
               <i className="bx bx-category"></i>
-              <span>{disc.disc.plasticType} Plastic</span>
+              <span>{DOMPurify.sanitize(disc.disc.plasticType)} Plastic</span>
             </li>
           )}
         </ul>
