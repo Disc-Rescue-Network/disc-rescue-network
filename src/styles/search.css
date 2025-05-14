@@ -21,22 +21,22 @@
 }
 
 .clear-search-btn {
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
+  background-color: var(--primary-sea-blue, #005daa);
+  color: white;
+  border: none;
   border-radius: 15px;
-  padding: 5px 12px;
+  padding: 6px 14px;
   font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.2s;
-  color: #444;
   font-weight: 500;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .clear-search-btn:hover {
-  background-color: #e5e5e5;
-  color: #222;
-  border-color: #ccc;
+  background-color: var(--secondary-safety-sky-blue, #3f88c8);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Styles for search results count */
@@ -59,7 +59,7 @@
   display: flex;
   justify-content: center;
   margin: 15px auto;
-  max-width: 500px;
+  max-width: 75%; /* Limit max width for larger screens */
   padding: 0 15px; /* Add padding to prevent form from touching screen edges on mobile */
 }
 

@@ -17,6 +17,7 @@ import { useTitle } from "../hooks/useTitle";
 import Button from "../components/Button";
 import "../styles/search.css";
 import Fuse from "fuse.js";
+import DOMPurify from "dompurify";
 
 interface FilterCriteria {
   brands: string[];
@@ -43,7 +44,6 @@ export default function SearchInventory() {
   const [shouldPeekSidebar, setShouldPeekSidebar] = useState(false);
   const { inventory, loading } = useInventoryContext();
   useTitle(`Search ${courseName ? `@ ${courseName}` : "Inventory"}`);
-
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const course = params.get("course");
@@ -52,9 +52,12 @@ export default function SearchInventory() {
     setCourseName(course ? decodeURIComponent(course) : null);
     setSelectedCourseId(course);
 
+    // Sanitize the query parameter to prevent XSS attacks
     const decodedQuery = query ? decodeURIComponent(query) : null;
-    setSearchQuery(decodedQuery);
-    setSearchInputValue(decodedQuery || "");
+    const sanitizedQuery = decodedQuery ? DOMPurify.sanitize(decodedQuery) : null;
+    
+    setSearchQuery(sanitizedQuery);
+    setSearchInputValue(sanitizedQuery || "");
   }, [location.search]);
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/rescueBotDialog.css";
+import DOMPurify from "dompurify";
 
 interface RescueBotDialogProps {
   isOpen: boolean;
@@ -21,13 +22,15 @@ const RescueBotDialog: React.FC<RescueBotDialogProps> = ({
     "Discraft Buzz Maple Hill",
     "Pink disc (999) 999-9999",
   ];
-
   const handleSearch = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (searchQuery.trim()) {
-      // Navigate to the search page with the query parameter
+      // Sanitize the query to prevent XSS attacks
+      const sanitizedQuery = DOMPurify.sanitize(searchQuery.trim());
+      
+      // Navigate to the search page with the sanitized query parameter
       navigate(
-        `/searchInventory?query=${encodeURIComponent(searchQuery.trim())}`
+        `/searchInventory?query=${encodeURIComponent(sanitizedQuery)}`
       );
       onClose();
     }
@@ -37,8 +40,11 @@ const RescueBotDialog: React.FC<RescueBotDialogProps> = ({
     setSearchQuery(suggestion);
     // Automatically search when clicking a suggestion
     setTimeout(() => {
+      // Sanitize the suggestion to prevent XSS attacks
+      const sanitizedSuggestion = DOMPurify.sanitize(suggestion.trim());
+      
       navigate(
-        `/searchInventory?query=${encodeURIComponent(suggestion.trim())}`
+        `/searchInventory?query=${encodeURIComponent(sanitizedSuggestion)}`
       );
       onClose();
     }, 50);
@@ -110,11 +116,14 @@ const RescueBotDialog: React.FC<RescueBotDialogProps> = ({
           </button>
         </div>
         <form onSubmit={handleSearch}>
-          <div className="search-input-container">
-            <input
+          <div className="search-input-container">            <input
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                // Sanitize input value
+                const sanitizedValue = DOMPurify.sanitize(e.target.value);
+                setSearchQuery(sanitizedValue);
+              }}
               placeholder="Describe your disc..."
               className="rescue-bot-input"
               ref={inputRef}
