@@ -14,7 +14,6 @@ import LogoRescueFlow2 from "../components/LogoRescueFlow2";
 import { useInventoryContext } from "../hooks/useInventory";
 import SkeletonCard from "../components/SkeletonCard";
 import { useTitle } from "../hooks/useTitle";
-import Button from "../components/Button";
 import "../styles/search.css";
 import Fuse from "fuse.js";
 import DOMPurify from "dompurify";
@@ -54,8 +53,10 @@ export default function SearchInventory() {
 
     // Sanitize the query parameter to prevent XSS attacks
     const decodedQuery = query ? decodeURIComponent(query) : null;
-    const sanitizedQuery = decodedQuery ? DOMPurify.sanitize(decodedQuery) : null;
-    
+    const sanitizedQuery = decodedQuery
+      ? DOMPurify.sanitize(decodedQuery)
+      : null;
+
     setSearchQuery(sanitizedQuery);
     setSearchInputValue(sanitizedQuery || "");
   }, [location.search]);
@@ -148,7 +149,6 @@ export default function SearchInventory() {
     // Navigate to the rescue flow wizard starting at step 1 (no course preselected)
     navigate("/rescueflow");
   };
-
   const handleSearchSubmit = useCallback(
     (e?: React.FormEvent) => {
       if (e) e.preventDefault();
@@ -157,9 +157,13 @@ export default function SearchInventory() {
       if (searchInputValue.trim()) {
         const params = new URLSearchParams();
         if (courseName) {
-          params.set("course", encodeURIComponent(courseName));
+          // Sanitize courseName to prevent XSS attacks
+          const sanitizedCourseName = DOMPurify.sanitize(courseName);
+          params.set("course", encodeURIComponent(sanitizedCourseName));
         }
-        params.set("query", encodeURIComponent(searchInputValue.trim()));
+        // Sanitize the search query to prevent XSS attacks
+        const sanitizedQuery = DOMPurify.sanitize(searchInputValue.trim());
+        params.set("query", encodeURIComponent(sanitizedQuery));
         navigate(`/searchInventory?${params.toString()}`);
       }
     },
@@ -402,19 +406,26 @@ export default function SearchInventory() {
           baseText={"All Lost"}
           lightText={" Discs"}
         />
-      </div>
+      </div>{" "}
       <div>
-        <p className="course-name-search">{courseName && `@ ${courseName}`}</p>
+        <p className="course-name-search">
+          {courseName && `@ ${DOMPurify.sanitize(courseName)}`}
+        </p>
       </div>{" "}
       {/* Search input form with buttons */}
       <div className="search-input-container">
         <form onSubmit={handleSearchSubmit} className="search-form">
+          {" "}
           <input
             type="text"
             className="search-input"
             placeholder="Search by disc name, brand, color..."
             value={searchInputValue}
-            onChange={(e) => setSearchInputValue(e.target.value)}
+            onChange={(e) => {
+              // Sanitize input to prevent XSS
+              const sanitizedValue = DOMPurify.sanitize(e.target.value);
+              setSearchInputValue(sanitizedValue);
+            }}
           />
           <button type="submit" className="search-button" aria-label="Search">
             <FontAwesomeIcon icon={faSearch} />
@@ -424,9 +435,12 @@ export default function SearchInventory() {
       {/* Display search query info if present */}
       {searchQuery && (
         <div className="search-query-info">
+          {" "}
           <p>
             Showing results for:{" "}
-            <span className="search-highlight">"{searchQuery}"</span>
+            <span className="search-highlight">
+              "{DOMPurify.sanitize(searchQuery)}"
+            </span>
           </p>
           <button
             className="clear-search-btn"
@@ -434,7 +448,9 @@ export default function SearchInventory() {
               navigate(
                 "/searchInventory" +
                   (courseName
-                    ? `?course=${encodeURIComponent(courseName)}`
+                    ? `?course=${encodeURIComponent(
+                        DOMPurify.sanitize(courseName)
+                      )}`
                     : "")
               );
             }}
@@ -460,7 +476,9 @@ export default function SearchInventory() {
               navigate(
                 "/searchInventory" +
                   (courseName
-                    ? `?course=${encodeURIComponent(courseName)}`
+                    ? `?course=${encodeURIComponent(
+                        DOMPurify.sanitize(courseName)
+                      )}`
                     : "")
               );
             }}

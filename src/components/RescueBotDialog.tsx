@@ -27,11 +27,9 @@ const RescueBotDialog: React.FC<RescueBotDialogProps> = ({
     if (searchQuery.trim()) {
       // Sanitize the query to prevent XSS attacks
       const sanitizedQuery = DOMPurify.sanitize(searchQuery.trim());
-      
+
       // Navigate to the search page with the sanitized query parameter
-      navigate(
-        `/searchInventory?query=${encodeURIComponent(sanitizedQuery)}`
-      );
+      navigate(`/searchInventory?query=${encodeURIComponent(sanitizedQuery)}`);
       onClose();
     }
   };
@@ -42,7 +40,7 @@ const RescueBotDialog: React.FC<RescueBotDialogProps> = ({
     setTimeout(() => {
       // Sanitize the suggestion to prevent XSS attacks
       const sanitizedSuggestion = DOMPurify.sanitize(suggestion.trim());
-      
+
       navigate(
         `/searchInventory?query=${encodeURIComponent(sanitizedSuggestion)}`
       );
@@ -116,7 +114,9 @@ const RescueBotDialog: React.FC<RescueBotDialogProps> = ({
           </button>
         </div>
         <form onSubmit={handleSearch}>
-          <div className="search-input-container">            <input
+          <div className="search-input-container">
+            {" "}
+            <input
               type="text"
               value={searchQuery}
               onChange={(e) => {
