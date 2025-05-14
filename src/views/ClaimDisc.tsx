@@ -20,7 +20,7 @@ import { useTitle } from "../hooks/useTitle";
 
 export default function ClaimDisc() {
   const { id } = useParams<{ id?: string }>();
-  const [showPopup, setShowPopup] = useState(true);
+  const [showPopup, setShowPopup] = useState(false); // Start with popup hidden until we check orgCode
   const [contactMethod, setContactMethod] = useState<"phone" | "email">(
     "phone"
   );
@@ -34,8 +34,20 @@ export default function ClaimDisc() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setShowPopup(true);
-  }, []);
+    if (id) {
+      const discId = parseInt(id, 10);
+      const disc = inventory.find((d) => d.id === discId);
+
+      // If the disc has the specific organization code, automatically set to phone method and skip popup
+      if (disc && disc.course.orgCode === "org_a6ac1b298945b") {
+        setContactMethod("phone");
+        setShowPopup(false);
+      } else {
+        // For all other discs, show the popup as normal
+        setShowPopup(true);
+      }
+    }
+  }, [id, inventory]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -66,8 +78,11 @@ export default function ClaimDisc() {
   const toggleDiscInfo = () => {
     setShowDiscInfo(!showDiscInfo);
   };
-
   const handleEditContactMethod = () => {
+    // Don't allow changing the contact method for discs with the specific org code
+    if (disc && disc.course.orgCode === "org_a6ac1b298945b") {
+      return; // Don't show popup for specific organization
+    }
     setShowPopup(true);
   };
 
@@ -89,10 +104,9 @@ export default function ClaimDisc() {
       </div>
     );
   }
-
   return (
     <div className="container-light-blue">
-      {showPopup && (
+      {showPopup && disc.course.orgCode !== "org_a6ac1b298945b" && (
         <PopUpReport
           title={"WHAT IS YOUR PREFERRED COMMUNICATION METHOD?"}
           redText={""}
@@ -111,18 +125,35 @@ export default function ClaimDisc() {
           onClick={handleBack}
         >
           <FontAwesomeIcon icon={faArrowLeft} />
-        </i>
+        </i>{" "}
         <LogoRescueFlow2 />
-        <div className="contact-method-edit" onClick={handleEditContactMethod}>
-          <FontAwesomeIcon
-            icon={contactMethod === "phone" ? faPhone : faEnvelope}
-          />
-          <span>
-            <span className="using-text">Using </span>
-            {contactMethod === "phone" ? "Phone" : "Email"}
-          </span>
-          <FontAwesomeIcon icon={faPenToSquare} />
-        </div>
+        {disc.course.orgCode !== "org_a6ac1b298945b" && (
+          <div
+            className="contact-method-edit"
+            onClick={handleEditContactMethod}
+          >
+            <FontAwesomeIcon
+              icon={contactMethod === "phone" ? faPhone : faEnvelope}
+            />
+            <span>
+              <span className="using-text">Using </span>
+              {contactMethod === "phone" ? "Phone" : "Email"}
+            </span>
+            <FontAwesomeIcon icon={faPenToSquare} />
+          </div>
+        )}
+        {disc.course.orgCode === "org_a6ac1b298945b" && (
+          <div
+            className="contact-method-edit"
+            style={{ cursor: "default", opacity: "0.8" }}
+          >
+            <FontAwesomeIcon icon={faPhone} />
+            <span>
+              <span className="using-text">Using </span>
+              Phone
+            </span>
+          </div>
+        )}
       </div>
 
       <div className="disc-info-toggle" onClick={toggleDiscInfo}>
