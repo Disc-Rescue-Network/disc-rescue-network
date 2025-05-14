@@ -75,7 +75,7 @@
 
   .filter-button {
     width: 100%;
-    justify-content: flex-start;
+    justify-content: flex-end;
   }
 }
 
