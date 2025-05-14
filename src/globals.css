@@ -748,7 +748,7 @@ h4 {
 
 .search-inventory-components {
   margin-bottom: 0 !important;
-  margin-top: 1rem !important;
+  margin-top: 0.5rem !important;
 }
 
 .search-inventory-components h2 {
@@ -772,9 +772,8 @@ h4 {
 .filter-button {
   text-align: right;
   margin-bottom: 5px;
-  margin-left: auto;
-  margin-right: 0.7rem;
-  max-width: 1024px;
+  display: flex;
+  justify-content: flex-end;
   position: relative;
 }
 
@@ -790,6 +789,25 @@ h4 {
   color: var(--primary-sea-blue);
   padding: 0 15px;
   cursor: pointer;
+}
+
+.filter-button .prominent-filter {
+  background-color: var(--primary-sea-blue, #005daa);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 0px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-right: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+}
+
+.filter-button .prominent-filter:hover {
+  background-color: var(--secondary-safety-sky-blue, #3f88c8);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 }
 
 .filter-button span::after {

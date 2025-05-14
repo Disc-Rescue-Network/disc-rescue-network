@@ -9,7 +9,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useCallback } from "react";
 import CourseSection from "../components/CourseSection";
 import SearchInventorySidebar from "../components/SearchInventorySidebar";
-import { Disc } from "../App";
+import { Disc, DiscStateString } from "../App";
 import LogoRescueFlow2 from "../components/LogoRescueFlow2";
 import { useInventoryContext } from "../hooks/useInventory";
 import SkeletonCard from "../components/SkeletonCard";
@@ -41,6 +41,7 @@ export default function SearchInventory() {
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [displayedDiscs, setDisplayedDiscs] = useState<Disc[]>([]);
   const [shouldPeekSidebar, setShouldPeekSidebar] = useState(false);
+  const [queryWords, setQueryWords] = useState<string[]>([]);
   const { inventory, loading } = useInventoryContext();
   useTitle(`Search ${courseName ? `@ ${courseName}` : "Inventory"}`);
   useEffect(() => {
@@ -60,7 +61,6 @@ export default function SearchInventory() {
     setSearchQuery(sanitizedQuery);
     setSearchInputValue(sanitizedQuery || "");
   }, [location.search]);
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const sidebar = document.querySelector(".asidebar");
@@ -130,24 +130,9 @@ export default function SearchInventory() {
       discNames: [],
     });
   }, []);
-
   const handleSortToggle = () => {
     const newSort = currentSort === "newest" ? "oldest" : "newest";
     setCurrentSort(newSort);
-  };
-
-  const handleRescueFlowRedirect = () => {
-    navigate("/rescueflow", {
-      state: {
-        initialStep: 2,
-        initialCourse: courseName,
-      },
-    });
-  };
-
-  const handleStartRescueFlow = () => {
-    // Navigate to the rescue flow wizard starting at step 1 (no course preselected)
-    navigate("/rescueflow");
   };
   const handleSearchSubmit = useCallback(
     (e?: React.FormEvent) => {
@@ -220,6 +205,11 @@ export default function SearchInventory() {
       console.log("No disc with 'heat' name and 'blue' color found in data");
     }
 
+    const charstoMatch = Math.min(query.length, 4);
+    console.log(
+      `Matching ${charstoMatch} characters in query "${query}" against disc data`
+    );
+
     // Configure Fuse with options for fuzzy matching
     const fuseOptions = {
       includeScore: true, // Include score to sort by relevance
@@ -234,7 +224,7 @@ export default function SearchInventory() {
         { name: "comments", weight: 1 }, // Any descriptive comments
         { name: "phoneNumber", weight: 0.5 }, // Phone number (less relevant for descriptions)
       ],
-      minMatchCharLength: 2, // Minimum length of pattern to be matched
+      minMatchCharLength: charstoMatch, // Minimum length of pattern to be matched
       ignoreLocation: true, // Ignore importance of field location/order
       useExtendedSearch: true, // Enable extended search for complex patterns
       findAllMatches: true, // Find all potential matches
@@ -245,11 +235,12 @@ export default function SearchInventory() {
     const fuse = new Fuse(discs, fuseOptions);
 
     // Split the query into individual words
-    const queryWords = query.trim().toLowerCase().split(/\s+/);
-    console.log("Query words:", queryWords);
+    const queryWordsArray = query.trim().toLowerCase().split(/\s+/);
+    setQueryWords(queryWordsArray);
+    console.log("Query words:", queryWordsArray);
 
     // If we have multiple words, perform a search for each word and combine results
-    if (queryWords.length > 1) {
+    if (queryWordsArray.length > 1) {
       console.log("Multi-word search detected, performing enhanced search");
 
       // First try the exact complete phrase to prioritize exact matches
@@ -259,7 +250,7 @@ export default function SearchInventory() {
       );
 
       // Then search for each word individually
-      const individualWordResults = queryWords.map((word) => {
+      const individualWordResults = queryWordsArray.map((word) => {
         const result = fuse.search(word);
         console.log(`Results for word "${word}": ${result.length} items`);
         return result;
@@ -277,7 +268,7 @@ export default function SearchInventory() {
         itemScores.set(id, {
           item: result.item,
           score: (result.score || 1) * 0.5, // Prioritize exact phrase matches
-          matchCount: queryWords.length, // Consider it matched all words
+          matchCount: queryWordsArray.length, // Consider it matched all words
         });
       });
 
@@ -302,17 +293,20 @@ export default function SearchInventory() {
       });
 
       // Convert to array and sort by match count (descending) then score (ascending)
-      const combinedResults = Array.from(itemScores.values()).sort((a, b) => {
-        // First prioritize items that match more words
-        if (b.matchCount !== a.matchCount) {
-          return b.matchCount - a.matchCount;
-        }
-        // Then sort by score (lower is better)
-        return a.score - b.score;
-      });
+      // Filter out results that only match one word (requiring at least 2 word matches)
+      const combinedResults = Array.from(itemScores.values())
+        .filter((result) => result.matchCount > 1)
+        .sort((a, b) => {
+          // First prioritize items that match more words
+          if (b.matchCount !== a.matchCount) {
+            return b.matchCount - a.matchCount;
+          }
+          // Then sort by score (lower is better)
+          return a.score - b.score;
+        });
 
       console.log(
-        `Combined multi-word search results: ${combinedResults.length} items`
+        `Combined multi-word search results (requiring multiple word matches): ${combinedResults.length} items`
       );
 
       // Log a sample of the results
@@ -327,9 +321,11 @@ export default function SearchInventory() {
             score: r.score,
           }))
         );
+        return combinedResults.map((r) => r.item);
+      } else {
+        console.log("No results found matching multiple words from the query");
+        return []; // Return empty array if no multi-word matches found
       }
-
-      return combinedResults.map((r) => r.item);
     }
 
     // For single word queries, use the standard Fuse search
@@ -370,7 +366,6 @@ export default function SearchInventory() {
     // Return the matched items, sorted by relevance
     return sortedResults.map((item) => item.item);
   };
-
   useEffect(() => {
     if (!loading && inventory.length > 0) {
       let filtered = [...inventory];
@@ -385,9 +380,38 @@ export default function SearchInventory() {
         filtered = performFuzzySearch(filtered, searchQuery);
       }
 
+      // Apply sidebar filters on top of the search results
+      filtered = filtered.filter((disc) => {
+        const brand = disc.disc.brand || "";
+        const color = disc.color || "";
+        const discName = disc.disc.name || "";
+
+        const matchesBrand =
+          filters.brands.length === 0 || filters.brands.includes(brand.name);
+        const matchesColor =
+          filters.colors.length === 0 || filters.colors.includes(color);
+        const matchesDiscName =
+          filters.discNames.length === 0 ||
+          filters.discNames.includes(discName);
+
+        return (
+          disc.status === DiscStateString.Unclaimed &&
+          matchesBrand &&
+          matchesColor &&
+          matchesDiscName
+        );
+      });
+
       setDisplayedDiscs(filtered);
     }
-  }, [inventory, loading, courseName, searchQuery]);
+  }, [
+    inventory,
+    loading,
+    courseName,
+    searchQuery,
+    filters,
+    performFuzzySearch,
+  ]);
   return (
     <div className={`inner-app-container ${isSidebarOpen ? "open-body" : ""}`}>
       <div className="logo-and-arrow">
@@ -400,7 +424,7 @@ export default function SearchInventory() {
         </i>
         <LogoRescueFlow2 />
       </div>
-      <div className="search-inventory-componets">
+      <div className="search-inventory-components">
         <RequestCourseComponets
           className="search-inventory-components"
           baseText={"All Lost"}
@@ -431,6 +455,11 @@ export default function SearchInventory() {
             <FontAwesomeIcon icon={faSearch} />
           </button>
         </form>
+      </div>
+      <div className="filter-button">
+        <span className="filter-btn prominent-filter" onClick={toggleSidebar}>
+          <FontAwesomeIcon icon={faFilter} /> Filters
+        </span>
       </div>
       {/* Display search query info if present */}
       {searchQuery && (
@@ -469,22 +498,18 @@ export default function SearchInventory() {
         /* No results state */
         <div className="no-search-results">
           <h3>No discs found</h3>
-          <p>Try a different search term or check for spelling errors</p>
-          <button
-            className="try-again-btn"
-            onClick={() => {
-              navigate(
-                "/searchInventory" +
-                  (courseName
-                    ? `?course=${encodeURIComponent(
-                        DOMPurify.sanitize(courseName)
-                      )}`
-                    : "")
-              );
-            }}
-          >
-            Clear Search
-          </button>
+          <p>
+            {queryWords && queryWords.length > 1
+              ? "We couldn't find any discs matching multiple words from your search."
+              : "Try a different search term or check for spelling errors"}
+          </p>
+          {queryWords && queryWords.length > 1 && (
+            <p className="search-tip">
+              For multi-word searches like "
+              {DOMPurify.sanitize(searchQuery || "")}", try more specific
+              combinations or individual terms.
+            </p>
+          )}
         </div>
       ) : (
         <>
