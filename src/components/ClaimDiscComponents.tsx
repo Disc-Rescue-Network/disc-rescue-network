@@ -213,7 +213,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   };
   return (
     <div className={`report-lost-components ${className}`}>
-      {/* {disc.course.orgCode === "org_a6ac1b298945b" ? (
+      {disc.course.orgCode === "org_a6ac1b298945b" ? (
         <div className="maple-hill-instructions">
           <h2 className="header-claim-disc">
             Maple Hill Disc Pickup Instructions
@@ -242,40 +242,40 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
             </p>
           </div>
         </div>
-      ) : ( */}
-      <>
-        <h2 className="header-claim-disc">
-          Let's Get Your
-          <span className="fw-light"> Disc</span>
-        </h2>
-        <h2 className="info-claim">
-          Just Enter Some
-          <span className="missingtext"> Info</span>.
-        </h2>
-        <NameAndInitialForm
-          onFirstNameChange={handleFirstNameChange}
-          onLastNameChange={handleLastNameChange}
+      ) : (
+        <>
+          <h2 className="header-claim-disc">
+            Let's Get Your
+            <span className="fw-light"> Disc</span>
+          </h2>
+          <h2 className="info-claim">
+            Just Enter Some
+            <span className="missingtext"> Info</span>.
+          </h2>
+          <NameAndInitialForm
+            onFirstNameChange={handleFirstNameChange}
+            onLastNameChange={handleLastNameChange}
+          />
+          <FormClaimDiscContact
+            contactMethod={contactMethod}
+            pickupPreferences={pickupPreferences}
+            onContactChange={(contact: string) => setContactValue(contact)}
+            onPickupPreferencesChange={(preferences: string[]) =>
+              setPickupPreferences(preferences)
+            }
+          />
+        </>
+      )}
+      {disc.course.orgCode !== "org_a6ac1b298945b" && (
+        <Button
+          text={"Schedule Your Disc Pickup"}
+          red={true}
+          border={true}
+          className="button-claim-disc-form"
+          onClick={handleScheduleButtonClick}
+          disabled={!pickupPreferences || !pickupName || !contactValue}
         />
-        <FormClaimDiscContact
-          contactMethod={contactMethod}
-          pickupPreferences={pickupPreferences}
-          onContactChange={(contact: string) => setContactValue(contact)}
-          onPickupPreferencesChange={(preferences: string[]) =>
-            setPickupPreferences(preferences)
-          }
-        />
-      </>
-      {/* )} */}
-      {/* {disc.course.orgCode !== "org_a6ac1b298945b" && ( */}
-      <Button
-        text={"Schedule Your Disc Pickup"}
-        red={true}
-        border={true}
-        className="button-claim-disc-form"
-        onClick={handleScheduleButtonClick}
-        disabled={!pickupPreferences || !pickupName || !contactValue}
-      />
-      {/* )} */}
+      )}
       {disc.course.orgCode === "org_a6ac1b298945b" && (
         <Button
           text={"Ship My Disc"}
