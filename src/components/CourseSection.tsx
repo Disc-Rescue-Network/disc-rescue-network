@@ -27,9 +27,11 @@ export default function CourseSection({
   selectedCourseId,
   displayedDiscsCards,
 }: CourseSectionProps) {
-  console.log("displayedDiscsCards", displayedDiscsCards);
-  console.log("selectedCourseId", selectedCourseId);
-  console.log("filters", filters);
+  if (process.env.NODE_ENV === "development") {
+    console.log("displayedDiscsCards", displayedDiscsCards);
+    console.log("selectedCourseId", selectedCourseId);
+    console.log("filters", filters);
+  }
 
   const [filteredDiscs, setFilteredDiscs] = useState<Disc[]>([]);
   const [displayedDiscs, setDisplayedDiscs] = useState<Disc[]>([]);
