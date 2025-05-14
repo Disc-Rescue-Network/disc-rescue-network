@@ -4,6 +4,7 @@ import { Disc, DiscStateString } from "../App";
 import CourseSectionDiscs from "./CourseSectionDiscs";
 import React from "react";
 import { useInventoryContext } from "../hooks/useInventory";
+import DOMPurify from "dompurify";
 
 interface FilterCriteria {
   brands: string[];
@@ -26,6 +27,10 @@ export default function CourseSection({
   selectedCourseId,
   displayedDiscsCards,
 }: CourseSectionProps) {
+  console.log("displayedDiscsCards", displayedDiscsCards);
+  console.log("selectedCourseId", selectedCourseId);
+  console.log("filters", filters);
+
   const [filteredDiscs, setFilteredDiscs] = useState<Disc[]>([]);
   const [displayedDiscs, setDisplayedDiscs] = useState<Disc[]>([]);
   const [showLoadMore, setShowLoadMore] = useState(false);
@@ -42,36 +47,17 @@ export default function CourseSection({
 
     return Math.max(visibleCards, 6); // At least 6 skeletons
   }, []);
-
   // Helper function to apply filters to any disc array without sorting
+  // This is no longer needed since filters are applied in SearchInventory.tsx
+  // But kept for backward compatibility
   const applyFiltersToDiscs = useCallback(
     (discs: Disc[]) => {
-      // Apply filter sidebar filters but preserve original order from search results
-      return discs.filter((disc) => {
-        const brand = disc.disc.brand || "";
-        const color = disc.color || "";
-        const discName = disc.disc.name || "";
-
-        const matchesBrand =
-          filters.brands.length === 0 || filters.brands.includes(brand.name);
-        const matchesColor =
-          filters.colors.length === 0 || filters.colors.includes(color);
-        const matchesDiscName =
-          filters.discNames.length === 0 ||
-          filters.discNames.includes(discName);
-
-        return (
-          disc.status === DiscStateString.Unclaimed &&
-          matchesBrand &&
-          matchesColor &&
-          matchesDiscName &&
-          (!selectedCourseId || disc.course.name === selectedCourseId)
-        );
-      });
+      // This function is kept for backward compatibility but no longer used
+      // All filtering now happens in the SearchInventory component
+      return discs;
     },
     [filters, selectedCourseId]
   );
-
   // Process discs already filtered and sorted by the parent component (SearchInventory)
   const processProvidedDiscs = useCallback(
     (discs: Disc[]) => {
@@ -80,15 +66,13 @@ export default function CourseSection({
         discs.length
       );
 
-      // Apply sidebar filters to the search results if needed
-      const filteredSearchResults = applyFiltersToDiscs(discs);
-
+      // No need to re-apply filters as they're already applied in SearchInventory.tsx
       const initialVisibleCount = calculateInitialVisibleCount();
-      setFilteredDiscs(filteredSearchResults);
-      setDisplayedDiscs(filteredSearchResults.slice(0, initialVisibleCount));
-      setShowLoadMore(filteredSearchResults.length > initialVisibleCount);
+      setFilteredDiscs(discs);
+      setDisplayedDiscs(discs.slice(0, initialVisibleCount));
+      setShowLoadMore(discs.length > initialVisibleCount);
     },
-    [applyFiltersToDiscs, calculateInitialVisibleCount]
+    [calculateInitialVisibleCount]
   );
 
   // Apply local filtering and sorting when no pre-filtered discs are provided
@@ -167,7 +151,7 @@ export default function CourseSection({
 
   return (
     <div className="course-section">
-      <CourseSectionDiscs arrayOfDiscs={displayedDiscs} />
+      <CourseSectionDiscs arrayOfDiscs={displayedDiscs} />{" "}
       {showLoadMore && (
         <div className="load-more">
           <button className="more-btn" onClick={loadMore}>
@@ -176,7 +160,11 @@ export default function CourseSection({
         </div>
       )}
       {displayedDiscs.length === 0 && !loading && (
-        <p className="no-results-message">No results for {selectedCourseId}</p>
+        <p className="no-results-message">
+          No results{" "}
+          {selectedCourseId &&
+            `for ${DOMPurify.sanitize(decodeURIComponent(selectedCourseId))}`}
+        </p>
       )}
     </div>
   );

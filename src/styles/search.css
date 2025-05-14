@@ -1,12 +1,25 @@
 /* Search query related styles */
+.search-info-filter-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  padding: 0 15px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .search-query-info {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin: 10px 0;
-  padding: 0 15px;
   flex-wrap: wrap;
   gap: 10px;
+  flex: 1;
+}
+
+.search-query-info-placeholder {
+  flex: 1;
 }
 
 .search-query-info p {
@@ -24,7 +37,7 @@
   background-color: var(--primary-sea-blue, #005daa);
   color: white;
   border: none;
-  border-radius: 15px;
+  border-radius: 0px;
   padding: 6px 14px;
   font-size: 0.85rem;
   cursor: pointer;
@@ -47,6 +60,25 @@
   color: #666;
 }
 
+/* Media query for small screens */
+@media (max-width: 600px) {
+  .search-info-filter-row {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .search-query-info {
+    margin-bottom: 5px;
+    width: 100%;
+  }
+
+  .filter-button {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
 /* No results message */
 .no-search-results {
   text-align: center;
@@ -59,7 +91,7 @@
   display: flex;
   justify-content: center;
   margin: 15px auto;
-  max-width: 75%; /* Limit max width for larger screens */
+  max-width: 600px; /* Limit max width for larger screens */
   min-width: 300px; /* Ensure a minimum width for smaller screens */
   padding: 0 15px; /* Add padding to prevent form from touching screen edges on mobile */
 }
@@ -74,7 +106,7 @@
   flex: 1;
   padding: 10px 15px;
   border: 1px solid #ddd;
-  border-radius: 20px;
+  border-radius: 0px;
   font-size: 1rem;
   outline: none;
   transition: all 0.2s;
@@ -118,6 +150,16 @@
 }
 
 .no-search-results p {
+  margin-bottom: 15px;
+}
+
+.search-tip {
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+  background-color: #f8f8f8;
+  padding: 10px;
+  border-left: 3px solid var(--primary-sea-blue);
   margin-bottom: 20px;
 }
 
@@ -125,7 +167,7 @@
   background-color: var(--primary-color, #3498db);
   color: white;
   border: none;
-  border-radius: 20px;
+  border-radius: 0px;
   padding: 8px 20px;
   cursor: pointer;
   font-weight: bold;

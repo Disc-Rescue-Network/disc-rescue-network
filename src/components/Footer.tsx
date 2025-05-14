@@ -119,6 +119,7 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
         }
         id="fabMenuContainer"
       >
+        {" "}
         <div className="fab-menu" id="fabMenu">
           <div className="fab-menu-item">
             <p
@@ -132,18 +133,6 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
               onClick={openRescueBotDialog}
             ></i>
           </div>
-          {/* <div className="fab-menu-item">
-            <p
-              className="fab-menu-item-text-left"
-              style={{ textDecoration: "none" }}
-            >
-              Ask <br /> Rescue Bot
-            </p>
-            <i
-              className="bx bx-search-alt bx-sm"
-              onClick={openRescueBotDialog}
-            ></i>
-          </div> */}
           <div className="fab-menu-item">
             <p
               className="fab-menu-item-text"
