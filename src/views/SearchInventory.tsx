@@ -452,7 +452,9 @@ export default function SearchInventory() {
       {/* Total results and clear search button */}
       {searchQuery && (
         <div className="search-results-summary">
-          <div className="total-results">TOTAL RESULTS: {displayedDiscs.length} DISCS</div>
+          <div className="total-results">
+            TOTAL RESULTS: {displayedDiscs.length} DISCS
+          </div>
           <button
             className="clear-search-btn"
             onClick={() => {
@@ -476,7 +478,8 @@ export default function SearchInventory() {
         <div className="search-query-container">
           <div className="search-query-info">
             <p>
-              SHOWING RESULTS FOR '{DOMPurify.sanitize(searchQuery).toUpperCase()}'
+              SHOWING RESULTS FOR '
+              {DOMPurify.sanitize(searchQuery).toUpperCase()}'
             </p>
           </div>
           <div className="filter-button">
