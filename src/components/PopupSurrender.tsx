@@ -101,7 +101,7 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
       let jsonBody;
       if (contactMethod === "phone") {
         jsonBody = JSON.stringify({
-          comments: `${pickupName} wants to claim this disc`,
+          comments: `${pickupName} has surrendered this disc`,
           itemId: disc.id,
           phoneNumber: formattedPhoneNumber,
           firstName: firstName,
@@ -114,7 +114,7 @@ const PopUpSurrender: React.FC<PopupReportProps> = ({
         });
       } else {
         jsonBody = JSON.stringify({
-          comments: `${pickupName} wants to claim this disc`,
+          comments: `${pickupName} has surrendered this disc`,
           itemId: disc.id,
           email: contactValue,
           firstName: firstName,

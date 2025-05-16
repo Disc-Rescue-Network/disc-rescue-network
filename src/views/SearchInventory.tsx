@@ -1,9 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeft,
-  faFilter,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faSearch } from "@fortawesome/free-solid-svg-icons";
 import RequestCourseComponets from "../components/RequestCourseComponents";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useCallback } from "react";
@@ -61,6 +57,11 @@ export default function SearchInventory() {
     setSearchQuery(sanitizedQuery);
     setSearchInputValue(sanitizedQuery || "");
   }, [location.search]);
+
+  const onClose = useCallback(() => {
+    setIsSidebarOpen(false);
+  }, []);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const sidebar = document.querySelector(".asidebar");
@@ -75,7 +76,7 @@ export default function SearchInventory() {
         document.removeEventListener("mousedown", handleClickOutside);
       };
     }
-  }, [isSidebarOpen]);
+  }, [isSidebarOpen, onClose]);
 
   // Add effect for peek animation on first load
   useEffect(() => {
@@ -113,10 +114,6 @@ export default function SearchInventory() {
   const toggleSidebar = useCallback(() => {
     setIsSidebarOpen(!isSidebarOpen);
   }, [isSidebarOpen]);
-
-  const onClose = useCallback(() => {
-    setIsSidebarOpen(false);
-  }, []);
 
   const handleFilter = useCallback((newFilters: FilterCriteria) => {
     setFilters(newFilters);
@@ -175,197 +172,203 @@ export default function SearchInventory() {
     window.addEventListener("resize", calculateSkeletonLength); // Recalculate on resize
 
     return () => window.removeEventListener("resize", calculateSkeletonLength);
-  }, []);
-  // Function to perform fuzzy search based on user query using Fuse.js
-  const performFuzzySearch = (discs: Disc[], query: string): Disc[] => {
-    if (!query) return discs;
+  }, []); // Function to perform fuzzy search based on user query using Fuse.js
 
-    console.log("Performing fuzzy search with query:", query);
+  const performFuzzySearch = useCallback(
+    (discs: Disc[], query: string): Disc[] => {
+      if (!query) return discs;
 
-    // Debug disc data to check structure
-    const debugDisc = discs.find(
-      (disc) =>
-        disc.disc?.name?.toLowerCase().includes("heat") &&
-        disc.color?.toLowerCase().includes("blue")
-    );
+      console.log("Performing fuzzy search with query:", query);
 
-    if (debugDisc) {
-      console.log("Found a matching disc in data:", {
-        name: debugDisc.disc?.name,
-        color: debugDisc.color,
-        brand: debugDisc.disc?.brand?.name,
-        fullPath: {
-          "disc.name": debugDisc.disc?.name,
-          "disc.brand.name": debugDisc.disc?.brand?.name,
+      // Debug disc data to check structure
+      const debugDisc = discs.find(
+        (disc) =>
+          disc.disc?.name?.toLowerCase().includes("heat") &&
+          disc.color?.toLowerCase().includes("blue")
+      );
+
+      if (debugDisc) {
+        console.log("Found a matching disc in data:", {
+          name: debugDisc.disc?.name,
           color: debugDisc.color,
-          "course.name": debugDisc.course?.name,
-        },
-      });
-    } else {
-      console.log("No disc with 'heat' name and 'blue' color found in data");
-    }
+          brand: debugDisc.disc?.brand?.name,
+          fullPath: {
+            "disc.name": debugDisc.disc?.name,
+            "disc.brand.name": debugDisc.disc?.brand?.name,
+            color: debugDisc.color,
+            "course.name": debugDisc.course?.name,
+          },
+        });
+      } else {
+        console.log("No disc with 'heat' name and 'blue' color found in data");
+      }
 
-    const charstoMatch = Math.min(query.length, 4);
-    console.log(
-      `Matching ${charstoMatch} characters in query "${query}" against disc data`
-    );
-
-    // Configure Fuse with options for fuzzy matching
-    const fuseOptions = {
-      includeScore: true, // Include score to sort by relevance
-      threshold: 0.4, // Balanced threshold for good matching
-      distance: 100, // Allow text to be matched across larger distance in the strings
-      keys: [
-        // Weight search fields by importance
-        { name: "disc.name", weight: 2 }, // Disc name is most important
-        { name: "disc.brand.name", weight: 1.5 }, // Brand is important
-        { name: "color", weight: 1.5 }, // Color is important
-        { name: "course.name", weight: 1 }, // Course location
-        { name: "comments", weight: 1 }, // Any descriptive comments
-        { name: "phoneNumber", weight: 0.5 }, // Phone number (less relevant for descriptions)
-      ],
-      minMatchCharLength: charstoMatch, // Minimum length of pattern to be matched
-      ignoreLocation: true, // Ignore importance of field location/order
-      useExtendedSearch: true, // Enable extended search for complex patterns
-      findAllMatches: true, // Find all potential matches
-      shouldSort: true, // Sort by relevance
-    };
-
-    // Initialize Fuse with our disc data and options
-    const fuse = new Fuse(discs, fuseOptions);
-
-    // Split the query into individual words
-    const queryWordsArray = query.trim().toLowerCase().split(/\s+/);
-    setQueryWords(queryWordsArray);
-    console.log("Query words:", queryWordsArray);
-
-    // If we have multiple words, perform a search for each word and combine results
-    if (queryWordsArray.length > 1) {
-      console.log("Multi-word search detected, performing enhanced search");
-
-      // First try the exact complete phrase to prioritize exact matches
-      const exactPhraseResults = fuse.search(query);
+      const charstoMatch = Math.min(query.length, 4);
       console.log(
-        `Results for exact phrase "${query}": ${exactPhraseResults.length} items`
+        `Matching ${charstoMatch} characters in query "${query}" against disc data`
       );
 
-      // Then search for each word individually
-      const individualWordResults = queryWordsArray.map((word) => {
-        const result = fuse.search(word);
-        console.log(`Results for word "${word}": ${result.length} items`);
-        return result;
-      });
+      // Configure Fuse with options for fuzzy matching
+      const fuseOptions = {
+        includeScore: true, // Include score to sort by relevance
+        threshold: 0.4, // Balanced threshold for good matching
+        distance: 100, // Allow text to be matched across larger distance in the strings
+        keys: [
+          // Weight search fields by importance
+          { name: "disc.name", weight: 2 }, // Disc name is most important
+          { name: "disc.brand.name", weight: 1.5 }, // Brand is important
+          { name: "color", weight: 1.5 }, // Color is important
+          { name: "course.name", weight: 1 }, // Course location
+          { name: "comments", weight: 1 }, // Any descriptive comments
+          { name: "phoneNumber", weight: 0.5 }, // Phone number (less relevant for descriptions)
+        ],
+        minMatchCharLength: charstoMatch, // Minimum length of pattern to be matched
+        ignoreLocation: true, // Ignore importance of field location/order
+        useExtendedSearch: true, // Enable extended search for complex patterns
+        findAllMatches: true, // Find all potential matches
+        shouldSort: true, // Sort by relevance
+      };
 
-      // Identify items that match multiple search terms
-      const itemScores = new Map<
-        string,
-        { item: Disc; score: number; matchCount: number }
-      >();
+      // Initialize Fuse with our disc data and options
+      const fuse = new Fuse(discs, fuseOptions);
 
-      // First add exact phrase matches with priority
-      exactPhraseResults.forEach((result) => {
-        const id = String(result.item.id); // Convert id to string to ensure it works as a Map key
-        itemScores.set(id, {
-          item: result.item,
-          score: (result.score || 1) * 0.5, // Prioritize exact phrase matches
-          matchCount: queryWordsArray.length, // Consider it matched all words
-        });
-      });
+      // Split the query into individual words
+      const queryWordsArray = query.trim().toLowerCase().split(/\s+/);
+      setQueryWords(queryWordsArray);
+      console.log("Query words:", queryWordsArray);
 
-      // Then process individual word matches
-      individualWordResults.forEach((results) => {
-        results.forEach((result) => {
-          const id = String(result.item.id); // Convert id to string to ensure it works as a Map key
-          if (itemScores.has(id)) {
-            // Update existing item to improve score and increase match count
-            const existing = itemScores.get(id)!;
-            existing.score = Math.min(existing.score, result.score || 1);
-            existing.matchCount += 1;
-          } else {
-            // Add new item
-            itemScores.set(id, {
-              item: result.item,
-              score: result.score || 1,
-              matchCount: 1,
-            });
-          }
-        });
-      });
+      // If we have multiple words, perform a search for each word and combine results
+      if (queryWordsArray.length > 1) {
+        console.log("Multi-word search detected, performing enhanced search");
 
-      // Convert to array and sort by match count (descending) then score (ascending)
-      // Filter out results that only match one word (requiring at least 2 word matches)
-      const combinedResults = Array.from(itemScores.values())
-        .filter((result) => result.matchCount > 1)
-        .sort((a, b) => {
-          // First prioritize items that match more words
-          if (b.matchCount !== a.matchCount) {
-            return b.matchCount - a.matchCount;
-          }
-          // Then sort by score (lower is better)
-          return a.score - b.score;
-        });
-
-      console.log(
-        `Combined multi-word search results (requiring multiple word matches): ${combinedResults.length} items`
-      );
-
-      // Log a sample of the results
-      if (combinedResults.length > 0) {
+        // First try the exact complete phrase to prioritize exact matches
+        const exactPhraseResults = fuse.search(query);
         console.log(
-          "Top combined matches:",
-          combinedResults.slice(0, 3).map((r) => ({
+          `Results for exact phrase "${query}": ${exactPhraseResults.length} items`
+        );
+
+        // Then search for each word individually
+        const individualWordResults = queryWordsArray.map((word) => {
+          const result = fuse.search(word);
+          console.log(`Results for word "${word}": ${result.length} items`);
+          return result;
+        });
+
+        // Identify items that match multiple search terms
+        const itemScores = new Map<
+          string,
+          { item: Disc; score: number; matchCount: number }
+        >();
+
+        // First add exact phrase matches with priority
+        exactPhraseResults.forEach((result) => {
+          const id = String(result.item.id); // Convert id to string to ensure it works as a Map key
+          itemScores.set(id, {
+            item: result.item,
+            score: (result.score || 1) * 0.5, // Prioritize exact phrase matches
+            matchCount: queryWordsArray.length, // Consider it matched all words
+          });
+        });
+
+        // Then process individual word matches
+        individualWordResults.forEach((results) => {
+          results.forEach((result) => {
+            const id = String(result.item.id); // Convert id to string to ensure it works as a Map key
+            if (itemScores.has(id)) {
+              // Update existing item to improve score and increase match count
+              const existing = itemScores.get(id)!;
+              existing.score = Math.min(existing.score, result.score || 1);
+              existing.matchCount += 1;
+            } else {
+              // Add new item
+              itemScores.set(id, {
+                item: result.item,
+                score: result.score || 1,
+                matchCount: 1,
+              });
+            }
+          });
+        });
+
+        // Convert to array and sort by match count (descending) then score (ascending)
+        // Filter out results that only match one word (requiring at least 2 word matches)
+        const combinedResults = Array.from(itemScores.values())
+          .filter((result) => result.matchCount > 1)
+          .sort((a, b) => {
+            // First prioritize items that match more words
+            if (b.matchCount !== a.matchCount) {
+              return b.matchCount - a.matchCount;
+            }
+            // Then sort by score (lower is better)
+            return a.score - b.score;
+          });
+
+        console.log(
+          `Combined multi-word search results (requiring multiple word matches): ${combinedResults.length} items`
+        );
+
+        // Log a sample of the results
+        if (combinedResults.length > 0) {
+          console.log(
+            "Top combined matches:",
+            combinedResults.slice(0, 3).map((r) => ({
+              name: r.item.disc?.name,
+              color: r.item.color,
+              brand: r.item.disc?.brand?.name,
+              matchCount: r.matchCount,
+              score: r.score,
+            }))
+          );
+          return combinedResults.map((r) => r.item);
+        } else {
+          console.log(
+            "No results found matching multiple words from the query"
+          );
+          return []; // Return empty array if no multi-word matches found
+        }
+      }
+
+      // For single word queries, use the standard Fuse search
+      const result = fuse.search(query);
+
+      console.log(`Search results for "${query}": ${result.length} items`);
+      // Log a few results with scores
+      if (result.length > 0) {
+        console.log(
+          "Top matches with scores:",
+          result.slice(0, 3).map((r) => ({
             name: r.item.disc?.name,
             color: r.item.color,
             brand: r.item.disc?.brand?.name,
-            matchCount: r.matchCount,
             score: r.score,
           }))
         );
-        return combinedResults.map((r) => r.item);
-      } else {
-        console.log("No results found matching multiple words from the query");
-        return []; // Return empty array if no multi-word matches found
       }
-    }
 
-    // For single word queries, use the standard Fuse search
-    const result = fuse.search(query);
+      // Result is already sorted by score (lower score = better match), just verify it
+      const sortedResults = [...result].sort((a, b) => {
+        if (a.score === undefined && b.score === undefined) return 0;
+        if (a.score === undefined) return 1;
+        if (b.score === undefined) return -1;
+        return a.score - b.score;
+      });
 
-    console.log(`Search results for "${query}": ${result.length} items`);
-    // Log a few results with scores
-    if (result.length > 0) {
       console.log(
-        "Top matches with scores:",
-        result.slice(0, 3).map((r) => ({
+        "Sorted results (first 3):",
+        sortedResults.slice(0, 3).map((r) => ({
           name: r.item.disc?.name,
           color: r.item.color,
           brand: r.item.disc?.brand?.name,
           score: r.score,
         }))
       );
-    }
 
-    // Result is already sorted by score (lower score = better match), just verify it
-    const sortedResults = [...result].sort((a, b) => {
-      if (a.score === undefined && b.score === undefined) return 0;
-      if (a.score === undefined) return 1;
-      if (b.score === undefined) return -1;
-      return a.score - b.score;
-    });
+      // Return the matched items, sorted by relevance
+      return sortedResults.map((item) => item.item);
+    },
+    [inventory]
+  );
 
-    console.log(
-      "Sorted results (first 3):",
-      sortedResults.slice(0, 3).map((r) => ({
-        name: r.item.disc?.name,
-        color: r.item.color,
-        brand: r.item.disc?.brand?.name,
-        score: r.score,
-      }))
-    );
-
-    // Return the matched items, sorted by relevance
-    return sortedResults.map((item) => item.item);
-  };
   useEffect(() => {
     if (!loading && inventory.length > 0) {
       let filtered = [...inventory];
@@ -427,19 +430,14 @@ export default function SearchInventory() {
       <div className="search-inventory-components">
         <RequestCourseComponets
           className="search-inventory-components"
-          baseText={"All Lost"}
-          lightText={" Discs"}
+          baseText={"ALL LOST"}
+          lightText={" DISCS"}
         />
-      </div>{" "}
-      <div>
-        <p className="course-name-search">
-          {courseName && `@ ${DOMPurify.sanitize(courseName)}`}
-        </p>
-      </div>{" "}
-      {/* Search input form with buttons */}
+      </div>
+
+      {/* Search input form with search button */}
       <div className="search-input-container">
         <form onSubmit={handleSearchSubmit} className="search-form">
-          {" "}
           <input
             type="text"
             className="search-input"
@@ -450,27 +448,30 @@ export default function SearchInventory() {
               const sanitizedValue = DOMPurify.sanitize(e.target.value);
               setSearchInputValue(sanitizedValue);
             }}
-          />
-          <button type="submit" className="search-button" aria-label="Search">
-            <FontAwesomeIcon icon={faSearch} />
+          />{" "}
+          <button
+            type="submit"
+            className="search-button"
+            aria-label="Search"
+            onClick={(e) => {
+              e.preventDefault();
+              handleSearchSubmit();
+            }}
+          >
+            <FontAwesomeIcon
+              icon={faSearch}
+              style={{ pointerEvents: "none" }}
+            />
           </button>
         </form>
       </div>
-      <div className="filter-button">
-        <span className="filter-btn prominent-filter" onClick={toggleSidebar}>
-          <FontAwesomeIcon icon={faFilter} /> Filters
-        </span>
-      </div>
-      {/* Display search query info if present */}
+
+      {/* Total results and clear search button */}
       {searchQuery && (
-        <div className="search-query-info">
-          {" "}
-          <p>
-            Showing results for:{" "}
-            <span className="search-highlight">
-              "{DOMPurify.sanitize(searchQuery)}"
-            </span>
-          </p>
+        <div className="search-results-summary">
+          <div className="total-results">
+            TOTAL RESULTS: {displayedDiscs.length} DISCS
+          </div>
           <button
             className="clear-search-btn"
             onClick={() => {
@@ -484,10 +485,28 @@ export default function SearchInventory() {
               );
             }}
           >
-            Clear Results
+            CLEAR SEARCH
           </button>
         </div>
       )}
+
+      {/* Showing results for text and open filters button */}
+      {searchQuery && (
+        <div className="search-query-container">
+          <div className="search-query-info">
+            <p>
+              SHOWING RESULTS FOR '
+              {DOMPurify.sanitize(searchQuery).toUpperCase()}'
+            </p>
+          </div>
+          <div className="filter-button">
+            <button className="open-filters-btn" onClick={toggleSidebar}>
+              OPEN FILTERS
+            </button>
+          </div>
+        </div>
+      )}
+
       {loading || inventory.length === 0 ? (
         <div className="skeleton-cards">
           {Array.from({ length: skeletonLength }).map((_, index) => (
@@ -513,14 +532,6 @@ export default function SearchInventory() {
         </div>
       ) : (
         <>
-          {/* Show the number of search results when a query is present */}
-          {searchQuery && (
-            <div className="search-results-count">
-              Found {displayedDiscs.length} disc
-              {displayedDiscs.length !== 1 ? "s" : ""}
-            </div>
-          )}
-
           <CourseSection
             filters={filters}
             setFilters={setFilters}
