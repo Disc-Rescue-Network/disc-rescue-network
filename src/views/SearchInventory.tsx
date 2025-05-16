@@ -1,9 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeft,
-  faFilter,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faSearch } from "@fortawesome/free-solid-svg-icons";
 import RequestCourseComponets from "../components/RequestCourseComponents";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useCallback } from "react";
@@ -61,6 +57,11 @@ export default function SearchInventory() {
     setSearchQuery(sanitizedQuery);
     setSearchInputValue(sanitizedQuery || "");
   }, [location.search]);
+
+  const onClose = useCallback(() => {
+    setIsSidebarOpen(false);
+  }, []);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const sidebar = document.querySelector(".asidebar");
@@ -75,7 +76,7 @@ export default function SearchInventory() {
         document.removeEventListener("mousedown", handleClickOutside);
       };
     }
-  }, [isSidebarOpen]);
+  }, [isSidebarOpen, onClose]);
 
   // Add effect for peek animation on first load
   useEffect(() => {
@@ -113,10 +114,6 @@ export default function SearchInventory() {
   const toggleSidebar = useCallback(() => {
     setIsSidebarOpen(!isSidebarOpen);
   }, [isSidebarOpen]);
-
-  const onClose = useCallback(() => {
-    setIsSidebarOpen(false);
-  }, []);
 
   const handleFilter = useCallback((newFilters: FilterCriteria) => {
     setFilters(newFilters);
@@ -427,19 +424,14 @@ export default function SearchInventory() {
       <div className="search-inventory-components">
         <RequestCourseComponets
           className="search-inventory-components"
-          baseText={"All Lost"}
-          lightText={" Discs"}
+          baseText={"ALL LOST"}
+          lightText={" DISCS"}
         />
-      </div>{" "}
-      <div>
-        <p className="course-name-search">
-          {courseName && `@ ${DOMPurify.sanitize(courseName)}`}
-        </p>
-      </div>{" "}
-      {/* Search input form with buttons */}
+      </div>
+
+      {/* Search input form with search button */}
       <div className="search-input-container">
         <form onSubmit={handleSearchSubmit} className="search-form">
-          {" "}
           <input
             type="text"
             className="search-input"
@@ -456,21 +448,11 @@ export default function SearchInventory() {
           </button>
         </form>
       </div>
-      <div className="filter-button">
-        <span className="filter-btn prominent-filter" onClick={toggleSidebar}>
-          <FontAwesomeIcon icon={faFilter} /> Filters
-        </span>
-      </div>
-      {/* Display search query info if present */}
+
+      {/* Total results and clear search button */}
       {searchQuery && (
-        <div className="search-query-info">
-          {" "}
-          <p>
-            Showing results for:{" "}
-            <span className="search-highlight">
-              "{DOMPurify.sanitize(searchQuery)}"
-            </span>
-          </p>
+        <div className="search-results-summary">
+          <div className="total-results">TOTAL RESULTS: {displayedDiscs.length} DISCS</div>
           <button
             className="clear-search-btn"
             onClick={() => {
@@ -484,10 +466,27 @@ export default function SearchInventory() {
               );
             }}
           >
-            Clear Results
+            CLEAR SEARCH
           </button>
         </div>
       )}
+
+      {/* Showing results for text and open filters button */}
+      {searchQuery && (
+        <div className="search-query-container">
+          <div className="search-query-info">
+            <p>
+              SHOWING RESULTS FOR '{DOMPurify.sanitize(searchQuery).toUpperCase()}'
+            </p>
+          </div>
+          <div className="filter-button">
+            <button className="open-filters-btn" onClick={toggleSidebar}>
+              OPEN FILTERS
+            </button>
+          </div>
+        </div>
+      )}
+
       {loading || inventory.length === 0 ? (
         <div className="skeleton-cards">
           {Array.from({ length: skeletonLength }).map((_, index) => (
@@ -513,14 +512,6 @@ export default function SearchInventory() {
         </div>
       ) : (
         <>
-          {/* Show the number of search results when a query is present */}
-          {searchQuery && (
-            <div className="search-results-count">
-              Found {displayedDiscs.length} disc
-              {displayedDiscs.length !== 1 ? "s" : ""}
-            </div>
-          )}
-
           <CourseSection
             filters={filters}
             setFilters={setFilters}
