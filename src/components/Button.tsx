@@ -35,12 +35,11 @@ export default function Button(props: ButtonProps) {
       setTiltStyle("rotate(0deg)");
     }
   }, [tilt]);
-
   return (
     <button
       className={`${className} btn ${red ? "red" : "blue"} ${
         border ? "" : "no-border"
-      } `}
+      } ${disabled ? "button-disabled" : ""}`}
       onClick={onClick}
       disabled={disabled}
     >

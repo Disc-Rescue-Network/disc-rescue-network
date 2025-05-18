@@ -12,6 +12,12 @@ import { useNavigate } from "react-router-dom";
 import { VerifyOTP } from "./VerifyOTP";
 import TermsOfFlow from "./TermsOfFlow";
 import { Alert, Snackbar } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faInfoCircle,
+  faChevronDown,
+  faChevronUp,
+} from "@fortawesome/free-solid-svg-icons";
 
 interface HeaderReportLostProps {
   className?: string;
@@ -45,9 +51,10 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
 
   const [showInfoMessage, setShowInfoMessage] = useState<boolean>(false);
   const [infoMessage, setInfoMessage] = useState("");
-
   const [showShippingInstructions, setShowShippingInstructions] =
     useState(false);
+  const [showFormForMapleHill, setShowFormForMapleHill] = useState(false);
+  const [showDiscDetails, setShowDiscDetails] = useState(false);
 
   useEffect(() => {
     //console.log("rendering with disc", disc);
@@ -73,19 +80,25 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
       setPhoneNumberMatches(false);
     }
   }, [contactMethod, contactValue, disc.phoneNumber]);
-
   const handleScheduleButtonClick = () => {
     setIsSurrender(false);
     if (!phoneNumberMatches) {
       setShowTOF(true);
       return;
     }
-
-    if (pickupPreferences.length > 0 && pickupName) {
+    if (pickupPreferences.length > 0 && firstName && lastName && contactValue) {
       setShowPopup(true);
     } else {
       setShowErrorMessage(true);
-      setErrorMessage("Please fill out all fields");
+      if (!firstName) {
+        setErrorMessage("Please enter your first name");
+      } else if (!lastName) {
+        setErrorMessage("Please enter your last name");
+      } else if (!contactValue) {
+        setErrorMessage("Please provide contact information");
+      } else {
+        setErrorMessage("Please select at least one pickup preference");
+      }
     }
   };
 
@@ -105,7 +118,6 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const closePopup = () => {
     setShowPopup(false);
   };
-
   const openPopup = () => {
     setIsSurrender(true);
 
@@ -139,19 +151,24 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
     setShowPopupSurrender(true);
   };
 
+  const handleBackToInstructions = () => {
+    setShowFormForMapleHill(false);
+  };
+
   const closePopupSurrender = () => {
     // Reset the form
     setShowPopupSurrender(false);
   };
-
   const handleFirstNameChange = (value: string) => {
     setFirstName(value);
-    setPickupName(`${value} ${lastName}`);
+    // Update pickup name - if no last name, just use first name
+    setPickupName(lastName ? `${value} ${lastName}` : value);
   };
 
   const handleLastNameChange = (value: string) => {
     setLastName(value);
-    setPickupName(`${firstName} ${value}`);
+    // Update pickup name - last name is optional
+    setPickupName(value ? `${firstName} ${value}` : firstName);
   };
 
   const handleSurrenderSuccess = () => {
@@ -211,9 +228,13 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
       setShowPopup(true);
     }
   };
+  const toggleDiscDetails = () => {
+    setShowDiscDetails(!showDiscDetails);
+  };
+
   return (
     <div className={`report-lost-components ${className}`}>
-      {disc.course.orgCode === "org_a6ac1b298945b" ? (
+      {disc.course.orgCode === "org_a6ac1b298945b" && !showFormForMapleHill ? (
         <div className="maple-hill-instructions">
           <h2 className="header-claim-disc">
             Maple Hill Disc Pickup Instructions
@@ -242,6 +263,41 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
             </p>
           </div>
         </div>
+      ) : disc.course.orgCode === "org_a6ac1b298945b" &&
+        showFormForMapleHill ? (
+        <>
+          <div className="back-button-container">
+            <button
+              className="back-to-instructions"
+              onClick={handleBackToInstructions}
+              aria-label="Back to instructions"
+            >
+              ← Back to instructions
+            </button>
+          </div>
+          <h2 className="header-claim-disc">
+            Surrender Your
+            <span className="fw-light"> Disc</span>
+          </h2>
+          <h2 className="info-claim">
+            Please Enter Your
+            <span className="missingtext"> Info</span>.
+          </h2>
+          <NameAndInitialForm
+            onFirstNameChange={handleFirstNameChange}
+            onLastNameChange={handleLastNameChange}
+          />
+          <FormClaimDiscContact
+            contactMethod={contactMethod}
+            pickupPreferences={[]}
+            onContactChange={(contact: string) => setContactValue(contact)}
+            onPickupPreferencesChange={(preferences: string[]) => {
+              // No need to set pickup preferences for surrender
+              setPickupPreferences([]);
+            }}
+            hidePrefOptions={true}
+          />
+        </>
       ) : (
         <>
           <h2 className="header-claim-disc">
@@ -265,7 +321,7 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
             }
           />
         </>
-      )}
+      )}{" "}
       {disc.course.orgCode !== "org_a6ac1b298945b" && (
         <Button
           text={"Schedule Your Disc Pickup"}
@@ -273,10 +329,15 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           border={true}
           className="button-claim-disc-form"
           onClick={handleScheduleButtonClick}
-          disabled={!pickupPreferences || !pickupName || !contactValue}
+          disabled={
+            !pickupPreferences.length ||
+            !firstName ||
+            !lastName ||
+            !contactValue
+          }
         />
-      )}
-      {disc.course.orgCode === "org_a6ac1b298945b" && (
+      )}{" "}
+      {disc.course.orgCode === "org_a6ac1b298945b" && !showFormForMapleHill && (
         <Button
           text={"Ship My Disc"}
           red={false}
@@ -284,14 +345,53 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
           className="button-claim-disc-form shipping-button"
           onClick={() => setShowShippingInstructions(true)}
         />
-      )}
+      )}{" "}
       <Button
-        text={"Surrender Disc"}
-        red={false}
+        text={
+          disc.course.orgCode === "org_a6ac1b298945b" && showFormForMapleHill
+            ? "Confirm Surrender"
+            : "Surrender Disc"
+        }
+        red={
+          disc.course.orgCode === "org_a6ac1b298945b" && showFormForMapleHill
+        }
         border={true}
         className="button-claim-disc-form surrender-button"
-        disabled={!pickupName || !contactValue}
-        onClick={openPopup}
+        disabled={
+          // For surrender, we need first name, last name and contact
+          !firstName || !lastName || !contactValue
+        }
+        onClick={() => {
+          if (disc.course.orgCode === "org_a6ac1b298945b") {
+            if (showFormForMapleHill) {
+              // Form is showing, now proceed with surrender
+              if (!firstName) {
+                setShowErrorMessage(true);
+                setErrorMessage("Please enter your first name");
+                return;
+              }
+              if (!lastName) {
+                setShowErrorMessage(true);
+                setErrorMessage("Please enter your last name");
+                return;
+              }
+              if (!contactValue) {
+                setShowErrorMessage(true);
+                setErrorMessage("Please provide contact information");
+                return;
+              }
+              openPopup();
+            } else {
+              // Show the form first
+              setShowFormForMapleHill(true);
+              setShowInfoMessage(true);
+              setInfoMessage("Please complete the form to surrender your disc");
+            }
+          } else {
+            // Regular non-Maple Hill flow
+            openPopup();
+          }
+        }}
       />
       {showPopup && (
         <PopupVerify

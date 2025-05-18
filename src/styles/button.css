@@ -49,3 +49,19 @@ button {
 .no-border:hover {
   border: none !important;
 }
+
+/* Disabled button styles */
+button:disabled,
+button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #cccccc !important;
+  border-color: #999999 !important;
+}
+
+.button-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #cccccc !important;
+  border-color: #999999 !important;
+}
