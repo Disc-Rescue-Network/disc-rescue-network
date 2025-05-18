@@ -54,7 +54,6 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
   const [showShippingInstructions, setShowShippingInstructions] =
     useState(false);
   const [showFormForMapleHill, setShowFormForMapleHill] = useState(false);
-  const [showDiscDetails, setShowDiscDetails] = useState(false);
 
   useEffect(() => {
     //console.log("rendering with disc", disc);
@@ -227,9 +226,6 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
     } else {
       setShowPopup(true);
     }
-  };
-  const toggleDiscDetails = () => {
-    setShowDiscDetails(!showDiscDetails);
   };
 
   return (
