@@ -351,15 +351,14 @@ const ClaimDiscComponents = (props: HeaderReportLostProps) => {
         red={
           disc.course.orgCode === "org_a6ac1b298945b" && showFormForMapleHill
         }
-        border={true}
-        className="button-claim-disc-form surrender-button"
+        border={true}        className="button-claim-disc-form surrender-button"
         disabled={
-          // For surrender, we need first name, last name and contact
-          !firstName || !lastName || !contactValue
+          // Only disable the button when the form is showing and fields are empty
+          (disc.course.orgCode === "org_a6ac1b298945b" && showFormForMapleHill && (!firstName || !lastName || !contactValue)) || 
+          (disc.course.orgCode !== "org_a6ac1b298945b" && (!firstName || !lastName || !contactValue))
         }
         onClick={() => {
-          if (disc.course.orgCode === "org_a6ac1b298945b") {
-            if (showFormForMapleHill) {
+          if (disc.course.orgCode === "org_a6ac1b298945b") {            if (showFormForMapleHill) {
               // Form is showing, now proceed with surrender
               if (!firstName) {
                 setShowErrorMessage(true);
