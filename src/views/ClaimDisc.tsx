@@ -155,12 +155,12 @@ export default function ClaimDisc() {
           </div>
         )}
       </div>
-
       <div className="disc-info-toggle" onClick={toggleDiscInfo}>
         <FontAwesomeIcon icon={faInfoCircle} />
         <span>Disc Details</span>
         <FontAwesomeIcon icon={showDiscInfo ? faChevronUp : faChevronDown} />
-      </div>      {showDiscInfo && (
+      </div>{" "}
+      {showDiscInfo && (
         <div className="disc-info-panel">
           <div className="disc-info-content">
             {disc.topImage && (
@@ -212,16 +212,19 @@ export default function ClaimDisc() {
                   <span>No disc image available</span>
                 </div>
               )}
-              {!disc.color && !disc.disc?.brand?.name && !disc.disc?.name && !disc.disc?.plasticType && !disc.name && (
-                <div className="disc-detail-empty-message">
-                  <span>Limited disc details available</span>
-                </div>
-              )}
+              {!disc.color &&
+                !disc.disc?.brand?.name &&
+                !disc.disc?.name &&
+                !disc.disc?.plasticType &&
+                !disc.name && (
+                  <div className="disc-detail-empty-message">
+                    <span>Limited disc details available</span>
+                  </div>
+                )}
             </div>
           </div>
         </div>
       )}
-
       {contactMethod && (
         <ClaimDiscComponents contactMethod={contactMethod} disc={disc} />
       )}
