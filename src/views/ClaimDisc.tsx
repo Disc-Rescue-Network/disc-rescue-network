@@ -155,13 +155,11 @@ export default function ClaimDisc() {
           </div>
         )}
       </div>
-
       <div className="disc-info-toggle" onClick={toggleDiscInfo}>
         <FontAwesomeIcon icon={faInfoCircle} />
         <span>Disc Details</span>
         <FontAwesomeIcon icon={showDiscInfo ? faChevronUp : faChevronDown} />
-      </div>
-
+      </div>{" "}
       {showDiscInfo && (
         <div className="disc-info-panel">
           <div className="disc-info-content">
@@ -175,25 +173,58 @@ export default function ClaimDisc() {
                 <span className="disc-detail-label">ID:</span>
                 <span className="disc-detail-value">{disc.id}</span>
               </div>
-              <div className="disc-detail-item">
-                <span className="disc-detail-label">Color:</span>
-                <span className="disc-detail-value">{disc.color}</span>
-              </div>
-              <div className="disc-detail-item">
-                <span className="disc-detail-label">Brand:</span>
-                <span className="disc-detail-value">
-                  {disc.disc.brand.name}
-                </span>
-              </div>
-              <div className="disc-detail-item">
-                <span className="disc-detail-label">Model:</span>
-                <span className="disc-detail-value">{disc.disc.name}</span>
-              </div>
+              {disc.color && (
+                <div className="disc-detail-item">
+                  <span className="disc-detail-label">Color:</span>
+                  <span className="disc-detail-value">{disc.color}</span>
+                </div>
+              )}
+              {disc.disc?.brand?.name && (
+                <div className="disc-detail-item">
+                  <span className="disc-detail-label">Brand:</span>
+                  <span className="disc-detail-value">
+                    {disc.disc.brand.name}
+                  </span>
+                </div>
+              )}
+              {disc.disc?.name && (
+                <div className="disc-detail-item">
+                  <span className="disc-detail-label">Model:</span>
+                  <span className="disc-detail-value">{disc.disc.name}</span>
+                </div>
+              )}
+              {disc.disc?.plasticType && (
+                <div className="disc-detail-item">
+                  <span className="disc-detail-label">Plastic Type:</span>
+                  <span className="disc-detail-value">
+                    {disc.disc.plasticType}
+                  </span>
+                </div>
+              )}
+              {disc.name && (
+                <div className="disc-detail-item">
+                  <span className="disc-detail-label">Owner:</span>
+                  <span className="disc-detail-value">{disc.name}</span>
+                </div>
+              )}
+              {!disc.topImage && (
+                <div className="disc-detail-empty-message">
+                  <span>No disc image available</span>
+                </div>
+              )}
+              {!disc.color &&
+                !disc.disc?.brand?.name &&
+                !disc.disc?.name &&
+                !disc.disc?.plasticType &&
+                !disc.name && (
+                  <div className="disc-detail-empty-message">
+                    <span>Limited disc details available</span>
+                  </div>
+                )}
             </div>
           </div>
         </div>
       )}
-
       {contactMethod && (
         <ClaimDiscComponents contactMethod={contactMethod} disc={disc} />
       )}

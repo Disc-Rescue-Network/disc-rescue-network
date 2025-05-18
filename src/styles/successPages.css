@@ -1,0 +1,172 @@
+/* Success Pages Styling */
+.success-page {
+  padding: 20px 15px 60px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.success-header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.success-header h1 {
+  color: var(--primary-green);
+  margin: 0;
+  font-size: 4rem;
+  font-family: "Thiccboi", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0px;
+}
+
+.success-header h1 .fw-light {
+  font-weight: 100;
+}
+
+.success-message-container {
+  width: 85%;
+  max-width: 610px;
+  margin: 0 auto 1.5rem;
+}
+
+.success-message-text {
+  color: var(--primary-white);
+  font-size: 1.2rem;
+  text-align: center;
+  line-height: 1.5;
+  margin: 0 0 1.5rem;
+  letter-spacing: 0.6px;
+}
+
+.success-details-panel {
+  width: 85%;
+  max-width: 610px;
+  margin: 0 auto 1.5rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 93, 170, 0.4);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.3s ease;
+}
+
+.details-header {
+  background-color: rgba(0, 93, 170, 0.1);
+  color: var(--primary-sea-blue);
+  margin: 0;
+  padding: 12px 15px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 93, 170, 0.2);
+}
+
+.claim-details-content {
+  padding: 15px;
+}
+
+.details-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid rgba(0, 93, 170, 0.15);
+}
+
+.details-row:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.details-label {
+  font-weight: 600;
+  color: var(--primary-sea-blue);
+  flex: 0 0 40%;
+}
+
+.details-value {
+  color: var(--secondary-deep-blue);
+  text-align: right;
+  flex: 1;
+}
+
+.surrender-success-message {
+  padding: 20px 15px;
+  text-align: center;
+}
+
+.surrender-success-message p {
+  color: var(--primary-sea-blue);
+  font-size: 1.3rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.surrender-success-message strong {
+  color: var(--primary-green);
+  font-size: 1.4rem;
+  display: block;
+  margin-top: 10px;
+}
+
+.share-button {
+  width: 85%;
+  max-width: 300px;
+  margin: 20px auto;
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 500px) {
+  .success-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .success-message-text {
+    font-size: 1rem;
+  }
+
+  .success-details-panel {
+    width: 90%;
+  }
+
+  .details-row {
+    flex-direction: column;
+    padding: 8px 5px;
+  }
+
+  .details-label {
+    margin-bottom: 5px;
+  }
+
+  .details-value {
+    text-align: left;
+    padding-left: 10px;
+  }
+
+  .surrender-success-message p {
+    font-size: 1.1rem;
+  }
+
+  .surrender-success-message strong {
+    font-size: 1.2rem;
+  }
+}

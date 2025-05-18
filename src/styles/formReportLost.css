@@ -29,6 +29,20 @@
   border-width: 6px 6px 0 6px;
   border-color: var(--secondary-safety-sky-blue) transparent transparent
     transparent;
+
+  /* Form validation styles */
+  .input-error {
+    border: 2px solid var(--error-red) !important;
+    background-color: rgba(255, 0, 0, 0.05);
+  }
+
+  .error-message {
+    color: var(--error-red);
+    font-size: 0.8rem;
+    margin-top: 5px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+  }
   position: absolute;
   right: 21px;
   top: 42%;
