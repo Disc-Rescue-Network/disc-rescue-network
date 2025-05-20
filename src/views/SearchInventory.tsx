@@ -35,6 +35,7 @@ export default function SearchInventory() {
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
   const [searchInputValue, setSearchInputValue] = useState<string>("");
+  const [loadingDisplayedDiscs, setLoadingDisplayedDiscs] = useState(true);
   const [displayedDiscs, setDisplayedDiscs] = useState<Disc[]>([]);
   const [shouldPeekSidebar, setShouldPeekSidebar] = useState(false);
   const [queryWords, setQueryWords] = useState<string[]>([]);
@@ -77,11 +78,11 @@ export default function SearchInventory() {
       };
     }
   }, [isSidebarOpen, onClose]);
-
   // Add effect for peek animation on first load
   useEffect(() => {
     // Only show peek animation once when the component mounts for the first time
-    const hasShownPeek = sessionStorage.getItem("hasShownFilterPeek");
+    // Use localStorage instead of sessionStorage to persist across browser sessions
+    const hasShownPeek = localStorage.getItem("hasShownFilterPeek");
 
     if (!hasShownPeek) {
       // Show sidebar peek animation after a short delay on first mount
@@ -91,7 +92,7 @@ export default function SearchInventory() {
         // After peeking, hide it again and mark as shown
         const hideTimer = setTimeout(() => {
           setShouldPeekSidebar(false);
-          sessionStorage.setItem("hasShownFilterPeek", "true");
+          localStorage.setItem("hasShownFilterPeek", "true");
         }, 2000); // Match animation duration
 
         return () => clearTimeout(hideTimer);
@@ -371,6 +372,7 @@ export default function SearchInventory() {
 
   useEffect(() => {
     if (!loading && inventory.length > 0) {
+      setLoadingDisplayedDiscs(true); // Set loading to true while filtering
       let filtered = [...inventory];
 
       // Apply course filter if selected
@@ -406,6 +408,7 @@ export default function SearchInventory() {
       });
 
       setDisplayedDiscs(filtered);
+      setLoadingDisplayedDiscs(false); // Set loading to false after filtering
     }
   }, [
     inventory,
@@ -491,21 +494,31 @@ export default function SearchInventory() {
       )}
 
       {/* Showing results for text and open filters button */}
-      {searchQuery && (
-        <div className="search-query-container">
+
+      <div className="search-query-container">
+        {searchQuery ? (
           <div className="search-query-info">
             <p>
               SHOWING RESULTS FOR '
               {DOMPurify.sanitize(searchQuery).toUpperCase()}'
             </p>
           </div>
-          <div className="filter-button">
-            <button className="open-filters-btn" onClick={toggleSidebar}>
-              OPEN FILTERS
-            </button>
+        ) : (
+          <div className="search-query-info">
+            {loadingDisplayedDiscs ? (
+              <p>LOADING...</p>
+            ) : (
+              <p>SHOWING {displayedDiscs.length.toLocaleString()} DISCS</p>
+            )}
           </div>
+        )}
+        {/* Open filters button */}
+        <div className="filter-button">
+          <button className="open-filters-btn" onClick={toggleSidebar}>
+            OPEN FILTERS
+          </button>
         </div>
-      )}
+      </div>
 
       {loading || inventory.length === 0 ? (
         <div className="skeleton-cards">
