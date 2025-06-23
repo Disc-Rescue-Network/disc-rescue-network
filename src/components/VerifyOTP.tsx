@@ -42,6 +42,7 @@ export function VerifyOTP({
 }: VerifyOTPProps) {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const hiddenInputRef = useRef<HTMLInputElement | null>(null);
   const [loading, setLoading] = useState(false);
   const [resendTimer, setResendTimer] = useState(45);
 
@@ -62,7 +63,6 @@ export function VerifyOTP({
     }
     return () => clearInterval(timer);
   }, [open]);
-
   const handleChange = (index: number, value: string) => {
     if (value.length <= 1) {
       const newOtp = [...otp];
@@ -75,6 +75,19 @@ export function VerifyOTP({
 
       if (newOtp.every((digit) => digit !== "")) {
         handleSubmit(newOtp.join(""));
+      }
+    }
+  };
+
+  const handleHiddenInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, "").slice(0, 6);
+    if (value.length === 6) {
+      const newOtp = value.split("");
+      setOtp(newOtp);
+      handleSubmit(value);
+      // Clear the hidden input
+      if (hiddenInputRef.current) {
+        hiddenInputRef.current.value = "";
       }
     }
   };
@@ -218,11 +231,26 @@ export function VerifyOTP({
       }, 1000);
     }
   };
-
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm">
       <DialogTitle>Verify Your PCM</DialogTitle>
-      <DialogContent>        <Box display="flex" justifyContent="center" my={2}>
+      <DialogContent>
+        {/* Hidden input for iOS OTP autofill */}
+        <input
+          ref={hiddenInputRef}
+          type="text"
+          autoComplete="one-time-code"
+          onChange={handleHiddenInputChange}
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            left: "-9999px",
+            opacity: 0,
+            pointerEvents: "none",
+          }}
+          tabIndex={-1}
+        />
+        <Box display="flex" justifyContent="center" my={2}>
           {otp.map((digit, index) => (
             <TextField
               key={index}
@@ -238,7 +266,7 @@ export function VerifyOTP({
                 maxLength: 1,
                 inputMode: "numeric",
                 pattern: "[0-9]*",
-                autoComplete: index === 0 ? "one-time-code" : "off",
+                autoComplete: "off",
                 style: { textAlign: "center", fontSize: "1.5rem" },
               }}
               sx={{ width: "3rem", mx: 0.5 }}
