@@ -222,8 +222,7 @@ export function VerifyOTP({
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm">
       <DialogTitle>Verify Your PCM</DialogTitle>
-      <DialogContent>
-        <Box display="flex" justifyContent="center" my={2}>
+      <DialogContent>        <Box display="flex" justifyContent="center" my={2}>
           {otp.map((digit, index) => (
             <TextField
               key={index}
@@ -237,6 +236,9 @@ export function VerifyOTP({
               variant="outlined"
               inputProps={{
                 maxLength: 1,
+                inputMode: "numeric",
+                pattern: "[0-9]*",
+                autoComplete: index === 0 ? "one-time-code" : "off",
                 style: { textAlign: "center", fontSize: "1.5rem" },
               }}
               sx={{ width: "3rem", mx: 0.5 }}
