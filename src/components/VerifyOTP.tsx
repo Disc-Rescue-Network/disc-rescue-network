@@ -219,7 +219,6 @@ export function VerifyOTP({
         <Box display="flex" flexDirection="column" alignItems="center" my={2}>
           {/* Single input field styled to look like separate boxes */}
           <Box position="relative" display="flex" justifyContent="center">
-            {" "}
             <input
               ref={inputRef}
               type="text"
