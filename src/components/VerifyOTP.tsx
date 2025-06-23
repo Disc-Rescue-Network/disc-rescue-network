@@ -5,7 +5,6 @@ import {
   DialogContent,
   DialogActions,
   Button,
-  TextField,
   Box,
 } from "@mui/material";
 import { API_BASE_URL } from "../App";
@@ -40,16 +39,15 @@ export function VerifyOTP({
   setErrorMessage,
   setSuccessMessage,
 }: VerifyOTPProps) {
-  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const hiddenInputRef = useRef<HTMLInputElement | null>(null);
+  const [otpValue, setOtpValue] = useState("");
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [loading, setLoading] = useState(false);
   const [resendTimer, setResendTimer] = useState(45);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (open) {
-      inputRefs.current[0]?.focus();
+      inputRef.current?.focus();
       setResendTimer(45);
       timer = setInterval(() => {
         setResendTimer((prev) => {
@@ -63,58 +61,31 @@ export function VerifyOTP({
     }
     return () => clearInterval(timer);
   }, [open]);
-  const handleChange = (index: number, value: string) => {
-    if (value.length <= 1) {
-      const newOtp = [...otp];
-      newOtp[index] = value;
-      setOtp(newOtp);
 
-      if (value !== "" && index < 5) {
-        inputRefs.current[index + 1]?.focus();
-      }
-
-      if (newOtp.every((digit) => digit !== "")) {
-        handleSubmit(newOtp.join(""));
-      }
-    }
-  };
-
-  const handleHiddenInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/\D/g, "").slice(0, 6);
+    setOtpValue(value);
+
     if (value.length === 6) {
-      const newOtp = value.split("");
-      setOtp(newOtp);
       handleSubmit(value);
-      // Clear the hidden input
-      if (hiddenInputRef.current) {
-        hiddenInputRef.current.value = "";
-      }
     }
   };
 
-  const handleKeyDown = (
-    index: number,
-    e: React.KeyboardEvent<HTMLInputElement>
-  ) => {
-    if (e.key === "Backspace" && otp[index] === "" && index > 0) {
-      inputRefs.current[index - 1]?.focus();
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // Allow backspace, delete, arrow keys, etc.
+    if (
+      e.key === "Backspace" ||
+      e.key === "Delete" ||
+      e.key === "ArrowLeft" ||
+      e.key === "ArrowRight" ||
+      e.key === "Tab"
+    ) {
+      return;
     }
-  };
 
-  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    const pastedData = e.clipboardData.getData("text").slice(0, 6).split("");
-    const newOtp = [...otp];
-    pastedData.forEach((value, index) => {
-      if (index < 6) {
-        newOtp[index] = value;
-      }
-    });
-    setOtp(newOtp);
-    if (newOtp.every((digit) => digit !== "")) {
-      handleSubmit(newOtp.join(""));
-    } else {
-      inputRefs.current[pastedData.length]?.focus();
+    // Only allow numbers
+    if (!/[0-9]/.test(e.key)) {
+      e.preventDefault();
     }
   };
 
@@ -235,43 +206,68 @@ export function VerifyOTP({
     <Dialog open={open} onClose={onClose} maxWidth="sm">
       <DialogTitle>Verify Your PCM</DialogTitle>
       <DialogContent>
-        {/* Hidden input for iOS OTP autofill */}
-        <input
-          ref={hiddenInputRef}
-          type="text"
-          autoComplete="one-time-code"
-          onChange={handleHiddenInputChange}
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            left: "-9999px",
-            opacity: 0,
-            pointerEvents: "none",
-          }}
-          tabIndex={-1}
-        />
-        <Box display="flex" justifyContent="center" my={2}>
-          {otp.map((digit, index) => (
-            <TextField
-              key={index}
-              inputRef={(el) => (inputRefs.current[index] = el)}
-              value={digit}
-              onChange={(e) => handleChange(index, e.target.value)}
-              onKeyDown={(e) =>
-                handleKeyDown(index, e as React.KeyboardEvent<HTMLInputElement>)
-              }
-              onPaste={handlePaste}
-              variant="outlined"
-              inputProps={{
-                maxLength: 1,
-                inputMode: "numeric",
-                pattern: "[0-9]*",
-                autoComplete: "off",
-                style: { textAlign: "center", fontSize: "1.5rem" },
+        <Box display="flex" flexDirection="column" alignItems="center" my={2}>
+          {/* Single input field styled to look like separate boxes */}
+          <Box position="relative" display="flex" justifyContent="center">
+            <input
+              ref={inputRef}
+              type="text"
+              value={otpValue}
+              onChange={handleOtpChange}
+              onKeyDown={handleKeyDown}
+              autoComplete="one-time-code"
+              maxLength={6}
+              style={{
+                width: "21rem", // 6 * 3rem + 5 * 0.5rem spacing
+                height: "3.5rem",
+                fontSize: "1.5rem",
+                textAlign: "center",
+                letterSpacing: "2.5rem",
+                border: "2px solid #e0e0e0",
+                borderRadius: "8px",
+                outline: "none",
+                backgroundColor: "transparent",
+                color: "transparent",
+                caretColor: "transparent",
+                paddingLeft: "1.25rem",
               }}
-              sx={{ width: "3rem", mx: 0.5 }}
-            />
-          ))}
+            />{" "}
+            {/* Visual overlay showing individual boxes */}
+            <Box
+              sx={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                pointerEvents: "none",
+              }}
+            >
+              {Array.from({ length: 6 }).map((_, index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    width: "3rem",
+                    height: "3.5rem",
+                    mx: 0.25,
+                    border: "2px solid #e0e0e0",
+                    borderRadius: "8px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "1.5rem",
+                    fontWeight: "bold",
+                    backgroundColor: "white",
+                  }}
+                >
+                  {otpValue[index] || ""}
+                </Box>
+              ))}
+            </Box>
+          </Box>
         </Box>
         <Box display="flex" justifyContent="center" my={2}>
           <Button
@@ -288,10 +284,10 @@ export function VerifyOTP({
           Cancel
         </Button>
         <Button
-          onClick={() => handleSubmit(otp.join(""))}
+          onClick={() => handleSubmit(otpValue)}
           color="primary"
           variant="contained"
-          disabled={otp.some((digit) => digit === "")}
+          disabled={otpValue.length !== 6}
         >
           Done
         </Button>
