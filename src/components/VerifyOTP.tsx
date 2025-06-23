@@ -64,6 +64,7 @@ export function VerifyOTP({
     }
     return () => clearInterval(timer);
   }, [open]);
+
   const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/\D/g, "").slice(0, 6);
     setOtpValue(value);
@@ -177,12 +178,20 @@ export function VerifyOTP({
       }
     } catch (error: any) {
       console.error("Failed to verify OTP:", error);
+
+      // Dismiss the keyboard before showing error snackbar
+      if (inputRef.current) {
+        inputRef.current.blur();
+      }
+
       setShowErrorMessage(true);
       setErrorMessage(
         error.message || "Failed to verify OTP. Please try again."
       );
       // Clear the OTP on error so user can retry
       setOtpValue("");
+      // Reset active box to first position
+      setActiveBoxIndex(0);
     } finally {
       setLoading(false);
     }
