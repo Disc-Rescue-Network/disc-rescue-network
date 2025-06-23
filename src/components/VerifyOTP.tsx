@@ -212,6 +212,8 @@ export function VerifyOTP({
             <input
               ref={inputRef}
               type="text"
+              inputMode="numeric"
+              aria-label="Enter 6-digit OTP"
               value={otpValue}
               onChange={handleOtpChange}
               onKeyDown={handleKeyDown}
