@@ -241,6 +241,7 @@ export function VerifyOTP({
           type="text"
           autoComplete="one-time-code"
           onChange={handleHiddenInputChange}
+          aria-hidden="true"
           style={{
             position: "absolute",
             left: "-9999px",
