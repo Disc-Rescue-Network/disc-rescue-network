@@ -61,13 +61,23 @@ export function VerifyOTP({
     }
     return () => clearInterval(timer);
   }, [open]);
-
   const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/\D/g, "").slice(0, 6);
     setOtpValue(value);
 
     if (value.length === 6) {
       handleSubmit(value);
+    }
+  };
+
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const pastedData = e.clipboardData.getData("text");
+    const numericValue = pastedData.replace(/\D/g, "").slice(0, 6);
+    setOtpValue(numericValue);
+
+    if (numericValue.length === 6) {
+      handleSubmit(numericValue);
     }
   };
 
@@ -212,9 +222,12 @@ export function VerifyOTP({
             <input
               ref={inputRef}
               type="text"
+              inputMode="numeric"
+              aria-label="Enter 6-digit OTP"
               value={otpValue}
               onChange={handleOtpChange}
               onKeyDown={handleKeyDown}
+              onPaste={handlePaste}
               autoComplete="one-time-code"
               maxLength={6}
               style={{
