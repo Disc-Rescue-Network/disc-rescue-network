@@ -43,10 +43,13 @@ export function VerifyOTP({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [loading, setLoading] = useState(false);
   const [resendTimer, setResendTimer] = useState(45);
-
+  const [activeBoxIndex, setActiveBoxIndex] = useState(0);
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (open) {
+      // Reset OTP when dialog opens
+      setOtpValue("");
+      setActiveBoxIndex(0);
       inputRef.current?.focus();
       setResendTimer(45);
       timer = setInterval(() => {
@@ -65,22 +68,26 @@ export function VerifyOTP({
     const value = e.target.value.replace(/\D/g, "").slice(0, 6);
     setOtpValue(value);
 
+    // Update active box index based on the number of digits entered
+    setActiveBoxIndex(Math.min(value.length, 5));
+
     if (value.length === 6) {
       handleSubmit(value);
     }
   };
-
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault();
     const pastedData = e.clipboardData.getData("text");
     const numericValue = pastedData.replace(/\D/g, "").slice(0, 6);
     setOtpValue(numericValue);
 
+    // Update active box index based on the number of digits pasted
+    setActiveBoxIndex(Math.min(numericValue.length, 5));
+
     if (numericValue.length === 6) {
       handleSubmit(numericValue);
     }
   };
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     // Allow backspace, delete, arrow keys, etc.
     if (
@@ -97,6 +104,11 @@ export function VerifyOTP({
     if (!/[0-9]/.test(e.key)) {
       e.preventDefault();
     }
+  };
+
+  const handleInputClick = () => {
+    // Set active box to current cursor position or end of current value
+    setActiveBoxIndex(Math.min(otpValue.length, 5));
   };
 
   const handleSubmit = async (otpValue: string) => {
@@ -147,22 +159,30 @@ export function VerifyOTP({
 
       const responseJson = await response.json();
       console.log(responseJson);
-
-      const { success, data } = responseJson;
+      const { success, data, message } = responseJson;
 
       if (!success) {
-        //console.log(response);
-        //console.log(response.statusText);
-        //console.log(await response.json());
-        throw new Error("Network response was not ok");
+        throw new Error(
+          message || "Invalid OTP. Please check your code and try again."
+        );
       }
+
+      // Clear the OTP on success
+      setOtpValue("");
+
       if (isSurrender) {
         onSurrenderClose();
       } else {
         onClaimClose();
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to verify OTP:", error);
+      setShowErrorMessage(true);
+      setErrorMessage(
+        error.message || "Failed to verify OTP. Please try again."
+      );
+      // Clear the OTP on error so user can retry
+      setOtpValue("");
     } finally {
       setLoading(false);
     }
@@ -213,12 +233,13 @@ export function VerifyOTP({
     }
   };
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm">
+    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle>Verify Your PCM</DialogTitle>
       <DialogContent>
         <Box display="flex" flexDirection="column" alignItems="center" my={2}>
           {/* Single input field styled to look like separate boxes */}
           <Box position="relative" display="flex" justifyContent="center">
+            {" "}
             <input
               ref={inputRef}
               type="text"
@@ -228,15 +249,17 @@ export function VerifyOTP({
               onChange={handleOtpChange}
               onKeyDown={handleKeyDown}
               onPaste={handlePaste}
+              onClick={handleInputClick}
+              onFocus={handleInputClick}
               autoComplete="one-time-code"
               maxLength={6}
               style={{
-                width: "21rem", // 6 * 3rem + 5 * 0.5rem spacing
+                width: "100%", // 6 * 3rem + 5 * 0.5rem spacing
                 height: "3.5rem",
                 fontSize: "1.5rem",
                 textAlign: "center",
                 letterSpacing: "2.5rem",
-                border: "2px solid #e0e0e0",
+                border: "none",
                 borderRadius: "8px",
                 outline: "none",
                 backgroundColor: "transparent",
@@ -259,6 +282,7 @@ export function VerifyOTP({
                 pointerEvents: "none",
               }}
             >
+              {" "}
               {Array.from({ length: 6 }).map((_, index) => (
                 <Box
                   key={index}
@@ -266,14 +290,21 @@ export function VerifyOTP({
                     width: "3rem",
                     height: "3.5rem",
                     mx: 0.25,
-                    border: "2px solid #e0e0e0",
+                    border:
+                      activeBoxIndex === index
+                        ? "2px solid #1976d2"
+                        : "2px solid #e0e0e0",
                     borderRadius: "8px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     fontSize: "1.5rem",
                     fontWeight: "bold",
-                    backgroundColor: "white",
+                    backgroundColor:
+                      activeBoxIndex === index ? "#f3f8ff" : "white",
+                    boxShadow:
+                      activeBoxIndex === index ? "0 0 0 1px #1976d2" : "none",
+                    transition: "all 0.2s ease-in-out",
                   }}
                 >
                   {otpValue[index] || ""}

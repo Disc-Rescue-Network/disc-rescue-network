@@ -63,10 +63,98 @@ export function PopupVerify({
 
   const [loading, setLoading] = React.useState(false);
   const { courses, loading: loadingCourses } = useCoursesContext();
-
   const handleClaimDisc = async () => {
     setLoading(true);
     try {
+      // Check if there's already an unverified claim for this disc
+      const existingClaim =
+        disc.claims && disc.claims.length > 0 ? disc.claims[0] : null;
+
+      if (existingClaim && !existingClaim.pcmVerified) {
+        // Check if the contact information matches for existing unverified claim
+        let contactMatches = false;
+
+        if (contactMethod === "phone") {
+          const formattedPhoneNumber = `+1${contactValue.replace(/\D/g, "")}`;
+          contactMatches = existingClaim.phoneNumber === formattedPhoneNumber;
+        } else {
+          contactMatches = existingClaim.email === contactValue;
+        }
+
+        if (contactMatches) {
+          // Contact info matches, proceed with existing claim verification
+          console.log(
+            "Found existing unverified claim with matching contact info, going straight to OTP verification"
+          );
+
+          // First, resend the OTP since the existing VID might be expired
+          try {
+            const resendResponse = await fetch(
+              `${API_BASE_URL}/inventory/pcm/resend-otp?claimId=${existingClaim.id}`,
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+
+            if (!resendResponse.ok) {
+              throw new Error("Failed to resend OTP");
+            }
+
+            // Create pickup object from existing claim and disc data
+            const pickupInfo: Pickup = {
+              vid: 0, // Will be set by the resend OTP response if needed
+              claim: {
+                id: existingClaim.id,
+                firstName: existingClaim.firstName,
+                lastName: existingClaim.lastName,
+                phoneNumber: existingClaim.phoneNumber,
+                email: existingClaim.email,
+                comments: existingClaim.comments,
+                pcmVerified: existingClaim.pcmVerified,
+                tofAccepted: existingClaim.tofAccepted,
+                verified: existingClaim.verified,
+                surrendered: existingClaim.surrendered,
+                itemId: existingClaim.itemId,
+                createdAt: existingClaim.createdAt,
+                updatedAt: existingClaim.updatedAt,
+                pickup: {
+                  id: 0, // Temporary ID
+                  courseId:
+                    courses.find(
+                      (course: Course) => course.orgCode === disc.course.orgCode
+                    )?.id || 0,
+                  day: [], // Will be populated from pickupPreferences
+                  time: [], // Will be populated from pickupPreferences
+                  claimId: existingClaim.id,
+                  createdAt: existingClaim.createdAt,
+                  updatedAt: existingClaim.updatedAt,
+                },
+              },
+            };
+
+            setShowInfoMessage(true);
+            setInfoMessage("OTP resent! Please check your messages.");
+            onSuccess(pickupInfo);
+            onClose();
+            return;
+          } catch (resendError: any) {
+            console.error("Failed to resend OTP:", resendError);
+            setShowErrorMessage(true);
+            setErrorMessage("Failed to resend OTP: " + resendError.message);
+            return;
+          }
+        } else {
+          // Contact info doesn't match, proceed with new claim submission
+          console.log(
+            "Found existing unverified claim but contact info doesn't match, creating new claim"
+          );
+        }
+      }
+
+      // Proceed with normal claim submission if no existing unverified claim or contact info doesn't match
       const courseId = courses.find(
         (course: Course) => course.orgCode === disc.course.orgCode
       )?.id;
@@ -117,13 +205,16 @@ export function PopupVerify({
 
       const responseJson = await response.json();
       console.log(responseJson);
-      const { data, success } = responseJson;
+      const { data, success, message, code } = responseJson;
 
       if (!success) {
-        //console.log(response);
-        //console.log(response.statusText);
-        //console.log(responseJson);
-        throw new Error(responseJson.message);
+        // If it's an "EXISTS" error but we didn't catch it above, it might be a verified claim
+        if (code === "EXISTS") {
+          throw new Error(
+            "You have already submitted a verified claim for this disc."
+          );
+        }
+        throw new Error(message || "Failed to submit claim");
       }
 
       // get OTP
@@ -134,9 +225,9 @@ export function PopupVerify({
       onSuccess(pickupInfo);
       onClose();
     } catch (error: any) {
-      console.error("Failed to surrender disc:", error);
+      console.error("Failed to claim disc:", error);
       setShowErrorMessage(true);
-      setErrorMessage("Failed to surrender disc: " + error.message);
+      setErrorMessage("Failed to claim disc: " + error.message);
     } finally {
       setLoading(false);
     }

@@ -93,6 +93,8 @@ export default function ClaimDisc() {
   const discId = parseInt(id, 10);
   const disc = inventory.find((d) => d.id === discId);
 
+  console.log("Disc:", disc);
+
   if (disc === undefined && !loading) {
     return <div>Error: Disc not found</div>;
   }
